@@ -1,0 +1,7 @@
+man;Esta consola valida la sintaxis de algunos comandos\nde Bash\n\n[ls|mkdir|rmdir|mv|cat|clear|pwd|cp|rm|touch];\n\nSi desea conocer algún comando en particular:\n\nman [COMANDO]\n\n;null
+ls;Lista el contenido de un directorio;Ejemplo: ls directorio \n\nLista el contenido de directorio\n\n;null
+mkdir;Crea un directorio;Ejemplo: mkdir dir1\n\nCrea dir1 en el directorio actual;null
+rmdir;Elimina un directorio;Ejemplo: mkdir dir1\n\nElimina dir1 en el directorio actual;null
+mv;Renombra un directorio;\nEjemplo: mv nombreActual nombreNuevo\n\n;null
+cat;Muestra el contenido de un archivo;\nEjemplo: cat arch1\n\nMuestra el contenido de arch1 por pantalla\n\n;null
+clear;Borra el texto en pantalla;\nEjemplo: clear\n\n[No admite parámetros]\n\n;null
