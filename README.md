@@ -31,8 +31,6 @@ El sistema sigue una arquitectura cliente-servidor donde:
 
 - **Java JDK 11** o superior.
 - **NetBeans 22**.
-- **Servidor Apache Tomcat 9** o superior.
-- **Base de Datos MySQL 5.7** o superior.
 
 ## Instalación y Configuración
 
