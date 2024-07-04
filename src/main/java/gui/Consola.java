@@ -271,8 +271,9 @@ public class Consola extends javax.swing.JFrame {
             lblPenguin.setEnabled(true);
         }
         
-        Validador validador = new Validador(comando);
+        Validar validador = new Validar(comando);
         Boolean correcto = validador.validarComando(hashComandos);
+        String[] tokens = validador.getTokens();
         
         if(comando.equals("exit")){ //Comando salir
             Login login = new Login();
@@ -280,7 +281,8 @@ public class Consola extends javax.swing.JFrame {
             this.dispose();
         }else{
             if(correcto){
-                txtOutput.append(validador.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtSintaxis, txtOutput) + "\n");
+                Ejecutar ejecutar = new Ejecutar(comando, tokens);
+                txtOutput.append(ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtSintaxis, txtOutput) + "\n");
             }else{
                 sintaxisIncorrecta(comando);
                 lblPenguin.setEnabled(false);

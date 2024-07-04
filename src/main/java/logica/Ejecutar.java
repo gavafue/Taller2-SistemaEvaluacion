@@ -1,9 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package logica;
 
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.awt.Color;
 import static java.lang.Integer.parseInt;
+import java.awt.Color;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,145 +15,48 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 /**
- * Esta clase permite validar un comando y sus extensiones.
  *
- * @author
- * @since version 1
+ * @author Gabriel
  */
-public class Validador {
+public class Ejecutar {
 
-    //Atributos
-    /**
-     * String a validar. Es el input del usuario en la consola.
-     */
     private String cadena;
-
-    /**
-     * Arreglo que contiene a cadena tokenizado.
-     */
     private String[] tokens;
-    private DateTimeFormatter formatoFecha;
     private String hora;
+    private DateTimeFormatter formatoFecha;
 
-    /**
-     * Constructor comun.
-     */
-    public Validador(String cadena) {
+    public Ejecutar(String cadena, String[] tokens) {
         this.cadena = cadena;
-        tokens = cadena.split(" "); //Tokenización de la cadena en funcion de espacios
-        formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");//formato para mostrar la variable hora en cada ejecucion
-    }
-
-    //Getters
-    public String getCadena() {
-        return cadena;//Constructor comun
-    }
-
-    public String[] getTokens() {
-        return tokens;
+        this.tokens = tokens;
+        this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");// formato para mostrar la variable hora en cada
+                                                                    // ejecucion }
     }
 
     private String getHora() {
         return hora;
     }
 
-    //Setters
-    public void setCadena(String cadena) {
-        this.cadena = cadena;
-    }
-
-    public void setTokens(String[] tokens) {
-        this.tokens = tokens;
-    }
-
     public void setHora(String hora) {
         this.hora = hora;
     }
 
-    /**
-     * Metodo que permite actualizar la variable hora en funcion de la hora del
-     * sistema.
-     */
     private void actualizarHora() {
         hora = LocalDateTime.now().format(formatoFecha);
     }
 
-    /**
-     * Metodo que determina si el comando ingresado es valido o no.
-     *
-     * @param comandos
-     * @return
-     */
-    public boolean validarComando(Comandos comandos) {
-        String conEspacio = "^\\s.*"; //Expresion regular que busca un espacio al principio del string
-        boolean valido = false;
-        if ((!cadena.matches(conEspacio)) && (comandos.existeComando(tokens[0]))) { //Si no tiene espacio al comienzo y existe el comando encontrado en el token 0.
-            if ((comandos.obtenerOpciones(tokens[0])) == null) { //Si no cuenta con extensiones
-                valido = true;
-            } else {
-                valido = comprobarOpciones(comandos);
-            }
-        }
-        return valido;
-    }
-
-    /**
-     * Metodo que determina si las extensiones del comando ingresado son validas
-     * o no.
-     *
-     * @param comandos
-     * @return
-     */
-    private boolean comprobarOpciones(Comandos comandos) {
-        String[] validas = comandos.obtenerOpciones(tokens[0]); //Arreglo que contiene las extensiones validas del comando
-        int i = 1; //Comienzo en la segunda posicion, porque el token 0 es el comando
-        boolean todasValidas = true;
-        while ((i < tokens.length) && (todasValidas)) {
-            boolean encontrado = false;
-            int j = 0;
-            while ((j < validas.length) && (!encontrado)) {
-                if (tokens[i].equals(validas[j])) { //Si es valido
-                    encontrado = true;
-                }
-                j++;
-            }
-            //Si el token actual no coincide con ninguna opcion valida
-            if (encontrado == false) {
-                todasValidas = false;
-            }
-            i++;
-        }
-        return todasValidas;
-    }
-
-    /**
-     * Metodo que permite obtener ayuda sobre un comando en especifico. Utiliado
-     * por el comando man.
-     *
-     * @param comandos
-     * @return
-     */
     public String obtenerAyudaComando(Comandos comandos) {
         String mensaje = "";
         try {
-            mensaje = "[AYUDA]\n\n" + comandos.obtenerDescripcion(tokens[1]) + "\n" + comandos.obtenerEjemplo(tokens[1]);
+            mensaje = "[AYUDA]\n\n" + comandos.obtenerDescripcion(tokens[1]) + "\n"
+                    + comandos.obtenerEjemplo(tokens[1]);
         } catch (Exception e) {
             mensaje = "No hay informacion disponible";
         }
         return mensaje;
     }
 
-    /**
-     * Metodo encargado de ejecutar el comando.
-     *
-     * @param comandos
-     * @param ficheros
-     * @param procesos
-     * @param sintaxis
-     * @param salida
-     * @return
-     */
-    public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JLabel sintaxis, JTextArea salida) {
+    public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JLabel sintaxis,
+            JTextArea salida) {
         String mensaje = "";
         actualizarHora();
         switch (tokens[0]) {
@@ -247,7 +154,7 @@ public class Validador {
     public String ejecutarRmdir(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
         if (tokens.length == 2) {
-            if (ficheros.existeFichero(tokens[1]) && ficheros.esDirectorio(tokens[1])) { //Si existe y es directorio
+            if (ficheros.existeFichero(tokens[1]) && ficheros.esDirectorio(tokens[1])) { // Si existe y es directorio
                 ficheros.eliminarFichero(tokens[1]);
                 mensaje = "[" + this.getHora() + "]\n\n" + "Directorio eliminado\n\n";
                 procesos.agregarProceso(cadena);
@@ -278,10 +185,11 @@ public class Validador {
     public String ejecutarCat(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
         if (tokens.length == 2) {
-            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { //Si existe y es archivo
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { // Si existe y es archivo
                 sintaxis.setForeground(Color.cyan);
                 int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { //Sin control de rango porque existe
+                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango porque
+                                                                                    // existe
                     i++;
                 }
                 mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido() + "\n\n";
@@ -300,14 +208,16 @@ public class Validador {
     public String ejecutarMv(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
         if (tokens.length == 3) {
-            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { //Si existe y es directorio
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { // Si existe y es directorio
                 sintaxis.setForeground(Color.cyan);
                 int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { //Sin control de rango porque existe
+                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango porque
+                                                                                    // existe
                     i++;
                 }
                 ficheros.obtenerFichero(i).setNombre(tokens[2]);
-                mensaje = "[" + this.getHora() + "]\n\n" + "El fichero " + tokens[1] + " ha sido renombrado a " + tokens[2] + "\n\n";
+                mensaje = "[" + this.getHora() + "]\n\n" + "El fichero " + tokens[1] + " ha sido renombrado a "
+                        + tokens[2] + "\n\n";
                 procesos.agregarProceso(cadena);
             } else {
                 sintaxis.setForeground(Color.red);
@@ -315,7 +225,8 @@ public class Validador {
             }
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente mv [nombreActual] [nombreNuevo] o man mv\n\n";
+            mensaje = "[" + this.getHora() + "]\n\n"
+                    + "Sintaxis incorrecta.\n\nIntente mv [nombreActual] [nombreNuevo] o man mv\n\n";
         }
         return mensaje;
     }
@@ -323,25 +234,36 @@ public class Validador {
     public String ejecutarLs(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
         switch (tokens.length) {
-            case 1: //Comando ls
-                mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(false) + "\n\n"; //Muestra obviando los ocultos
+            case 1: // Comando ls
+                mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(false) + "\n\n"; // Muestra obviando
+                                                                                                    // los ocultos
                 procesos.agregarProceso(cadena);
                 break;
             case 2:
                 switch (tokens[1]) {
-                    case "-l": //Comando ls -l
-                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(false) + "\n\n";//Muestra informacion detallada con ocultos
+                    case "-l": // Comando ls -l
+                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(false) + "\n\n";// Muestra
+                                                                                                                        // informacion
+                                                                                                                        // detallada
+                                                                                                                        // con
+                                                                                                                        // ocultos
                         break;
-                    case "-a": //Comando ls -a
-                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(true) + "\n\n";//Muestra nombres incluyendo ocultos
+                    case "-a": // Comando ls -a
+                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(true) + "\n\n";// Muestra
+                                                                                                          // nombres
+                                                                                                          // incluyendo
+                                                                                                          // ocultos
                         break;
-                    default: //Comando ls directorio
-                        if (ficheros.existeFichero(tokens[1]) && (ficheros.esDirectorio(tokens[1]))) { //Si existe y es directorio
+                    default: // Comando ls directorio
+                        if (ficheros.existeFichero(tokens[1]) && (ficheros.esDirectorio(tokens[1]))) { // Si existe y es
+                                                                                                       // directorio
                             int i = 0;
-                            while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { //Sin control de rango porque existe
-                                i++; //Obtengo indice en el que se encuentra el directorio a listar
+                            while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango
+                                                                                                // porque existe
+                                i++; // Obtengo indice en el que se encuentra el directorio a listar
                             }
-                            mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido() + "\n\n";
+                            mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido()
+                                    + "\n\n";
                         } else {
                             sintaxis.setForeground(Color.red);
                             mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
@@ -350,17 +272,24 @@ public class Validador {
                 }
                 break;
             case 3:
-                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a"))) || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { //Comando (ls -l -a) o (ls -a -l)
-                    mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(true) + "\n\n"; //Informacion detallada pero sin ocultos
-                } else if (tokens[1].equals("-l")) { //Comando ls -l directorio
-                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { //Si existe y es directorio
+                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a")))
+                        || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { // Comando (ls -l -a) o (ls -a -l)
+                    mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(true) + "\n\n"; // Informacion
+                                                                                                                    // detallada
+                                                                                                                    // pero
+                                                                                                                    // sin
+                                                                                                                    // ocultos
+                } else if (tokens[1].equals("-l")) { // Comando ls -l directorio
+                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { // Si existe y es
+                                                                                                   // directorio
                         mensaje = "[" + this.getHora() + "]\n\nComando ls -l al directorio " + tokens[2] + "\n\n";
                     } else {
                         sintaxis.setForeground(Color.red);
                         mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
                     }
-                } else if (tokens[1].equals("-a")) { //Comando ls -a directorio
-                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { //Si existe y es directorio
+                } else if (tokens[1].equals("-a")) { // Comando ls -a directorio
+                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { // Si existe y es
+                                                                                                   // directorio
                         mensaje = "[" + this.getHora() + "]\n\nComando ls -a al directorio " + tokens[2] + "\n\n";
                     } else {
                         sintaxis.setForeground(Color.red);
@@ -372,9 +301,13 @@ public class Validador {
                 }
                 break;
             case 4:
-                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a"))) || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { //Comando (ls -l -a directorio) o (ls -a -l directorio)
-                    if ((ficheros.existeFichero(tokens[3])) && (ficheros.esDirectorio(tokens[3]))) { //Si existe y es directorio
-                        mensaje = "[" + this.getHora() + "]\n\nComando (ls -a -l) o (ls -l -a) al directorio " + tokens[3] + "\n\n";
+                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a")))
+                        || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { // Comando (ls -l -a directorio) o
+                                                                                     // (ls -a -l directorio)
+                    if ((ficheros.existeFichero(tokens[3])) && (ficheros.esDirectorio(tokens[3]))) { // Si existe y es
+                                                                                                     // directorio
+                        mensaje = "[" + this.getHora() + "]\n\nComando (ls -a -l) o (ls -l -a) al directorio "
+                                + tokens[3] + "\n\n";
                     } else {
                         sintaxis.setForeground(Color.red);
                         mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
@@ -454,8 +387,9 @@ public class Validador {
         } else {
             if (ficheros.existeFichero(tokens[2])) {
                 mensaje = Boolean.toString(ficheros.obtenerFichero(tokens[2]).obtenerContenido().contains(tokens[1]));
-                //De momento solo confirma que este presente la expresion. Cumple RF29.
-                //Por hacer: mostrar el texto resaltado o... contar cantidad de ocurrencias. EXTRA
+                // De momento solo confirma que este presente la expresion. Cumple RF29.
+                // Por hacer: mostrar el texto resaltado o... contar cantidad de ocurrencias.
+                // EXTRA
             } else {
                 mensaje = "El fichero indicado no existe.";
             }
@@ -494,7 +428,7 @@ public class Validador {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[3]).obtenerContenido().split("\\R");
             if (tokens[1].equals("-n")) {
                 if (mensajeTokenizado.length >= Integer.parseInt(tokens[2])) {
-                    i = mensajeTokenizado.length - Integer.parseInt(tokens[2]); //Validar, q pasa si no es numero?
+                    i = mensajeTokenizado.length - Integer.parseInt(tokens[2]); // Validar, q pasa si no es numero?
 
                 } else {
                     i = 0;
@@ -535,7 +469,8 @@ public class Validador {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[3]).obtenerContenido().split("\\R");
 
             if (tokens[1].equals("-n")) {
-                while (i < mensajeTokenizado.length & i < Integer.parseInt(tokens[2])) { //Validar, q pasa si no es numero?
+                while (i < mensajeTokenizado.length & i < Integer.parseInt(tokens[2])) { // Validar, q pasa si no es
+                                                                                         // numero?
                     mensaje += mensajeTokenizado[i] + "\n";
                     i++;
                 }
@@ -560,11 +495,12 @@ public class Validador {
     public String ejecutarCut(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
 
-        // Verificar si el comando tiene la cantidad correcta de tokens y las opciones correctas
+        // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
+        // correctas
         if (tokens.length == 6 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f")) {
-            String delimitador = tokens[2];  // Delimitador especificado
-            String campos = tokens[4];       // Campos a extraer
-            String archivo = tokens[5];      // Nombre del archivo
+            String delimitador = tokens[2]; // Delimitador especificado
+            String campos = tokens[4]; // Campos a extraer
+            String archivo = tokens[5]; // Nombre del archivo
 
             // Remover comillas simples si están presentes
             delimitador = delimitador.replace("'", "");
@@ -572,7 +508,7 @@ public class Validador {
             // Verificar si el archivo existe y no es un directorio
             if (ficheros.esDirectorio(archivo)) {
                 mensaje += "Error: El archivo especificado no existe o es un directorio.";
-                sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                 return mensaje;
             }
 
@@ -580,14 +516,14 @@ public class Validador {
             String contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();
             if (contenidoArchivo == null || contenidoArchivo.isEmpty()) {
                 mensaje += "Error: El archivo especificado está vacío.";
-                sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                 return mensaje;
             }
 
             // Validar que el delimitador sea el correcto
             if (!delimitador.equals(":")) {
                 mensaje += "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
-                sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                sintaxis.setForeground(Color.RED); // Cambiar color a rojo
             } else {
                 String[] camposArray = campos.split(",");
                 List<Integer> indicesCampos = new ArrayList<>();
@@ -597,15 +533,17 @@ public class Validador {
                     indicesCampos.add(Integer.parseInt(camposArray[j].trim()) - 1);
                 }
 
-                // Dividir el contenido del archivo por líneas simulando la lectura desde el String
+                // Dividir el contenido del archivo por líneas simulando la lectura desde el
+                // String
                 contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();
                 String[] lineas = contenidoArchivo.split("\n");
 
                 // Verificar que los índices especificados en campos sean válidos
                 for (int indice : indicesCampos) {
                     if (indice < 0 || indice >= lineas.length) {
-                        mensaje += "Error: El índice de línea especificado '" + (indice + 1) + "' está fuera del rango de líneas del archivo.";
-                        sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                        mensaje += "Error: El índice de línea especificado '" + (indice + 1)
+                                + "' está fuera del rango de líneas del archivo.";
+                        sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                         return mensaje;
                     }
                 }
@@ -613,14 +551,14 @@ public class Validador {
                 // Procesar cada línea
                 for (int k = 0; k < lineas.length; k++) {
                     String linea = lineas[k];
-                    String[] partes = linea.split(delimitador);  // Usar el delimitador especificado
+                    String[] partes = linea.split(delimitador); // Usar el delimitador especificado
                     String lineaResultado = "";
 
                     // Obtener las columnas después de los campos especificados
                     for (int i = 0; i < partes.length; i++) {
                         if (indicesCampos.contains(i)) {
                             if (!lineaResultado.isEmpty()) {
-                                lineaResultado += delimitador;  // Agregar delimitador entre columnas
+                                lineaResultado += delimitador; // Agregar delimitador entre columnas
                             }
                             lineaResultado += partes[i];
                         }
@@ -629,11 +567,11 @@ public class Validador {
                     mensaje += lineaResultado + "\n";
                 }
 
-                sintaxis.setForeground(Color.CYAN);  // Cambiar color a celeste
+                sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
             }
         } else {
             mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
-            sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
         }
 
         return mensaje;
@@ -689,21 +627,21 @@ public class Validador {
         // Verificar la cantidad de argumentos
         if (tokens.length != 3) {
             mensaje = "Sintaxis incorrecta: número incorrecto de argumentos";
-            sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
             return mensaje;
         }
 
         // Verificar si el fichero existe
         if (!ficheros.existeFichero(fich)) {
             mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
-            sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
             return mensaje;
         }
 
         // Validar longitud de permisos
         if (permisos.length() != 3 && permisos.length() != 9) {
             mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
-            sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
             return mensaje;
         }
 
@@ -715,7 +653,7 @@ public class Validador {
                     int permisoNum = Character.getNumericValue(permisos.charAt(i));
                     if (permisoNum < 0 || permisoNum > 7) {
                         mensaje = "Sintaxis incorrecta: valor de permisos inválido";
-                        sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                        sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                         return mensaje;
                     }
                     switch (permisoNum) {
@@ -747,7 +685,7 @@ public class Validador {
                 }
                 ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
                 mensaje = "Comando ejecutado correctamente";
-                sintaxis.setForeground(Color.CYAN);  // Cambiar color a celeste
+                sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
                 break;
 
             case 9:
@@ -784,20 +722,19 @@ public class Validador {
                     permisos = primerCaracter + permisos;
                     ficheros.obtenerFichero(fich).setPermisos(permisos);
                     mensaje = "Comando ejecutado correctamente";
-                    sintaxis.setForeground(Color.CYAN);  // Cambiar color a celeste
+                    sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
                 } else {
                     mensaje = "Sintaxis incorrecta: permisos inválidos";
-                    sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                    sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                 }
                 break;
 
             default:
                 mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
-                sintaxis.setForeground(Color.RED);  // Cambiar color a rojo
+                sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                 break;
         }
 
         return mensaje;
     }
-
 }
