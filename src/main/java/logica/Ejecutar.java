@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -70,16 +71,16 @@ public class Ejecutar {
                 mensaje = ejecutarRmdir(ficheros, sintaxis);
                 break;
             case "clear":
-                mensaje = ejecutarClear(sintaxis, procesos, salida);
+                mensaje = ejecutarClear(sintaxis, salida);
                 break;
             case "cat":
-                mensaje = ejecutarCat(ficheros, procesos, sintaxis);
+                mensaje = ejecutarCat(ficheros, sintaxis);
                 break;
             case "mv":
-                mensaje = ejecutarMv(ficheros, procesos, sintaxis);
+                mensaje = ejecutarMv(ficheros, sintaxis);
                 break;
             case "ls":
-                mensaje = ejecutarLs(ficheros, procesos, sintaxis);
+                mensaje = ejecutarLs(ficheros, sintaxis);
                 break;
             case "ps":
                 mensaje = ejecutarPs(procesos, sintaxis);
@@ -211,328 +212,574 @@ public class Ejecutar {
         return mensaje;
     }
 
-    public String ejecutarClear(JLabel sintaxis, Procesos procesos, JTextArea salida) {
+    /**
+     * Ejecuta el comando 'clear' para limpiar el área de salida.
+     *
+     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
+     * @param salida   Área de texto que se limpia.
+     * @return Mensaje resultante de la ejecución.
+     */
+    public String ejecutarClear(JLabel sintaxis, JTextArea salida) {
         String mensaje = "";
-        if (tokens.length == 1) {
+        if (tokens != null && tokens.length == 1) {
             salida.setText("");
             mensaje = "";
-            procesos.agregarProceso(cadena);
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
         }
         return mensaje;
     }
 
-    public String ejecutarCat(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
+    /**
+     * Ejecuta el comando 'cat' para mostrar el contenido de un archivo si existe y
+     * no es un directorio.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje detallando el resultado de la ejecución del comando.
+     */
+    public String ejecutarCat(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length == 2) {
-            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { // Si existe y es archivo
-                sintaxis.setForeground(Color.cyan);
-                int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango porque
-                                                                                    // existe
-                    i++;
-                }
-                mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido() + "\n\n";
-                procesos.agregarProceso(cadena);
-            } else {
-                sintaxis.setForeground(Color.red);
-                mensaje = "[" + this.getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
-            }
+        if (tokens.length != 2) {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente cat [nombre] o man cat\n\n";
+            return mensaje;
+        }
+
+        String nombreArchivo = tokens[1];
+        if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
+            sintaxis.setForeground(Color.cyan);
+            Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
+            mensaje = "[" + getHora() + "]\n\n" + archivo.obtenerContenido() + "\n\n";
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente cat [nombre] o man cat\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
         }
+
         return mensaje;
     }
 
-    public String ejecutarMv(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
+    /**
+     * Ejecuta el comando 'mv' para renombrar un archivo si existe y no es un
+     * directorio.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje detallando el resultado de la ejecución del comando.
+     */
+    public String ejecutarMv(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length == 3) {
-            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) { // Si existe y es directorio
-                sintaxis.setForeground(Color.cyan);
-                int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango porque
-                                                                                    // existe
-                    i++;
-                }
-                ficheros.obtenerFichero(i).setNombre(tokens[2]);
-                mensaje = "[" + this.getHora() + "]\n\n" + "El fichero " + tokens[1] + " ha sido renombrado a "
-                        + tokens[2] + "\n\n";
-                procesos.agregarProceso(cadena);
-            } else {
-                sintaxis.setForeground(Color.red);
-                mensaje = "[" + this.getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
-            }
-        } else {
+
+        // Verifica la cantidad de tokens para determinar la sintaxis correcta.
+        if (tokens.length != 3) {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n"
+            mensaje = "[" + getHora() + "]\n\n"
                     + "Sintaxis incorrecta.\n\nIntente mv [nombreActual] [nombreNuevo] o man mv\n\n";
+            return mensaje;
         }
+
+        String nombreActual = tokens[1];
+        String nombreNuevo = tokens[2];
+
+        // Verifica si el archivo existe y no es un directorio.
+        if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
+            sintaxis.setForeground(Color.cyan);
+
+            // Encuentra el índice del archivo en la lista.
+            int i = 0;
+            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
+                i++;
+            }
+
+            // Cambia el nombre del archivo.
+            ficheros.obtenerFichero(i).setNombre(nombreNuevo);
+
+            // Construye el mensaje de éxito.
+            mensaje = "[" + getHora() + "]\n\n" + "El fichero " + nombreActual + " ha sido renombrado a " + nombreNuevo
+                    + "\n\n";
+
+        } else {
+            // Si no existe el archivo, muestra un mensaje de error.
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
+        }
+
         return mensaje;
     }
 
-    public String ejecutarLs(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
+    /**
+     * Ejecuta el comando 'ls' para listar archivos y directorios según los
+     * parámetros proporcionados.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param procesos el objeto que gestiona los procesos activos.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje detallando el resultado de la ejecución del comando.
+     */
+    public String ejecutarLs(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
+
         switch (tokens.length) {
-            case 1: // Comando ls
-                mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(false) + "\n\n"; // Muestra obviando
-                                                                                                    // los ocultos
-                procesos.agregarProceso(cadena);
+            case 1:
+                // Comando ls (sin opciones)
+                mensaje = obtenerListaSimple(ficheros);
                 break;
             case 2:
-                switch (tokens[1]) {
-                    case "-l": // Comando ls -l
-                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(false) + "\n\n";// Muestra
-                                                                                                                        // informacion
-                                                                                                                        // detallada
-                                                                                                                        // con
-                                                                                                                        // ocultos
-                        break;
-                    case "-a": // Comando ls -a
-                        mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerNombres(true) + "\n\n";// Muestra
-                                                                                                          // nombres
-                                                                                                          // incluyendo
-                                                                                                          // ocultos
-                        break;
-                    default: // Comando ls directorio
-                        if (ficheros.existeFichero(tokens[1]) && (ficheros.esDirectorio(tokens[1]))) { // Si existe y es
-                                                                                                       // directorio
-                            int i = 0;
-                            while (!ficheros.obtenerFichero(i).getNombre().equals(tokens[1])) { // Sin control de rango
-                                                                                                // porque existe
-                                i++; // Obtengo indice en el que se encuentra el directorio a listar
-                            }
-                            mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido()
-                                    + "\n\n";
-                        } else {
-                            sintaxis.setForeground(Color.red);
-                            mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
-                        }
-                        break;
-                }
+                mensaje = manejarOpcionesUnParametro(ficheros, sintaxis);
                 break;
             case 3:
-                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a")))
-                        || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { // Comando (ls -l -a) o (ls -a -l)
-                    mensaje = "[" + this.getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(true) + "\n\n"; // Informacion
-                                                                                                                    // detallada
-                                                                                                                    // pero
-                                                                                                                    // sin
-                                                                                                                    // ocultos
-                } else if (tokens[1].equals("-l")) { // Comando ls -l directorio
-                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { // Si existe y es
-                                                                                                   // directorio
-                        mensaje = "[" + this.getHora() + "]\n\nComando ls -l al directorio " + tokens[2] + "\n\n";
-                    } else {
-                        sintaxis.setForeground(Color.red);
-                        mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
-                    }
-                } else if (tokens[1].equals("-a")) { // Comando ls -a directorio
-                    if (ficheros.existeFichero(tokens[2]) && (ficheros.esDirectorio(tokens[2]))) { // Si existe y es
-                                                                                                   // directorio
-                        mensaje = "[" + this.getHora() + "]\n\nComando ls -a al directorio " + tokens[2] + "\n\n";
-                    } else {
-                        sintaxis.setForeground(Color.red);
-                        mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
-                    }
-                } else {
-                    sintaxis.setForeground(Color.red);
-                    mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente man ls\n\n";
-                }
+                mensaje = manejarOpcionesDosParametros(ficheros, sintaxis);
                 break;
             case 4:
-                if (((tokens[1].equals("-l")) && (tokens[2].equals("-a")))
-                        || ((tokens[1].equals("-a")) && (tokens[2].equals("-l")))) { // Comando (ls -l -a directorio) o
-                                                                                     // (ls -a -l directorio)
-                    if ((ficheros.existeFichero(tokens[3])) && (ficheros.esDirectorio(tokens[3]))) { // Si existe y es
-                                                                                                     // directorio
-                        mensaje = "[" + this.getHora() + "]\n\nComando (ls -a -l) o (ls -l -a) al directorio "
-                                + tokens[3] + "\n\n";
-                    } else {
-                        sintaxis.setForeground(Color.red);
-                        mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
-                    }
-                } else {
-                    sintaxis.setForeground(Color.red);
-                    mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente man ls\n\n";
-                }
+                mensaje = manejarOpcionesTresParametros(ficheros, sintaxis);
                 break;
             default:
                 sintaxis.setForeground(Color.red);
-                mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente man ls\n\n";
+                mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente man ls\n\n";
+                break;
+        }
+
+        return mensaje;
+    }
+
+    /**
+     * Obtiene la lista simple de nombres de archivos y directorios visibles.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @return un mensaje con la lista de nombres de archivos y directorios
+     *         visibles.
+     */
+    private String obtenerListaSimple(Ficheros ficheros) {
+        String mensaje;
+        mensaje = "[" + getHora() + "]\n\n" + ficheros.obtenerNombres(false) + "\n\n"; // Muestra nombres sin ocultos
+        return mensaje;
+    }
+
+    /**
+     * Maneja las opciones de ls con un parámetro.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @return un mensaje detallando el resultado de la ejecución del comando con un
+     *         parámetro.
+     */
+    private String manejarOpcionesUnParametro(Ficheros ficheros, JLabel sintaxis) {
+        String mensaje;
+        switch (tokens[1]) {
+            case "-l":
+                mensaje = "[" + getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(false) + "\n\n"; // Información
+                                                                                                            // detallada
+                                                                                                            // sin
+                                                                                                            // ocultos
+                break;
+            case "-a":
+                mensaje = "[" + getHora() + "]\n\n" + ficheros.obtenerNombres(true) + "\n\n"; // Muestra nombres
+                                                                                              // incluyendo ocultos
+                break;
+            default:
+                mensaje = obtenerContenidoDirectorio(ficheros, tokens[1], sintaxis);
                 break;
         }
         return mensaje;
     }
 
     /**
-     * Metodo que permite eliminar un proceso.
+     * Maneja las opciones de ls con dos parámetros.
      *
-     * @param procesos
-     * @param sintaxis
-     * @return
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @return un mensaje detallando el resultado de la ejecución del comando con
+     *         dos parámetros.
+     */
+    private String manejarOpcionesDosParametros(Ficheros ficheros, JLabel sintaxis) {
+        String mensaje;
+        if ((tokens[1].equals("-l") && tokens[2].equals("-a")) || (tokens[1].equals("-a") && tokens[2].equals("-l"))) {
+            mensaje = "[" + getHora() + "]\n\n" + ficheros.obtenerInformacionDetallada(true) + "\n\n"; // Información
+                                                                                                       // detallada
+                                                                                                       // incluyendo
+                                                                                                       // ocultos
+        } else if (tokens[1].equals("-l")) {
+            mensaje = obtenerComandoLsL(ficheros, tokens[2], sintaxis);
+        } else if (tokens[1].equals("-a")) {
+            mensaje = obtenerComandoLsA(ficheros, tokens[2], sintaxis);
+        } else {
+            mensaje = mensajeErrorSintaxisIncorrecta(sintaxis);
+        }
+        return mensaje;
+    }
+
+    /**
+     * Maneja las opciones de ls con tres parámetros.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @return un mensaje detallando el resultado de la ejecución del comando con
+     *         tres parámetros.
+     */
+    private String manejarOpcionesTresParametros(Ficheros ficheros, JLabel sintaxis) {
+        String mensaje;
+        if ((tokens[1].equals("-l") && tokens[2].equals("-a")) || (tokens[1].equals("-a") && tokens[2].equals("-l"))) {
+            mensaje = obtenerComandoLsLsA(ficheros, tokens[3], sintaxis);
+        } else {
+            mensaje = mensajeErrorSintaxisIncorrecta(sintaxis);
+        }
+        return mensaje;
+    }
+
+    /**
+     * Obtiene el contenido de un directorio para el comando ls [directorio].
+     *
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar.
+     * @return un mensaje con el contenido del directorio especificado.
+     */
+    private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio, JLabel sintaxis) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            int i = 0;
+            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreDirectorio)) {
+                i++;
+            }
+            mensaje = "[" + getHora() + "]\n\n" + ficheros.obtenerFichero(i).obtenerContenido() + "\n\n";
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Obtiene el mensaje de sintaxis incorrecta para ls.
+     *
+     * @return un mensaje indicando que la sintaxis es incorrecta para ls.
+     */
+    private String mensajeErrorSintaxisIncorrecta(JLabel sintaxis) {
+        sintaxis.setForeground(Color.red);
+        return "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente man ls\n\n";
+    }
+
+    /**
+     * Obtiene el mensaje para el comando ls -l [directorio].
+     *
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar detalladamente.
+     * @return un mensaje indicando el resultado de ejecutar ls -l [directorio].
+     */
+    private String obtenerComandoLsL(Ficheros ficheros, String nombreDirectorio, JLabel sintaxis) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            mensaje = "[" + getHora() + "]\n\nComando ls -l al directorio " + nombreDirectorio + "\n\n";
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Obtiene el mensaje para el comando ls -a [directorio].
+     *
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar con todos los
+     *                         archivos.
+     * @return un mensaje indicando el resultado de ejecutar ls -a [directorio].
+     */
+    private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio, JLabel sintaxis) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            mensaje = "[" + getHora() + "]\n\nComando ls -a al directorio " + nombreDirectorio + "\n\n";
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Obtiene el mensaje para el comando ls -l -a [directorio].
+     *
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar detalladamente con
+     *                         todos los archivos.
+     * @return un mensaje indicando el resultado de ejecutar ls -l -a [directorio].
+     */
+    private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio, JLabel sintaxis) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            mensaje = "[" + getHora() + "]\n\nComando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
+                    + "\n\n";
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Ejecuta el comando 'kill' para eliminar un proceso por su ID.
+     *
+     * @param procesos el objeto que maneja la lista de procesos activos.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarKill(Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
+
         if (tokens.length == 2) {
-            if (procesos.existeProceso(parseInt(tokens[1]))) {
-                procesos.getListaProcesos().remove(procesos.obtenerProceso(parseInt(tokens[1])));
-                mensaje = "[" + this.getHora() + "]\n\n" + "Proceso eliminado\n\n";
-                sintaxis.setForeground(Color.cyan);
+            // Intenta obtener el ID del proceso del segundo token
+            String procesoIdStr = tokens[1];
+            if (esNumero(procesoIdStr)) {
+                int procesoID = Integer.parseInt(procesoIdStr);
+                if (procesos.existeProceso(procesoID)) {
+                    // Si el proceso existe, se elimina de la lista de procesos
+                    procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
+                    mensaje = "[" + getHora() + "]\n\n" + "Proceso eliminado\n\n";
+                    sintaxis.setForeground(Color.cyan);
+                } else {
+                    // Si no existe el proceso con el ID proporcionado
+                    mensaje = "[" + getHora() + "]\n\n" + "No existe el proceso\n\n";
+                }
             } else {
-                mensaje = "[" + this.getHora() + "]\n\n" + "No existe el proceso\n\n";
+                // Si el segundo token no es un número válido
+                mensaje = "[" + getHora() + "]\n\n" + "ID de proceso inválido\n\n";
             }
         } else {
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintasis incorrecta.\n\nPruebe man kill\n\n";
+            // Si la sintaxis del comando es incorrecta
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nPruebe man kill\n\n";
         }
+
         return mensaje;
     }
 
     /**
-     * Metodo que permite listar los procesos en ejecucion del sistema.
+     * Verifica si una cadena es un número entero válido.
      *
-     * @param procesos
-     * @param sintaxis
-     * @return
+     * @param str la cadena a verificar.
+     * @return true si la cadena es un número entero válido, false de lo contrario.
+     */
+    private boolean esNumero(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Ejecuta el comando 'ps' para listar los procesos en ejecución del sistema.
+     *
+     * @param procesos el objeto que maneja la lista de procesos activos.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje detallando los procesos en ejecución o un mensaje de error
+     *         si la sintaxis es incorrecta.
      */
     public String ejecutarPs(Procesos procesos, JLabel sintaxis) {
         String mensaje = "";
+
         if (tokens.length == 1) {
             if (procesos.getListaProcesos().isEmpty()) {
-                mensaje = "[" + this.getHora() + "]\n\n" + "No existen procesos en ejecucion\n\n";
+                mensaje = "[" + getHora() + "]\n\n" + "No existen procesos en ejecución\n\n";
             } else {
                 mensaje = "PID | USER | % MEMORY | % CPU | TIME | COMMAND\n";
                 for (Proceso proceso : procesos.getListaProcesos()) {
-                    mensaje += proceso.toString();
-                    mensaje += "\n";
+                    mensaje += proceso.toString() + "\n";
                 }
             }
         } else {
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintasis incorrecta.\n\nPruebe man ps\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nPruebe man ps\n\n";
         }
+
         return mensaje;
     }
 
     /**
-     * Metodo que permite buscar patrones en archivos.
+     * Ejecuta el comando 'grep' para buscar un patrón en un archivo específico.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje indicando si se encontró el patrón en el archivo o un
+     *         mensaje de error si la expresión es incorrecta.
      */
     private String ejecutarGrep(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length != 3) {
-            mensaje = "Expresion incorrecta: debe ingresar string a buscar y archivo en el que buscar.";
-        } else {
-            if (ficheros.existeFichero(tokens[2])) {
-                mensaje = Boolean.toString(ficheros.obtenerFichero(tokens[2]).obtenerContenido().contains(tokens[1]));
-                // De momento solo confirma que este presente la expresion. Cumple RF29.
-                // Por hacer: mostrar el texto resaltado o... contar cantidad de ocurrencias.
-                // EXTRA
-            } else {
-                mensaje = "El fichero indicado no existe.";
-            }
 
+        if (tokens.length != 3) {
+            mensaje = "Sintaxis incorrecta: debe ingresar la expresión a buscar y el nombre del archivo.";
+        } else {
+            String expresion = tokens[1];
+            String nombreArchivo = tokens[2];
+
+            if (ficheros.existeFichero(nombreArchivo)) {
+                String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
+                if (contenidoArchivo.contains(expresion)) {
+                    mensaje = "Se encontró la expresión '" + expresion + "' en el archivo '" + nombreArchivo + "'.";
+                    // Por hacer: mostrar el texto resaltado o contar cantidad de ocurrencias.
+                } else {
+                    mensaje = "La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "'.";
+                }
+            } else {
+                mensaje = "El archivo '" + nombreArchivo + "' indicado no existe.";
+            }
         }
 
         return mensaje;
     }
 
     /**
-     * Metodo que permite mostrar las últimas líneas de un archivo.
+     * Ejecuta el comando 'tail' para mostrar las últimas líneas de un archivo.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
-     *
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje con las últimas líneas del archivo especificado o un
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     private String ejecutarTail(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        String[] mensajeTokenizado;
-        int i;
+
         if (tokens.length == 2) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
-            if (mensajeTokenizado.length >= 10) {
-                i = mensajeTokenizado.length - 10;
-
-            } else {
-                i = 0;
-            }
-
-            while (i < mensajeTokenizado.length) {
-                mensaje += mensajeTokenizado[i] + "\n";
-                i++;
-            }
-        } else if (tokens.length == 4) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[3]).obtenerContenido().split("\\R");
-            if (tokens[1].equals("-n")) {
-                if (mensajeTokenizado.length >= Integer.parseInt(tokens[2])) {
-                    i = mensajeTokenizado.length - Integer.parseInt(tokens[2]); // Validar, q pasa si no es numero?
-
-                } else {
-                    i = 0;
-                }
-
-                while (i < mensajeTokenizado.length) {
-                    mensaje += mensajeTokenizado[i] + "\n";
-                    i++;
-                }
+            // Caso sin opción -n: mostrar las últimas 10 líneas
+            mensaje = tailDefault(ficheros, tokens[1]);
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+            // Caso con opción -n: mostrar las últimas n líneas
+            try {
+                int n = Integer.parseInt(tokens[2]);
+                mensaje = tailN(ficheros, tokens[3], n);
+            } catch (NumberFormatException e) {
+                sintaxis.setForeground(Color.red);
+                mensaje = "[" + getHora() + "]\n\n" + "El número de líneas debe ser un valor numérico.\n\n";
             }
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nPruebe man tail\n\n";
         }
 
         return mensaje;
     }
 
     /**
-     * Metodo que permite mostrar las primeras líneas de un archivo.
+     * Obtiene las últimas 10 líneas de un archivo.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
+     * @param nombreArchivo el nombre del archivo del cual se obtendrán las líneas.
+     * @return un mensaje con las últimas 10 líneas del archivo.
+     */
+    private String tailDefault(Ficheros ficheros, String nombreArchivo) {
+        String mensaje = "";
+        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+        int inicio = Math.max(0, lineasArchivo.length - 10);
+
+        for (int i = inicio; i < lineasArchivo.length; i++) {
+            mensaje += lineasArchivo[i] + "\n";
+        }
+
+        return mensaje;
+    }
+
+    /**
+     * Obtiene las últimas n líneas de un archivo.
      *
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
+     * @param nombreArchivo el nombre del archivo del cual se obtendrán las líneas.
+     * @param n             el número de líneas que se desean obtener.
+     * @return un mensaje con las últimas n líneas del archivo.
+     */
+    private String tailN(Ficheros ficheros, String nombreArchivo, int n) {
+        String mensaje = "";
+        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+        int inicio = Math.max(0, lineasArchivo.length - n);
+
+        for (int i = inicio; i < lineasArchivo.length; i++) {
+            mensaje += lineasArchivo[i] + "\n";
+        }
+
+        return mensaje;
+    }
+
+    /**
+     * Ejecuta el comando 'head' para mostrar las primeras líneas de un archivo.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje con las primeras líneas del archivo especificado o un
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        String[] mensajeTokenizado;
-        int i = 0;
-        if (tokens.length == 2) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
-            while (i < mensajeTokenizado.length & i < 10) {
-                mensaje += mensajeTokenizado[i] + "\n";
-                i++;
-            }
-        } else if (tokens.length == 4) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[3]).obtenerContenido().split("\\R");
+        int numLineas = 10; // Por defecto, mostrar 10 líneas
 
-            if (tokens[1].equals("-n")) {
-                while (i < mensajeTokenizado.length & i < Integer.parseInt(tokens[2])) { // Validar, q pasa si no es
-                                                                                         // numero?
-                    mensaje += mensajeTokenizado[i] + "\n";
-                    i++;
-                }
+        if (tokens.length == 2) {
+            // Caso sin opción -n: mostrar las primeras 10 líneas
+            mensaje = headDefault(ficheros, tokens[1], numLineas);
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+            // Caso con opción -n: mostrar las primeras n líneas
+            try {
+                numLineas = Integer.parseInt(tokens[2]);
+                mensaje = headN(ficheros, tokens[3], numLineas);
+            } catch (NumberFormatException e) {
+                sintaxis.setForeground(Color.red);
+                mensaje = "[" + getHora() + "]\n\n" + "El número de líneas debe ser un valor numérico.\n\n";
             }
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nPruebe man head\n\n";
         }
 
         return mensaje;
     }
 
     /**
-     * Metodo que permite mostrar las columnas seleccionadas de un archivo
-     * usando como delimitador el punto doble :
+     * Obtiene las primeras 10 líneas de un archivo.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
+     * @param nombreArchivo el nombre del archivo del cual se obtendrán las líneas.
+     * @param numLineas     el número de líneas que se desean obtener.
+     * @return un mensaje con las primeras 10 líneas del archivo.
+     */
+    private String headDefault(Ficheros ficheros, String nombreArchivo, int numLineas) {
+        String mensaje = "";
+        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+
+        for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
+            mensaje += lineasArchivo[i] + "\n";
+        }
+
+        return mensaje;
+    }
+
+    /**
+     * Obtiene las primeras n líneas de un archivo.
      *
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
+     * @param nombreArchivo el nombre del archivo del cual se obtendrán las líneas.
+     * @param numLineas     el número de líneas que se desean obtener.
+     * @return un mensaje con las primeras n líneas del archivo.
+     */
+    private String headN(Ficheros ficheros, String nombreArchivo, int numLineas) {
+        String mensaje = "";
+        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+
+        for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
+            mensaje += lineasArchivo[i] + "\n";
+        }
+
+        return mensaje;
+    }
+
+    /**
+     * Ejecuta el comando 'cut' para mostrar las columnas seleccionadas de un
+     * archivo
+     * usando un delimitador específico.
+     *
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje con las columnas seleccionadas del archivo especificado o
+     *         un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
@@ -540,12 +787,9 @@ public class Ejecutar {
         // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
         // correctas
         if (tokens.length == 6 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f")) {
-            String delimitador = tokens[2]; // Delimitador especificado
+            String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
             String campos = tokens[4]; // Campos a extraer
             String archivo = tokens[5]; // Nombre del archivo
-
-            // Remover comillas simples si están presentes
-            delimitador = delimitador.replace("'", "");
 
             // Verificar si el archivo existe y no es un directorio
             if (ficheros.esDirectorio(archivo)) {
@@ -562,55 +806,53 @@ public class Ejecutar {
                 return mensaje;
             }
 
-            // Validar que el delimitador sea el correcto
+            // Validar que el delimitador sea el correcto (solo se admite ':')
             if (!delimitador.equals(":")) {
                 mensaje += "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
                 sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-            } else {
-                String[] camposArray = campos.split(",");
-                List<Integer> indicesCampos = new ArrayList<>();
+                return mensaje;
+            }
 
-                // Convertir camposArray a lista de índices (restamos 1 para hacerlos 0-based)
-                for (int j = 0; j < camposArray.length; j++) {
-                    indicesCampos.add(Integer.parseInt(camposArray[j].trim()) - 1);
+            String[] camposArray = campos.split(",");
+            List<Integer> indicesCampos = new ArrayList<>();
+
+            // Convertir camposArray a lista de índices (restamos 1 para hacerlos 0-based)
+            for (String campo : camposArray) {
+                try {
+                    indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
+                } catch (NumberFormatException e) {
+                    mensaje += "Error: Los campos especificados no son números válidos.";
+                    sintaxis.setForeground(Color.RED); // Cambiar color a rojo
+                    return mensaje;
                 }
+            }
 
-                // Dividir el contenido del archivo por líneas simulando la lectura desde el
-                // String
-                contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();
-                String[] lineas = contenidoArchivo.split("\n");
+            // Dividir el contenido del archivo por líneas
+            String[] lineas = contenidoArchivo.split("\n");
 
-                // Verificar que los índices especificados en campos sean válidos
+            // Procesar cada línea
+            for (String linea : lineas) {
+                String[] partes = linea.split(delimitador); // Usar el delimitador especificado
+                StringBuilder lineaResultado = new StringBuilder();
+
+                // Obtener las columnas después de los campos especificados
                 for (int indice : indicesCampos) {
-                    if (indice < 0 || indice >= lineas.length) {
-                        mensaje += "Error: El índice de línea especificado '" + (indice + 1)
-                                + "' está fuera del rango de líneas del archivo.";
+                    if (indice >= 0 && indice < partes.length) {
+                        if (lineaResultado.length() > 0) {
+                            lineaResultado.append(delimitador); // Agregar delimitador entre columnas
+                        }
+                        lineaResultado.append(partes[indice]);
+                    } else {
+                        mensaje += "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
                         sintaxis.setForeground(Color.RED); // Cambiar color a rojo
                         return mensaje;
                     }
                 }
 
-                // Procesar cada línea
-                for (int k = 0; k < lineas.length; k++) {
-                    String linea = lineas[k];
-                    String[] partes = linea.split(delimitador); // Usar el delimitador especificado
-                    String lineaResultado = "";
-
-                    // Obtener las columnas después de los campos especificados
-                    for (int i = 0; i < partes.length; i++) {
-                        if (indicesCampos.contains(i)) {
-                            if (!lineaResultado.isEmpty()) {
-                                lineaResultado += delimitador; // Agregar delimitador entre columnas
-                            }
-                            lineaResultado += partes[i];
-                        }
-                    }
-
-                    mensaje += lineaResultado + "\n";
-                }
-
-                sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
+                mensaje += lineaResultado.toString() + "\n";
             }
+
+            sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
         } else {
             mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
             sintaxis.setForeground(Color.RED); // Cambiar color a rojo
@@ -620,46 +862,49 @@ public class Ejecutar {
     }
 
     /**
-     * Metodo que permite mostrar las lineas de un archivo ordenadas.
+     * Ejecuta el comando 'sort' para mostrar las líneas de un archivo ordenadas
+     * alfabéticamente.
+     * Si se especifica la opción '-n', ordena numéricamente.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
-     *
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
+     * @return un mensaje con las líneas del archivo ordenadas o un mensaje de error
+     *         si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
         String[] mensajeTokenizado;
+
+        // Verificar la cantidad de tokens para determinar el tipo de ordenamiento
         if (tokens.length == 2) {
+            // Ordenar alfabéticamente las líneas del archivo especificado
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
-            Arrays.sort(mensajeTokenizado); // comparar como ordena sort bash y como ordena este sort?
-            for (String token : mensajeTokenizado) {
-                mensaje += token + "\n";
+            Arrays.sort(mensajeTokenizado);
+            for (String linea : mensajeTokenizado) {
+                mensaje += linea + "\n";
             }
-
-        } else if (tokens.length == 3) {
+        } else if (tokens.length == 3 && tokens[1].equals("-n")) {
+            // Ordenar numéricamente las líneas del archivo especificado
             mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-            if (tokens[1].equals("-n")) {
-                Arrays.sort(mensajeTokenizado); // DEBERIA ORDENAR EN BASE A VALOR NUMERICO. PENDIENTE.
-                for (String token : mensajeTokenizado) {
-                    mensaje += token + "\n";
-                }
+            Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
+            for (String linea : mensajeTokenizado) {
+                mensaje += linea + "\n";
             }
-
         } else {
-            sintaxis.setForeground(Color.red);
+            // Sintaxis incorrecta
+            sintaxis.setForeground(Color.RED);
             mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
         }
+
         return mensaje;
     }
 
     /**
-     * Metodo que permite modificar los permisos de un archivo y/o directorio.
+     * Método que permite modificar los permisos de un archivo y/o directorio.
      *
-     * @param ficheros
-     * @param sintaxis
-     * @return mensaje a imprimir en consola.
-     *
+     * @param ficheros Objeto que maneja los ficheros y directorios.
+     * @param sintaxis Etiqueta donde se indica la sintaxis.
+     * @return Mensaje a imprimir en consola.
      */
     public String ejecutarChmod(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
@@ -667,116 +912,179 @@ public class Ejecutar {
         String fich = tokens[2];
 
         // Verificar la cantidad de argumentos
-        if (tokens.length != 3) {
-            mensaje = "Sintaxis incorrecta: número incorrecto de argumentos";
-            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-            return mensaje;
+        if (!verificarCantidadArgumentos(tokens)) {
+            return "Sintaxis incorrecta: número incorrecto de argumentos";
         }
 
         // Verificar si el fichero existe
-        if (!ficheros.existeFichero(fich)) {
-            mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
-            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-            return mensaje;
+        if (!verificarExistenciaFichero(ficheros, fich, sintaxis)) {
+            return "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
         }
 
         // Validar longitud de permisos
-        if (permisos.length() != 3 && permisos.length() != 9) {
-            mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
-            sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-            return mensaje;
+        if (!validarLongitudPermisos(permisos, sintaxis)) {
+            return "Sintaxis incorrecta: longitud incorrecta de permisos";
         }
 
         switch (permisos.length()) {
             case 3:
-                // Convertir permisos numéricos a caracteres
-                String permisosEnLetras = ficheros.obtenerFichero(fich).getPermisos().charAt(0) + "";
-                for (int i = 0; i < 3; i++) {
-                    int permisoNum = Character.getNumericValue(permisos.charAt(i));
-                    if (permisoNum < 0 || permisoNum > 7) {
-                        mensaje = "Sintaxis incorrecta: valor de permisos inválido";
-                        sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-                        return mensaje;
-                    }
-                    switch (permisoNum) {
-                        case 0:
-                            permisosEnLetras += "---";
-                            break;
-                        case 1:
-                            permisosEnLetras += "--x";
-                            break;
-                        case 2:
-                            permisosEnLetras += "-w-";
-                            break;
-                        case 3:
-                            permisosEnLetras += "-wx";
-                            break;
-                        case 4:
-                            permisosEnLetras += "r--";
-                            break;
-                        case 5:
-                            permisosEnLetras += "r-x";
-                            break;
-                        case 6:
-                            permisosEnLetras += "rw-";
-                            break;
-                        case 7:
-                            permisosEnLetras += "rwx";
-                            break;
-                    }
+                if (!aplicarPermisosNumericos(ficheros, fich, permisos, sintaxis)) {
+                    return "Sintaxis incorrecta: valor de permisos inválido";
                 }
-                ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
-                mensaje = "Comando ejecutado correctamente";
-                sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
                 break;
 
             case 9:
-                // Validar permisos
-                boolean permisosValidos = true;
-                for (int i = 0; i < permisos.length(); i++) {
-                    char permiso = permisos.charAt(i);
-                    // Validar permisos en el orden correcto
-                    switch (i % 3) {
-                        case 0: // r
-                            if (permiso != 'r' && permiso != '-') {
-                                permisosValidos = false;
-                            }
-                            break;
-                        case 1: // w
-                            if (permiso != 'w' && permiso != '-') {
-                                permisosValidos = false;
-                            }
-                            break;
-                        case 2: // x
-                            if (permiso != 'x' && permiso != '-') {
-                                permisosValidos = false;
-                            }
-                            break;
-                    }
-                    if (!permisosValidos) {
-                        break;
-                    }
-                }
-
-                if (permisosValidos) {
-                    // Aplicar permisos al archivo
-                    char primerCaracter = ficheros.obtenerFichero(fich).getPermisos().charAt(0);
-                    permisos = primerCaracter + permisos;
-                    ficheros.obtenerFichero(fich).setPermisos(permisos);
-                    mensaje = "Comando ejecutado correctamente";
-                    sintaxis.setForeground(Color.CYAN); // Cambiar color a celeste
-                } else {
-                    mensaje = "Sintaxis incorrecta: permisos inválidos";
-                    sintaxis.setForeground(Color.RED); // Cambiar color a rojo
+                if (!aplicarPermisosSimbolicos(ficheros, fich, permisos, sintaxis)) {
+                    return "Sintaxis incorrecta: permisos inválidos";
                 }
                 break;
 
             default:
-                mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
-                sintaxis.setForeground(Color.RED); // Cambiar color a rojo
-                break;
+                return "Sintaxis incorrecta: longitud incorrecta de permisos";
         }
 
-        return mensaje;
+        return "Comando ejecutado correctamente";
+    }
+
+    /**
+     * Verifica si la cantidad de argumentos es correcta.
+     *
+     * @param tokens Arreglo de tokens con los argumentos del comando.
+     * @return true si la cantidad de argumentos es correcta, false de lo contrario.
+     */
+    private boolean verificarCantidadArgumentos(String[] tokens) {
+        return tokens.length == 3;
+    }
+
+    /**
+     * Verifica si el fichero o directorio existe.
+     *
+     * @param ficheros Objeto que maneja los ficheros y directorios.
+     * @param fich     Nombre del fichero o directorio a verificar.
+     * @param sintaxis Etiqueta donde se indica la sintaxis.
+     * @return true si el fichero o directorio existe, false de lo contrario.
+     */
+    private boolean verificarExistenciaFichero(Ficheros ficheros, String fich, JLabel sintaxis) {
+        if (!ficheros.existeFichero(fich)) {
+            sintaxis.setForeground(Color.RED);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Valida la longitud de los permisos.
+     *
+     * @param permisos String con los permisos a validar.
+     * @param sintaxis Etiqueta donde se indica la sintaxis.
+     * @return true si la longitud de los permisos es correcta, false de lo
+     *         contrario.
+     */
+    private boolean validarLongitudPermisos(String permisos, JLabel sintaxis) {
+        if (permisos.length() != 3 && permisos.length() != 9) {
+            sintaxis.setForeground(Color.RED);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Aplica los permisos numéricos al fichero o directorio.
+     *
+     * @param ficheros Objeto que maneja los ficheros y directorios.
+     * @param fich     Nombre del fichero o directorio al que se aplicarán los
+     *                 permisos.
+     * @param permisos String con los permisos numéricos.
+     * @param sintaxis Etiqueta donde se indica la sintaxis.
+     * @return true si se aplicaron los permisos correctamente, false de lo
+     *         contrario.
+     */
+    private boolean aplicarPermisosNumericos(Ficheros ficheros, String fich, String permisos, JLabel sintaxis) {
+        String permisosEnLetras = ficheros.obtenerFichero(fich).getPermisos().charAt(0) + "";
+        for (int i = 0; i < 3; i++) {
+            int permisoNum = Character.getNumericValue(permisos.charAt(i));
+            if (permisoNum < 0 || permisoNum > 7) {
+                sintaxis.setForeground(Color.RED);
+                return false;
+            }
+            switch (permisoNum) {
+                case 0:
+                    permisosEnLetras += "---";
+                    break;
+                case 1:
+                    permisosEnLetras += "--x";
+                    break;
+                case 2:
+                    permisosEnLetras += "-w-";
+                    break;
+                case 3:
+                    permisosEnLetras += "-wx";
+                    break;
+                case 4:
+                    permisosEnLetras += "r--";
+                    break;
+                case 5:
+                    permisosEnLetras += "r-x";
+                    break;
+                case 6:
+                    permisosEnLetras += "rw-";
+                    break;
+                case 7:
+                    permisosEnLetras += "rwx";
+                    break;
+            }
+        }
+        ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
+        sintaxis.setForeground(Color.CYAN);
+        return true;
+    }
+
+    /**
+     * Aplica los permisos simbólicos al fichero o directorio.
+     *
+     * @param ficheros Objeto que maneja los ficheros y directorios.
+     * @param fich     Nombre del fichero o directorio al que se aplicarán los
+     *                 permisos.
+     * @param permisos String con los permisos simbólicos.
+     * @param sintaxis Etiqueta donde se indica la sintaxis.
+     * @return true si se aplicaron los permisos correctamente, false de lo
+     *         contrario.
+     */
+    private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos, JLabel sintaxis) {
+        boolean permisosValidos = true;
+        for (int i = 0; i < permisos.length(); i++) {
+            char permiso = permisos.charAt(i);
+            switch (i % 3) {
+                case 0: // r
+                    if (permiso != 'r' && permiso != '-') {
+                        permisosValidos = false;
+                    }
+                    break;
+                case 1: // w
+                    if (permiso != 'w' && permiso != '-') {
+                        permisosValidos = false;
+                    }
+                    break;
+                case 2: // x
+                    if (permiso != 'x' && permiso != '-') {
+                        permisosValidos = false;
+                    }
+                    break;
+            }
+            if (!permisosValidos) {
+                break;
+            }
+        }
+
+        if (permisosValidos) {
+            char primerCaracter = ficheros.obtenerFichero(fich).getPermisos().charAt(0);
+            permisos = primerCaracter + permisos;
+            ficheros.obtenerFichero(fich).setPermisos(permisos);
+            sintaxis.setForeground(Color.CYAN);
+            return true;
+        } else {
+            sintaxis.setForeground(Color.RED);
+            return false;
+        }
     }
 }
