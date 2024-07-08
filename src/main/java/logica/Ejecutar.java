@@ -61,13 +61,13 @@ public class Ejecutar {
         actualizarHora();
         switch (tokens[0]) {
             case "man":
-                mensaje = ejecutarMan(comandos, procesos, sintaxis);
+                mensaje = ejecutarMan(comandos, sintaxis);
                 break;
             case "mkdir":
-                mensaje = ejecutarMkdir(ficheros, procesos, sintaxis);
+                mensaje = ejecutarMkdir(ficheros, sintaxis);
                 break;
             case "rmdir":
-                mensaje = ejecutarRmdir(ficheros, procesos, sintaxis);
+                mensaje = ejecutarRmdir(ficheros, sintaxis);
                 break;
             case "clear":
                 mensaje = ejecutarClear(sintaxis, procesos, salida);
@@ -111,60 +111,102 @@ public class Ejecutar {
                 break;
         }
         return mensaje;
-    } // fin ejecutarComando
+    }
 
     /**
-     * Metodo que permite ejecutar el comando man.
+     * Ejecuta el comando 'man'.
      *
-     * @param comandos
-     * @param procesos
-     * @param sintaxis
-     * @return
+     * @param comandos Objeto que contiene los comandos disponibles.
+     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
+     * @return Mensaje resultante de la ejecución.
      */
-    public String ejecutarMan(Comandos comandos, Procesos procesos, JLabel sintaxis) {
+    public String ejecutarMan(Comandos comandos, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length == 1) {
+        if (tokens != null && tokens.length == 1) {
             mensaje = comandos.obtenerDescripcion("man") + "\n" + comandos.obtenerEjemplo("man");
         } else {
             mensaje = obtenerAyudaComando(comandos);
         }
-        procesos.agregarProceso(cadena);
         return mensaje;
     }
 
-    public String ejecutarMkdir(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
+    /**
+     * Ejecuta el comando 'mkdir' para crear directorios.
+     *
+     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param procesos Objeto para gestionar los procesos.
+     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
+     * @return Mensaje resultante de la ejecución.
+     */
+    public String ejecutarMkdir(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length == 2) {
-            if (!ficheros.existeFichero(tokens[1])) {
-                Directorio nuevo = new Directorio(tokens[1]);
-                ficheros.agregarFichero(nuevo);
-                mensaje = "[" + this.getHora() + "]\n\n" + "Se ha creado un directorio\n\n";
-                procesos.agregarProceso(cadena);
-            } else {
-                sintaxis.setForeground(Color.red);
-                mensaje = "[" + this.getHora() + "]\n\n" + "Ya existe un fichero con ese nombre\n\n";
-            }
+        if (tokens != null && tokens.length == 2) {
+            mensaje = crearDirectorio(tokens[1], ficheros, sintaxis);
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente mkdir [nombre] o man mkdir\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente mkdir [nombre] o man mkdir\n\n";
         }
         return mensaje;
     }
 
-    public String ejecutarRmdir(Ficheros ficheros, Procesos procesos, JLabel sintaxis) {
+    /**
+     * Crea un directorio si no existe previamente.
+     *
+     * @param nombreDirectorio Nombre del directorio a crear.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
+     * @param procesos         Objeto para gestionar los procesos.
+     * @param sintaxis         Etiqueta donde mostrar mensajes de sintaxis.
+     * @return Mensaje resultante de la operación.
+     */
+    private String crearDirectorio(String nombreDirectorio, Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
-        if (tokens.length == 2) {
-            if (ficheros.existeFichero(tokens[1]) && ficheros.esDirectorio(tokens[1])) { // Si existe y es directorio
-                ficheros.eliminarFichero(tokens[1]);
-                mensaje = "[" + this.getHora() + "]\n\n" + "Directorio eliminado\n\n";
-                procesos.agregarProceso(cadena);
-            } else {
-                sintaxis.setForeground(Color.red);
-                mensaje = "[" + this.getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
-            }
+        if (!ficheros.existeFichero(nombreDirectorio)) {
+            Directorio nuevo = new Directorio(nombreDirectorio);
+            ficheros.agregarFichero(nuevo);
+            mensaje = "[" + getHora() + "]\n\n" + "Se ha creado un directorio\n\n";
         } else {
             sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente rmdir [nombre] o man rmdir\n\n";
+            mensaje = "[" + getHora() + "]\n\n" + "Ya existe un fichero con ese nombre\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Ejecuta el comando 'rmdir' para eliminar directorios.
+     *
+     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param procesos Objeto para gestionar los procesos.
+     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
+     * @return Mensaje resultante de la ejecución.
+     */
+    public String ejecutarRmdir(Ficheros ficheros, JLabel sintaxis) {
+        String mensaje = "";
+        if (tokens != null && tokens.length == 2) {
+            mensaje = eliminarDirectorio(tokens[1], ficheros, sintaxis);
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente rmdir [nombre] o man rmdir\n\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Elimina un directorio si existe.
+     *
+     * @param nombreDirectorio Nombre del directorio a eliminar.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
+     * @param procesos         Objeto para gestionar los procesos.
+     * @param sintaxis         Etiqueta donde mostrar mensajes de sintaxis.
+     * @return Mensaje resultante de la operación.
+     */
+    private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros, JLabel sintaxis) {
+        String mensaje = "";
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            ficheros.eliminarFichero(nombreDirectorio);
+            mensaje = "[" + getHora() + "]\n\n" + "Directorio eliminado\n\n";
+        } else {
+            sintaxis.setForeground(Color.red);
+            mensaje = "[" + getHora() + "]\n\n" + "No existe un directorio con ese nombre\n\n";
         }
         return mensaje;
     }

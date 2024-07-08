@@ -1,10 +1,6 @@
 package logica;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Esta clase permite crear un HashMap de comandos para la consola Linux. if

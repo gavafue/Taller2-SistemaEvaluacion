@@ -10,7 +10,7 @@
 /build/
 *.nbattrs
 *.settings
-*.project
+.project
 
 # Ignorar directorios de compilación comunes
 /target/
@@ -28,3 +28,5 @@
 
 # Ignorar archivos específicos de Windows
 Thumbs.db
+.project
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
