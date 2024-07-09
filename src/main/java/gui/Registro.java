@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.*;
@@ -41,7 +43,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lblLogin = new javax.swing.JLabel();
+        lblRegistro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -141,9 +143,9 @@ public class Registro extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        lblLogin.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
-        lblLogin.setForeground(new java.awt.Color(255, 255, 255));
-        lblLogin.setText("Registro");
+        lblRegistro.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
+        lblRegistro.setForeground(new java.awt.Color(255, 255, 255));
+        lblRegistro.setText("Registro");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,14 +153,14 @@ public class Registro extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(269, 269, 269)
-                .addComponent(lblLogin)
+                .addComponent(lblRegistro)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -196,53 +198,80 @@ public class Registro extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // Obtener los valores ingresados por el usuario
-        String cedula = txtCedula.getText(); // Trim para eliminar espacios innecesarios
-        String contrasenia = new String(txtContrasenia.getPassword()); // Convertir char[] a String
+        String cedula = txtCedula.getText().trim();
+        String contrasenia = new String(txtContrasenia.getPassword());
+
+        boolean registroExitoso = false; // Bandera para controlar el registro
 
         // Validar que se ingresen ambos valores antes de proceder
         if (cedula.isEmpty() || contrasenia.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la cédula y la contraseña.");
-        }
-
-        // Validar que la cédula tenga exactamente 8 caracteres y sean todos numéricos
-        boolean todosNumeros = true;
-        if (cedula.length() != 8) {
-            todosNumeros = false;
         } else {
-            for (int i = 0; i < cedula.length(); i++) {
-                if (!Character.isDigit(cedula.charAt(i))) {
-                    todosNumeros = false;
+            // Validar que la cédula tenga exactamente 8 caracteres y sean todos numéricos
+            boolean todosNumeros = true;
+            if (cedula.length() != 8) {
+                todosNumeros = false;
+            } else {
+                for (int i = 0; i < cedula.length(); i++) {
+                    if (!Character.isDigit(cedula.charAt(i))) {
+                        todosNumeros = false;
+                        break; // Salir del bucle al encontrar un carácter no numérico
+                    }
+                }
+            }
+
+            if (!todosNumeros) {
+                JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 8 dígitos numéricos.");
+            } else {
+                // Verificar si la cédula ya está registrada antes de guardar
+                boolean cedulaRegistrada = false;
+                try (BufferedReader reader = new BufferedReader(new FileReader("passwords.txt"))) {
+                    String linea;
+                    while ((linea = reader.readLine()) != null) {
+                        String[] partes = linea.split(";");
+                        if (partes.length > 0 && partes[0].equals(cedula)) {
+                            cedulaRegistrada = true;
+                            break; // Salir del bucle si encuentra la cédula registrada
+                        }
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al intentar verificar la cédula.");
+                    e.printStackTrace(); // Mostrar el error en la consola para debug
+                }
+
+                if (cedulaRegistrada) {
+                    JOptionPane.showMessageDialog(this, "La cédula ya está registrada.");
+                } else {
+                    // Registro válido, proceder a guardar en el archivo passwords.txt
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter("passwords.txt", true))) {
+                        writer.write(cedula + ";" + contrasenia);
+                        writer.newLine(); // Nueva línea para el próximo registro
+
+                        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
+
+                        // Limpiar campos después del registro exitoso
+                        txtCedula.setText("");
+                        txtContrasenia.setText("");
+
+                        registroExitoso = true; // Marcar el registro como exitoso
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this, "Error al intentar guardar el usuario.");
+                        e.printStackTrace(); // Mostrar el error en la consola para debug
+                    }
                 }
             }
         }
 
-        if (!todosNumeros) {
-            JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 8 dígitos numéricos.");
-        }
-
-        // Guardar cédula y contraseña en el archivo passwords.txt
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("passwords.txt", true));
-            writer.write(cedula + ";" + contrasenia);
-            writer.newLine(); // Nueva línea para el próximo registro
-            writer.close();
-
-            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
-
-            this.dispose(); // Cierra la ventana actual de Registro
-
-            // Abrir la ventana de Iniciar Sesión
+        // Si el registro fue exitoso, cerrar la ventana actual y mostrar la ventana de login
+        if (registroExitoso) {
+            this.dispose();
             Login login = new Login();
-            login.setVisible(true); 
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al intentar guardar el usuario.");
-            e.printStackTrace(); // Mostrar el error en la consola para debug
+            login.setVisible(true);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        this.requestFocusInWindow();
+
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
@@ -257,7 +286,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblRegistro;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtContrasenia;
     // End of variables declaration//GEN-END:variables
