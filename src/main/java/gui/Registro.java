@@ -2,6 +2,11 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.*;
 import logica.*;
 
@@ -11,11 +16,11 @@ import logica.*;
  * @author
  * @since version 2
  */
-public class Login extends javax.swing.JFrame {
+public class Registro extends javax.swing.JFrame {
 
     private Usuarios listaUsuarios = new Usuarios();
 
-    public Login() {
+    public Registro() {
         initComponents();
         setLocationRelativeTo(null); //Centrar
     }
@@ -31,14 +36,14 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btnIngresar = new javax.swing.JButton();
-        txtUsuario = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton();
+        txtCedula = new javax.swing.JTextField();
         txtContrasenia = new javax.swing.JPasswordField();
         cboxMostrarContraseña = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lblLogin = new javax.swing.JLabel();
+        lblRegistro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -56,22 +61,22 @@ public class Login extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnIngresar.setBackground(new java.awt.Color(102, 102, 102));
-        btnIngresar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
-        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnIngresar.setText("Ingresar");
-        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setBackground(new java.awt.Color(102, 102, 102));
+        btnRegistrar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
-        txtUsuario.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
-        txtUsuario.setToolTipText("");
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtCedula.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        txtCedula.setToolTipText("");
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
+                txtCedulaActionPerformed(evt);
             }
         });
 
@@ -94,7 +99,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Usuario:");
+        jLabel2.setText("Cedula:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,7 +111,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -115,7 +120,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -123,7 +128,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -132,15 +137,15 @@ public class Login extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(cboxMostrarContraseña)
                 .addGap(43, 43, 43)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        lblLogin.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
-        lblLogin.setForeground(new java.awt.Color(255, 255, 255));
-        lblLogin.setText("Login");
+        lblRegistro.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
+        lblRegistro.setForeground(new java.awt.Color(255, 255, 255));
+        lblRegistro.setText("Registro");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,14 +153,14 @@ public class Login extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(269, 269, 269)
-                .addComponent(lblLogin)
+                .addComponent(lblRegistro)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -191,43 +196,98 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String nombreUsuario = txtUsuario.getText();
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // Obtener los valores ingresados por el usuario
+        String cedula = txtCedula.getText().trim();
         String contrasenia = new String(txtContrasenia.getPassword());
 
-        if ("87654321".equals(nombreUsuario) && "87654321".equals(contrasenia)) {
-            JOptionPane.showMessageDialog(Login.this, "Bienvenido al registro.");
-            Registro registro = new Registro();
-            registro.setVisible(true);
-            this.dispose();
-        } else if (this.getListaUsuarios().existeUsuarioLogin(nombreUsuario, contrasenia)) {
-            JOptionPane.showMessageDialog(Login.this, "Login exitoso");
-            Consola consola = new Consola(new Usuario(nombreUsuario, contrasenia));
-            consola.setVisible(true);
-            this.dispose();
+        boolean registroExitoso = false; // Bandera para controlar el registro
+
+        // Validar que se ingresen ambos valores antes de proceder
+        if (cedula.isEmpty() || contrasenia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar la cédula y la contraseña.");
         } else {
-            JOptionPane.showMessageDialog(Login.this, "Usuario o contraseña incorrectos");
+            // Validar que la cédula tenga exactamente 8 caracteres y sean todos numéricos
+            boolean todosNumeros = true;
+            if (cedula.length() != 8) {
+                todosNumeros = false;
+            } else {
+                for (int i = 0; i < cedula.length(); i++) {
+                    if (!Character.isDigit(cedula.charAt(i))) {
+                        todosNumeros = false;
+                        break; // Salir del bucle al encontrar un carácter no numérico
+                    }
+                }
+            }
+
+            if (!todosNumeros) {
+                JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 8 dígitos numéricos.");
+            } else {
+                // Verificar si la cédula ya está registrada antes de guardar
+                boolean cedulaRegistrada = false;
+                try (BufferedReader reader = new BufferedReader(new FileReader("passwords.txt"))) {
+                    String linea;
+                    while ((linea = reader.readLine()) != null) {
+                        String[] partes = linea.split(";");
+                        if (partes.length > 0 && partes[0].equals(cedula)) {
+                            cedulaRegistrada = true;
+                            break; // Salir del bucle si encuentra la cédula registrada
+                        }
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al intentar verificar la cédula.");
+                    e.printStackTrace(); // Mostrar el error en la consola para debug
+                }
+
+                if (cedulaRegistrada) {
+                    JOptionPane.showMessageDialog(this, "La cédula ya está registrada.");
+                } else {
+                    // Registro válido, proceder a guardar en el archivo passwords.txt
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter("passwords.txt", true))) {
+                        writer.write(cedula + ";" + contrasenia);
+                        writer.newLine(); // Nueva línea para el próximo registro
+
+                        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
+
+                        // Limpiar campos después del registro exitoso
+                        txtCedula.setText("");
+                        txtContrasenia.setText("");
+
+                        registroExitoso = true; // Marcar el registro como exitoso
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this, "Error al intentar guardar el usuario.");
+                        e.printStackTrace(); // Mostrar el error en la consola para debug
+                    }
+                }
+            }
         }
-    }//GEN-LAST:event_btnIngresarActionPerformed
+
+        // Si el registro fue exitoso, cerrar la ventana actual y mostrar la ventana de login
+        if (registroExitoso) {
+            this.dispose();
+            Login login = new Login();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        this.requestFocusInWindow();
+
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JCheckBox cboxMostrarContraseña;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblRegistro;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtContrasenia;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
