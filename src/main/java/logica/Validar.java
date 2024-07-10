@@ -36,40 +36,46 @@ public class Validar {
     }
 
     /**
+     * Método auxiliar que verifica si el comando está malformado.
+     * Este método comprueba si el comando ingresado comienza con un espacio.
+     * 
+     * @return true si el comando es inválido por comenzar con un espacio, false en
+     *         caso contrario.
+     */
+    private boolean comandoComienzaConEspacio() {
+        return comandoIngresado.length() > 0 && comandoIngresado.charAt(0) == ' ';
+    }
+
+    /**
      * Método que determina si el comando ingresado es válido o no.
      * Este método verifica si el comando ingresado cumple con los criterios básicos
-     * de validez, tales como no comenzar con un espacio y ser un comando reconocido.
+     * de validez, tales como no comenzar con un espacio y ser un comando
+     * reconocido.
      * También verifica si las opciones proporcionadas con el comando son válidas.
      * 
      * @param comandos La lista de comandos disponibles.
      * @return true si el comando es válido, false en caso contrario.
      */
     public boolean validarComando(Comandos comandos) {
+        boolean esValido = true;
+
         if (comandoComienzaConEspacio()) {
-            return false;
+            esValido = false;
         }
-        
+  
         String comando = tokens[0];
-        if (!comandos.existeComando(comando)) {
-            return false;
+        if (esValido && !comandos.existeComando(comando)) {
+            esValido = false;
         }
 
-        String[] opcionesValidas = comandos.obtenerOpciones(comando);
-        if (opcionesValidas == null) {
-            return true; // El comando no tiene opciones adicionales para validar
+        if (esValido) {
+            String[] opcionesValidas = comandos.obtenerOpciones(comando);
+            if (opcionesValidas != null) {
+                esValido = validarOpciones(opcionesValidas);
+            }
         }
 
-        return validarOpciones(opcionesValidas);
-    }
-
-    /**
-     * Método auxiliar que verifica si el comando está malformado.
-     * Este método comprueba si el comando ingresado comienza con un espacio.
-     * 
-     * @return true si el comando es inválido por comenzar con un espacio, false en caso contrario.
-     */
-    private boolean comandoComienzaConEspacio() {
-        return comandoIngresado.length() > 0 && comandoIngresado.charAt(0) == ' ';
+        return esValido;
     }
 
     /**
@@ -81,12 +87,13 @@ public class Validar {
      * @return true si todas las opciones son válidas, false en caso contrario.
      */
     private boolean validarOpciones(String[] opcionesValidas) {
-        for (int i = 1; i < tokens.length; i++) {
-            if (!esOpcionValida(tokens[i], opcionesValidas)) {
-                return false;
-            }
+        boolean todasValidas = true;
+
+        for (int i = 1; i < tokens.length && todasValidas; i++) {
+            todasValidas = esOpcionValida(tokens[i], opcionesValidas);
         }
-        return true;
+
+        return todasValidas;
     }
 
     /**
@@ -94,16 +101,20 @@ public class Validar {
      * Este método compara una opción específica (token) con la lista de opciones
      * válidas para determinar si es aceptable.
      * 
-     * @param opcion La opción a validar.
+     * @param opcion          La opción a validar.
      * @param opcionesValidas Las opciones válidas para el comando.
      * @return true si la opción es válida, false en caso contrario.
      */
     private boolean esOpcionValida(String opcion, String[] opcionesValidas) {
+        boolean esValida = false;
+
         for (String valida : opcionesValidas) {
             if (opcion.equals(valida)) {
-                return true;
+                esValida = true;
+                break;
             }
         }
-        return false;
+
+        return esValida;
     }
 }

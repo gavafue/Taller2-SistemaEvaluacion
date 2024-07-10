@@ -4,7 +4,6 @@
  */
 package logica;
 
-import static java.lang.Integer.parseInt;
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,13 +20,11 @@ import javax.swing.JTextArea;
  */
 public class Ejecutar {
 
-    private String cadena;
     private String[] tokens;
     private String hora;
     private DateTimeFormatter formatoFecha;
 
-    public Ejecutar(String cadena, String[] tokens) {
-        this.cadena = cadena;
+    public Ejecutar(String[] tokens) {
         this.tokens = tokens;
         this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");// formato para mostrar la variable hora en cada
                                                                     // ejecucion }
@@ -241,22 +238,21 @@ public class Ejecutar {
      */
     public String ejecutarCat(Ficheros ficheros, JLabel sintaxis) {
         String mensaje = "";
+
         if (tokens.length != 2) {
             sintaxis.setForeground(Color.red);
             mensaje = "[" + getHora() + "]\n\n" + "Sintaxis incorrecta.\n\nIntente cat [nombre] o man cat\n\n";
-            return mensaje;
-        }
-
-        String nombreArchivo = tokens[1];
-        if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
-            sintaxis.setForeground(Color.cyan);
-            Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
-            mensaje = "[" + getHora() + "]\n\n" + archivo.obtenerContenido() + "\n\n";
         } else {
-            sintaxis.setForeground(Color.red);
-            mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
+            String nombreArchivo = tokens[1];
+            if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
+                sintaxis.setForeground(Color.cyan);
+                Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
+                mensaje = "[" + getHora() + "]\n\n" + archivo.obtenerContenido() + "\n\n";
+            } else {
+                sintaxis.setForeground(Color.red);
+                mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
+            }
         }
-
         return mensaje;
     }
 
@@ -276,33 +272,32 @@ public class Ejecutar {
             sintaxis.setForeground(Color.red);
             mensaje = "[" + getHora() + "]\n\n"
                     + "Sintaxis incorrecta.\n\nIntente mv [nombreActual] [nombreNuevo] o man mv\n\n";
-            return mensaje;
-        }
-
-        String nombreActual = tokens[1];
-        String nombreNuevo = tokens[2];
-
-        // Verifica si el archivo existe y no es un directorio.
-        if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
-            sintaxis.setForeground(Color.cyan);
-
-            // Encuentra el índice del archivo en la lista.
-            int i = 0;
-            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
-                i++;
-            }
-
-            // Cambia el nombre del archivo.
-            ficheros.obtenerFichero(i).setNombre(nombreNuevo);
-
-            // Construye el mensaje de éxito.
-            mensaje = "[" + getHora() + "]\n\n" + "El fichero " + nombreActual + " ha sido renombrado a " + nombreNuevo
-                    + "\n\n";
-
         } else {
-            // Si no existe el archivo, muestra un mensaje de error.
-            sintaxis.setForeground(Color.red);
-            mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
+            String nombreActual = tokens[1];
+            String nombreNuevo = tokens[2];
+
+            // Verifica si el archivo existe y no es un directorio.
+            if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
+                sintaxis.setForeground(Color.cyan);
+
+                // Encuentra el índice del archivo en la lista.
+                int i = 0;
+                while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
+                    i++;
+                }
+
+                // Cambia el nombre del archivo.
+                ficheros.obtenerFichero(i).setNombre(nombreNuevo);
+
+                // Construye el mensaje de éxito.
+                mensaje = "[" + getHora() + "]\n\n" + "El fichero " + nombreActual + " ha sido renombrado a "
+                        + nombreNuevo
+                        + "\n\n";
+            } else {
+                // Si no existe el archivo, muestra un mensaje de error.
+                sintaxis.setForeground(Color.red);
+                mensaje = "[" + getHora() + "]\n\n" + "No existe un archivo con ese nombre\n\n";
+            }
         }
 
         return mensaje;
@@ -530,20 +525,16 @@ public class Ejecutar {
         if (tokens.length == 2) {
             // Intenta obtener el ID del proceso del segundo token
             String procesoIdStr = tokens[1];
-            if (esNumero(procesoIdStr)) {
-                int procesoID = Integer.parseInt(procesoIdStr);
-                if (procesos.existeProceso(procesoID)) {
-                    // Si el proceso existe, se elimina de la lista de procesos
-                    procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
-                    mensaje = "[" + getHora() + "]\n\n" + "Proceso eliminado\n\n";
-                    sintaxis.setForeground(Color.cyan);
-                } else {
-                    // Si no existe el proceso con el ID proporcionado
-                    mensaje = "[" + getHora() + "]\n\n" + "No existe el proceso\n\n";
-                }
+
+            int procesoID = Integer.parseInt(procesoIdStr);
+            if (procesos.existeProceso(procesoID)) {
+                // Si el proceso existe, se elimina de la lista de procesos
+                procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
+                mensaje = "[" + getHora() + "]\n\n" + "Proceso eliminado\n\n";
+                sintaxis.setForeground(Color.cyan);
             } else {
-                // Si el segundo token no es un número válido
-                mensaje = "[" + getHora() + "]\n\n" + "ID de proceso inválido\n\n";
+                // Si no existe el proceso con el ID proporcionado
+                mensaje = "[" + getHora() + "]\n\n" + "No existe el proceso\n\n";
             }
         } else {
             // Si la sintaxis del comando es incorrecta
@@ -551,24 +542,6 @@ public class Ejecutar {
         }
 
         return mensaje;
-    }
-
-    /**
-     * Verifica si una cadena es un número entero válido.
-     *
-     * @param str la cadena a verificar.
-     * @return true si la cadena es un número entero válido, false de lo contrario.
-     */
-    private boolean esNumero(String str) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        }
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -907,53 +880,41 @@ public class Ejecutar {
      * @return Mensaje a imprimir en consola.
      */
     public String ejecutarChmod(Ficheros ficheros, JLabel sintaxis) {
-        String mensaje = "";
         String permisos = tokens[1];
         String fich = tokens[2];
+        String mensaje = "";
 
         // Verificar la cantidad de argumentos
-        if (!verificarCantidadArgumentos(tokens)) {
-            return "Sintaxis incorrecta: número incorrecto de argumentos";
+        if (tokens.length != 3) {
+            mensaje = "Sintaxis incorrecta: número incorrecto de argumentos";
+        } else if (!verificarExistenciaFichero(ficheros, fich, sintaxis)) {
+            // Verificar si el fichero existe
+            mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
+        } else if (!validarLongitudPermisos(permisos, sintaxis)) {
+            // Validar longitud de permisos
+            mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
+        } else {
+            switch (permisos.length()) {
+                case 3:
+                    if (!aplicarPermisosNumericos(ficheros, fich, permisos, sintaxis)) {
+                        mensaje = "Sintaxis incorrecta: valor de permisos inválido";
+                    } else {
+                        mensaje = "Comando ejecutado correctamente";
+                    }
+                    break;
+                case 9:
+                    if (!aplicarPermisosSimbolicos(ficheros, fich, permisos, sintaxis)) {
+                        mensaje = "Sintaxis incorrecta: permisos inválidos";
+                    } else {
+                        mensaje = "Comando ejecutado correctamente";
+                    }
+                    break;
+                default:
+                    mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
+            }
         }
 
-        // Verificar si el fichero existe
-        if (!verificarExistenciaFichero(ficheros, fich, sintaxis)) {
-            return "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
-        }
-
-        // Validar longitud de permisos
-        if (!validarLongitudPermisos(permisos, sintaxis)) {
-            return "Sintaxis incorrecta: longitud incorrecta de permisos";
-        }
-
-        switch (permisos.length()) {
-            case 3:
-                if (!aplicarPermisosNumericos(ficheros, fich, permisos, sintaxis)) {
-                    return "Sintaxis incorrecta: valor de permisos inválido";
-                }
-                break;
-
-            case 9:
-                if (!aplicarPermisosSimbolicos(ficheros, fich, permisos, sintaxis)) {
-                    return "Sintaxis incorrecta: permisos inválidos";
-                }
-                break;
-
-            default:
-                return "Sintaxis incorrecta: longitud incorrecta de permisos";
-        }
-
-        return "Comando ejecutado correctamente";
-    }
-
-    /**
-     * Verifica si la cantidad de argumentos es correcta.
-     *
-     * @param tokens Arreglo de tokens con los argumentos del comando.
-     * @return true si la cantidad de argumentos es correcta, false de lo contrario.
-     */
-    private boolean verificarCantidadArgumentos(String[] tokens) {
-        return tokens.length == 3;
+        return mensaje;
     }
 
     /**
@@ -1001,11 +962,13 @@ public class Ejecutar {
      */
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String fich, String permisos, JLabel sintaxis) {
         String permisosEnLetras = ficheros.obtenerFichero(fich).getPermisos().charAt(0) + "";
+        boolean permisosValidos = true;
+
         for (int i = 0; i < 3; i++) {
             int permisoNum = Character.getNumericValue(permisos.charAt(i));
             if (permisoNum < 0 || permisoNum > 7) {
                 sintaxis.setForeground(Color.RED);
-                return false;
+                permisosValidos = false;
             }
             switch (permisoNum) {
                 case 0:
@@ -1034,9 +997,13 @@ public class Ejecutar {
                     break;
             }
         }
-        ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
-        sintaxis.setForeground(Color.CYAN);
-        return true;
+
+        if (permisosValidos) {
+            ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
+            sintaxis.setForeground(Color.CYAN);
+        }
+
+        return permisosValidos;
     }
 
     /**
@@ -1052,6 +1019,7 @@ public class Ejecutar {
      */
     private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos, JLabel sintaxis) {
         boolean permisosValidos = true;
+    
         for (int i = 0; i < permisos.length(); i++) {
             char permiso = permisos.charAt(i);
             switch (i % 3) {
@@ -1075,16 +1043,17 @@ public class Ejecutar {
                 break;
             }
         }
-
+    
         if (permisosValidos) {
             char primerCaracter = ficheros.obtenerFichero(fich).getPermisos().charAt(0);
             permisos = primerCaracter + permisos;
             ficheros.obtenerFichero(fich).setPermisos(permisos);
             sintaxis.setForeground(Color.CYAN);
-            return true;
         } else {
             sintaxis.setForeground(Color.RED);
-            return false;
         }
+    
+        return permisosValidos;
     }
+    
 }

@@ -31,4 +31,6 @@ public class Directorio extends Fichero {
     public String obtenerContenido(){
         return "Esto es un directorio";
     }
+
+    
 }

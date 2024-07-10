@@ -281,8 +281,9 @@ public class Consola extends javax.swing.JFrame {
             this.dispose();
         }else{
             if(correcto){
-                Ejecutar ejecutar = new Ejecutar(comando, tokens);
-                txtOutput.append(ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtSintaxis, txtOutput) + "\n");
+                Ejecutar ejecutar = new Ejecutar(tokens);
+                String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtSintaxis, txtOutput);
+                txtOutput.append(resultado + "\n");
             }else{
                 sintaxisIncorrecta(comando);
                 lblPenguin.setEnabled(false);

@@ -86,5 +86,7 @@ public class Procesos {
         this.agregarProceso("ls dir1");
         this.agregarProceso("mv arch1 arch2");
         this.agregarProceso("mkdir dir6");
+        this.agregarProceso("ls dir1");
+        this.agregarProceso("mv arch1 arch2");
     }
 }
