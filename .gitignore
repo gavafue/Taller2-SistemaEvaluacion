@@ -1,0 +1,32 @@
+# Ignorar directorio de build de NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Ignorar archivos de configuración específicos de NetBeans
+/nbproject/private/
+/build/
+*.nbattrs
+*.settings
+.project
+
+# Ignorar directorios de compilación comunes
+/target/
+*.class
+
+# Ignorar archivos generados por el sistema
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Ignorar archivos específicos de macOS
+.DS_Store
+
+# Ignorar archivos específicos de Windows
+Thumbs.db
+.project
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
