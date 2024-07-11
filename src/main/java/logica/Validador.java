@@ -651,24 +651,87 @@ public class Validador {
         String mensaje = "";
         String[] mensajeTokenizado;
         if (tokens.length == 2) {
+            if (!ficheros.existeFichero(tokens[1]) || ficheros.esDirectorio(tokens[1])) {
+                sintaxis.setForeground(Color.RED);
+                sintaxis.setText("Error: El archivo no existe o es un directorio");
+            }
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
             Arrays.sort(mensajeTokenizado); // comparar como ordena sort bash y como ordena este sort?
             for (String token : mensajeTokenizado) {
                 mensaje += token + "\n";
             }
 
-        } else if (tokens.length == 3) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-            if (tokens[1].equals("-n")) {
-                Arrays.sort(mensajeTokenizado); // DEBERIA ORDENAR EN BASE A VALOR NUMERICO. PENDIENTE.
-                for (String token : mensajeTokenizado) {
-                    mensaje += token + "\n";
+        } else if (tokens.length == 3 && tokens[1].equals("-n")) {
+            if (!ficheros.existeFichero(tokens[2]) || ficheros.esDirectorio(tokens[2])) {
+                sintaxis.setForeground(Color.RED);
+                sintaxis.setText("Error: El archivo no existe o es un directorio");
+            }
+            String[] contenidoArchivo = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
+
+            // Crear arreglos de strings para almacenar las líneas que empiezan con números y letras
+            String[] lineasNumeros = new String[0];
+            String[] lineasLetras = new String[0];
+
+            for (String linea : contenidoArchivo) {
+                linea = linea.trim();
+                if (!linea.isEmpty()) {
+                    char primerCaracter = linea.charAt(0);
+                    if (Character.isDigit(primerCaracter)) {
+                        // Agregar línea a lineasNumeros
+                        String[] nuevoArreglo = new String[lineasNumeros.length + 1];
+                        for (int i = 0; i < lineasNumeros.length; i++) {
+                            nuevoArreglo[i] = lineasNumeros[i];
+                        }
+                        nuevoArreglo[lineasNumeros.length] = linea;
+                        lineasNumeros = nuevoArreglo;
+                    } else if (Character.isLetter(primerCaracter)) {
+                        // Agregar línea a lineasLetras
+                        String[] nuevoArreglo = new String[lineasLetras.length + 1];
+                        for (int i = 0; i < lineasLetras.length; i++) {
+                            nuevoArreglo[i] = lineasLetras[i];
+                        }
+                        nuevoArreglo[lineasLetras.length] = linea;
+                        lineasLetras = nuevoArreglo;
+                    }
                 }
             }
 
+            // Ordenar las líneas que empiezan con números numéricamente
+            for (int i = 0; i < lineasNumeros.length; i++) {
+                for (int j = i + 1; j < lineasNumeros.length; j++) {
+                    int numeroLinea1 = Integer.parseInt(lineasNumeros[i].split("\\D")[0]);
+                    int numeroLinea2 = Integer.parseInt(lineasNumeros[j].split("\\D")[0]);
+                    if (numeroLinea1 > numeroLinea2) {
+                        String temp = lineasNumeros[i];
+                        lineasNumeros[i] = lineasNumeros[j];
+                        lineasNumeros[j] = temp;
+                    }
+                }
+            }
+
+            // Ordenar las líneas que empiezan con letras alfabéticamente
+            for (int i = 0; i < lineasLetras.length; i++) {
+                for (int j = i + 1; j < lineasLetras.length; j++) {
+                    if (lineasLetras[i].compareTo(lineasLetras[j]) > 0) {
+                        String temp = lineasLetras[i];
+                        lineasLetras[i] = lineasLetras[j];
+                        lineasLetras[j] = temp;
+                    }
+                }
+            }
+
+            // Construir el mensaje ordenado
+            String mensajeOrdenado = "";
+            for (String linea : lineasLetras) {
+                mensajeOrdenado += linea + "\n";
+            }
+            for (String linea : lineasNumeros) {
+                mensajeOrdenado += linea + "\n";
+            }
+            mensaje = mensajeOrdenado;
         } else {
-            sintaxis.setForeground(Color.red);
-            mensaje = "[" + this.getHora() + "]\n\n" + "Sintaxis incorrecta\n\n";
+            sintaxis.setForeground(Color.RED);
+            sintaxis.setText("Error: Sintaxis incorrecta");
         }
         return mensaje;
     }

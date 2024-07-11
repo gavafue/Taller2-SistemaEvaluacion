@@ -177,7 +177,7 @@ public class Ficheros {
         arch22.setContenido("\n Los funcionarios estadounidenses han impuesto sanciones a gran parte de los altos directivos de Kaspersky Lab\n después de una reciente medida para prohibir su software antivirus,\n presentando la nueva medida como una respuesta a los continuos riesgos de ciberseguridad.\n El viernes, funcionarios del Departamento del Tesoro impusieron sanciones a 12 altos directivos de Kaspersky,\n pero optaron por no sancionar a la propia empresa ni a su director ejecutivo, Eugene Kaspersky. Los funcionarios estadounidenses han impuesto sanciones a gran parte de los altos directivos de Kaspersky Lab\n después de una reciente medida para prohibir su software antivirus,\n presentando la nueva medida como una respuesta a los continuos riesgos de ciberseguridad.\n El viernes, funcionarios del Departamento del Tesoro impusieron sanciones a 12 altos directivos de Kaspersky,\n pero optaron por no sancionar a la propia empresa ni a su director ejecutivo, Eugene Kaspersky."); //arch1 tiene contenido inicialmente
         Archivo arch33 = new Archivo("arch33");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
-
+        Archivo m = new Archivo("m", "Hola \n10. Chau \n99. Hola 232342\n Chau");
 //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
         agregarFichero(dir1);
@@ -187,6 +187,7 @@ public class Ficheros {
         agregarFichero(dir3);
         agregarFichero(arch22);
         agregarFichero(arch33);
+        agregarFichero(m);
 
     }
 }
