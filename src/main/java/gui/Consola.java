@@ -219,7 +219,7 @@ public class Consola extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtComando.requestFocus();
     }// GEN-LAST:event_txtOutputMouseClicked
-     // Al escribir el comando y presionar ENTER
+    // Al escribir el comando y presionar ENTER
 
     private void txtComandoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtComandoActionPerformed
         // Valores por defecto
@@ -242,7 +242,7 @@ public class Consola extends javax.swing.JFrame {
         } else {
             if (comandoEsCorrecto) {
                 String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
-                txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + resultado + "\n");
+                txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n"); // CAMBIO ESTO PARA QUE en el prompt muestre el comando ingresado.
             } else {
                 lblPenguin.setEnabled(false);
                 txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + "Comando ingresado " + comando
@@ -259,7 +259,7 @@ public class Consola extends javax.swing.JFrame {
         this.requestFocusInWindow();
     }// GEN-LAST:event_formWindowGainedFocus
 
-    /**
+     /**
      * Metodo que responde al seleccionar el item "cambiar password" del menu
      * Usuario.
      */

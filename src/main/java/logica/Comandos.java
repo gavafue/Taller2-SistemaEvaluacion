@@ -11,11 +11,9 @@ import java.util.Map;
  *
  * @author
  * @since version 1 if
- *        (this.getListaUsuarios().existeUsuarioLogin(nombreUsuario,contrasenia)){
- *        //Si
- *        el usuario se encuentra en el hash
- *        JOptionPane.showMessageDialog(Login.this,
- *        "Login exitoso");
+ * (this.getListaUsuarios().existeUsuarioLogin(nombreUsuario,contrasenia)){ //Si
+ * el usuario se encuentra en el hash JOptionPane.showMessageDialog(Login.this,
+ * "Login exitoso");
  *
  */
 public class Comandos {
@@ -33,7 +31,7 @@ public class Comandos {
      * Este metodo dado el nombre del comando y sus caracteristicas lo agrega al
      * HashMap.
      *
-     * @param nombre  del comando
+     * @param nombre del comando
      * @param comando
      */
     public void agregarComando(String nombre, Comando comando) {
@@ -100,7 +98,7 @@ public class Comandos {
 
         // Instancio los comandos
         Comando com0 = new Comando(
-                "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod]",
+                "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n\nSi desea conocer algún comando en particular:\n\nman [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
                 "\nEjemplo: ls /etc \n\nLista el contenido del directorio /etc\n\n", null);
@@ -132,7 +130,7 @@ public class Comandos {
         // head RF31.
         Comando com12 = new Comando("Mostrar las primeras líneas de un archivo. ",
                 "\nEjemplo: head [opción] [argumento]", null); // admite como opciones “-n [número]” si no se
-                                                               // especifica, las primeras 10.
+        // especifica, las primeras 10.
         // cut RF34 Violeta: Gonza?
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
                 "\nEjemplo: cut [opción] [argumento]", null); // admite como opciones “-d [delimitador]"
@@ -144,6 +142,10 @@ public class Comandos {
                 null); // opciones disponibles “-n” para ordenar numéricamente.
         Comando com15 = new Comando("Para modificar los permisos asignados en un archivo o directorio ",
                 "\nEjemplos: \nchmod rwxrwxrwx arch1\n chmod 555 arch1", null);
+
+        // RF39. La consola permitirá el uso de pipe ( | ) entre los comandos tail, grep y head. La sintaxis para el uso del pipe sería la siguiente “comando1 | comando2”
+        Comando com16 = new Comando("Para redirigir la salida del primer comando hacia la entrada del segundo.\nPrimer comando debe ser tail o head. El segundo, grep (sin especificiar archivo).", "\nEjemplo: comando1 | comando2 \nEjemplo 2: head arch1 | grep INET", null);
+
         // ###################################################################################################################################################
         agregarComando("man", com0);
         agregarComando("ls", com1);
@@ -163,6 +165,7 @@ public class Comandos {
         agregarComando("cut", com13);
         agregarComando("sort", com14);
         agregarComando("chmod", com15);
+        agregarComando("|", com16);
 
         /*
          * try {
