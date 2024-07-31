@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -80,7 +79,7 @@ public class Consola extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -100,7 +99,6 @@ public class Consola extends javax.swing.JFrame {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
@@ -108,12 +106,12 @@ public class Consola extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
 
-        lblPrompt.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
-        lblPrompt.setForeground(new java.awt.Color(204, 204, 204));
+        lblPrompt.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        lblPrompt.setForeground(new java.awt.Color(51, 255, 51));
         lblPrompt.setText("[Consola@inet]:~$");
 
         txtComando.setBackground(new java.awt.Color(0, 0, 0));
-        txtComando.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        txtComando.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
         txtComando.setForeground(new java.awt.Color(204, 204, 204));
         txtComando.setBorder(null);
         txtComando.setCaretColor(new java.awt.Color(0, 255, 51));
@@ -133,7 +131,7 @@ public class Consola extends javax.swing.JFrame {
         txtOutput.setEditable(false);
         txtOutput.setBackground(new java.awt.Color(0, 0, 0));
         txtOutput.setColumns(20);
-        txtOutput.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        txtOutput.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
         txtOutput.setForeground(new java.awt.Color(204, 204, 204));
         txtOutput.setLineWrap(true);
         txtOutput.setRows(5);
@@ -146,7 +144,7 @@ public class Consola extends javax.swing.JFrame {
         });
         scrlOutput.setViewportView(txtOutput);
 
-        lblPenguin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pingusmall.png"))); // NOI18N
+        lblPenguin.setIcon(new javax.swing.ImageIcon("B:\\INET\\REPO\\src\\main\\java\\img\\pingusmall.png")); // NOI18N
         lblPenguin.setBorder(new javax.swing.border.MatteBorder(null));
         lblPenguin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,36 +155,31 @@ public class Consola extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(lblPrompt)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 757,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap()));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPrompt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 418,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPenguin)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComando))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblPenguin)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("Usuario");
 
@@ -205,12 +198,13 @@ public class Consola extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -252,11 +246,12 @@ public class Consola extends javax.swing.JFrame {
     }// GEN-LAST:event_txtComandoActionPerformed
 
     private void lblPenguinMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblPenguinMouseClicked
-        txtComando.requestFocus();
+        txtComando.requestFocus();        
     }// GEN-LAST:event_lblPenguinMouseClicked
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowGainedFocus
         this.requestFocusInWindow();
+        txtComando.requestFocus();
     }// GEN-LAST:event_formWindowGainedFocus
 
      /**
