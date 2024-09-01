@@ -1,28 +1,39 @@
 package gui;
 
+import conexion.Cliente;
 import java.awt.Color;
-import java.awt.Font;
+import java.io.IOException;
 import javax.swing.*;
-import logica.*;
 
-/**
- * Esta clase consiste en la interfaz del login de usuario.
- *
- * @author
- * @since version 2
- */
 public class Login extends javax.swing.JFrame {
 
-    private Usuarios listaUsuarios = new Usuarios();
-
-    public Login() {
+    private Cliente cliente;
+    
+    public Login() throws IOException {
         initComponents();
-        setLocationRelativeTo(null); //Centrar
+        setLocationRelativeTo(null); // Jframe
+        cliente = new Cliente();
+        
+        //Intento de conexion
+        try { //Online
+            cliente.establecerConexion();
+            cliente.getConexion().probarConexion();
+            lblServidor.setForeground(Color.GREEN);
+            lblServidor.setText("[online]");
+        } catch (IOException e) { //Offline
+            lblServidor.setForeground(Color.red);
+            lblServidor.setText("[offline]");
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "El servidor no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-
-    //Getter de la lista de usuarios
-    public Usuarios getListaUsuarios() {
-        return listaUsuarios;
+        
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public void setCliente(Cliente cliente){
+        this.cliente = cliente;
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +48,8 @@ public class Login extends javax.swing.JFrame {
         cboxMostrarContraseña = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblServidor = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
 
@@ -54,10 +67,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnIngresar.setBackground(new java.awt.Color(102, 102, 102));
-        btnIngresar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
+        btnIngresar.setBackground(new java.awt.Color(0, 0, 51));
+        btnIngresar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -67,7 +80,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtUsuario.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        txtUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        txtUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
         txtUsuario.setToolTipText("");
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,10 +90,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtContrasenia.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtContrasenia.setForeground(new java.awt.Color(0, 0, 0));
 
-        cboxMostrarContraseña.setBackground(new java.awt.Color(204, 204, 204));
-        cboxMostrarContraseña.setFont(new java.awt.Font("Lucida Console", 2, 14)); // NOI18N
+        cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        cboxMostrarContraseña.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         cboxMostrarContraseña.setForeground(new java.awt.Color(51, 51, 51));
         cboxMostrarContraseña.setText("Mostrar contraseña");
         cboxMostrarContraseña.setBorder(null);
@@ -88,40 +105,59 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Contraseña:");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Usuario:");
+
+        lblServidor.setBackground(new java.awt.Color(0, 0, 0));
+        lblServidor.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        lblServidor.setForeground(new java.awt.Color(0, 255, 0));
+        lblServidor.setOpaque(true);
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Ingresa tu cédula y contraseña para iniciar sesión en el sistema");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblServidor))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxMostrarContraseña)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(175, Short.MAX_VALUE))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxMostrarContraseña)
+                                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,32 +167,32 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(cboxMostrarContraseña)
-                .addGap(43, 43, 43)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(64, 64, 64)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(lblServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        lblLogin.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
+        lblLogin.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         lblLogin.setForeground(new java.awt.Color(255, 255, 255));
-        lblLogin.setText("Login");
+        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogin.setText("Iniciar sesión");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogin)
-                .addGap(256, 256, 256))
+            .addComponent(lblLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -164,10 +200,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,22 +224,27 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
+    //Cliente solicita ingreso a partir de "ci;;;contraseña,;,Usuarios,;,Login"
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String nombreUsuario = txtUsuario.getText();
-        String contrasenia = new String(txtContrasenia.getPassword());
-
-        if ("87654321".equals(nombreUsuario) && "87654321".equals(contrasenia)) {
-            JOptionPane.showMessageDialog(Login.this, "Bienvenido al registro.");
-            Registro registro = new Registro();
-            registro.setVisible(true);
-            this.dispose();
-        } else if (this.getListaUsuarios().existeUsuarioLogin(nombreUsuario, contrasenia)) {
-            JOptionPane.showMessageDialog(Login.this, "Login exitoso");
-            Consola consola = new Consola(new Usuario(nombreUsuario, contrasenia));
-            consola.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(Login.this, "Usuario o contraseña incorrectos");
+        try {
+            String ci = txtUsuario.getText();
+            String contrasenia = new String(txtContrasenia.getPassword());
+            String instruccion = cliente.formatearMensaje(ci + ";;;" + contrasenia, "Usuarios", "Login");
+            cliente.intercambiarMensajes(instruccion);
+            
+            System.out.println(cliente.getRespuesta() + "\n"); //Temporal para ver la respuesta del servidor por consola            
+            
+            cliente.setId(ci);//El id cliente es la ci del usuario
+            if (cliente.ventanaInicial()) {//Método que valida rol y código recibido
+                JOptionPane.showMessageDialog(Login.this, "Login exitoso");
+                this.dispose();
+            } else {
+               JOptionPane.showMessageDialog(this, "Login fallido", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "El servidor se ha desconectado.", "Error", JOptionPane.ERROR_MESSAGE);
+            lblServidor.setForeground(Color.RED);
+            lblServidor.setText("[offline]");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -223,10 +261,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JCheckBox cboxMostrarContraseña;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblServidor;
     private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

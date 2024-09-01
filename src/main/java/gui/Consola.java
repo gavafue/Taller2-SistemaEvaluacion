@@ -5,7 +5,10 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import logica.*;
+import consola.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Consola extends javax.swing.JFrame {
 
@@ -13,17 +16,17 @@ public class Consola extends javax.swing.JFrame {
     private Comandos hashComandos;
     private Ficheros listaFicheros;
     private Procesos listaProcesos;
-    private Usuario usuarioActual;
 
     // Constructor
-    public Consola(Usuario usuario) {
+    public Consola() {
         initComponents();
-        setLocationRelativeTo(null);// centrar
+        setLocationRelativeTo(null); //centrar
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); //No detener el programa al cerrar
+        
         hashComandos = new Comandos();
         listaFicheros = new Ficheros();
         listaFicheros.cargarPrimerNivel();
-        listaProcesos = new Procesos();
-        usuarioActual = usuario;
+        listaProcesos = new Procesos(); 
     }
 
     // Getters
@@ -88,9 +91,6 @@ public class Consola extends javax.swing.JFrame {
         scrlOutput = new javax.swing.JScrollPane();
         txtOutput = new javax.swing.JTextArea();
         lblPenguin = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -144,7 +144,6 @@ public class Consola extends javax.swing.JFrame {
         });
         scrlOutput.setViewportView(txtOutput);
 
-        lblPenguin.setIcon(new javax.swing.ImageIcon("B:\\INET\\REPO\\src\\main\\java\\img\\pingusmall.png")); // NOI18N
         lblPenguin.setBorder(new javax.swing.border.MatteBorder(null));
         lblPenguin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -181,20 +180,6 @@ public class Consola extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Usuario");
-
-        jMenuItem1.setText("Cambiar password");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +188,7 @@ public class Consola extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -229,10 +214,14 @@ public class Consola extends javax.swing.JFrame {
         Boolean comandoEsCorrecto = validador.validarComando(hashComandos);
         String[] tokens = validador.getTokens();
         Ejecutar ejecutar = new Ejecutar(tokens);
-        if (comando.equals("exit")) { // Comando salir
+        if (comando.equals("exit")) { try {
+            // Comando salir
             Login login = new Login();
             login.setVisible(true);
             this.dispose();
+            } catch (IOException ex) {
+                Logger.getLogger(Consola.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             if (comandoEsCorrecto) {
                 String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
@@ -254,26 +243,7 @@ public class Consola extends javax.swing.JFrame {
         txtComando.requestFocus();
     }// GEN-LAST:event_formWindowGainedFocus
 
-     /**
-     * Metodo que responde al seleccionar el item "cambiar password" del menu
-     * Usuario.
-     */
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
-        Usuarios hashUsuarios = new Usuarios();
-        String nuevaPass = JOptionPane.showInputDialog(this, "Ingrese nueva password para su usuario: ",
-                "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
-        if (nuevaPass != null && !nuevaPass.isBlank()) {
-            hashUsuarios.actualizarContrasenia(usuarioActual.getNombreUsuario(), nuevaPass);
-            JOptionPane.showMessageDialog(this, "Su password fue cambiada con éxito en la persistencia.");
-        } else {
-            JOptionPane.showMessageDialog(this, "NO SE MODIFICO. La password no puede ser vacia.");
-        }
-    }// GEN-LAST:event_jMenuItem1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPenguin;
     private javax.swing.JLabel lblPrompt;

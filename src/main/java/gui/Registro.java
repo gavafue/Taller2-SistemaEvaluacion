@@ -1,33 +1,19 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import conexion.Cliente;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import logica.*;
 
-/**
- * Esta clase consiste en la interfaz del login de usuario.
- *
- * @author
- * @since version 2
- */
 public class Registro extends javax.swing.JFrame {
 
-    private Usuarios listaUsuarios = new Usuarios();
+    private Cliente cliente;
 
-    public Registro() {
+    public Registro(Cliente cli) {
+        this.cliente = cli;
         initComponents();
         setLocationRelativeTo(null); //Centrar
-    }
-
-    //Getter de la lista de usuarios
-    public Usuarios getListaUsuarios() {
-        return listaUsuarios;
     }
 
     @SuppressWarnings("unchecked")
@@ -59,9 +45,9 @@ public class Registro extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnRegistrar.setBackground(new java.awt.Color(102, 102, 102));
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 51));
         btnRegistrar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
@@ -72,7 +58,9 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        txtCedula.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        txtCedula.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtCedula.setForeground(new java.awt.Color(0, 0, 0));
         txtCedula.setToolTipText("");
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,11 +68,13 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        txtContrasenia.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
+        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtContrasenia.setForeground(new java.awt.Color(0, 0, 0));
 
-        cboxMostrarContraseña.setBackground(new java.awt.Color(204, 204, 204));
-        cboxMostrarContraseña.setFont(new java.awt.Font("Lucida Console", 2, 14)); // NOI18N
-        cboxMostrarContraseña.setForeground(new java.awt.Color(51, 51, 51));
+        cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        cboxMostrarContraseña.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        cboxMostrarContraseña.setForeground(new java.awt.Color(0, 0, 0));
         cboxMostrarContraseña.setText("Mostrar contraseña");
         cboxMostrarContraseña.setBorder(null);
         cboxMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -93,11 +83,11 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Contraseña:");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Cedula:");
 
@@ -106,22 +96,24 @@ public class Registro extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxMostrarContraseña)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(175, Short.MAX_VALUE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxMostrarContraseña)
+                                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,32 +128,30 @@ public class Registro extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(cboxMostrarContraseña)
-                .addGap(43, 43, 43)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(60, 60, 60)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        lblRegistro.setFont(new java.awt.Font("Cascadia Code", 0, 48)); // NOI18N
+        lblRegistro.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
         lblRegistro.setForeground(new java.awt.Color(255, 255, 255));
+        lblRegistro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistro.setText("Registro");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addComponent(lblRegistro)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(lblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -169,10 +159,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,86 +183,48 @@ public class Registro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
+    //Cliente solicita crear usuario con "ci;;;contraseña,;,Usuarios,;,Alta"
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // Obtener los valores ingresados por el usuario
-        String cedula = txtCedula.getText().trim();
-        String contrasenia = new String(txtContrasenia.getPassword());
-
-        boolean registroExitoso = false; // Bandera para controlar el registro
-
-        // Validar que se ingresen ambos valores antes de proceder
-        if (cedula.isEmpty() || contrasenia.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar la cédula y la contraseña.");
-        } else {
-            // Validar que la cédula tenga exactamente 8 caracteres y sean todos numéricos
-            boolean todosNumeros = true;
-            if (cedula.length() != 8) {
-                todosNumeros = false;
-            } else {
-                for (int i = 0; i < cedula.length(); i++) {
-                    if (!Character.isDigit(cedula.charAt(i))) {
-                        todosNumeros = false;
-                        break; // Salir del bucle al encontrar un carácter no numérico
+        try {
+            // Obtener los valores ingresados por el usuario
+            String cedula = txtCedula.getText().trim();
+            String contrasenia = new String(txtContrasenia.getPassword());
+            
+            if(comprobarValidez(cedula)){
+                String instruccion = cliente.formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
+                try {
+                    cliente.intercambiarMensajes(instruccion);
+                    System.out.println(cliente.getRespuesta() + "\n");//Temporal para ver la respuesta del servidor por consola
+                    if (cliente.obtenerCodigo().equals("200")) {
+                        JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                     }
+                } catch (IOException ex) {
+                    Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }else{
+                JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
-
-            if (!todosNumeros) {
-                JOptionPane.showMessageDialog(this, "La cédula debe contener exactamente 8 dígitos numéricos.");
-            } else {
-                // Verificar si la cédula ya está registrada antes de guardar
-                boolean cedulaRegistrada = false;
-                try (BufferedReader reader = new BufferedReader(new FileReader("passwords.txt"))) {
-                    String linea;
-                    while ((linea = reader.readLine()) != null) {
-                        String[] partes = linea.split(";");
-                        if (partes.length > 0 && partes[0].equals(cedula)) {
-                            cedulaRegistrada = true;
-                            break; // Salir del bucle si encuentra la cédula registrada
-                        }
-                    }
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Error al intentar verificar la cédula.");
-                    e.printStackTrace(); // Mostrar el error en la consola para debug
-                }
-
-                if (cedulaRegistrada) {
-                    JOptionPane.showMessageDialog(this, "La cédula ya está registrada.");
-                } else {
-                    // Registro válido, proceder a guardar en el archivo passwords.txt
-                    try (BufferedWriter writer = new BufferedWriter(new FileWriter("passwords.txt", true))) {
-                        writer.write(cedula + ";" + contrasenia);
-                        writer.newLine(); // Nueva línea para el próximo registro
-
-                        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
-
-                        // Limpiar campos después del registro exitoso
-                        txtCedula.setText("");
-                        txtContrasenia.setText("");
-
-                        registroExitoso = true; // Marcar el registro como exitoso
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(this, "Error al intentar guardar el usuario.");
-                        e.printStackTrace(); // Mostrar el error en la consola para debug
-                    }
-                }
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        // Si el registro fue exitoso, cerrar la ventana actual y mostrar la ventana de login
-        if (registroExitoso) {
-            this.dispose();
-            Login login = new Login();
-            login.setVisible(true);
-        }
+       
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    //Este método manda al server a verificar si el título es válido
+    private boolean comprobarValidez(String cedula) throws IOException {
+        String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Existencia");
+        cliente.intercambiarMensajes(instruccion);
+        return cliente.obtenerCodigo().equals("200");
+    }
+       
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
 
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
