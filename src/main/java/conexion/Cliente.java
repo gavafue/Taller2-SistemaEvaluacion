@@ -71,6 +71,7 @@ public class Cliente {
     public void intercambiarMensajes(String instruccion) throws IOException{
         this.establecerConexion();
         this.setInstruccion(instruccion);
+        System.out.println(instruccion);
         this.getConexion().enviarMensaje(this.instruccion);
         this.setRespuesta(this.getConexion().recibirMensaje());
     }
@@ -83,9 +84,7 @@ public class Cliente {
     
     
     
-    /*--------------MANEJO DE INTERFAZ--------------*/
-    
-    
+    /*--------------MANEJO DE INTERFAZ--------------*/ 
     
     //El server válida el login con la instrucción "rol,;,200"
     public boolean ventanaInicial() throws FileNotFoundException, IOException {
@@ -124,7 +123,7 @@ public class Cliente {
         framePregunta.setVisible(true);
 
         switch (tipo) {
-            case "MultipleOpcion":
+            case "Multiple":
                 framePregunta.getLblEnunciadoMultiple().setText(enunciado);//Se carga el enunciado en Label                
                 framePregunta.getTxtRespuesta().setVisible(false);
                 framePregunta.getCboxOpciones().setVisible(true);
@@ -145,10 +144,10 @@ public class Cliente {
                 framePregunta.getTxtOpc4().setEnabled(false);
                 framePregunta.getBtnFinalizarMultiple().setText("Siguiente");
                 break;
-            case "VerdaderoFalso":
+            case "VF":
+                multiple.setVisible(false);
                 framePregunta.getTxtEnunciadoVF().setText(enunciado);//Se carga el enunciado en el txtArea  
                 espacios.setVisible(true);
-                multiple.setVisible(false);
                 framePregunta.getTxtRespuesta().setVisible(false);
                 framePregunta.getPanel().setVisible(true);
                 framePregunta.getCboxVerdaderoOFalso().setVisible(true);
@@ -158,6 +157,7 @@ public class Cliente {
                 framePregunta.getBtnFinalizar().setText("Siguiente");
                 break;
             case "Completar":
+                multiple.setVisible(false);
                 framePregunta.getTxtEnunciadoVF().setText(enunciado);//Se carga el enunciado en el txtArea    
                 framePregunta.getCboxVerdaderoOFalso().setVisible(false);
                 framePregunta.getTxtRespuesta().setVisible(true);
