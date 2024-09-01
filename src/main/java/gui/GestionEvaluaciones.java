@@ -59,7 +59,11 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
+        btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
+        btnAgregar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +71,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(51, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +81,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
+        tableEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -97,6 +106,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
+        btnHistorico.setBackground(new java.awt.Color(0, 51, 51));
+        btnHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setText("Historico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,10 +116,11 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lblTitulo.setText("Evaluaciones");
 
         btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
@@ -116,8 +129,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        lblUsuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblUsuario.setText("Usuario: ");
 
+        btnActualizarPassword.setBackground(new java.awt.Color(102, 102, 102));
+        btnActualizarPassword.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnActualizarPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarPassword.setText("Actualizar Contraseña");
         btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
