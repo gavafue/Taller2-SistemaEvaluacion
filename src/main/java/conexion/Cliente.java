@@ -71,7 +71,7 @@ public class Cliente {
     public void intercambiarMensajes(String instruccion) throws IOException{
         this.establecerConexion();
         this.setInstruccion(instruccion);
-        System.out.println(instruccion);
+        //System.out.println(instruccion);
         this.getConexion().enviarMensaje(this.instruccion);
         this.setRespuesta(this.getConexion().recibirMensaje());
     }

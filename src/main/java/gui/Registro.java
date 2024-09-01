@@ -190,11 +190,11 @@ public class Registro extends javax.swing.JFrame {
             String cedula = txtCedula.getText().trim();
             String contrasenia = new String(txtContrasenia.getPassword());
             
-            if(comprobarValidez(cedula)){
+            if (comprobarValidez(cedula) && !comprobarExistencia(cedula)) {
                 String instruccion = cliente.formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
                 try {
                     cliente.intercambiarMensajes(instruccion);
-                    System.out.println(cliente.getRespuesta() + "\n");//Temporal para ver la respuesta del servidor por consola
+                    //System.out.println(cliente.getRespuesta() + "\n");//Temporal para ver la respuesta del servidor por consola
                     if (cliente.obtenerCodigo().equals("200")) {
                         JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -214,6 +214,12 @@ public class Registro extends javax.swing.JFrame {
 
     //Este método manda al server a verificar si el título es válido
     private boolean comprobarValidez(String cedula) throws IOException {
+        String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Validez");
+        cliente.intercambiarMensajes(instruccion);
+        return cliente.obtenerCodigo().equals("200");
+    }
+
+    private boolean comprobarExistencia(String cedula) throws IOException {
         String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Existencia");
         cliente.intercambiarMensajes(instruccion);
         return cliente.obtenerCodigo().equals("200");
