@@ -59,11 +59,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
-        btnAgregar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,9 +68,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setBackground(new java.awt.Color(51, 0, 0));
-        btnEliminar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +75,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
-        tableEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -106,9 +98,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
-        btnHistorico.setBackground(new java.awt.Color(0, 51, 51));
-        btnHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setText("Historico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,11 +105,10 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
         lblTitulo.setText("Evaluaciones");
 
         btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
-        btnRealizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,12 +117,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        lblUsuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblUsuario.setText("Usuario: ");
 
-        btnActualizarPassword.setBackground(new java.awt.Color(102, 102, 102));
-        btnActualizarPassword.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnActualizarPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarPassword.setText("Actualizar Contraseña");
         btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,9 +233,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione la evaluación a realizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-                String aEnviar = cliente.formatearMensaje(titulo, "ListaPreguntas", "0");//Solicita la Pregunta 0 de una evaluacion
+                String aEnviar = cliente.formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta");//Solicita la Pregunta 0 de una evaluacion
                 //El servidor deberia responder con:
                 //TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
                 cliente.intercambiarMensajes(aEnviar);
@@ -259,20 +242,18 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
 
                 String[] pregunta = cliente.obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;               
 
-                if ((cliente.obtenerCodigo().equals("200")) && (pregunta.length >= 3 && pregunta.length <= 7)) {
+                if (cliente.obtenerCodigo().equals("200")) {
                     //compruebo si la respuesta del servidor fue exitosa y si la pregunta tiene la cantidad de tokens correcta
                     //MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
                     //VerdaderoFalso;;;Enunciado;;;puntaje
                     //Completar;;;Enunciado;;;puntaje
                     AltaPregunta framePregunta = new AltaPregunta(null, cliente);
-                    framePregunta.setRespuestas("Respuestas de usuario:"+cliente.getId());
+                    framePregunta.setRespuestas(cliente.getId()+";;;"+titulo);//Ya cargo en el string respuestas el idUsuario y la evaluacion.
                     framePregunta.setEvaluacion(titulo);
                     cliente.cargarEnGui(pregunta,framePregunta);//se carga la pregunta en la ventana correspondiente                  
-
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }

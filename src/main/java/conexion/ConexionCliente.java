@@ -22,24 +22,17 @@ public class ConexionCliente {
         in = new DataInputStream(soc.getInputStream());
         out = new DataOutputStream(soc.getOutputStream());
     }
-
+    
     public void cerrarConexion() throws IOException {
         soc.close();
     }
 
     public void enviarMensaje(String mensaje) throws IOException {
         out.writeUTF(mensaje);//Es necesario manejar las excepciones
-        System.out.println(" < Comunicacion enviada: " + mensaje);
     }
 
     public String recibirMensaje() throws IOException {
-        String mensaje = "";
-        try {
-            mensaje = in.readUTF();
-            System.out.println(" > Comunicacion recibida: " + mensaje);
-        } catch (IOException e) {
-            System.err.println("! Error al leer el mensaje: " + e.getMessage());
-        }
+        String mensaje = in.readUTF();//Es necesario manejar las excepciones
         return mensaje;
     }
 
@@ -56,16 +49,14 @@ public class ConexionCliente {
     }
 
     public boolean probarConexion() throws IOException {
-        boolean online = false; //Se supone falso hasta que responda el server.
+        boolean online;
         try {
             enviarMensaje(obtenerDireccionIP() + ",;," + "Prueba" + ",;," + "Conexion");
-            //System.out.println(recibirMensaje());//Se podria establecer una respuesta concreta del server
+            System.out.println(recibirMensaje());//Se podria establecer una respuesta concreta del server
             //para validar la conexion
-            if (this.recibirMensaje().contains("200")) {
             online = true;
-            }
         } catch (IOException ex) {
-            System.out.println("! Error" + ex.getMessage());
+            System.out.println(ex.getMessage());
             online = false;
         }
         cerrarConexion();

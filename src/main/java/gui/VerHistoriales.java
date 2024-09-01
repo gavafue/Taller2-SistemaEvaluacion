@@ -34,13 +34,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
 
-        jScrollPane2.setForeground(new java.awt.Color(204, 204, 204));
-        jScrollPane2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-
-        tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
-        tableHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -66,9 +60,6 @@ public class VerHistoriales extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableHistorico);
 
-        btnAtras.setBackground(new java.awt.Color(102, 102, 102));
-        btnAtras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
