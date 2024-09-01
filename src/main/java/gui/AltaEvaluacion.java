@@ -54,6 +54,9 @@ public class AltaEvaluacion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jScrollPane1.setHorizontalScrollBar(null);
+
         PanelVista.setBackground(new java.awt.Color(204, 204, 204));
         PanelVista.setOpaque(false);
         PanelVista.setLayout(new javax.swing.BoxLayout(PanelVista, javax.swing.BoxLayout.Y_AXIS));
@@ -136,7 +139,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                             .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(32, 32, 32))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,7 +177,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         Font fuente = text.getFont();
         fuente = fuente.deriveFont(Font.ITALIC);
         text.setFont(fuente);
-        text.setForeground(Color.LIGHT_GRAY);
+        text.setForeground(Color.DARK_GRAY);
     }
 
     //Desactiva placeholder de ayuda
@@ -182,11 +185,11 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         Font fuente = text.getFont();
         fuente = fuente.deriveFont(Font.PLAIN);
         text.setFont(fuente);
-        text.setForeground(Color.white);
+        text.setForeground(Color.DARK_GRAY);
     }
 
     private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPreguntaActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { //Si el titulo es vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Ingrese el título de la evaluación")) { //Si el titulo es vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
@@ -215,7 +218,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { //Si el titulo esta vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Ingrese el título de la evaluación")) { //Si el titulo esta vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
         } else try {
             if ((AltaPregunta.getCantidadPreguntas() >= 3)) {
@@ -239,7 +242,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void txtTituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusGained
-        if (txtTitulo.getText().equals("Titulo de la Evaluacion")) {
+        if (txtTitulo.getText().equals("Ingrese el título de la evaluación")) {
             txtTitulo.setText(null);
             txtTitulo.requestFocus();
             TextoAyudaOff(txtTitulo);
@@ -249,7 +252,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusLost
         if (txtTitulo.getText().isBlank()) {
             TextoAyudaOn(txtTitulo);
-            txtTitulo.setText("Titulo de la Evaluacion");
+            txtTitulo.setText("Ingrese el título de la evaluación");
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
