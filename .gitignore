@@ -1,0 +1,41 @@
+# Directorios y archivos generados por NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+cache/
+
+# Archivos de configuración específicos del usuario
+nbactions.xml
+nb-configuration.xml
+
+# Logs
+hs_err_pid*.log
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Directorio de compilación de Maven
+target/
+
+# Archivos de configuración de Maven
+.mvn/
+!mvn/wrapper/maven-wrapper.jar
+
+# Archivos generados por Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+# Archivos de caché y temporales
+*.log
+*.tmp
+*.swp
+*.swo
+/target/classes
+/target/classes
+/target
