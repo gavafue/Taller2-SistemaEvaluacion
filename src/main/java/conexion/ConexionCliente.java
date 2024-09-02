@@ -29,10 +29,12 @@ public class ConexionCliente {
 
     public void enviarMensaje(String mensaje) throws IOException {
         out.writeUTF(mensaje);//Es necesario manejar las excepciones
+        System.out.println(" < Comunicacion enviada: " + mensaje); // Temporal. Solo a los efectos de ver qué respuesta se envia.
     }
 
     public String recibirMensaje() throws IOException {
         String mensaje = in.readUTF();//Es necesario manejar las excepciones
+        System.out.println(" > Comunicacion recibida: " + mensaje); // Temporal. Solo a los efectos de ver qué respuesta se recibe.
         return mensaje;
     }
 
@@ -52,7 +54,7 @@ public class ConexionCliente {
         boolean online;
         try {
             enviarMensaje(obtenerDireccionIP() + ",;," + "Prueba" + ",;," + "Conexion");
-            System.out.println(recibirMensaje());//Se podria establecer una respuesta concreta del server
+            //System.out.println(recibirMensaje());//Se podria establecer una respuesta concreta del server
             //para validar la conexion
             online = true;
         } catch (IOException ex) {

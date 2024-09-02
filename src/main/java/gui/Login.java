@@ -223,7 +223,7 @@ public class Login extends javax.swing.JFrame {
             String instruccion = cliente.formatearMensaje(ci + ";;;" + contrasenia, "Usuarios", "Login");
             cliente.intercambiarMensajes(instruccion);
             
-            System.out.println(cliente.getRespuesta() + "\n"); //Temporal para ver la respuesta del servidor por consola            
+            //System.out.println(cliente.getRespuesta() + "\n"); //Temporal para ver la respuesta del servidor por consola            
             
             cliente.setId(ci);//El id cliente es la ci del usuario
             if (cliente.ventanaInicial()) {//Método que valida rol y código recibido
