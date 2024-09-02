@@ -1,7 +1,9 @@
 package gui;
+
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,31 +19,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AltaPregunta extends javax.swing.JFrame {
+
     private String pregunta;
-   
+
     private String evaluacion;
     private String enunciado;
     private String tipoPregunta;
-    private String respuestas;        
+    private String respuestas;
     private static int cantidadPreguntas; //Atributo propio de a clase y no de la instancia
-    
-    
+
     //Atributos por constructor para no perderlos
     private Cliente cliente;
+
     private JPanel vistaPrevia; //Para poder intercambiar datos con la vista previa del Generador
- 
-    
-  
+
     public AltaPregunta(JPanel vistaPrevia, Cliente cli) {
         this.cliente = cli;
-        this.vistaPrevia = vistaPrevia;       
+        this.vistaPrevia = vistaPrevia;
         initComponents();
         setLocationRelativeTo(null); //Centrar JFrame
         panelEnunciado.setVisible(true); //Un panel en funcion del tipo de pregunta, por defecto el que permite crear el enunciado y seleccionar el tipo
         panelMultiple.setVisible(false);
         panelRespuesta.setVisible(false);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,18 +93,18 @@ public class AltaPregunta extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setResizable(false);
 
-        panelEnunciado.setBackground(new java.awt.Color(204, 204, 204));
+        panelEnunciado.setBackground(new java.awt.Color(255, 255, 255));
         panelEnunciado.setPreferredSize(new java.awt.Dimension(587, 227));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Console", 0, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("[Tipo]");
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 28)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Tipo");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Console", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("[Pregunta]");
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Pregunta");
 
-        cboxTipoPregunta.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        cboxTipoPregunta.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxTipoPregunta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rellenar espacios", "Multiple opción", "Verdadero o Falso" }));
         cboxTipoPregunta.setBorder(null);
         cboxTipoPregunta.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +114,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         });
 
         bntSiguiente.setBackground(new java.awt.Color(0, 0, 204));
-        bntSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bntSiguiente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         bntSiguiente.setForeground(new java.awt.Color(255, 255, 255));
         bntSiguiente.setText("Siguiente");
         bntSiguiente.setMaximumSize(new java.awt.Dimension(129, 27));
@@ -126,13 +126,17 @@ public class AltaPregunta extends javax.swing.JFrame {
             }
         });
 
+        txtEnunciado.setBackground(new java.awt.Color(204, 204, 204));
         txtEnunciado.setColumns(20);
-        txtEnunciado.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
+        txtEnunciado.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        txtEnunciado.setForeground(new java.awt.Color(0, 0, 0));
         txtEnunciado.setLineWrap(true);
         txtEnunciado.setRows(5);
         jScrollPane1.setViewportView(txtEnunciado);
 
-        btnConsola2.setText("Consola");
+        btnConsola2.setBackground(new java.awt.Color(0, 153, 255));
+        btnConsola2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnConsola2.setText("Abrir consola");
         btnConsola2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsola2ActionPerformed(evt);
@@ -158,7 +162,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                         .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboxTipoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lblSigno)
@@ -167,7 +171,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelEnunciadoLayout.setVerticalGroup(
             panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(btnConsola2))
@@ -184,35 +188,36 @@ public class AltaPregunta extends javax.swing.JFrame {
             .addComponent(lblSigno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        panelMultiple.setBackground(new java.awt.Color(204, 204, 204));
+        panelMultiple.setBackground(new java.awt.Color(255, 255, 255));
         panelMultiple.setPreferredSize(new java.awt.Dimension(587, 227));
         panelMultiple.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("[Opción 3]");
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Opción 3");
+        jLabel4.setToolTipText("");
         panelMultiple.add(jLabel4);
-        jLabel4.setBounds(20, 120, 144, 25);
+        jLabel4.setBounds(20, 120, 97, 32);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("[Opción 2]");
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Opción 2");
         panelMultiple.add(jLabel5);
-        jLabel5.setBounds(20, 90, 140, 25);
+        jLabel5.setBounds(20, 90, 140, 32);
 
-        jLabel6.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel6.setText("[Opción 4]");
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Opción 4");
         panelMultiple.add(jLabel6);
-        jLabel6.setBounds(20, 150, 150, 25);
+        jLabel6.setBounds(20, 150, 150, 32);
 
-        jLabel7.setFont(new java.awt.Font("Lucida Console", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("[Respuesta]");
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Respuesta");
         panelMultiple.add(jLabel7);
         jLabel7.setBounds(20, 210, 170, 30);
 
-        cboxOpciones.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        cboxOpciones.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         cboxOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Opción 1", "Opción 2", "Opción 3", "Opción 4" }));
         cboxOpciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +227,9 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelMultiple.add(cboxOpciones);
         cboxOpciones.setBounds(270, 210, 130, 30);
 
-        txtOpc1.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        txtOpc1.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        txtOpc1.setForeground(new java.awt.Color(0, 0, 0));
         txtOpc1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtOpc1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,27 +237,33 @@ public class AltaPregunta extends javax.swing.JFrame {
             }
         });
         panelMultiple.add(txtOpc1);
-        txtOpc1.setBounds(180, 60, 225, 22);
+        txtOpc1.setBounds(180, 60, 225, 30);
 
-        txtOpc3.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        txtOpc3.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc3.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        txtOpc3.setForeground(new java.awt.Color(0, 0, 0));
         txtOpc3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc3);
-        txtOpc3.setBounds(180, 120, 225, 22);
+        txtOpc3.setBounds(180, 120, 225, 30);
 
-        txtOpc2.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        txtOpc2.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc2.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        txtOpc2.setForeground(new java.awt.Color(0, 0, 0));
         txtOpc2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc2);
-        txtOpc2.setBounds(180, 90, 225, 22);
+        txtOpc2.setBounds(180, 90, 225, 30);
 
-        txtOpc4.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        txtOpc4.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc4.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        txtOpc4.setForeground(new java.awt.Color(0, 0, 0));
         txtOpc4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc4);
-        txtOpc4.setBounds(180, 150, 225, 22);
+        txtOpc4.setBounds(180, 150, 225, 30);
 
         panelPuntaje.setBackground(new java.awt.Color(0, 0, 51));
 
         btnFinalizarMultiple.setBackground(new java.awt.Color(51, 0, 204));
-        btnFinalizarMultiple.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFinalizarMultiple.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnFinalizarMultiple.setForeground(new java.awt.Color(255, 255, 255));
         btnFinalizarMultiple.setText("Finalizar");
         btnFinalizarMultiple.setMaximumSize(new java.awt.Dimension(129, 27));
@@ -262,14 +275,17 @@ public class AltaPregunta extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Lucida Console", 0, 26)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 26)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("[Puntaje]");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Puntaje");
 
-        spnPuntajeMultiple.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        spnPuntajeMultiple.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         spnPuntajeMultiple.setModel(new javax.swing.SpinnerNumberModel());
 
-        btnConsola.setText("Consola");
+        btnConsola.setBackground(new java.awt.Color(0, 153, 255));
+        btnConsola.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsola.setText("Abrir consola");
         btnConsola.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsolaActionPerformed(evt);
@@ -292,7 +308,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                                 .addGap(76, 76, 76)
                                 .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelPuntajeLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(59, 59, 59)
                         .addComponent(btnConsola)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -313,13 +329,14 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelMultiple.add(panelPuntaje);
         panelPuntaje.setBounds(440, 0, 230, 260);
 
-        jLabel8.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setText("[Opción 1]");
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Opción 1");
         panelMultiple.add(jLabel8);
-        jLabel8.setBounds(20, 60, 140, 25);
+        jLabel8.setBounds(20, 60, 140, 32);
 
-        lblEnunciadoMultiple.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        lblEnunciadoMultiple.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        lblEnunciadoMultiple.setForeground(new java.awt.Color(0, 0, 0));
         lblEnunciadoMultiple.setText(":P");
         lblEnunciadoMultiple.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -330,19 +347,19 @@ public class AltaPregunta extends javax.swing.JFrame {
             }
         });
         panelMultiple.add(lblEnunciadoMultiple);
-        lblEnunciadoMultiple.setBounds(20, 20, 370, 19);
+        lblEnunciadoMultiple.setBounds(20, 20, 370, 24);
 
-        panelRespuesta.setBackground(new java.awt.Color(0, 0, 51));
+        panelRespuesta.setBackground(new java.awt.Color(255, 255, 255));
         panelRespuesta.setPreferredSize(new java.awt.Dimension(587, 227));
 
-        jLabel9.setFont(new java.awt.Font("Lucida Console", 0, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("[Enunciado]");
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Enunciado");
 
-        txtEnunciadoVF.setBackground(new java.awt.Color(102, 102, 102));
+        txtEnunciadoVF.setBackground(new java.awt.Color(204, 204, 204));
         txtEnunciadoVF.setColumns(20);
-        txtEnunciadoVF.setFont(new java.awt.Font("Lucida Console", 2, 20)); // NOI18N
-        txtEnunciadoVF.setForeground(new java.awt.Color(255, 255, 255));
+        txtEnunciadoVF.setFont(new java.awt.Font("Dialog", 2, 20)); // NOI18N
+        txtEnunciadoVF.setForeground(new java.awt.Color(0, 0, 0));
         txtEnunciadoVF.setLineWrap(true);
         txtEnunciadoVF.setRows(5);
         jScrollPane3.setViewportView(txtEnunciadoVF);
@@ -350,14 +367,14 @@ public class AltaPregunta extends javax.swing.JFrame {
         panel.setBackground(new java.awt.Color(0, 0, 51));
         panel.setLayout(new java.awt.GridBagLayout());
 
-        lblTipo.setFont(new java.awt.Font("Lucida Console", 0, 30)); // NOI18N
+        lblTipo.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
         lblTipo.setForeground(new java.awt.Color(255, 255, 255));
         lblTipo.setText("[-]");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 19, 0);
         panel.add(lblTipo, gridBagConstraints);
 
-        cboxVerdaderoOFalso.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        cboxVerdaderoOFalso.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxVerdaderoOFalso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
         cboxVerdaderoOFalso.setAlignmentX(-2.0F);
         cboxVerdaderoOFalso.setAlignmentY(0.0F);
@@ -377,7 +394,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         panel.add(cboxVerdaderoOFalso, gridBagConstraints);
 
         btnFinalizarEspaciosVF.setBackground(new java.awt.Color(51, 0, 204));
-        btnFinalizarEspaciosVF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFinalizarEspaciosVF.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnFinalizarEspaciosVF.setForeground(new java.awt.Color(255, 255, 255));
         btnFinalizarEspaciosVF.setText("Finalizar");
         btnFinalizarEspaciosVF.setAlignmentY(0.0F);
@@ -408,14 +425,15 @@ public class AltaPregunta extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panel.add(txtRespuesta, gridBagConstraints);
 
-        spnPuntaje.setFont(new java.awt.Font("Lucida Console", 0, 15)); // NOI18N
+        spnPuntaje.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         spnPuntaje.setModel(new javax.swing.SpinnerNumberModel());
 
-        jLabel10.setFont(new java.awt.Font("Lucida Console", 0, 27)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("[Puntaje]");
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 27)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Puntaje");
 
-        btnConsola1.setText("Consola");
+        btnConsola1.setBackground(new java.awt.Color(0, 153, 255));
+        btnConsola1.setText("Abrir consola");
         btnConsola1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsola1ActionPerformed(evt);
@@ -432,7 +450,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     .addGroup(panelRespuestaLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConsola1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnConsola1))
                     .addGroup(panelRespuestaLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -440,7 +458,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spnPuntaje, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -462,7 +480,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     .addGroup(panelRespuestaLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -497,7 +515,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         tipoPregunta = (String) cboxTipoPregunta.getSelectedItem();
         this.remove(panelEnunciado);
 
-        lblTipo.setText("[Respuesta]");
+        lblTipo.setText("Respuesta");
         switch (tipoPregunta) {
             case "Verdadero o Falso":
                 txtEnunciadoVF.setText(enunciado);
@@ -511,8 +529,9 @@ public class AltaPregunta extends javax.swing.JFrame {
                 break;
             case "Rellenar espacios":
                 txtEnunciadoVF.setText(enunciado);
-                panelRespuesta.setBackground(Color.DARK_GRAY);
-                panel.setBackground(Color.DARK_GRAY);
+                lblTipo.setForeground(Color.black);
+                panelRespuesta.setBackground(new Color(255, 255, 255));
+                panel.setBackground(new Color(204, 204, 204));
                 panelRespuesta.setVisible(true);
                 txtRespuesta.setVisible(true);
                 cboxVerdaderoOFalso.setVisible(false);
@@ -532,7 +551,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     cantidadPreguntas++;
                     //String numeroPregunta = String.valueOf(cantidadPreguntas);
                     //EL numero de respuesta se convierte a String antes de pasarlo al metodo siguientePregunta
-                    siguientePregunta(String.valueOf(cboxOpciones.getSelectedIndex()+1) ,this);
+                    siguientePregunta(String.valueOf(cboxOpciones.getSelectedIndex() + 1), this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -556,9 +575,9 @@ public class AltaPregunta extends javax.swing.JFrame {
         if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {//Es el docente creando la pregunta
             cantidadPreguntas++;
             agregarPreguntaVistaPrevia();
-            if(tipoPregunta.equals("Verdadero o Falso")){
+            if (tipoPregunta.equals("Verdadero o Falso")) {
                 this.armarVF();
-            }else{
+            } else {
                 this.armarEspacios();
             }
             this.dispose();
@@ -573,7 +592,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     }
                     cantidadPreguntas++;
                     String numeroPregunta = String.valueOf(cantidadPreguntas);
-                    siguientePregunta(laRespuesta,this);
+                    siguientePregunta(laRespuesta, this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -608,7 +627,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         Consola consola = new Consola();
         consola.setVisible(true);
     }//GEN-LAST:event_btnConsola2ActionPerformed
-    
+
     //Getters de elementos visuales y respuestas de alumnos
     public JButton getBtnFinalizar() {
         return btnFinalizarEspaciosVF;
@@ -694,47 +713,50 @@ public class AltaPregunta extends javax.swing.JFrame {
         AltaPregunta.cantidadPreguntas = cantidadPreguntas;
     }
 
-    public  void setRespuestas(String respuestas) {
+    public void setRespuestas(String respuestas) {
         this.respuestas = respuestas;
     }
-    
+
     public void setEvaluacion(String evaluacion) {
         this.evaluacion = evaluacion;
     }
-       
+
     //Formato de pregunta "enunciado,,,Multiple,,,puntaje,,,op1,,,op2,,,op3,,,op4,,,respuesta" 
-    public void armarMultiple(){
+    public void armarMultiple() {
         pregunta = ";;;" + enunciado + ",,,Multiple,,," + this.getspnPuntajeMultiple().getValue() + ",,," + this.getTxtOpc1().getText() + ",,," + this.getTxtOpc2().getText() + ",,," + this.getTxtOpc3().getText() + ",,," + this.getTxtOpc4().getText() + ",,," + (this.getCboxOpciones().getSelectedIndex() + 1);
         cliente.concatenarMensaje(pregunta);
     }
-    
+
     //Formato de pregunta "enunciado,,,VF,,,puntaje,,,respuesta" 
-    public void armarVF(){
-        pregunta = ";;;" + enunciado + ",,,VF,,," + this.getspnPuntaje().getValue()+ ",,," + this.getCboxVerdaderoOFalso().getSelectedItem().toString();
+    public void armarVF() {
+        pregunta = ";;;" + enunciado + ",,,VF,,," + this.getspnPuntaje().getValue() + ",,," + this.getCboxVerdaderoOFalso().getSelectedItem().toString();
         cliente.concatenarMensaje(pregunta);
     }
-    
+
     //Formato de pregunta "enunciado,,,Completar,,,puntaje,,,respuestas separadas por espacio" 
-    public void armarEspacios(){
-        pregunta = ";;;" + enunciado + ",,,Completar,,," + this.getspnPuntaje().getValue()+ ",,," + this.getTxtRespuesta().getText();
+    public void armarEspacios() {
+        pregunta = ";;;" + enunciado + ",,,Completar,,," + this.getspnPuntaje().getValue() + ",,," + this.getTxtRespuesta().getText();
         cliente.concatenarMensaje(pregunta);
     }
-    
-    
+
     //Formato de respuestas "respuesta0;;;respuesta1;;;respuesta2;;;respuesta3
-    public void prepararRespuestas(String respuesta){
-        String [] tokens = respuesta.split(",;,");
+    public void prepararRespuestas(String respuesta) {
+        String[] tokens = respuesta.split(",;,");
         tokens = tokens[0].split(";;;");
         respuestas += ";;;" + tokens[0];
     }
-    
+
     //Agrega la pregunta a la evaluacion y genera la vista previa para el docente
     private void agregarPreguntaVistaPrevia() {
-        Font fuente = new Font("Lucida Console", Font.PLAIN, 15);
+        Font fuente = new Font("Dialog", Font.PLAIN, 15);
         String respuesta = "";
-        JLabel pregunta = new JLabel(cantidadPreguntas + "-" + enunciado);
+        // Establecer el ancho máximo permitido en píxeles
+        int anchoMaximo = 555; // Cambia este valor según el tamaño que desees
+
+// Crear el JLabel utilizando HTML para ajustar el texto
+        JLabel pregunta = new JLabel(cantidadPreguntas + " - " + enunciado);
         pregunta.setOpaque(true);
-        pregunta.setFont(new java.awt.Font("Lucida Console", 0, 18));
+        pregunta.setFont(new java.awt.Font("Dialog", 0, 18));
         pregunta.setForeground(new java.awt.Color(255, 255, 255));
         pregunta.setBackground(new java.awt.Color(0, 0, 0));
         vistaPrevia.add(pregunta);
@@ -742,11 +764,11 @@ public class AltaPregunta extends javax.swing.JFrame {
         switch (tipoPregunta) {
             case "Verdadero o Falso": //Vista como una multiple opcion de dos opciones
                 respuesta = (String) cboxVerdaderoOFalso.getSelectedItem();
-                 break;
+                break;
             case "Multiple opción":
                 respuesta = (String) cboxOpciones.getSelectedItem();
                 String[] opciones = {txtOpc1.getText(), txtOpc2.getText(), txtOpc3.getText(), txtOpc4.getText()};
-               
+
                 //RadioButtons
                 JRadioButton opc1 = new JRadioButton(txtOpc1.getText());
                 JRadioButton opc2 = new JRadioButton(txtOpc2.getText());
@@ -769,7 +791,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                 break;
             case "Rellenar espacios":
                 respuesta = txtRespuesta.getText();
-               
+
                 break;
         }
         JLabel lblRespuesta = new JLabel("Respuesta: " + respuesta);
@@ -790,10 +812,10 @@ public class AltaPregunta extends javax.swing.JFrame {
             if (finalizar == JOptionPane.YES_OPTION) {
                 String enviarRespuestas = cliente.formatearMensaje(respuestas, "Evaluaciones", "Correccion");
                 cliente.intercambiarMensajes(enviarRespuestas);
-                    System.out.println(respuestas);
-                    System.out.println(cliente.getRespuesta());
-                    cantidadPreguntas = 0;
-                    this.dispose();
+                System.out.println(respuestas);
+                System.out.println(cliente.getRespuesta());
+                cantidadPreguntas = 0;
+                this.dispose();
             } else if (finalizar == JOptionPane.NO_OPTION) {
                 System.out.println("Usuario seleccionó No.");
                 cantidadPreguntas = 0;

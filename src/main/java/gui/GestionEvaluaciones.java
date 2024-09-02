@@ -10,9 +10,8 @@ import java.io.IOException;
 
 public class GestionEvaluaciones extends javax.swing.JFrame {
 
-    private Cliente cliente;    
+    private Cliente cliente;
     private String rol;
-    
 
     //Se pasa por constructor el objeto cliente y conexioncliente instanciados en el login
     public GestionEvaluaciones(Cliente cli, String rol) throws FileNotFoundException, IOException {
@@ -23,7 +22,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         determinarRol();//Se muestran determinados botones dependiendo del rol
         cargarTabla();
         System.out.println(cliente.getId());
-        lblUsuario.setText("Usuario: "+cliente.getId());
+        lblUsuario.setText("Usuario: " + cliente.getId());
     }
 
     @SuppressWarnings("unchecked")
@@ -59,8 +58,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
+        btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
+        btnAgregar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +71,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(51, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +81,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
+        tableEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tableEvaluaciones.setForeground(new java.awt.Color(0, 0, 0));
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -98,6 +107,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
+        btnHistorico.setBackground(new java.awt.Color(0, 51, 51));
+        btnHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setText("Historico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,10 +117,11 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Lucida Console", 0, 24)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lblTitulo.setText("Evaluaciones");
 
         btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +130,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        lblUsuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblUsuario.setText("Usuario: ");
 
+        btnActualizarPassword.setBackground(new java.awt.Color(102, 102, 102));
+        btnActualizarPassword.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnActualizarPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarPassword.setText("Actualizar Contraseña");
         btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,9 +265,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                     //VerdaderoFalso;;;Enunciado;;;puntaje
                     //Completar;;;Enunciado;;;puntaje
                     AltaPregunta framePregunta = new AltaPregunta(null, cliente);
-                    framePregunta.setRespuestas(cliente.getId()+";;;"+titulo);//Ya cargo en el string respuestas el idUsuario y la evaluacion.
+                    framePregunta.setRespuestas(cliente.getId() + ";;;" + titulo);//Ya cargo en el string respuestas el idUsuario y la evaluacion.
                     framePregunta.setEvaluacion(titulo);
-                    cliente.cargarEnGui(pregunta,framePregunta);//se carga la pregunta en la ventana correspondiente                  
+                    cliente.cargarEnGui(pregunta, framePregunta);//se carga la pregunta en la ventana correspondiente                  
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -265,15 +282,15 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                 "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
         if (contrasenia != null && !contrasenia.isBlank()) {
             try {
-                cliente.intercambiarMensajes(cliente.getId()+";;;"+contrasenia+",;,Usuarios,;,CambioPassword");
+                cliente.intercambiarMensajes(cliente.getId() + ";;;" + contrasenia + ",;,Usuarios,;,CambioPassword");
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
-          if(cliente.obtenerCodigo().equals("200")){
-              JOptionPane.showMessageDialog(this, "Modificada con éxito");
-          }else{
-              JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
-          }
+            if (cliente.obtenerCodigo().equals("200")) {
+                JOptionPane.showMessageDialog(this, "Modificada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "NO SE MODIFICO. La password no puede ser vacia.");
         }
@@ -284,7 +301,14 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");//Instruccion para solicitar los titulos de las evaluaciones
         String[] titulos = cliente.obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;        
         if (cliente.obtenerCodigo().equals("200")) {//La respuesta es exitosa
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Todas las celdas no serán editables
+                }
+            };
+
+            // Agregar la columna de "Títulos"
             modelo.addColumn("Títulos");
             for (String titulo : titulos) {
                 modelo.addRow(new Object[]{titulo});
@@ -302,7 +326,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             btnRealizar.setVisible(false);
             btnEliminar.setVisible(true);
         } else {
-            
+
             btnAgregar.setVisible(false);//Sino es docente entonces es alumno
             btnRealizar.setVisible(true);
             btnEliminar.setVisible(false);
