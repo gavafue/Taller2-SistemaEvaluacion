@@ -28,6 +28,7 @@ public class VerRespuestas extends javax.swing.JFrame {
         initComponents();
         cargarPreguntasYRespuestas();
         setLocationRelativeTo(null);
+        setTitle("Respuestas correctas: " + this.getTitulo());
     }
 
     public void cargarPreguntasYRespuestas() {
