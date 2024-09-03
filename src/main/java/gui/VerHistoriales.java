@@ -33,6 +33,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         tableHistorico = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
+        btnRespuestas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -77,6 +78,16 @@ public class VerHistoriales extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lblTitulo.setText("Evaluación: ");
 
+        btnRespuestas.setBackground(new java.awt.Color(51, 51, 51));
+        btnRespuestas.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRespuestas.setText("Respuestas");
+        btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRespuestasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +95,10 @@ public class VerHistoriales extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRespuestas)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -98,7 +112,9 @@ public class VerHistoriales extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -116,6 +132,36 @@ public class VerHistoriales extends javax.swing.JFrame {
             Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuestasActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Formatear el mensaje y enviarlo al servidor
+            String instruccion = cliente.formatearMensaje(titulo, "Evaluaciones", "ObtenerCorrectas");
+            cliente.intercambiarMensajes(instruccion);
+
+            // Obtener la respuesta del servidor
+            String respuesta = cliente.getRespuesta();
+
+            // Abrir la ventana para mostrar las respuestas
+            VerRespuestas abrirVentana = new VerRespuestas(respuesta, titulo);
+            abrirVentana.setVisible(true);
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red
+            System.err.println("Error de comunicación con el servidor: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (NullPointerException e) {
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son null
+            System.err.println("Referencia nula detectada: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (Exception e) {
+            // Manejo general de excepciones para cualquier otro error no específico
+            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRespuestasActionPerformed
 
     //Metodo que carga en la tabla el historico de una evaluacion en particular
     //Clienta manda "tituloEvaluacion,;,Historiales,;,Ver"
@@ -142,8 +188,14 @@ public class VerHistoriales extends javax.swing.JFrame {
         if (cliente.obtenerCodigo().equals("200")) {
             for (int i = 0; i < historiales.length; i++) {
                 historial = historiales[i].split(",,,");
-                Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
-                modelo.addRow(fila);
+                if (rol.equals("docente")) {
+                    Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                    modelo.addRow(fila);
+                }
+                if (cliente.getId().equals(historial[0]) && rol.equals("estudiante")) {
+                    Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                    modelo.addRow(fila);
+                }
             }
             tableHistorico.setModel(modelo);
         } else {
@@ -153,6 +205,7 @@ public class VerHistoriales extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnRespuestas;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tableHistorico;
