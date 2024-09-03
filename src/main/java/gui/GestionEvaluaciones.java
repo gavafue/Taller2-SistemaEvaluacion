@@ -250,7 +250,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                     AltaPregunta framePregunta = new AltaPregunta(null, cliente);
                     framePregunta.setRespuestas(cliente.getId()+";;;"+titulo);//Ya cargo en el string respuestas el idUsuario y la evaluacion.
                     framePregunta.setEvaluacion(titulo);
-                    cliente.cargarEnGui(pregunta,framePregunta);//se carga la pregunta en la ventana correspondiente                  
+                    cliente.cargarEnGui(pregunta,framePregunta);//se carga la pregunta en la ventana correspondiente        
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

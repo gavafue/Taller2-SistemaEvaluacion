@@ -1,4 +1,5 @@
 package gui;
+
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,33 +16,31 @@ import javax.swing.JTextField;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 public class AltaPregunta extends javax.swing.JFrame {
+
     private String pregunta;
-   
+
     private String evaluacion;
     private String enunciado;
     private String tipoPregunta;
-    private String respuestas;        
+    private String respuestas;
     private static int cantidadPreguntas; //Atributo propio de a clase y no de la instancia
-    
-    
+
     //Atributos por constructor para no perderlos
     private Cliente cliente;
     private JPanel vistaPrevia; //Para poder intercambiar datos con la vista previa del Generador
- 
-    
-  
+
     public AltaPregunta(JPanel vistaPrevia, Cliente cli) {
         this.cliente = cli;
-        this.vistaPrevia = vistaPrevia;       
+        this.vistaPrevia = vistaPrevia;
         initComponents();
         setLocationRelativeTo(null); //Centrar JFrame
         panelEnunciado.setVisible(true); //Un panel en funcion del tipo de pregunta, por defecto el que permite crear el enunciado y seleccionar el tipo
         panelMultiple.setVisible(false);
         panelRespuesta.setVisible(false);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -532,7 +531,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     cantidadPreguntas++;
                     //String numeroPregunta = String.valueOf(cantidadPreguntas);
                     //EL numero de respuesta se convierte a String antes de pasarlo al metodo siguientePregunta
-                    siguientePregunta(String.valueOf(cboxOpciones.getSelectedIndex()+1) ,this);
+                    siguientePregunta(String.valueOf(cboxOpciones.getSelectedIndex() + 1), this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -556,9 +555,9 @@ public class AltaPregunta extends javax.swing.JFrame {
         if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {//Es el docente creando la pregunta
             cantidadPreguntas++;
             agregarPreguntaVistaPrevia();
-            if(tipoPregunta.equals("Verdadero o Falso")){
+            if (tipoPregunta.equals("Verdadero o Falso")) {
                 this.armarVF();
-            }else{
+            } else {
                 this.armarEspacios();
             }
             this.dispose();
@@ -573,7 +572,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     }
                     cantidadPreguntas++;
                     String numeroPregunta = String.valueOf(cantidadPreguntas);
-                    siguientePregunta(laRespuesta,this);
+                    siguientePregunta(laRespuesta, this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -608,7 +607,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         Consola consola = new Consola();
         consola.setVisible(true);
     }//GEN-LAST:event_btnConsola2ActionPerformed
-    
+
     //Getters de elementos visuales y respuestas de alumnos
     public JButton getBtnFinalizar() {
         return btnFinalizarEspaciosVF;
@@ -694,40 +693,39 @@ public class AltaPregunta extends javax.swing.JFrame {
         AltaPregunta.cantidadPreguntas = cantidadPreguntas;
     }
 
-    public  void setRespuestas(String respuestas) {
+    public void setRespuestas(String respuestas) {
         this.respuestas = respuestas;
     }
-    
+
     public void setEvaluacion(String evaluacion) {
         this.evaluacion = evaluacion;
     }
-       
+
     //Formato de pregunta "enunciado,,,Multiple,,,puntaje,,,op1,,,op2,,,op3,,,op4,,,respuesta" 
-    public void armarMultiple(){
+    public void armarMultiple() {
         pregunta = ";;;" + enunciado + ",,,Multiple,,," + this.getspnPuntajeMultiple().getValue() + ",,," + this.getTxtOpc1().getText() + ",,," + this.getTxtOpc2().getText() + ",,," + this.getTxtOpc3().getText() + ",,," + this.getTxtOpc4().getText() + ",,," + (this.getCboxOpciones().getSelectedIndex() + 1);
         cliente.concatenarMensaje(pregunta);
     }
-    
+
     //Formato de pregunta "enunciado,,,VF,,,puntaje,,,respuesta" 
-    public void armarVF(){
-        pregunta = ";;;" + enunciado + ",,,VF,,," + this.getspnPuntaje().getValue()+ ",,," + this.getCboxVerdaderoOFalso().getSelectedItem().toString();
+    public void armarVF() {
+        pregunta = ";;;" + enunciado + ",,,VF,,," + this.getspnPuntaje().getValue() + ",,," + this.getCboxVerdaderoOFalso().getSelectedItem().toString();
         cliente.concatenarMensaje(pregunta);
     }
-    
+
     //Formato de pregunta "enunciado,,,Completar,,,puntaje,,,respuestas separadas por espacio" 
-    public void armarEspacios(){
-        pregunta = ";;;" + enunciado + ",,,Completar,,," + this.getspnPuntaje().getValue()+ ",,," + this.getTxtRespuesta().getText();
+    public void armarEspacios() {
+        pregunta = ";;;" + enunciado + ",,,Completar,,," + this.getspnPuntaje().getValue() + ",,," + this.getTxtRespuesta().getText();
         cliente.concatenarMensaje(pregunta);
     }
-    
-    
+
     //Formato de respuestas "respuesta0;;;respuesta1;;;respuesta2;;;respuesta3
-    public void prepararRespuestas(String respuesta){
-        String [] tokens = respuesta.split(",;,");
+    public void prepararRespuestas(String respuesta) {
+        String[] tokens = respuesta.split(",;,");
         tokens = tokens[0].split(";;;");
         respuestas += ";;;" + tokens[0];
     }
-    
+
     //Agrega la pregunta a la evaluacion y genera la vista previa para el docente
     private void agregarPreguntaVistaPrevia() {
         Font fuente = new Font("Lucida Console", Font.PLAIN, 15);
@@ -742,11 +740,11 @@ public class AltaPregunta extends javax.swing.JFrame {
         switch (tipoPregunta) {
             case "Verdadero o Falso": //Vista como una multiple opcion de dos opciones
                 respuesta = (String) cboxVerdaderoOFalso.getSelectedItem();
-                 break;
+                break;
             case "Multiple opción":
                 respuesta = (String) cboxOpciones.getSelectedItem();
                 String[] opciones = {txtOpc1.getText(), txtOpc2.getText(), txtOpc3.getText(), txtOpc4.getText()};
-               
+
                 //RadioButtons
                 JRadioButton opc1 = new JRadioButton(txtOpc1.getText());
                 JRadioButton opc2 = new JRadioButton(txtOpc2.getText());
@@ -769,7 +767,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                 break;
             case "Rellenar espacios":
                 respuesta = txtRespuesta.getText();
-               
+
                 break;
         }
         JLabel lblRespuesta = new JLabel("Respuesta: " + respuesta);
@@ -790,10 +788,10 @@ public class AltaPregunta extends javax.swing.JFrame {
             if (finalizar == JOptionPane.YES_OPTION) {
                 String enviarRespuestas = cliente.formatearMensaje(respuestas, "Evaluaciones", "Correccion");
                 cliente.intercambiarMensajes(enviarRespuestas);
-                    System.out.println(respuestas);
-                    System.out.println(cliente.getRespuesta());
-                    cantidadPreguntas = 0;
-                    this.dispose();
+                System.out.println(respuestas);
+                System.out.println(cliente.getRespuesta());
+                cantidadPreguntas = 0;
+                this.dispose();
             } else if (finalizar == JOptionPane.NO_OPTION) {
                 System.out.println("Usuario seleccionó No.");
                 cantidadPreguntas = 0;

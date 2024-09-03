@@ -5,6 +5,8 @@ import gui.GestionEvaluaciones;
 import gui.Registro;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 public class Cliente {
@@ -24,33 +26,33 @@ public class Cliente {
     }
 
     //Metodo que permite a obtener el código enviado por el servidor
-    public String obtenerCodigo(){
+    public String obtenerCodigo() {
         String[] tokens = respuesta.split(",;,");
         return tokens[1];
     }
-    
+
     //Metodo que permite obtener el mensaje eviado por el servidor
-    public String obtenerMensaje(){
+    public String obtenerMensaje() {
         String[] tokens = respuesta.split(",;,");
         return tokens[0];
     }
-    
+
     public String getId() {
         return id;
     }
-    
-     public String getInstruccion() {
+
+    public String getInstruccion() {
         return instruccion;
     }
 
     public String getRespuesta() {
         return respuesta;
     }
-  
+
     public ConexionCliente getConexion() {
         return conexion;
     }
-    
+
     public void setId(String id) {
         this.id = id;
     }
@@ -66,26 +68,23 @@ public class Cliente {
     public void setConexion(ConexionCliente conexion) {
         this.conexion = conexion;
     }
- 
+
     //Metodo que dada la instruccion a enviar por el cliente realiza el intercambio de mensajes
-    public void intercambiarMensajes(String instruccion) throws IOException{
+    public void intercambiarMensajes(String instruccion) throws IOException {
         this.establecerConexion();
         this.setInstruccion(instruccion);
         System.out.println(instruccion);
         this.getConexion().enviarMensaje(this.instruccion);
         this.setRespuesta(this.getConexion().recibirMensaje());
     }
-    
+
     //Metodo que dado un fragemento de la instruccion lo concatena a la instrucción a enviar
-    public void concatenarMensaje(String fragmento){
+    public void concatenarMensaje(String fragmento) {
         String instruccion = this.getInstruccion().concat(fragmento);
         this.setInstruccion(instruccion);
     }
-    
-    
-    
-    /*--------------MANEJO DE INTERFAZ--------------*/ 
-    
+
+    /*--------------MANEJO DE INTERFAZ--------------*/
     //El server válida el login con la instrucción "rol,;,200"
     public boolean ventanaInicial() throws FileNotFoundException, IOException {
         String rol = obtenerMensaje();
@@ -94,7 +93,8 @@ public class Cliente {
 
         if (codigo.equals("200")) {
             switch (rol) {
-                case "docente": case "estudiante":
+                case "docente":
+                case "estudiante":
                     GestionEvaluaciones evaluaciones = new GestionEvaluaciones(this, rol);
                     evaluaciones.setVisible(true);
                     validacion = true;
@@ -103,7 +103,7 @@ public class Cliente {
                     Registro registros = new Registro(this);
                     registros.setVisible(true);
                     validacion = true;
-                    break;    
+                    break;
             }
         }
         return validacion;
@@ -115,7 +115,7 @@ public class Cliente {
         String enunciado = pregunta[1];
         int puntaje = Integer.parseInt(pregunta[pregunta.length - 1]);//El último token es el puntaje
 
-        JPanel multiple, espacios;               
+        JPanel multiple, espacios;
         framePregunta.setLocationRelativeTo(null);
         multiple = framePregunta.getPanelMultiple();
         espacios = framePregunta.getPanelRespuesta();//Este panel se utiliza si la pregutna es VF o para completar
@@ -171,7 +171,4 @@ public class Cliente {
         }
 
     }
-    
-    
-    
 }
