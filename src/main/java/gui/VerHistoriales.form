@@ -30,8 +30,11 @@
                   <Component id="jScrollPane2" pref="388" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnAtras" min="-2" pref="88" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="btnAtras" min="-2" pref="88" max="-2" attributes="0"/>
+                  <Component id="btnRespuestas" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,7 +45,11 @@
               <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnAtras" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="btnRespuestas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnAtras" min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="jScrollPane2" min="-2" pref="307" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -85,6 +92,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Evaluaci&#xf3;n: "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRespuestas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Respuestas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRespuestasActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
