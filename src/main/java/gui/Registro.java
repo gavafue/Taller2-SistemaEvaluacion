@@ -4,7 +4,8 @@ import conexion.Cliente;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
 
 public class Registro extends javax.swing.JFrame {
 
@@ -188,8 +189,8 @@ public class Registro extends javax.swing.JFrame {
             // Obtener los valores ingresados por el usuario
             String cedula = txtCedula.getText().trim();
             String contrasenia = new String(txtContrasenia.getPassword());
-            
-            if(comprobarValidez(cedula) && !comprobarExistencia(cedula)){
+
+            if (comprobarValidez(cedula) && !comprobarExistencia(cedula)) {
                 String instruccion = cliente.formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
                 try {
                     cliente.intercambiarMensajes(instruccion);
@@ -202,28 +203,35 @@ public class Registro extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    //Este método manda al server a verificar si la CI es válida
+    /**
+     * Este método manda al server a verificar si la CI es válida.
+     *
+     */
     private boolean comprobarValidez(String cedula) throws IOException {
         String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Validez");
         cliente.intercambiarMensajes(instruccion);
         return cliente.obtenerCodigo().equals("200");
     }
-    
-        private boolean comprobarExistencia(String cedula) throws IOException {
+
+    /**
+     * Este método manda al server a verificar si la CI tiene usuario asignado.
+     *
+     */
+    private boolean comprobarExistencia(String cedula) throws IOException {
         String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Existencia");
         cliente.intercambiarMensajes(instruccion);
         return cliente.obtenerCodigo().equals("200");
     }
-       
+
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
 
     }//GEN-LAST:event_formWindowGainedFocus
