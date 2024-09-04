@@ -35,6 +35,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Centrar JFrame
         lblTitulo.setText("Evaluacion: " + titulo);
         this.soliictarHistoriales();
+        this.visualizarBtnRespuestas();
     }
 
     /**
@@ -251,6 +252,32 @@ public class VerHistoriales extends javax.swing.JFrame {
             }
         }
         tableHistorico.setModel(modelo);
+    }
+    
+    public void visualizarBtnRespuestas(){
+        try {
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ValorCheckboxRespuestas");
+            this.getCliente().intercambiarMensajes(instruccion);
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                if (this.getCliente().obtenerMensaje().equals("true")){
+                    btnRespuestas.setVisible(true);
+                } else {
+                    btnRespuestas.setVisible(false);
+                }
+            }
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red
+            System.err.println("Error de comunicación con el servidor: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son null
+            System.err.println("Referencia nula detectada: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Manejo general de excepciones para cualquier otro error no específico
+            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
