@@ -3,7 +3,6 @@ package gui;
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,25 +19,21 @@ import java.util.logging.Logger;
 
 public class AltaPregunta extends javax.swing.JFrame {
 
-    private String pregunta;
-
+    private Cliente cliente;
     private String evaluacion;
+    private String pregunta;
     private String enunciado;
     private String tipoPregunta;
     private String respuestas;
-    private static int cantidadPreguntas; //Atributo propio de a clase y no de la instancia
+    private static int cantidadPreguntas; // Atributo propio de a clase y no de la instancia
+    private JPanel vistaPrevia; // Atributo poder intercambiar datos con la vista previa del Generador
 
-    //Atributos por constructor para no perderlos
-    private Cliente cliente;
-
-    private JPanel vistaPrevia; //Para poder intercambiar datos con la vista previa del Generador
-
-    public AltaPregunta(JPanel vistaPrevia, Cliente cli) {
-        this.cliente = cli;
+    public AltaPregunta(JPanel vistaPrevia, Cliente cliente) {
+        this.cliente = cliente;
         this.vistaPrevia = vistaPrevia;
         initComponents();
-        setLocationRelativeTo(null); //Centrar JFrame
-        panelEnunciado.setVisible(true); //Un panel en funcion del tipo de pregunta, por defecto el que permite crear el enunciado y seleccionar el tipo
+        setLocationRelativeTo(null); // Centrar JFrame
+        panelEnunciado.setVisible(true); // Un panel en funcion del tipo de pregunta, por defecto el que permite crear el enunciado y seleccionar el tipo
         panelMultiple.setVisible(false);
         panelRespuesta.setVisible(false);
     }
@@ -509,7 +504,9 @@ public class AltaPregunta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Al escribir el enunciado y seleccionar el tipo de pregunta, abre el panel correspondiente
+    /**
+     * Método encargado de dar funcionamiento al botón "Siguiente", que permite al escribir el enunciado y seleccionar el tipo de pregunta abrir el panel correspondiente.
+     */
     private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSiguienteActionPerformed
         enunciado = txtEnunciado.getText();
         tipoPregunta = (String) cboxTipoPregunta.getSelectedItem();
@@ -539,6 +536,10 @@ public class AltaPregunta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bntSiguienteActionPerformed
 
+    /**
+     * Método que permite dar funcionalidad al botón "Finalizar" desde el rol docente y "Siguiente" desde el rol estudiante.
+     * @param evt 
+     */
     private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarMultipleActionPerformed
         if ("Finalizar".equals(btnFinalizarMultiple.getText())) {//Es el docente creando la pregunta
             cantidadPreguntas++;
@@ -549,8 +550,6 @@ public class AltaPregunta extends javax.swing.JFrame {
             if ("Siguiente".equals(btnFinalizarMultiple.getText())) { //Es un alumno contestando la pregunta multipleopcion 
                 try {
                     cantidadPreguntas++;
-                    //String numeroPregunta = String.valueOf(cantidadPreguntas);
-                    //EL numero de respuesta se convierte a String antes de pasarlo al metodo siguientePregunta
                     siguientePregunta(String.valueOf(cboxOpciones.getSelectedIndex() + 1), this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
@@ -564,13 +563,17 @@ public class AltaPregunta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOpc1ActionPerformed
 
     private void cboxOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxOpcionesActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cboxOpcionesActionPerformed
 
     private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoPreguntaActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_cboxTipoPreguntaActionPerformed
 
+    /**
+     * Método que permite dar funcionalidad al botón "Finalizar" desde el rol docente y "Siguiente" desde el rol estudiante.
+     * @param evt 
+     */
     private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
         if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {//Es el docente creando la pregunta
             cantidadPreguntas++;
@@ -601,12 +604,11 @@ public class AltaPregunta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarEspaciosVFActionPerformed
 
     private void cboxVerdaderoOFalsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxVerdaderoOFalsoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cboxVerdaderoOFalsoActionPerformed
 
     private void lblEnunciadoMultipleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseClicked
         JOptionPane.showMessageDialog(null, lblEnunciadoMultiple.getText(), "Pregunta:", JOptionPane.INFORMATION_MESSAGE);
-
     }//GEN-LAST:event_lblEnunciadoMultipleMouseClicked
 
     private void lblEnunciadoMultipleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseEntered

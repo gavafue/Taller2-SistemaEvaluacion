@@ -5,19 +5,53 @@ import java.awt.Color;
 import java.io.IOException;
 import javax.swing.*;
 
+/**
+ * JFrame destinado a crear un formulario de ingreso al sistema mediante
+ * credenciales.
+ */
 public class Login extends javax.swing.JFrame {
 
     private Cliente cliente;
-    
+
+    /**
+     * Constructor vacío que crea una instancia de cliente y solicita establecer
+     * una conexión con el servidor.
+     *
+     * @throws IOException
+     */
     public Login() throws IOException {
         initComponents();
-        setLocationRelativeTo(null); // Jframe
-        cliente = new Cliente();
-        
-        //Intento de conexion
+        setLocationRelativeTo(null); // Centrar Jframe
+        this.cliente = new Cliente(); // Nueva instancia de cliente
+        this.solicitarEstablecerConexion();
+    }
+
+    /**
+     * Método que permite obtener el cliente actual conectado.
+     *
+     * @return el cliente actual.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que permite modificar el cliente actual dado otro cliente.
+     *
+     * @param cliente
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    /**
+     * Método que solicita al servidor establecer una conexión e indica mediante
+     * la interfaz gráfica si la sesión se encuentra online o offline.
+     */
+    public void solicitarEstablecerConexion() {
         try { //Online
-            cliente.establecerConexion();
-            cliente.getConexion().probarConexion();
+            this.getCliente().establecerConexion();
+            this.getCliente().getConexion().probarConexion();
             lblServidor.setForeground(Color.GREEN);
             lblServidor.setText("online");
         } catch (IOException e) { //Offline
@@ -26,14 +60,6 @@ public class Login extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "El servidor no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-        
-    public Cliente getCliente() {
-        return cliente;
-    }
-    
-    public void setCliente(Cliente cliente){
-        this.cliente = cliente;
     }
 
     @SuppressWarnings("unchecked")
@@ -207,6 +233,12 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método destinado a proveer la funcionalidad mostrar contraseña, mediante
+     * un combobox.
+     *
+     * @param evt
+     */
     private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
         if (cboxMostrarContraseña.isSelected()) {
             txtContrasenia.setEchoChar((char) 0); //Mostrar el texto
@@ -215,22 +247,24 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
-    //Cliente solicita ingreso a partir de "ci;;;contraseña,;,Usuarios,;,Login"
+    /**
+     * Método que proveé funcionalidad al botón "Ingresar", el cual solicita al
+     * servidor ingreso al sistema mediante credenciales.
+     *
+     * @param evt
+     */
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         try {
             String ci = txtUsuario.getText();
             String contrasenia = new String(txtContrasenia.getPassword());
-            String instruccion = cliente.formatearMensaje(ci + ";;;" + contrasenia, "Usuarios", "Login");
-            cliente.intercambiarMensajes(instruccion);
-            
-            //System.out.println(cliente.getRespuesta() + "\n"); //Temporal para ver la respuesta del servidor por consola            
-            
-            cliente.setId(ci);//El id cliente es la ci del usuario
-            if (cliente.ventanaInicial()) {//Método que valida rol y código recibido
+            String instruccion = this.getCliente().formatearMensaje(ci + ";;;" + contrasenia, "Usuarios", "Login");
+            this.getCliente().intercambiarMensajes(instruccion);
+            this.getCliente().setId(ci);
+            if (this.getCliente().ventanaInicial()) {// Método que valida rol y código recibido, abriendo la ventana correspondiente
                 JOptionPane.showMessageDialog(Login.this, "Login exitoso");
                 this.dispose();
             } else {
-               JOptionPane.showMessageDialog(this, "Login fallido", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login fallido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "El servidor se ha desconectado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -244,7 +278,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

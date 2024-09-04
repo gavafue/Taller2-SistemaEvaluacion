@@ -8,21 +8,82 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * JFrame destinado a mostrar los historiales de una evaluación en particular,
+ * conformados por estudiante y puntaje obtenido.
+ */
 public class VerHistoriales extends javax.swing.JFrame {
 
-    private String titulo; //Titulo de la evaluacion
-    //Datos que se mandan por constructor para no perderlos
     private Cliente cliente;
+    private String titulo;
     private String rol;
 
-    public VerHistoriales(String titulo, Cliente cli, String rol) throws IOException {
+    /**
+     * Constructor común que permite crear una instancia de la clase, a partir
+     * del título de la evaluación en cuestión, cliente actual y rol.
+     *
+     * @param titulo
+     * @param cliente
+     * @param rol
+     * @throws IOException
+     */
+    public VerHistoriales(String titulo, Cliente cliente, String rol) throws IOException {
         this.titulo = titulo;
-        this.cliente = cli;
+        this.cliente = cliente;
         this.rol = rol;
         initComponents();
         setLocationRelativeTo(null); //Centrar JFrame
         lblTitulo.setText("Evaluacion: " + titulo);
-        this.cargarTablaEvaluaciones();
+        this.soliictarHistoriales();
+    }
+
+    /**
+     * Método que permite obtener el cliente actual conectado.
+     *
+     * @return el cliente actual.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que permite obtener el título de la evaluación.
+     *
+     * @return el título de la evaluación.
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     * Método que permite obtener el rol del cliente actual.
+     *
+     * @return el rol del cliente actual.
+     */
+    public String getRol() {
+        return rol;
+    }
+
+    /**
+     * Método que permite modificar el cliente actual conectado, dado otro
+     * cliente.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    /**
+     * Método que pemite modificar el título de la evaluación, dado otro título.
+     */
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    /**
+     * Método que permite modificar el rol del cliente, dado otro rol.
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +100,6 @@ public class VerHistoriales extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
-        tableHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -66,7 +126,6 @@ public class VerHistoriales extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableHistorico);
 
         btnAtras.setBackground(new java.awt.Color(51, 51, 51));
-        btnAtras.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -79,9 +138,8 @@ public class VerHistoriales extends javax.swing.JFrame {
         lblTitulo.setText("Evaluación: ");
 
         btnRespuestas.setBackground(new java.awt.Color(51, 51, 51));
-        btnRespuestas.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
-        btnRespuestas.setText("Respuestas");
+        btnRespuestas.setText("Respuestas Correctas");
         btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRespuestasActionPerformed(evt);
@@ -96,8 +154,8 @@ public class VerHistoriales extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRespuestas)
-                        .addGap(18, 18, 18)
+                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,9 +179,15 @@ public class VerHistoriales extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que proveé funcionamiento al botón "Atrás", que permite cerrar la
+     * ventana actual y abrir la ventana anterior.
+     *
+     * @param evt
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         try {
-            GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
+            GestionEvaluaciones evaluaciones = new GestionEvaluaciones(this.getCliente(), this.getRol());
             evaluaciones.setVisible(true);
             this.dispose();
         } catch (FileNotFoundException ex) {
@@ -133,74 +197,60 @@ public class VerHistoriales extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    /**
+     * Método que proveé funcionamiento al botón "Respuestas Correctas", que
+     * permite abrir una ventana para visualizar las respuestas correctas de la
+     * evaluación.
+     *
+     * @param evt
+     */
     private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuestasActionPerformed
-        // TODO add your handling code here:
-        try {
-            // Formatear el mensaje y enviarlo al servidor
-            String instruccion = cliente.formatearMensaje(titulo, "Evaluaciones", "ObtenerCorrectas");
-            cliente.intercambiarMensajes(instruccion);
-
-            // Obtener la respuesta del servidor
-            String respuesta = cliente.getRespuesta();
-
-            // Abrir la ventana para mostrar las respuestas
-            VerRespuestas abrirVentana = new VerRespuestas(respuesta, titulo);
-            abrirVentana.setVisible(true);
-        } catch (IOException e) {
-            // Manejo de errores de entrada/salida, como problemas de red
-            System.err.println("Error de comunicación con el servidor: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error", JOptionPane.ERROR_MESSAGE);
-
-        } catch (NullPointerException e) {
-            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son null
-            System.err.println("Referencia nula detectada: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error", JOptionPane.ERROR_MESSAGE);
-
-        } catch (Exception e) {
-            // Manejo general de excepciones para cualquier otro error no específico
-            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        VerRespuestas abrirVentana = new VerRespuestas(this.getCliente(), this.getTitulo());
+        abrirVentana.setVisible(true);
     }//GEN-LAST:event_btnRespuestasActionPerformed
 
-    //Metodo que carga en la tabla el historico de una evaluacion en particular
-    //Clienta manda "tituloEvaluacion,;,Historiales,;,Ver"
-    //Server manda idalumno,,,puntaje;;;idalumnoN,,,puntajeN,;,200
-    public void cargarTablaEvaluaciones() throws IOException {
-        String instruccion = cliente.formatearMensaje(titulo, "Historiales", "Ver");
+    /**
+     * Método que solicita al servidor los historiales de una evaluación en
+     * particular.
+     */
+    public void soliictarHistoriales() {
         try {
-            cliente.intercambiarMensajes(instruccion);
-            System.out.println(cliente.getRespuesta() + "\n"); //Temporal para ver la respuesta del servidor por consola 
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Historiales", "Ver");
+            this.getCliente().intercambiarMensajes(instruccion);
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                this.cargarTablaHistoriales();
+            } else {
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-        String[] historiales = cliente.obtenerMensaje().split(";;;");
+    /**
+     * Método que carga en la interfaz gráfica los historiales de una
+     * evaluación, mediante una tabla.
+     *
+     * @throws IOException
+     */
+    public void cargarTablaHistoriales() throws IOException {
+        String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
         String[] historial = null;
 
         String[] columnas = {"CI alumno", "Puntaje"};
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Todas las celdas no serán editables
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        for (int i = 0; i < historiales.length; i++) {
+            historial = historiales[i].split(",,,");
+            if (this.getRol().equals("docente")) {
+                Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                modelo.addRow(fila);
             }
-        };
-        if (cliente.obtenerCodigo().equals("200")) {
-            for (int i = 0; i < historiales.length; i++) {
-                historial = historiales[i].split(",,,");
-                if (rol.equals("docente")) {
-                    Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
-                    modelo.addRow(fila);
-                }
-                if (cliente.getId().equals(historial[0]) && rol.equals("estudiante")) {
-                    Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
-                    modelo.addRow(fila);
-                }
+            if (this.getCliente().getId().equals(historial[0]) && this.getRol().equals("estudiante")) {
+                Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                modelo.addRow(fila);
             }
-            tableHistorico.setModel(modelo);
-        } else {
-            JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error " + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
         }
+        tableHistorico.setModel(modelo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

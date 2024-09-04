@@ -8,21 +8,66 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 
+/**
+ * JFrame destinado para la gestión de evaluaciones, esto incluye alta y baja de
+ * evaluaciones, además de consultas sobre evaluaciones al servidor.
+ */
 public class GestionEvaluaciones extends javax.swing.JFrame {
 
     private Cliente cliente;
     private String rol;
 
-    //Se pasa por constructor el objeto cliente y conexioncliente instanciados en el login
-    public GestionEvaluaciones(Cliente cli, String rol) throws FileNotFoundException, IOException {
+    /**
+     * Constructor común que crea una instancia de la clase a partir del cliente
+     * y su rol, en función de esto los elementos que se muestran en la interfaz
+     * gráfica.
+     *
+     * @param cliente
+     * @param rol
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public GestionEvaluaciones(Cliente cliente, String rol) throws FileNotFoundException, IOException {
         this.rol = rol;
-        this.cliente = cli;
+        this.cliente = cliente;
         initComponents();
-        setLocationRelativeTo(null); //Centrar JFrame
-        determinarRol();//Se muestran determinados botones dependiendo del rol
-        cargarTabla();
-        System.out.println(cliente.getId());
+        setLocationRelativeTo(null); // Centrar JFrame
+        this.determinarInterfaz(); // Muestra determinados elementos gráficos dependiendo del rol
+        this.solicitarTitulosEvaluaciones();
         lblUsuario.setText("Usuario: " + cliente.getId());
+    }
+
+    /**
+     * Método que permite obtener el cliente actual conectado.
+     *
+     * @return el cliente actual.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que permite obtener el rol del cliente actual.
+     *
+     * @return el rol del cliente actual.
+     */
+    public String getRol() {
+        return rol;
+    }
+
+    /**
+     * Método que permite modificar el cliente actual conectado, dado otro
+     * cliente.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    /**
+     * Método que permite modificar el rol del cliente, dado otro rol.
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @SuppressWarnings("unchecked")
@@ -193,6 +238,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método destinado a proveer funcionalidad al botón "Agregar" que le
+     * permite al rol docente crear una evaluación.
+     *
+     * @param evt
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             AltaEvaluacion generador = new AltaEvaluacion(cliente);
@@ -203,12 +254,20 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Método destinado a proveer funcionalidad al botón "Historial" que le
+     * permite al rol docente acceder a una nueva ventana para ver los
+     * historiales de las evaluaciones y al rol estudiante ver el puntaje
+     * obtenido.
+     *
+     * @param evt
+     */
     private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-                VerHistoriales historico = new VerHistoriales(titulo, cliente, rol);
+                VerHistoriales historico = new VerHistoriales(titulo, this.getCliente(), this.getRol());
                 historico.setVisible(true);
                 this.dispose();
             } catch (IOException ex) {
@@ -220,20 +279,26 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistoricoActionPerformed
 
     private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEvaluacionesMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tableEvaluacionesMouseClicked
 
+    /**
+     * Método destinado a proveer funcionalidad al botón "Eliminar" que le
+     * permite al rol docente eliminar una evaluación ya existente.
+     *
+     * @param evt
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
             try {
-                cliente.intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
-                if (cliente.obtenerCodigo().equals("200")) {
+                this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
+                if (this.getCliente().obtenerCodigo().equals("200")) {
                     JOptionPane.showMessageDialog(null, "Evaluacion eliminada");
-                    cargarTabla();
+                    cargarTablaEvaluaciones();
                 } else {
-                    JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,31 +308,32 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    /**
+     * Método destinado a proveer funcionalidad al botón "Realizar" que le
+     * permite al rol estudiante realizar una evaluación.
+     *
+     * @param evt
+     */
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
-        if (selectedRow == -1) {
-            // No hay ninguna evaluación seleccionada
+        if (selectedRow == -1) { // No hay ninguna evaluación seleccionada
             JOptionPane.showMessageDialog(null, "Seleccione la evaluación a realizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-                String aEnviar = cliente.formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta");//Solicita la Pregunta 0 de una evaluacion
-                //El servidor deberia responder con:
-                //TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
-                cliente.intercambiarMensajes(aEnviar);
-                System.out.println(cliente.getRespuesta() + "\n");//Temporal para ver la respuesta del servidor por consola¿
-
-                String[] pregunta = cliente.obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;               
-
-                if (cliente.obtenerCodigo().equals("200")) {
-                    //compruebo si la respuesta del servidor fue exitosa y si la pregunta tiene la cantidad de tokens correcta
+                String aEnviar = this.getCliente().formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta"); // Solicita la Pregunta 0 de una evaluacion
+                // El servidor deberia responder con:
+                // TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
+                this.getCliente().intercambiarMensajes(aEnviar);
+                String[] pregunta = this.getCliente().obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;               
+                if (this.getCliente().obtenerCodigo().equals("200")) {
                     //MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
                     //VerdaderoFalso;;;Enunciado;;;puntaje
                     //Completar;;;Enunciado;;;puntaje
-                    AltaPregunta framePregunta = new AltaPregunta(null, cliente);
-                    framePregunta.setRespuestas(cliente.getId() + ";;;" + titulo);//Ya cargo en el string respuestas el idUsuario y la evaluacion.
+                    AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
+                    framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
                     framePregunta.setEvaluacion(titulo);
-                    cliente.cargarEnGui(pregunta, framePregunta);//se carga la pregunta en la ventana correspondiente                  
+                    this.getCliente().cargarEnGui(pregunta, framePregunta);                
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -277,57 +343,74 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRealizarActionPerformed
 
+    /**
+     * Método destinado a proveer funcionalidad al botón "Actualizar Contraseña"
+     * que le permite al usuario modificar su contraseña.
+     *
+     * @param evt
+     */
     private void btnActualizarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPasswordActionPerformed
-        String contrasenia = JOptionPane.showInputDialog(this, "Ingrese nueva password para su usuario: ",
-                "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
+        String contrasenia = JOptionPane.showInputDialog(this, "Ingrese nueva password para su usuario: ", "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
         if (contrasenia != null && !contrasenia.isBlank()) {
             try {
-                cliente.intercambiarMensajes(cliente.getId() + ";;;" + contrasenia + ",;,Usuarios,;,CambioPassword");
+                this.getCliente().intercambiarMensajes(this.getCliente().getId() + ";;;" + contrasenia + ",;,Usuarios,;,CambioPassword");
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (cliente.obtenerCodigo().equals("200")) {
+            if (this.getCliente().obtenerCodigo().equals("200")) {
                 JOptionPane.showMessageDialog(this, "Modificada con éxito");
             } else {
-                JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "NO SE MODIFICO. La password no puede ser vacia.");
         }
     }//GEN-LAST:event_btnActualizarPasswordActionPerformed
 
-    //Metodo que carga la tabla con todas las evaluaciones existentes
-    public void cargarTabla() throws IOException {
-        cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");//Instruccion para solicitar los titulos de las evaluaciones
-        String[] titulos = cliente.obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;        
-        if (cliente.obtenerCodigo().equals("200")) {//La respuesta es exitosa
-            DefaultTableModel modelo = new DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false; // Todas las celdas no serán editables
-                }
-            };
-
-            // Agregar la columna de "Títulos"
-            modelo.addColumn("Títulos");
-            for (String titulo : titulos) {
-                modelo.addRow(new Object[]{titulo});
-            }
-            tableEvaluaciones.setModel(modelo);
+    /**
+     * Método que le solicita al servidor los títulos de las evaluaciones ya
+     * existentes.
+     */
+    public void solicitarTitulosEvaluaciones() throws IOException {
+        cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");
+        if (this.getCliente().obtenerCodigo().equals("200")) {
+            this.cargarTablaEvaluaciones();
         } else {
             JOptionPane.showMessageDialog(this, "El servidor no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //Determina con que rol se visualiza la interfaz de gestion de evaluaciones
-    private void determinarRol() {
-        if (rol.equals("docente")) {
+    /**
+     * Método que carga en interfaz gráfica los títulos de las evaluaciones
+     * existentes.
+     *
+     * @throws IOException
+     */
+    public void cargarTablaEvaluaciones() throws IOException {
+        String[] titulos = this.getCliente().obtenerMensaje().split(";;;");
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Todas las celdas no serán editables
+            }
+        };
+        modelo.addColumn("Títulos");
+        for (String titulo : titulos) {
+            modelo.addRow(new Object[]{titulo});
+        }
+        tableEvaluaciones.setModel(modelo);
+    }
+
+    /**
+     * Método que modifica la interfáz gráfica según el rol del cliente actual.
+     */
+    private void determinarInterfaz() { // Administrativo no puede acceder
+        if (rol.equals("docente")) { // Docente
             btnAgregar.setVisible(true);
             btnRealizar.setVisible(false);
             btnEliminar.setVisible(true);
-        } else {
-
-            btnAgregar.setVisible(false);//Sino es docente entonces es alumno
+        } else { // Estudiante
+            btnAgregar.setVisible(false);
             btnRealizar.setVisible(true);
             btnEliminar.setVisible(false);
         }

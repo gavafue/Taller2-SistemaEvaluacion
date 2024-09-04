@@ -6,15 +6,42 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
+/**
+ * JFrame destinado a crear un formulario de registro de nuevos usuarios de tipo
+ * estudiante, solamente accesible por el rol administrativo.
+ */
 public class Registro extends javax.swing.JFrame {
 
     private Cliente cliente;
 
-    public Registro(Cliente cli) {
-        this.cliente = cli;
+    /**
+     * Constructor común que permite crear una instancia de la clase dado el
+     * cliente actual conectado.
+     *
+     * @param cliente
+     */
+    public Registro(Cliente cliente) {
+        this.cliente = cliente;
         initComponents();
-        setLocationRelativeTo(null); //Centrar
+        setLocationRelativeTo(null); //Centrar JFrame
+    }
+
+    /**
+     * Método que permite obtener el cliente actual conectado.
+     *
+     * @return el cliente actual.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que permite modificar el cliente actual dado otro cliente.
+     *
+     * @param cliente
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @SuppressWarnings("unchecked")
@@ -175,6 +202,12 @@ public class Registro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método destinado a proveer la funcionalidad mostrar contraseña, mediante
+     * un combobox.
+     *
+     * @param evt
+     */
     private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
         if (cboxMostrarContraseña.isSelected()) {
             txtContrasenia.setEchoChar((char) 0); //Mostrar el texto
@@ -183,53 +216,60 @@ public class Registro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
-    //Cliente solicita crear usuario con "ci;;;contraseña,;,Usuarios,;,Alta"
+    /**
+     * Método que permite crear un nuevo usuario de tipo estudiante a partir de
+     * las credenciales ingresadas.
+     *
+     * @param evt
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-            // Obtener los valores ingresados por el usuario
             String cedula = txtCedula.getText().trim();
             String contrasenia = new String(txtContrasenia.getPassword());
-
-            if (comprobarValidez(cedula) && !comprobarExistencia(cedula)) {
-                String instruccion = cliente.formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
+            if (consultarValidez(cedula) && !consultarExistencia(cedula)) {
                 try {
-                    cliente.intercambiarMensajes(instruccion);
-                    //System.out.println(cliente.getRespuesta() + "\n");//Temporal para ver la respuesta del servidor por consola
-                    if (cliente.obtenerCodigo().equals("200")) {
-                        JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    String instruccion = this.getCliente().formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
+                    this.getCliente().intercambiarMensajes(instruccion);
+                    if (this.getCliente().obtenerCodigo().equals("200")) {
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
-     * Este método manda al server a verificar si la CI es válida.
+     * Método que consulta al servidor si la CI ingresada es válida.
      *
+     * @param cedula
+     * @return true si es válida y false en caso contrario.
+     * @throws java.io.IOException
      */
-    private boolean comprobarValidez(String cedula) throws IOException {
-        String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Validez");
-        cliente.intercambiarMensajes(instruccion);
-        return cliente.obtenerCodigo().equals("200");
+    public boolean consultarValidez(String cedula) throws IOException {
+        String instruccion = this.getCliente().formatearMensaje(cedula, "Usuarios", "Validez");
+        this.getCliente().intercambiarMensajes(instruccion);
+        return this.getCliente().obtenerCodigo().equals("200");
     }
 
     /**
-     * Este método manda al server a verificar si la CI tiene usuario asignado.
+     * Método que consulta al servidor si la CI ingresada ya está registrada.
      *
+     * @param cedula
+     * @return true si existe y false en caso contrario.
+     * @throws java.io.IOException
      */
-    private boolean comprobarExistencia(String cedula) throws IOException {
-        String instruccion = cliente.formatearMensaje(cedula, "Usuarios", "Existencia");
-        cliente.intercambiarMensajes(instruccion);
-        return cliente.obtenerCodigo().equals("200");
+    private boolean consultarExistencia(String cedula) throws IOException {
+        String instruccion = this.getCliente().formatearMensaje(cedula, "Usuarios", "Existencia");
+        this.getCliente().intercambiarMensajes(instruccion);
+        return this.getCliente().obtenerCodigo().equals("200");
     }
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus

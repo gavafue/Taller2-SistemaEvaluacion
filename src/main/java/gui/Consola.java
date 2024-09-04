@@ -10,52 +10,90 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * JFrame destinado a ser la interfaz gráfica de la consola de Linux.
+ */
 public class Consola extends javax.swing.JFrame {
 
-    // Atributos
+    // Colecciones necesarias para crear la consola de Linux
     private Comandos hashComandos;
     private Ficheros listaFicheros;
     private Procesos listaProcesos;
 
-    // Constructor
+    /**
+     * Constructor vacío que permite crear una instancia de la consola.
+     */
     public Consola() {
         initComponents();
         setLocationRelativeTo(null); //centrar
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE); //No detener el programa al cerrar
-        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // No detiene el programa al cerrar el JFrame
+
         hashComandos = new Comandos();
         listaFicheros = new Ficheros();
-        listaFicheros.cargarPrimerNivel();
-        listaProcesos = new Procesos(); 
+        listaProcesos = new Procesos();
+        listaFicheros.cargarPrimerNivel(); // Primer nivel cargado desde memoria
     }
 
-    // Getters
+    /**
+     * Método que permite obtener la colección de comandos del sistema.
+     *
+     * @return colección de comandos disponibles.
+     */
     public Comandos getHashComandos() {
         return hashComandos;
     }
 
+    /**
+     * Método que permite obtener la colección de ficheros del sistema.
+     *
+     * @return colección de ficheros actuales.
+     */
     public Ficheros getListaFicheros() {
         return listaFicheros;
     }
 
+    /**
+     * Método que permite obtener la colección de procesos actuales del sistema.
+     *
+     * @return colección de procesos actuales.
+     */
     public Procesos getListaProcesos() {
         return listaProcesos;
     }
 
-    // Setters
-    public void setListaFicheros(Ficheros ficheros) {
-        this.listaFicheros = ficheros;
-    }
-
+    /**
+     * Método que permite modificar la colección de comandos, dada otra
+     * colección de comandos.
+     *
+     * @param comandos
+     */
     public void setHashComandos(Comandos comandos) {
         this.hashComandos = comandos;
     }
 
+    /**
+     * Método que permite modificar la colección de ficheros, dada otra
+     * colección de ficheros.
+     *
+     * @param ficheros
+     */
+    public void setListaFicheros(Ficheros ficheros) {
+        this.listaFicheros = ficheros;
+    }
+
+    /**
+     * Método que permite modificar la colección de procesos, dada otra
+     * colección de procesos.
+     *
+     * @param procesos
+     */
     public void setListaProcesos(Procesos listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
 
-    // Desactiva placeholder de ayuda
+    /**
+     * Método que desactiva el placeholder de ayuda.
+     */
     private void helpTextOff(JTextField text) {
         Font fuente = text.getFont();
         fuente = fuente.deriveFont(Font.PLAIN);
@@ -63,14 +101,18 @@ public class Consola extends javax.swing.JFrame {
         text.setForeground(Color.white);
     }
 
-    // Pone el texto a formato cursiva
+    /**
+     * Método que pone el texto a formato cursiva.
+     */
     public void textoCursiva(JTextArea text) {
         Font fuente = text.getFont();
         fuente = fuente.deriveFont(Font.ITALIC);
         text.setFont(fuente);
     }
 
-    // Pone el texto a formato normal
+    /**
+     * Método que pone el texto a formato normal.
+     */
     public void textoNormal(JTextArea text) {
         Font fuente = text.getFont();
         fuente = fuente.deriveFont(Font.PLAIN);
@@ -78,10 +120,6 @@ public class Consola extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -194,13 +232,17 @@ public class Consola extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtOutputMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_txtOutputMouseClicked
-        // TODO add your handling code here:
+    private void txtOutputMouseClicked(java.awt.event.MouseEvent evt) {
         txtComando.requestFocus();
-    }// GEN-LAST:event_txtOutputMouseClicked
-    // Al escribir el comando y presionar ENTER
+    }
 
-    private void txtComandoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtComandoActionPerformed
+    /**
+     * Método encargador de ejecutar el comando ingresado en la consola, que
+     * deriva a las clases validar y ejecutar respectivamente.
+     *
+     * @param evt
+     */
+    private void txtComandoActionPerformed(java.awt.event.ActionEvent evt) {
         // Valores por defecto
         textoNormal(txtOutput);
         helpTextOff(txtComando);
@@ -214,11 +256,12 @@ public class Consola extends javax.swing.JFrame {
         Boolean comandoEsCorrecto = validador.validarComando(hashComandos);
         String[] tokens = validador.getTokens();
         Ejecutar ejecutar = new Ejecutar(tokens);
-        if (comando.equals("exit")) { try {
-            // Comando salir
-            Login login = new Login();
-            login.setVisible(true);
-            this.dispose();
+        if (comando.equals("exit")) {
+            try {
+                // Comando salir
+                Login login = new Login();
+                login.setVisible(true);
+                this.dispose();
             } catch (IOException ex) {
                 Logger.getLogger(Consola.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -232,16 +275,16 @@ public class Consola extends javax.swing.JFrame {
                         + " incorrecto\n");
             }
         }
-    }// GEN-LAST:event_txtComandoActionPerformed
+    }
 
-    private void lblPenguinMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblPenguinMouseClicked
-        txtComando.requestFocus();        
-    }// GEN-LAST:event_lblPenguinMouseClicked
+    private void lblPenguinMouseClicked(java.awt.event.MouseEvent evt) {
+        txtComando.requestFocus();
+    }
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
         this.requestFocusInWindow();
         txtComando.requestFocus();
-    }// GEN-LAST:event_formWindowGainedFocus
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

@@ -1,43 +1,104 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
+import conexion.Cliente;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * JFrame destinado a mostrar las respuestas correctas de una evaluación en
+ * particular dado su título.
  *
- * @author gonzalito
  */
 public class VerRespuestas extends javax.swing.JFrame {
 
-    private String instruccion;
-    private String titulo;
+    Cliente cliente;
+    String titulo;
 
+    /**
+     * Constructor común que permite crear una instancia de la clase, dado el
+     * cliente y el titulo de la evaluación.
+     */
+    public VerRespuestas(Cliente cliente, String titulo) {
+        this.cliente = cliente;
+        this.titulo = titulo;
+        initComponents();
+        this.solicitarPreguntasYRespuestas();
+        setLocationRelativeTo(null);
+    }
+
+    /**
+     * Método que permite obtener el cliente actual conectado.
+     *
+     * @return el cliente actualmente conectado.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que permite obtener el título de la evaluación.
+     *
+     * @return el título de la evaluación.
+     */
     public String getTitulo() {
         return titulo;
     }
 
     /**
-     * Creates new form VerRespuestas
+     * Método que permite modificar el cliente actual dado otro cliente.
+     *
+     * @param cliente
      */
-    public VerRespuestas(String instruccion, String titulo) {
-        this.instruccion = instruccion;
-        this.titulo = titulo;
-        initComponents();
-        cargarPreguntasYRespuestas();
-        setLocationRelativeTo(null);
-        setTitle("Respuestas correctas: " + this.getTitulo());
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
+    /**
+     * Método que permite modificar el título de la evluación dado otro título.
+     *
+     * @param titulo
+     */
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    /**
+     * Método que le solicita al cliente las preguntas y respuestas correctas de
+     * la evaluación seleccionada.
+     */
+    public void solicitarPreguntasYRespuestas() {
+        try {
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ObtenerCorrectas");
+            this.getCliente().intercambiarMensajes(instruccion);
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                cargarPreguntasYRespuestas();
+            }
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red
+            System.err.println("Error de comunicación con el servidor: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son null
+            System.err.println("Referencia nula detectada: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Manejo general de excepciones para cualquier otro error no específico
+            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Método que carga las preguntas y respuestas correctas a la interfaz
+     * gráfica, mediante una tabla.
+     */
     public void cargarPreguntasYRespuestas() {
-        String[] separarMensajeYCodigo = instruccion.split(",;,");
-        String[] separarPreguntas = separarMensajeYCodigo[0].split(";;;");
+        String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
         String[] columnas = {"Enunciado", "Respuesta"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-        for (int i = 0; i < separarPreguntas.length; i++) {
-            String[] separarPreguntaYRespuesta = separarPreguntas[i].split(",,,");
+        for (int i = 0; i < preguntasYRespuestas.length; i++) {
+            String[] separarPreguntaYRespuesta = preguntasYRespuestas[i].split(",,,");
             Object[] fila = {separarPreguntaYRespuesta[0]/*pregunta*/, separarPreguntaYRespuesta[1]/*respuesta*/};
             modelo.addRow(fila);
         }
@@ -45,11 +106,6 @@ public class VerRespuestas extends javax.swing.JFrame {
         labelTitulo.setText("Respuestas correctas: " + this.getTitulo());
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -118,11 +174,15 @@ public class VerRespuestas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que proveé funcionamiento al botón "Atrás", que permite cerrar la
+     * ventana actual.
+     *
+     * @param evt
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
