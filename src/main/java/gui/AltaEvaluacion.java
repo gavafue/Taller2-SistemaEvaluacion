@@ -19,7 +19,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     public AltaEvaluacion(Cliente cliente) throws FileNotFoundException {
         this.cliente = cliente;
         initComponents();
-        
+
         setLocationRelativeTo(null); //Centrar JFrame
     }
 
@@ -37,6 +37,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        cbxRespuestasValidas = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Generador de Evaluaciones");
@@ -119,26 +120,30 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Crear una evaluación");
 
+        cbxRespuestasValidas.setText("Permitir al estudiante ver las respuestas correctas");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(3, 3, 3)
-                            .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(32, 32, 32))
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbxRespuestasValidas))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3)
+                        .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addComponent(txtTitulo))
+                .addGap(48, 48, 48))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -148,7 +153,9 @@ public class AltaEvaluacion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbxRespuestasValidas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -222,12 +229,19 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { //Si el titulo esta vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo esta vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
         } else try {
-            if ((AltaPregunta.getCantidadPreguntas() >= 3)) {
-                cliente.concatenarMensaje(";;;" + AltaPregunta.getCantidadPreguntas() + ",;,Evaluaciones,;,Alta");
+            if (AltaPregunta.getCantidadPreguntas() >= 3) {
+                // Obtener el estado del checkbox
+                boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado, false si no lo está
+
+                // Concatenar la información necesaria para enviarla al cliente, incluyendo el valor de respuestasValidas
+                // Prepara el mensaje con el número de preguntas
+                String mensaje = ";;;" + respuestasValidas + ";;;" + AltaPregunta.getCantidadPreguntas() + ",;,Evaluaciones,;,Alta";
+                cliente.concatenarMensaje(mensaje);
                 cliente.intercambiarMensajes(cliente.getInstruccion());
+
                 if (cliente.obtenerCodigo().equals("200")) {
                     JOptionPane.showMessageDialog(this, "Evaluacion creada con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     AltaPregunta.setCantidadPreguntas(0);
@@ -289,6 +303,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnNuevaPregunta;
+    private javax.swing.JCheckBox cbxRespuestasValidas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

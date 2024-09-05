@@ -34,7 +34,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); //Centrar JFrame
         lblTitulo.setText("Evaluacion: " + titulo);
-        this.soliictarHistoriales();
+        this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
     }
 
@@ -214,7 +214,7 @@ public class VerHistoriales extends javax.swing.JFrame {
      * Método que solicita al servidor los historiales de una evaluación en
      * particular.
      */
-    public void soliictarHistoriales() {
+    public void solicitarHistoriales() {
         try {
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Historiales", "Ver");
             this.getCliente().intercambiarMensajes(instruccion);
@@ -253,13 +253,13 @@ public class VerHistoriales extends javax.swing.JFrame {
         }
         tableHistorico.setModel(modelo);
     }
-    
-    public void visualizarBtnRespuestas(){
+
+    public void visualizarBtnRespuestas() {
         try {
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ValorCheckboxRespuestas");
             this.getCliente().intercambiarMensajes(instruccion);
             if (this.getCliente().obtenerCodigo().equals("200")) {
-                if (this.getCliente().obtenerMensaje().equals("true")){
+                if (this.getCliente().obtenerMensaje().equals("true")) {
                     btnRespuestas.setVisible(true);
                 } else {
                     btnRespuestas.setVisible(false);
@@ -278,6 +278,24 @@ public class VerHistoriales extends javax.swing.JFrame {
             System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public boolean hayHistorialesDisponibles() {
+        try {
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Historiales", "Ver");
+            this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica si el código de respuesta es "200" para historiales disponibles
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
+                return historiales.length > 0 && !historiales[0].isEmpty();
+            }
+        } catch (IOException ex) {
+            // Maneja el error pero no muestra alerta aquí
+            Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Devuelve false si ocurre algún error o no hay historiales
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

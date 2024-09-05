@@ -268,13 +268,18 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
                 VerHistoriales historico = new VerHistoriales(titulo, this.getCliente(), this.getRol());
-                historico.setVisible(true);
-                this.dispose();
+
+                // Verificar si hay historiales antes de mostrar la ventana
+                if (historico.hayHistorialesDisponibles()) {
+                    historico.setVisible(true);
+                    this.dispose();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al procesar la solicitud: " + ex.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una evaluacion");
+            JOptionPane.showMessageDialog(null, "Seleccione una evaluación.");
         }
     }//GEN-LAST:event_btnHistoricoActionPerformed
 
@@ -333,7 +338,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                     AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
                     framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
                     framePregunta.setEvaluacion(titulo);
-                    this.getCliente().cargarEnGui(pregunta, framePregunta);                
+                    this.getCliente().cargarEnGui(pregunta, framePregunta);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
