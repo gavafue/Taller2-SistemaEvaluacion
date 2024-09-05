@@ -206,7 +206,8 @@ public class VerHistoriales extends javax.swing.JFrame {
      * @param evt
      */
     private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuestasActionPerformed
-        VerRespuestas abrirVentana = new VerRespuestas(this.getCliente(), this.getTitulo());
+        VerRespuestas abrirVentana;
+        abrirVentana = new VerRespuestas(this.getCliente(), this.getTitulo());
         abrirVentana.setVisible(true);
     }//GEN-LAST:event_btnRespuestasActionPerformed
 
