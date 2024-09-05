@@ -11,16 +11,61 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.io.IOException;
 
+/**
+ * JFrame destinado a crear una evaluación desde el rol docente.
+ */
 public class AltaEvaluacion extends javax.swing.JFrame {
 
     private String tituloEvaluacion;
     private Cliente cliente;
 
+    /**
+     * Contructor encargado de crear una instancia de evalucíón a partir del
+     * cliente actual.
+     *
+     * @param cliente
+     * @throws FileNotFoundException
+     */
     public AltaEvaluacion(Cliente cliente) throws FileNotFoundException {
         this.cliente = cliente;
         initComponents();
-
         setLocationRelativeTo(null); //Centrar JFrame
+    }
+
+    /**
+     * Este método devuelve el título de la evaluación.
+     *
+     * @return el título de la evaluación.
+     */
+    public String getTituloEvaluacion() {
+        return tituloEvaluacion;
+    }
+
+    /**
+     * Este método devuelve el cliente actual.
+     *
+     * @return el cliente actual.
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Este método establece el título de la evaluación.
+     *
+     * @param tituloEvaluacion el título que se asignará a la evaluación.
+     */
+    public void setTituloEvaluacion(String tituloEvaluacion) {
+        this.tituloEvaluacion = tituloEvaluacion;
+    }
+
+    /**
+     * Este método establece el cliente actual.
+     *
+     * @param cliente el cliente que se asignará.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @SuppressWarnings("unchecked")
@@ -183,24 +228,34 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Activa placeholder de ayuda
-    private void TextoAyudaOn(JTextField text) {
-        Font fuente = text.getFont();
+    /**
+     * Método que activa placeholder de ayuda.
+     */
+    private void TextoAyudaOn(JTextField texto) {
+        Font fuente = texto.getFont();
         fuente = fuente.deriveFont(Font.ITALIC);
-        text.setFont(fuente);
-        text.setForeground(Color.DARK_GRAY);
+        texto.setFont(fuente);
+        texto.setForeground(Color.DARK_GRAY);
     }
 
-    //Desactiva placeholder de ayuda
-    private void TextoAyudaOff(JTextField text) {
-        Font fuente = text.getFont();
+    /**
+     * Método que desactiva placeholder de ayuda.
+     */
+    private void TextoAyudaOff(JTextField texto) {
+        Font fuente = texto.getFont();
         fuente = fuente.deriveFont(Font.PLAIN);
-        text.setFont(fuente);
-        text.setForeground(Color.DARK_GRAY);
+        texto.setFont(fuente);
+        texto.setForeground(Color.DARK_GRAY);
     }
 
+    /**
+     * Este método permite asignar preguntas a la evaluación actual a partir del
+     * botón "Agregar Pregunta", una vez el título haya sido ingresado y único.
+     *
+     * @param evt
+     */
     private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPreguntaActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { //Si el titulo es vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
@@ -225,9 +280,15 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaPreguntaActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtTituloActionPerformed
 
+    /**
+     * Este método permite crear la evaluación a partir del botón "Finalizar",
+     * una vez se haya ingresado el título y por lo menos seis preguntas.
+     *
+     * @param evt
+     */
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo esta vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
@@ -259,6 +320,14 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
+    /**
+     * Este método se ejecuta cuando el campo de texto 'txtTitulo' gana el foco.
+     * Si el texto actual es "Titulo de la Evaluacion", lo borra y desactiva el
+     * texto de ayuda.
+     *
+     * @param evt el evento que indica que el foco fue ganado por el campo de
+     * texto.
+     */
     private void txtTituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusGained
         if (txtTitulo.getText().equals("Titulo de la Evaluacion")) {
             txtTitulo.setText(null);
@@ -266,7 +335,14 @@ public class AltaEvaluacion extends javax.swing.JFrame {
             TextoAyudaOff(txtTitulo);
         }
     }//GEN-LAST:event_txtTituloFocusGained
-
+    /**
+     * Este método se ejecuta cuando el campo de texto 'txtTitulo' pierde el
+     * foco. Si el campo está en blanco, activa el texto de ayuda y establece
+     * "Titulo de la Evaluacion" como texto predeterminado.
+     *
+     * @param evt el evento que indica que el foco fue perdido por el campo de
+     * texto
+     */
     private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusLost
         if (txtTitulo.getText().isBlank()) {
             TextoAyudaOn(txtTitulo);
@@ -274,10 +350,22 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
+    /**
+     * Este método se ejecuta cuando la ventana gana el foco. Solicita que la
+     * ventana reciba el foco para poder interactuar con ella.
+     *
+     * @param evt el evento que indica que la ventana ha ganado el foco
+     */
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         this.requestFocusInWindow();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    /**
+     * Este método da funcionamiento al botón "Atrás", que devuelve a la ventana
+     * de gestión.
+     *
+     * @param evt
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         try {
             GestionEvaluaciones gestionEvaluaciones = new GestionEvaluaciones(cliente, "docente");
@@ -291,7 +379,14 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    //Este método manda al server a verificar si existe el titulo
+    /**
+     * Este método solicita al server si el título de una evaluación a crear ya
+     * existe.
+     *
+     * @param titulo
+     * @return true si existe y false en caso contrario.
+     * @throws IOException
+     */
     private boolean existeTitulo(String titulo) throws IOException {
         String instruccion = cliente.formatearMensaje(titulo, "Evaluaciones", "Existencia");
         cliente.intercambiarMensajes(instruccion);

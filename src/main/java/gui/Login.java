@@ -2,6 +2,7 @@ package gui;
 
 import conexion.Cliente;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
 
@@ -260,7 +261,7 @@ public class Login extends javax.swing.JFrame {
             String instruccion = this.getCliente().formatearMensaje(ci + ";;;" + contrasenia, "Usuarios", "Login");
             this.getCliente().intercambiarMensajes(instruccion);
             this.getCliente().setId(ci);
-            if (this.getCliente().ventanaInicial()) {// Método que valida rol y código recibido, abriendo la ventana correspondiente
+            if (this.ventanaInicial()) {// Método que valida rol y código recibido, abriendo la ventana correspondiente
                 JOptionPane.showMessageDialog(Login.this, "Login exitoso");
                 this.dispose();
             } else {
@@ -281,6 +282,34 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
+    /**
+     * Este método válida el rol del cliente actual y desplega la ventana correspondiente.
+     * @return true si es válido o false en caso contrario.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public boolean ventanaInicial() throws FileNotFoundException, IOException {
+        String rol = cliente.obtenerMensaje();
+        String codigo = cliente.obtenerCodigo();
+        boolean validacion = false;
+
+        if (codigo.equals("200")) {
+            switch (rol) {
+                case "docente": case "estudiante":
+                    GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
+                    evaluaciones.setVisible(true);
+                    validacion = true;
+                    break;
+                case "administrativo":
+                    Registro registros = new Registro(cliente);
+                    registros.setVisible(true);
+                    validacion = true;
+                    break;    
+            }
+        }
+        return validacion;
+    }
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JCheckBox cboxMostrarContraseña;

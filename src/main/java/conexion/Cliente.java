@@ -1,11 +1,9 @@
 package conexion;
 
-import gui.AltaPregunta;
 import gui.GestionEvaluaciones;
 import gui.Registro;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.swing.JPanel;
 
 public class Cliente {
 
@@ -82,96 +80,61 @@ public class Cliente {
         this.setInstruccion(instruccion);
     }
     
-    
-    
-    /*--------------MANEJO DE INTERFAZ--------------*/ 
-    
-    //El server válida el login con la instrucción "rol,;,200"
-    public boolean ventanaInicial() throws FileNotFoundException, IOException {
-        String rol = obtenerMensaje();
-        String codigo = obtenerCodigo();
-        boolean validacion = false;
-
-        if (codigo.equals("200")) {
-            switch (rol) {
-                case "docente": case "estudiante":
-                    GestionEvaluaciones evaluaciones = new GestionEvaluaciones(this, rol);
-                    evaluaciones.setVisible(true);
-                    validacion = true;
-                    break;
-                case "administrativo":
-                    Registro registros = new Registro(this);
-                    registros.setVisible(true);
-                    validacion = true;
-                    break;    
-            }
-        }
-        return validacion;
+    /**
+     * Método que da formato a la pregunta de tipo multiple. El formato
+     * corresponde a
+     * "enunciado,,,Multiple,,,puntaje,,,op1,,,op2,,,op3,,,op4,,,respuesta".
+     * @param enunciado
+     * @param puntaje
+     * @param op1
+     * @param op2
+     * @param op3
+     * @param op4
+     * @param respuesta
+     * 
+     */
+    public void armarMultiple(String enunciado, String puntaje, String op1, String op2, String op3, String op4, String respuesta) {
+        String pregunta = ";;;" + enunciado + ",,,Multiple,,," + puntaje + ",,," + op1 + ",,," + op2 + ",,," + op3 + ",,," + op4 + ",,," + respuesta;
+        this.concatenarMensaje(pregunta);
     }
 
-    //Metodo que permite cargar la vista previa de una evaluacion en la interfaz
-    public void cargarEnGui(String[] pregunta, AltaPregunta framePregunta) {
-        String tipo = pregunta[0];
-        String enunciado = pregunta[1];
-        int puntaje = Integer.parseInt(pregunta[pregunta.length - 1]);//El último token es el puntaje
-
-        JPanel multiple, espacios;               
-        framePregunta.setLocationRelativeTo(null);
-        multiple = framePregunta.getPanelMultiple();
-        espacios = framePregunta.getPanelRespuesta();//Este panel se utiliza si la pregutna es VF o para completar
-        framePregunta.getPanelEnunciado().setVisible(false);//Solo visible al crear la pregunta
-        framePregunta.setVisible(true);
-
-        switch (tipo) {
-            case "Multiple":
-                framePregunta.getLblEnunciadoMultiple().setText(enunciado);//Se carga el enunciado en Label                
-                framePregunta.getTxtRespuesta().setVisible(false);
-                framePregunta.getCboxOpciones().setVisible(true);
-                framePregunta.getCboxVerdaderoOFalso().setVisible(false);
-                framePregunta.getPanel().setVisible(false);
-                espacios.setVisible(false);
-                multiple.setVisible(true);
-                //Aparecen las opciones y el puntaje pero sin posibilidad de editar                
-                framePregunta.getspnPuntajeMultiple().setEnabled(false);
-                framePregunta.getspnPuntajeMultiple().setValue(puntaje);//el token 6 tiene el puntaje
-                framePregunta.getTxtOpc1().setText(pregunta[2]);//las opciones son los tokens 2-5
-                framePregunta.getTxtOpc2().setText(pregunta[3]);
-                framePregunta.getTxtOpc3().setText(pregunta[4]);
-                framePregunta.getTxtOpc4().setText(pregunta[5]);
-                framePregunta.getTxtOpc1().setEnabled(false);
-                framePregunta.getTxtOpc2().setEnabled(false);
-                framePregunta.getTxtOpc3().setEnabled(false);
-                framePregunta.getTxtOpc4().setEnabled(false);
-                framePregunta.getBtnFinalizarMultiple().setText("Siguiente");
-                break;
-            case "VF":
-                multiple.setVisible(false);
-                framePregunta.getTxtEnunciadoVF().setText(enunciado);//Se carga el enunciado en el txtArea  
-                espacios.setVisible(true);
-                framePregunta.getTxtRespuesta().setVisible(false);
-                framePregunta.getPanel().setVisible(true);
-                framePregunta.getCboxVerdaderoOFalso().setVisible(true);
-                framePregunta.getLblTipo().setText("True/False");
-                framePregunta.getspnPuntaje().setEnabled(false);
-                framePregunta.getspnPuntaje().setValue(puntaje);
-                framePregunta.getBtnFinalizar().setText("Siguiente");
-                break;
-            case "Completar":
-                multiple.setVisible(false);
-                framePregunta.getTxtEnunciadoVF().setText(enunciado);//Se carga el enunciado en el txtArea    
-                framePregunta.getCboxVerdaderoOFalso().setVisible(false);
-                framePregunta.getTxtRespuesta().setVisible(true);
-                espacios.setVisible(true);
-                framePregunta.getPanel().setVisible(true);
-                framePregunta.getspnPuntaje().setEnabled(false);
-                framePregunta.getspnPuntaje().setValue(puntaje);
-                framePregunta.getLblTipo().setText("Respuesta/s");
-                framePregunta.getBtnFinalizar().setText("Siguiente");
-                break;
-        }
-
+    /**
+     * Método que da formato a la pregunta de tipo vf. El formato corresponde a
+     * "enunciado,,,VF,,,puntaje,,,respuesta".
+     * @param enunciado
+     * @param puntaje
+     * @param respuesta verdadero o falso.
+     */
+    public void armarVF(String enunciado, String puntaje, String respuesta) {
+        String pregunta = ";;;" + enunciado + ",,,VF,,," + puntaje + ",,," + respuesta;
+        this.concatenarMensaje(pregunta);
     }
-    
-    
-    
+
+    /**
+     * Método que da formato a la pregunta de tipo espacios. EL formato
+     * corresponde a "enunciado,,,Completar,,,puntaje,,,respuestas separadas por
+     * coma".
+     * @param enunciado
+     * @param puntaje
+     * @param respuestas separadas por coma.
+     */
+    public void armarEspacios(String enunciado, String puntaje, String respuestas) {
+        String pregunta = ";;;" + enunciado + ",,,Completar,,," + puntaje + ",,," + respuestas;
+        this.concatenarMensaje(pregunta);
+    }
+
+    /**
+     * Método que da formato a las respuestas del estudiante, ordenadas. El
+     * formato corresponde a "respuesta0;;;respuesta1;;;...;;;respuestaN".
+     *
+     * @param respuestas dadas por el estudiante a lo largo de la evaluación.
+     * @param respuesta de la pregunta actual.
+     * @return respuestas actuales.
+     */
+    public String prepararRespuestas(String respuestas, String respuesta) {
+        String[] tokens = respuesta.split(",;,");
+        tokens = tokens[0].split(";;;");
+        respuestas += ";;;" + tokens[0];
+        return respuestas;
+    }
 }

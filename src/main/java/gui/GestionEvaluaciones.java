@@ -268,7 +268,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
                 VerHistoriales historico = new VerHistoriales(titulo, this.getCliente(), this.getRol());
-
                 // Verificar si hay historiales antes de mostrar la ventana
                 if (historico.hayHistorialesDisponibles()) {
                     historico.setVisible(true);
@@ -338,7 +337,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                     AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
                     framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
                     framePregunta.setEvaluacion(titulo);
-                    this.getCliente().cargarEnGui(pregunta, framePregunta);
+                    framePregunta.cargarEnGui(pregunta, framePregunta);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
