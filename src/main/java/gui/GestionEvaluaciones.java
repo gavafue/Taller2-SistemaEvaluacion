@@ -325,6 +325,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                 this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
                 if (this.getCliente().obtenerCodigo().equals("200")) {
                     JOptionPane.showMessageDialog(null, "Evaluacion eliminada");
+                    this.solicitarTitulosEvaluaciones();
                     cargarTablaEvaluaciones();
                 } else {
                     JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
