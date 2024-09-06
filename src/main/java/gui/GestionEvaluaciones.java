@@ -71,7 +71,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
@@ -90,16 +91,15 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,19 +130,18 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         tableEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tableEvaluaciones.setForeground(new java.awt.Color(0, 0, 0));
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "Titulo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
+                },
+                new String[] {
+                        "Titulo"
+                }) {
+            Class[] types = new Class[] {
+                    java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         tableEvaluaciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,49 +190,66 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizarPassword))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRealizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 152,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnActualizarPassword))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jScrollPane2,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 396,
+                                                                Short.MAX_VALUE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnHistorico,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 105,
+                                                                Short.MAX_VALUE)
+                                                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnRealizar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                Short.MAX_VALUE))))
+                                .addContainerGap(11, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addComponent(btnRealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(btnActualizarPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(165, 165, 165)
+                                .addComponent(btnRealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblUsuario)
+                                        .addComponent(btnActualizarPassword))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -244,7 +260,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
         try {
             AltaEvaluacion generador = new AltaEvaluacion(cliente);
             generador.setVisible(true);
@@ -252,7 +268,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }// GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * Método destinado a proveer funcionalidad al botón "Historial" que le
@@ -262,17 +278,26 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHistoricoActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
                 VerHistoriales historico = new VerHistoriales(titulo, this.getCliente(), this.getRol());
-                // Verificar si hay historiales antes de mostrar la ventana
-                if (historico.hayHistorialesDisponibles()) {
-                    historico.setVisible(true);
-                    this.dispose();
+                if (this.getRol().equals("docente")) {
+                    if (historico.hayHistorialesDisponibles()) {
+                        historico.setVisible(true);
+                        this.dispose();
+                    }
+                } else if (this.getRol().equals("estudiante")) {
+                    if (historico.hayHistorialesDisponibles() && historico.estudianteRealizoEvaluacion()) {
+                        historico.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No has realizado esta evaluación aún");
+                    }
                 }
+
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Error al procesar la solicitud: " + ex.getMessage());
@@ -280,11 +305,11 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una evaluación.");
         }
-    }//GEN-LAST:event_btnHistoricoActionPerformed
+    }// GEN-LAST:event_btnHistoricoActionPerformed
 
-    private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEvaluacionesMouseClicked
+    private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tableEvaluacionesMouseClicked
 
-    }//GEN-LAST:event_tableEvaluacionesMouseClicked
+    }// GEN-LAST:event_tableEvaluacionesMouseClicked
 
     /**
      * Método destinado a proveer funcionalidad al botón "Eliminar" que le
@@ -292,7 +317,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEliminarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
@@ -302,7 +327,8 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Evaluacion eliminada");
                     cargarTablaEvaluaciones();
                 } else {
-                    JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                            "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,7 +336,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione una evaluacion");
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }// GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * Método destinado a proveer funcionalidad al botón "Realizar" que le
@@ -318,22 +344,30 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarActionPerformed
+    private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow == -1) { // No hay ninguna evaluación seleccionada
-            JOptionPane.showMessageDialog(null, "Seleccione la evaluación a realizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione la evaluación a realizar.", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-                String aEnviar = this.getCliente().formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta"); // Solicita la Pregunta 0 de una evaluacion
+                String aEnviar = this.getCliente().formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta"); // Solicita
+                                                                                                                         // la
+                                                                                                                         // Pregunta
+                                                                                                                         // 0
+                                                                                                                         // de
+                                                                                                                         // una
+                                                                                                                         // evaluacion
                 // El servidor deberia responder con:
                 // TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
                 this.getCliente().intercambiarMensajes(aEnviar);
-                String[] pregunta = this.getCliente().obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por ;;;               
+                String[] pregunta = this.getCliente().obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por
+                                                                                     // ;;;
                 if (this.getCliente().obtenerCodigo().equals("200")) {
-                    //MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
-                    //VerdaderoFalso;;;Enunciado;;;puntaje
-                    //Completar;;;Enunciado;;;puntaje
+                    // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
+                    // VerdaderoFalso;;;Enunciado;;;puntaje
+                    // Completar;;;Enunciado;;;puntaje
                     AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
                     framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
                     framePregunta.setEvaluacion(titulo);
@@ -345,7 +379,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_btnRealizarActionPerformed
+    }// GEN-LAST:event_btnRealizarActionPerformed
 
     /**
      * Método destinado a proveer funcionalidad al botón "Actualizar Contraseña"
@@ -353,23 +387,26 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnActualizarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPasswordActionPerformed
-        String contrasenia = JOptionPane.showInputDialog(this, "Ingrese nueva password para su usuario: ", "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
+    private void btnActualizarPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnActualizarPasswordActionPerformed
+        String contrasenia = JOptionPane.showInputDialog(this, "Ingrese nueva password para su usuario: ",
+                "CAMBIE SU PASSWORD", JOptionPane.QUESTION_MESSAGE);
         if (contrasenia != null && !contrasenia.isBlank()) {
             try {
-                this.getCliente().intercambiarMensajes(this.getCliente().getId() + ";;;" + contrasenia + ",;,Usuarios,;,CambioPassword");
+                this.getCliente().intercambiarMensajes(
+                        this.getCliente().getId() + ";;;" + contrasenia + ",;,Usuarios,;,CambioPassword");
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 JOptionPane.showMessageDialog(this, "Modificada con éxito");
             } else {
-                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                        "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "NO SE MODIFICO. La password no puede ser vacia.");
         }
-    }//GEN-LAST:event_btnActualizarPasswordActionPerformed
+    }// GEN-LAST:event_btnActualizarPasswordActionPerformed
 
     /**
      * Método que le solicita al servidor los títulos de las evaluaciones ya
@@ -400,7 +437,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         };
         modelo.addColumn("Títulos");
         for (String titulo : titulos) {
-            modelo.addRow(new Object[]{titulo});
+            modelo.addRow(new Object[] { titulo });
         }
         tableEvaluaciones.setModel(modelo);
     }

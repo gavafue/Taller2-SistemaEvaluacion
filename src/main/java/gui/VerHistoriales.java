@@ -32,7 +32,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         this.cliente = cliente;
         this.rol = rol;
         initComponents();
-        setLocationRelativeTo(null); //Centrar JFrame
+        setLocationRelativeTo(null); // Centrar JFrame
         lblTitulo.setText("Evaluacion: " + titulo);
         this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
@@ -88,7 +88,8 @@ public class VerHistoriales extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -102,26 +103,25 @@ public class VerHistoriales extends javax.swing.JFrame {
 
         tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "CI Estudiante", "Puntaje Obtenido"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                },
+                new String[] {
+                        "CI Estudiante", "Puntaje Obtenido"
+                }) {
+            Class[] types = new Class[] {
+                    java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false
+            boolean[] canEdit = new boolean[] {
+                    false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane2.setViewportView(tableHistorico);
@@ -150,32 +150,37 @@ public class VerHistoriales extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(37, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(lblTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(24, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -186,7 +191,7 @@ public class VerHistoriales extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAtrasActionPerformed
         try {
             GestionEvaluaciones evaluaciones = new GestionEvaluaciones(this.getCliente(), this.getRol());
             evaluaciones.setVisible(true);
@@ -196,7 +201,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAtrasActionPerformed
+    }// GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * Método que proveé funcionamiento al botón "Respuestas Correctas", que
@@ -205,11 +210,11 @@ public class VerHistoriales extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuestasActionPerformed
+    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
         VerRespuestas abrirVentana;
         abrirVentana = new VerRespuestas(this.getCliente(), this.getTitulo());
         abrirVentana.setVisible(true);
-    }//GEN-LAST:event_btnRespuestasActionPerformed
+    }// GEN-LAST:event_btnRespuestasActionPerformed
 
     /**
      * Método que solicita al servidor los historiales de una evaluación en
@@ -222,7 +227,8 @@ public class VerHistoriales extends javax.swing.JFrame {
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 this.cargarTablaHistoriales();
             } else {
-                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                        "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -239,25 +245,39 @@ public class VerHistoriales extends javax.swing.JFrame {
         String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
         String[] historial = null;
 
-        String[] columnas = {"CI alumno", "Puntaje"};
+        String[] columnas = { "CI alumno", "Puntaje" };
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         for (int i = 0; i < historiales.length; i++) {
             historial = historiales[i].split(",,,");
             if (this.getRol().equals("docente")) {
-                Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                Object[] fila = { historial[0]/* cialumno] */, historial[1]/* puntaje */ };
                 modelo.addRow(fila);
             }
             if (this.getCliente().getId().equals(historial[0]) && this.getRol().equals("estudiante")) {
-                Object[] fila = {historial[0]/*cialumno]*/, historial[1]/*puntaje*/};
+                Object[] fila = { historial[0]/* cialumno] */, historial[1]/* puntaje */ };
                 modelo.addRow(fila);
             }
         }
         tableHistorico.setModel(modelo);
     }
 
+    public Boolean estudianteRealizoEvaluacion() {
+        boolean estudianteRealizoEvaluacion = false;
+        String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
+        String ciEstudianteConectado = this.getCliente().getId();
+        for (int i = 0; i < historiales.length; i++) {
+            String[] historial = historiales[i].split(",,,");
+            if (historial[0].equals(ciEstudianteConectado)) {
+                estudianteRealizoEvaluacion = true;
+            }
+        }
+        return estudianteRealizoEvaluacion;
+    }
+
     public void visualizarBtnRespuestas() {
         try {
-            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ValorCheckboxRespuestas");
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
+                    "ValorCheckboxRespuestas");
             this.getCliente().intercambiarMensajes(instruccion);
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 if (this.getCliente().obtenerMensaje().equals("true")) {
@@ -269,11 +289,14 @@ public class VerHistoriales extends javax.swing.JFrame {
         } catch (IOException e) {
             // Manejo de errores de entrada/salida, como problemas de red
             System.err.println("Error de comunicación con el servidor: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
-            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son null
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son
+            // null
             System.err.println("Referencia nula detectada: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             // Manejo general de excepciones para cualquier otro error no específico
             System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
