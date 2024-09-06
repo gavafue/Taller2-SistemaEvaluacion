@@ -98,11 +98,14 @@ public class VerRespuestas extends javax.swing.JFrame {
         String[] columnas = {"Enunciado", "Respuesta"};
 
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-        for (int i = 0; i < preguntasYRespuestas.length; i++) {          
+        for (int i = 0; i < preguntasYRespuestas.length; i++) {
             String[] separarPreguntaYRespuesta = preguntasYRespuestas[i].split(",,,");
-            String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
-            if (separarRespuestas[1].equals("null")) {
-                separarRespuestas[1] = "";
+            if (separarPreguntaYRespuesta[1].contains("*")) {
+                String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
+                if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
+                    separarRespuestas[1] = "";
+                    separarPreguntaYRespuesta[1] = separarRespuestas[0];
+                }
                 separarPreguntaYRespuesta[1] = separarRespuestas[0];
             }
             Object[] fila = {separarPreguntaYRespuesta[0]/*pregunta*/, separarPreguntaYRespuesta[1]/*respuesta*/};
