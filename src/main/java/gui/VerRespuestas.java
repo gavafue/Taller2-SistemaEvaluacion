@@ -136,8 +136,8 @@ public class VerRespuestas extends javax.swing.JFrame {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
                     if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
                         separarRespuestas[1] = "";
+                        separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
-                    separarPreguntaYRespuesta[1] = separarRespuestas[0];
                 }
 
                 // Agrega la fila a la tabla
