@@ -21,14 +21,15 @@ import java.util.logging.Logger;
 public class AltaPregunta extends javax.swing.JFrame {
 
     private Cliente cliente;
-    private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación de forma dinámica
+    private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación
+                                // de forma dinámica
 
-    //Atributos utilizados como variables globales
+    // Atributos utilizados como variables globales
     private String evaluacion; // Título de la evaluación
     private String pregunta;
     private String enunciado;
     private String tipoPregunta;
-    
+
     private String respuestas; // Respuestas del estudiante a las preguntas de la evaluación
     private static int cantidadPreguntas; // Atributo propio de a clase y no de la instancia
 
@@ -37,7 +38,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * cliente actual y el JPanel vista previa de la evaluación.
      *
      * @param vistaPrevia permite visualizar los cambios en la evaluación de
-     * forma dinámica.
+     *                    forma dinámica.
      * @param cliente
      */
     public AltaPregunta(JPanel vistaPrevia, Cliente cliente) {
@@ -243,8 +244,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         cboxVerdaderoOFalso.setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -302,7 +303,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         jLabel2.setText("Pregunta");
 
         cboxTipoPregunta.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
-        cboxTipoPregunta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rellenar espacios", "Multiple opción", "Verdadero o Falso" }));
+        cboxTipoPregunta.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Rellenar espacios", "Multiple opción", "Verdadero o Falso" }));
         cboxTipoPregunta.setBorder(null);
         cboxTipoPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,43 +335,52 @@ public class AltaPregunta extends javax.swing.JFrame {
         javax.swing.GroupLayout panelEnunciadoLayout = new javax.swing.GroupLayout(panelEnunciado);
         panelEnunciado.setLayout(panelEnunciadoLayout);
         panelEnunciadoLayout.setHorizontalGroup(
-            panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1))
-                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(38, 459, Short.MAX_VALUE))
-                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                        .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxTipoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
-                        .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblSigno)
-                .addGap(7, 7, 7))
-        );
+                panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(panelEnunciadoLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jScrollPane1))
+                                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(38, 459, Short.MAX_VALUE))
+                                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                                .addGroup(panelEnunciadoLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(cboxTipoPregunta,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 182,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        268, Short.MAX_VALUE)
+                                                .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSigno)
+                                .addGap(7, 7, 7)));
         panelEnunciadoLayout.setVerticalGroup(
-            panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboxTipoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
-            .addComponent(lblSigno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addGroup(panelEnunciadoLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(cboxTipoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(32, 32, 32))
+                        .addComponent(lblSigno, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         panelMultiple.setBackground(new java.awt.Color(255, 255, 255));
         panelMultiple.setPreferredSize(new java.awt.Dimension(587, 227));
@@ -397,7 +408,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         jLabel7.setBounds(20, 210, 170, 30);
 
         cboxOpcionesMultiple.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        cboxOpcionesMultiple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Opción 1", "Opción 2", "Opción 3", "Opción 4" }));
+        cboxOpcionesMultiple.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Opción 1", "Opción 2", "Opción 3", "Opción 4" }));
         cboxOpcionesMultiple.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxOpcionesMultipleActionPerformed(evt);
@@ -470,36 +482,45 @@ public class AltaPregunta extends javax.swing.JFrame {
         javax.swing.GroupLayout panelPuntajeLayout = new javax.swing.GroupLayout(panelPuntaje);
         panelPuntaje.setLayout(panelPuntajeLayout);
         panelPuntajeLayout.setHorizontalGroup(
-            panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPuntajeLayout.createSequentialGroup()
-                .addGroup(panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPuntajeLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelPuntajeLayout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panelPuntajeLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnConsolaMultiple)))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
+                panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPuntajeLayout.createSequentialGroup()
+                                .addGroup(panelPuntajeLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelPuntajeLayout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(panelPuntajeLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(panelPuntajeLayout.createSequentialGroup()
+                                                                .addGap(41, 41, 41)
+                                                                .addComponent(btnFinalizarMultiple,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(panelPuntajeLayout.createSequentialGroup()
+                                                                .addGap(76, 76, 76)
+                                                                .addComponent(spnPuntajeMultiple,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 77,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(panelPuntajeLayout.createSequentialGroup()
+                                                .addGap(59, 59, 59)
+                                                .addComponent(btnConsolaMultiple)))
+                                .addContainerGap(34, Short.MAX_VALUE)));
         panelPuntajeLayout.setVerticalGroup(
-            panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPuntajeLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(btnConsolaMultiple)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
+                panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPuntajeLayout.createSequentialGroup()
+                                .addContainerGap(28, Short.MAX_VALUE)
+                                .addComponent(btnConsolaMultiple)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 41,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)));
 
         panelMultiple.add(panelPuntaje);
         panelPuntaje.setBounds(440, 0, 230, 260);
@@ -515,6 +536,7 @@ public class AltaPregunta extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEnunciadoMultipleMouseClicked(evt);
             }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblEnunciadoMultipleMouseEntered(evt);
             }
@@ -613,68 +635,85 @@ public class AltaPregunta extends javax.swing.JFrame {
         javax.swing.GroupLayout panelEspaciosVFLayout = new javax.swing.GroupLayout(panelEspaciosVF);
         panelEspaciosVF.setLayout(panelEspaciosVFLayout);
         panelEspaciosVFLayout.setHorizontalGroup(
-            panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConsolaEspaciosVF))
-                    .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-        );
+                panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(panelEspaciosVFLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnConsolaEspaciosVF))
+                                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 343,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(spnPuntajeEspaciosVF,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 73,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11,
+                                        Short.MAX_VALUE)
+                                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)));
         panelEspaciosVFLayout.setVerticalGroup(
-            panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConsolaEspaciosVF))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
-                    .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                .addGroup(panelEspaciosVFLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                                .addGap(27, 27, 27)
+                                                .addGroup(panelEspaciosVFLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btnConsolaEspaciosVF))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(panelEspaciosVFLayout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(spnPuntajeEspaciosVF,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel10)))
+                                        .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                                .addGap(15, 15, 15)
+                                                .addComponent(panelRespuestaEspaciosVF,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 225,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMultiple, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelEspaciosVF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panelMultiple, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(panelEnunciado, javax.swing.GroupLayout.DEFAULT_SIZE, 672,
+                                        Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(panelEspaciosVF, javax.swing.GroupLayout.Alignment.TRAILING,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panelEnunciado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panelEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 2, Short.MAX_VALUE)))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panelMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 258,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(panelEnunciado, javax.swing.GroupLayout.PREFERRED_SIZE, 263,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(panelEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 261,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 2, Short.MAX_VALUE))));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -684,7 +723,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * enunciado, que permite al escribir el enunciado y seleccionar el tipo de
      * pregunta a crear abrir el panel correspondiente.
      */
-    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSiguienteActionPerformed
+    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bntSiguienteActionPerformed
         this.setEnunciado(txtEnunciado.getText());
         this.setTipoPregunta((String) cboxTipoPregunta.getSelectedItem());
         lblTipo.setText("Respuesta");
@@ -701,7 +740,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                 this.interfazEspacios();
                 break;
         }
-    }//GEN-LAST:event_bntSiguienteActionPerformed
+    }// GEN-LAST:event_bntSiguienteActionPerformed
 
     /**
      * Método que permite dar funcionalidad desde el JPanel multiple al botón
@@ -712,35 +751,39 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarMultipleActionPerformed
+    private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarMultipleActionPerformed
         if ("Finalizar".equals(btnFinalizarMultiple.getText())) {// Es el docente creando la pregunta
             cantidadPreguntas++;
             this.agregarPreguntaVistaPrevia();
-            this.getCliente().armarMultiple(this.getEnunciado(), String.valueOf(this.spnPuntajeMultiple.getValue()), this.txtOpc1.getText(), this.txtOpc2.getText(), this.txtOpc3.getText(), this.txtOpc4.getText(), String.valueOf(this.cboxOpcionesMultiple.getSelectedIndex() + 1));
+            this.getCliente().armarMultiple(this.getEnunciado(), String.valueOf(this.spnPuntajeMultiple.getValue()),
+                    this.txtOpc1.getText(), this.txtOpc2.getText(), this.txtOpc3.getText(), this.txtOpc4.getText(),
+                    String.valueOf(this.cboxOpcionesMultiple.getSelectedIndex() + 1));
             this.dispose();
         } else {
-            if ("Siguiente".equals(btnFinalizarMultiple.getText())) { // Es un alumno contestando la pregunta multiple opción 
+            if ("Siguiente".equals(btnFinalizarMultiple.getText())) { // Es un alumno contestando la pregunta multiple
+                                                                      // opción
                 try {
                     cantidadPreguntas++;
-                    this.solicitarSiguientePregunta(String.valueOf(cboxOpcionesMultiple.getSelectedIndex() + 1)/*respuesta*/, this);
+                    this.solicitarSiguientePregunta(
+                            String.valueOf(cboxOpcionesMultiple.getSelectedIndex() + 1)/* respuesta */, this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-    }//GEN-LAST:event_btnFinalizarMultipleActionPerformed
+    }// GEN-LAST:event_btnFinalizarMultipleActionPerformed
 
-    private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOpc1ActionPerformed
+    private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtOpc1ActionPerformed
 
-    }//GEN-LAST:event_txtOpc1ActionPerformed
+    }// GEN-LAST:event_txtOpc1ActionPerformed
 
-    private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
+    private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
 
-    }//GEN-LAST:event_cboxOpcionesMultipleActionPerformed
+    }// GEN-LAST:event_cboxOpcionesMultipleActionPerformed
 
-    private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoPreguntaActionPerformed
+    private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxTipoPreguntaActionPerformed
 
-    }//GEN-LAST:event_cboxTipoPreguntaActionPerformed
+    }// GEN-LAST:event_cboxTipoPreguntaActionPerformed
 
     /**
      * Método que permite dar funcionalidad desde el JPanel espaciosVF al botón
@@ -753,21 +796,25 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
-        if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {//Es el docente creando la pregunta
+    private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
+        if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {// Es el docente creando la pregunta
             cantidadPreguntas++;
             this.agregarPreguntaVistaPrevia();
             if (this.getTipoPregunta().equals("Verdadero o Falso")) {
-                this.getCliente().armarVF(this.getEnunciado(), String.valueOf(this.spnPuntajeEspaciosVF.getValue())/*puntaje*/, String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/*respuesta*/);
+                this.getCliente().armarVF(this.getEnunciado(),
+                        String.valueOf(this.spnPuntajeEspaciosVF.getValue())/* puntaje */,
+                        String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/* respuesta */);
             } else {
-                this.getCliente().armarEspacios(this.getEnunciado(), String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
+                this.getCliente().armarEspacios(this.getEnunciado(),
+                        String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
             }
             this.dispose();
         } else {
-            if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {//Es un alumno contestando la pregunta vf o de completar
+            if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {// Es un alumno contestando la pregunta vf o de
+                                                                       // completar
                 try {
                     String respuesta;
-                    if (cboxVerdaderoOFalso.isVisible()) { //Si es vf
+                    if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
                         respuesta = String.valueOf(cboxVerdaderoOFalso.getSelectedItem());
                     } else {
                         respuesta = txtRespuestaEspacios.getText();
@@ -779,19 +826,19 @@ public class AltaPregunta extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_btnFinalizarEspaciosVFActionPerformed
+    }// GEN-LAST:event_btnFinalizarEspaciosVFActionPerformed
 
-    private void cboxVerdaderoOFalsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxVerdaderoOFalsoActionPerformed
+    private void cboxVerdaderoOFalsoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxVerdaderoOFalsoActionPerformed
 
-    }//GEN-LAST:event_cboxVerdaderoOFalsoActionPerformed
+    }// GEN-LAST:event_cboxVerdaderoOFalsoActionPerformed
 
-    private void lblEnunciadoMultipleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseClicked
-       
-    }//GEN-LAST:event_lblEnunciadoMultipleMouseClicked
+    private void lblEnunciadoMultipleMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblEnunciadoMultipleMouseClicked
 
-    private void lblEnunciadoMultipleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseEntered
+    }// GEN-LAST:event_lblEnunciadoMultipleMouseClicked
 
-    }//GEN-LAST:event_lblEnunciadoMultipleMouseEntered
+    private void lblEnunciadoMultipleMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblEnunciadoMultipleMouseEntered
+
+    }// GEN-LAST:event_lblEnunciadoMultipleMouseEntered
 
     /**
      * Método que da funcionamiento al botón "consola" ubicado en el JPanel
@@ -799,10 +846,10 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnConsolaMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolaMultipleActionPerformed
+    private void btnConsolaMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolaMultipleActionPerformed
         Consola consola = new Consola();
         consola.setVisible(true);
-    }//GEN-LAST:event_btnConsolaMultipleActionPerformed
+    }// GEN-LAST:event_btnConsolaMultipleActionPerformed
 
     /**
      * Método que da funcionamiento al botón "consola" ubicado en el JPanel
@@ -810,28 +857,36 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnConsolaEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolaEspaciosVFActionPerformed
+    private void btnConsolaEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolaEspaciosVFActionPerformed
         Consola consola = new Consola();
         consola.setVisible(true);
-    }//GEN-LAST:event_btnConsolaEspaciosVFActionPerformed
+    }// GEN-LAST:event_btnConsolaEspaciosVFActionPerformed
 
-     /**
+    /**
      * Método que le solicita al servidor la siguiente pregunta de la
      * evaluación.
      *
-     * @param respuesta de la pregunta anterior.
+     * @param respuesta     de la pregunta anterior.
      * @param framePregunta JFrame donde visualiza el estudiante la pregunta de
-     * la evaluación.
+     *                      la evaluación.
      * @throws IOException
      */
     private void solicitarSiguientePregunta(String respuesta, AltaPregunta framePregunta) throws IOException {
-        this.setRespuestas(this.getCliente().prepararRespuestas(this.getRespuestas(), respuesta)); // Almacena la respuesta de la pregunta anterior
-        this.getCliente().intercambiarMensajes(this.getEvaluacion() + ";;;" + cantidadPreguntas /* Corresponde al número de pregunta solicitada*/ + ",;,Evaluaciones,;,ObtenerPregunta");
+        this.setRespuestas(this.getCliente().prepararRespuestas(this.getRespuestas(), respuesta)); // Almacena la
+                                                                                                   // respuesta de la
+                                                                                                   // pregunta anterior
+        this.getCliente()
+                .intercambiarMensajes(this.getEvaluacion() + ";;;"
+                        + cantidadPreguntas /* Corresponde al número de pregunta solicitada */
+                        + ",;,Evaluaciones,;,ObtenerPregunta");
         // Confirmación de envío de respuestas
-        if (this.getCliente().obtenerMensaje().equals("Finalizar")) { // Si el server manda "Finalizar,;,200" no hay más preguntas disponibles
-            int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (this.getCliente().obtenerMensaje().equals("Finalizar")) { // Si el server manda "Finalizar,;,200" no hay más
+                                                                      // preguntas disponibles
+            int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (finalizar == JOptionPane.YES_OPTION) { // Envía las respuestas del estudiante
-                String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones", "Correccion");
+                String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones",
+                        "Correccion");
                 this.getCliente().intercambiarMensajes(enviarRespuestas);
                 AltaPregunta.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
                 this.setRespuestas(""); // Inicializa las respuestas
@@ -847,7 +902,7 @@ public class AltaPregunta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Método que agrega los elementos correspondientes a una pregunta de tipo
      * multiple opción a la vista previa de la evaluación.
@@ -902,7 +957,7 @@ public class AltaPregunta extends javax.swing.JFrame {
     public void crearRespuestaVistaPrevia(Font fuente) {
         String respuesta = "";
         switch (this.getTipoPregunta()) {
-            case "Verdadero o Falso": //Vista como una multiple opcion de dos opciones
+            case "Verdadero o Falso": // Vista como una multiple opcion de dos opciones
                 respuesta = (String) cboxVerdaderoOFalso.getSelectedItem();
                 break;
             case "Multiple opción":
@@ -939,7 +994,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      */
     public void crearFrameNuevaPregunta(AltaPregunta framePregunta) {
         String[] nuevaPregunta = this.getCliente().obtenerMensaje().split(";;;");
-        if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { //Si tiene la estructura de una pregunta          
+        if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { // Si tiene la estructura de una pregunta
             this.cargarEnGui(nuevaPregunta, framePregunta);
             framePregunta.revalidate();
             framePregunta.repaint();
@@ -951,18 +1006,18 @@ public class AltaPregunta extends javax.swing.JFrame {
      * tipo multiple.
      *
      * @param pregunta
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiMultiple(String[] pregunta, int puntaje, AltaPregunta framePregunta) {
-        framePregunta.lblEnunciadoMultiple.setText(enunciado);//Se carga el enunciado en Label                
+        framePregunta.lblEnunciadoMultiple.setText(enunciado);// Se carga el enunciado en Label
         framePregunta.txtRespuestaEspacios.setVisible(false);
         framePregunta.cboxOpcionesMultiple.setVisible(true);
         framePregunta.cboxVerdaderoOFalso.setVisible(false);
         framePregunta.panelRespuestaEspaciosVF.setVisible(false);
         this.panelEspaciosVF.setVisible(false);
         this.panelMultiple.setVisible(true);
-        //Aparecen las opciones y el puntaje pero sin posibilidad de editar                
+        // Aparecen las opciones y el puntaje pero sin posibilidad de editar
         framePregunta.spnPuntajeMultiple.setEnabled(false);
         framePregunta.spnPuntajeMultiple.setValue(puntaje);
         framePregunta.txtOpc1.setText(pregunta[2]); // Las opciones son los tokens 2-5
@@ -980,12 +1035,12 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo vf.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiVF(int puntaje, AltaPregunta framePregunta) {
         this.panelMultiple.setVisible(false);
-        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado); //Se carga el enunciado en el txtArea  
+        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado); // Se carga el enunciado en el txtArea
         this.panelEspaciosVF.setVisible(true);
         framePregunta.txtRespuestaEspacios.setVisible(false);
         framePregunta.panelRespuestaEspaciosVF.setVisible(true);
@@ -1000,12 +1055,12 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo espacios.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiEspacios(int puntaje, AltaPregunta framePregunta) {
         this.panelMultiple.setVisible(false);
-        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado);//Se carga el enunciado en el txtArea    
+        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado);// Se carga el enunciado en el txtArea
         framePregunta.cboxVerdaderoOFalso.setVisible(false);
         framePregunta.txtRespuestaEspacios.setVisible(true);
         this.panelEspaciosVF.setVisible(true);
@@ -1020,7 +1075,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Metodo que permite cargar en un JFrame de tipo pregunta con la pregunta
      * actual.
      *
-     * @param pregunta actual.
+     * @param pregunta      actual.
      * @param framePregunta en el que se agregarán los componentes.
      */
     public void cargarEnGui(String[] pregunta, AltaPregunta framePregunta) {
@@ -1029,7 +1084,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         int puntaje = Integer.parseInt(pregunta[pregunta.length - 1]); // El último token es el puntaje
 
         framePregunta.setLocationRelativeTo(null);
-        framePregunta.panelEnunciado.setVisible(false); // Solo visible al crear la pregunta, en este caso es realizar evaluación como estudiante
+        framePregunta.panelEnunciado.setVisible(false); // Solo visible al crear la pregunta, en este caso es realizar
+                                                        // evaluación como estudiante
         framePregunta.setVisible(true);
 
         switch (tipo) {

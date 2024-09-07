@@ -21,7 +21,7 @@ public class Consola extends javax.swing.JFrame {
      */
     public Consola() {
         initComponents();
-        setLocationRelativeTo(null); //centrar
+        setLocationRelativeTo(null); // centrar
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); // No detiene el programa al cerrar el JFrame
         // Inicialización de las colecciones a utilizar
         hashComandos = new Comandos();
@@ -89,6 +89,7 @@ public class Consola extends javax.swing.JFrame {
 
     /**
      * Método que desactiva el placeholder de ayuda.
+     * 
      * @param texto
      */
     private void helpTextOff(JTextField texto) {
@@ -100,6 +101,7 @@ public class Consola extends javax.swing.JFrame {
 
     /**
      * Método que pone el texto a formato cursiva.
+     * 
      * @param texto a modificar.
      */
     public void textoCursiva(JTextArea texto) {
@@ -110,6 +112,7 @@ public class Consola extends javax.swing.JFrame {
 
     /**
      * Método que pone el texto a formato normal.
+     * 
      * @param texto a modificar.
      */
     public void textoNormal(JTextArea texto) {
@@ -117,11 +120,11 @@ public class Consola extends javax.swing.JFrame {
         fuente = fuente.deriveFont(Font.PLAIN);
         texto.setFont(fuente);
     }
-    
+
     /**
      * Método que pone los elementos de la interfaz en valores por defecto.
      */
-    public void valoresPorDefecto(){
+    public void valoresPorDefecto() {
         this.textoNormal(txtOutput);
         this.helpTextOff(txtComando);
         txtComando.setText("");
@@ -130,8 +133,8 @@ public class Consola extends javax.swing.JFrame {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -148,6 +151,7 @@ public class Consola extends javax.swing.JFrame {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
+
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
@@ -203,42 +207,45 @@ public class Consola extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblPrompt)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 757,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap()));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComando))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblPenguin)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtComando))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblPenguin)
+                                .addGap(0, 0, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -271,9 +278,10 @@ public class Consola extends javax.swing.JFrame {
         }
     }
 
-    // A continuación, con foco nos referimos a que el elemento está activo y preparado
+    // A continuación, con foco nos referimos a que el elemento está activo y
+    // preparado
     // para recibir la entrada del usuario, como texto o clics de teclado.
-    
+
     /**
      * Método que se ejecuta cuando la ventana gana el foco. Solicita el foco
      * para la ventana y luego para el campo de texto txtComando.
@@ -284,7 +292,7 @@ public class Consola extends javax.swing.JFrame {
         this.requestFocusInWindow();
         txtComando.requestFocus();
     }
-    
+
     /**
      * Método que se ejecuta cuando se hace clic en el label lblPenguin.
      * Solicita el foco para el campo de texto txtComando.

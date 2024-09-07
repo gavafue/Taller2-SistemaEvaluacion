@@ -136,10 +136,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                 new String[] {
                         "Titulo"
                 }) {
+            @SuppressWarnings("rawtypes")
             Class[] types = new Class[] {
                     java.lang.String.class
             };
 
+            @SuppressWarnings("rawtypes")
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
