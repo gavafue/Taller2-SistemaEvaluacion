@@ -269,7 +269,7 @@
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="24" style="1"/>
+              <Font name="Dialog" size="22" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Respuesta"/>
           </Properties>
@@ -592,7 +592,7 @@
                           <Component id="panelRespuestaEspaciosVF" min="-2" pref="225" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

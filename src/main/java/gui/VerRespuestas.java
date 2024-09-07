@@ -64,61 +64,108 @@ public class VerRespuestas extends javax.swing.JFrame {
     }
 
     /**
-     * Método que le solicita al cliente las preguntas y respuestas correctas de
-     * la evaluación seleccionada.
+     * Solicita al cliente las preguntas y respuestas correctas de la evaluación
+     * seleccionada
+     * y actualiza la tabla con la información recibida.
      */
     public void solicitarPreguntasYRespuestas() {
         try {
+            // Prepara el mensaje de solicitud y lo envía al cliente
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
                     "ObtenerCorrectas");
             this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica el código de respuesta del cliente
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 cargarPreguntasYRespuestas();
+            } else {
+                throw new RuntimeException("Código de respuesta inesperado: " + this.getCliente().obtenerCodigo());
             }
         } catch (IOException e) {
             // Manejo de errores de entrada/salida, como problemas de red
-            System.err.println("Error de comunicación con el servidor: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor.", "Error",
+            System.err.println("Error de comunicación con el servidor. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor. Detalles: " + e.getMessage(),
+                    "Error",
                     JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
             // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son
             // null
-            System.err.println("Referencia nula detectada: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos.", "Error",
+            System.err.println("Referencia nula detectada. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            // Manejo de excepciones en caso de respuestas inesperadas del cliente
+            System.err.println("Error en la respuesta del cliente. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la respuesta del cliente. Detalles: " + e.getMessage(),
+                    "Error",
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            // Manejo general de excepciones para cualquier otro error no específico
-            System.err.println("Ha ocurrido un error inesperado: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Captura cualquier otra excepción inesperada
+            System.err.println(
+                    "Ha ocurrido un error inesperado al solicitar preguntas y respuestas. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     /**
-     * Método que carga las preguntas y respuestas correctas a la interfaz
-     * gráfica, mediante una tabla.
+     * Carga las preguntas y respuestas desde el cliente y actualiza la tabla y el
+     * título.
      */
     public void cargarPreguntasYRespuestas() {
-        String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-        String[] columnas = { "Enunciado", "Respuesta" };
+        try {
+            // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
+            String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
+            String[] columnas = { "Enunciado", "Respuesta" };
 
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-        for (int i = 0; i < preguntasYRespuestas.length; i++) {
-            String[] separarPreguntaYRespuesta = preguntasYRespuestas[i].split(",,,");
-            if (separarPreguntaYRespuesta[1].contains("*")) {
-                String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
-                if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
-                    separarRespuestas[1] = "";
+            // Crea el modelo de la tabla con las columnas especificadas
+            DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+            for (String preguntaYRespuesta : preguntasYRespuestas) {
+                // Divide cada entrada en pregunta y respuesta
+                String[] separarPreguntaYRespuesta = preguntaYRespuesta.split(",,,");
+                if (separarPreguntaYRespuesta.length < 2) {
+                    // Verifica si la entrada tiene un formato esperado
+                    throw new IllegalArgumentException(
+                            "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
+                }
+
+                // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
+                if (separarPreguntaYRespuesta[1].contains("*")) {
+                    String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
+                    if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
+                        separarRespuestas[1] = "";
+                    }
                     separarPreguntaYRespuesta[1] = separarRespuestas[0];
                 }
-                separarPreguntaYRespuesta[1] = separarRespuestas[0];
+
+                // Agrega la fila a la tabla
+                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
+                modelo.addRow(fila);
             }
-            Object[] fila = { separarPreguntaYRespuesta[0]/* pregunta */, separarPreguntaYRespuesta[1]/* respuesta */ };
-            modelo.addRow(fila);
+
+            // Actualiza el modelo de la tabla y el título
+            jTable1.setModel(modelo);
+            labelTitulo.setText("Respuestas correctas: " + this.getTitulo());
+
+        } catch (NullPointerException e) {
+            // Maneja el caso en que el mensaje del cliente es null
+            System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Maneja el caso en que la división de la cadena resulta en un índice fuera de
+            // los límites
+            System.err.println("Error: Error al procesar el formato del mensaje. Detalles: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            // Manejo de errores de formato de datos incorrecto
+            System.err.println("Error: Datos de entrada inválidos. Detalles: " + e.getMessage());
+        } catch (Exception e) {
+            // Captura cualquier otra excepción inesperada
+            System.err.println("Error inesperado al cargar preguntas y respuestas. Detalles: " + e.getMessage());
         }
-        jTable1.setModel(modelo);
-        labelTitulo.setText("Respuestas correctas: " + this.getTitulo());
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -129,11 +176,9 @@ public class VerRespuestas extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(468, 440));
 
         jTable1.setBackground(new java.awt.Color(204, 204, 204));
         jTable1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][] {
                         { null, null },
@@ -164,15 +209,16 @@ public class VerRespuestas extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnAtras)
-                                        .addGroup(layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443,
-                                                        Short.MAX_VALUE)
-                                                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addContainerGap(19, Short.MAX_VALUE)));
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443,
+                                                Short.MAX_VALUE)
+                                        .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAtras)
+                                .addGap(26, 26, 26)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -180,12 +226,11 @@ public class VerRespuestas extends javax.swing.JFrame {
                                 .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(55, Short.MAX_VALUE)));
+                                .addGap(31, 31, 31)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
