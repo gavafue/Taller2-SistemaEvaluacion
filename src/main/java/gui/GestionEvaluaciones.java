@@ -397,7 +397,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
             // VerdaderoFalso;;;Enunciado;;;puntaje
             // Completar;;;Enunciado;;;puntaje
-            AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
+            AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente(), "estudiante");
             framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
             framePregunta.setEvaluacion(titulo);
             framePregunta.cargarEnGui(pregunta, framePregunta);
