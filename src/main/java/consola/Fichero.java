@@ -34,7 +34,7 @@ public abstract class Fichero {
     private String tipo;
 
     /**
-     * Indica si el formato de fecha.
+     * Indica el formato de fecha.
      */
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

@@ -140,7 +140,7 @@ public class Ejecutar {
                     mensaje = ejecutarPs(procesos);
                     break;
                 case "kill":
-                    mensaje = ejecutarKill(procesos);
+                    mensaje = ejecutarKill(procesos); ///////////////////////////////// VOY
                     break;
                 case "grep":
                     mensaje = ejecutarGrep(ficheros);
@@ -553,27 +553,22 @@ public class Ejecutar {
      * Ejecuta el comando <ls>kill</i> para eliminar un proceso por su ID.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarKill(Procesos procesos) {
         String mensaje = "";
 
         if (tokens.length == 2) {
-            // Intenta obtener el ID del proceso del segundo token
             String procesoIdStr = tokens[1];
 
             int procesoID = Integer.parseInt(procesoIdStr);
             if (procesos.existeProceso(procesoID)) {
-                // Si el proceso existe, se elimina de la lista de procesos
                 procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
                 mensaje = "Proceso eliminado\n";
             } else {
-                // Si no existe el proceso con el ID proporcionado
-                mensaje = "No existe el proceso\n";
+                mensaje = "No existe proceso con pid" + procesoID + "\n";
             }
         } else {
-            // Si la sintaxis del comando es incorrecta
             mensaje = "Sintaxis incorrecta.\nPruebe man kill\n";
         }
 
