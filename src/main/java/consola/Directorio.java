@@ -3,34 +3,43 @@ package consola;
 /**
  * Esta clase permite crear un fichero de tipo directorio.
  *
- * @author
- * @since version 2
  */
 public class Directorio extends Fichero {
 
-    //Atributos
+    /**
+     * Contenido del directorio.
+     */
     private Ficheros contenido; //Suponiendo que va a ser navegable
 
-    //Constructor comun
+    /**
+     * COnstructor
+     *
+     * @param nombre.
+     */
     public Directorio(String nombre) {
-        super(nombre,"drwxr--r--","user","Directorio");
+        super(nombre, "drwxr--r--", "user", "Directorio");
         contenido = new Ficheros();
     }
 
-    //Getter
+    /**
+     * @return contenido
+     */
     public Ficheros getContenido() {
         return contenido;
     }
 
-    //Setter
+    /**
+     * Establece el valor de contenido recibido por
+     *
+     * @param contenido.
+     */
     public void setContenido(Ficheros contenido) {
         this.contenido = contenido;
     }
-    
+
     @Override
-    public String obtenerContenido(){
+    public String obtenerContenido() {
         return "Esto es un directorio";
     }
 
-    
 }

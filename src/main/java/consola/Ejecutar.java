@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package consola;
 
 import java.time.LocalDateTime;
@@ -99,6 +95,13 @@ public class Ejecutar {
         return mensaje;
     }
 
+    /**
+     * Metodo principal de esta clase. Deriva la ejecucion al comando correspondiente.
+     * @param  comandos
+     * @param ficheros
+     * @param procesos
+     * @param salida donde mostrar el resultado de la ejecucion.
+     */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
         String mensaje = "";
         actualizarHora();
@@ -219,7 +222,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'rmdir' para eliminar directorios.
+     * Ejecuta el comando <i>rmdir</i> para eliminar directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @param procesos Objeto para gestionar los procesos.
@@ -378,11 +381,10 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
-     * visibles.
+     * visibles. Excluyendo los ocultos.
      */
     private String obtenerListaSimple(Ficheros ficheros) {
-        String mensaje;
-        mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
+        String mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
         return mensaje;
     }
 
@@ -390,8 +392,8 @@ public class Ejecutar {
      * Maneja las opciones de <ls>ls</i> con un parámetro.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return mensaje detallando el resultado de la ejecución del comando
-     * con un parámetro.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     * un parámetro.
      */
     private String manejarOpcionesUnParametro(Ficheros ficheros) {
         String mensaje;
@@ -417,8 +419,8 @@ public class Ejecutar {
      * Maneja las opciones de <ls>ls</i> con dos parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return mensaje detallando el resultado de la ejecución del comando
-     * con dos parámetros.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     * dos parámetros.
      */
     private String manejarOpcionesDosParametros(Ficheros ficheros) {
         String mensaje;
@@ -441,8 +443,8 @@ public class Ejecutar {
      * Maneja las opciones de <ls>ls</i> con tres parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return mensaje detallando el resultado de la ejecución del comando
-     * con tres parámetros.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     * tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
         String mensaje;
@@ -455,7 +457,8 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el contenido de un directorio para el comando <ls>ls</i> [directorio].
+     * Obtiene el contenido de un directorio para el comando <ls>ls</i>
+     * [directorio].
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
@@ -476,7 +479,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l [directorio].
+     * Obtiene el mensaje para el comando <ls>ls</i> -l [directorio]. ////////////////############################# ACA PASA ALGO
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar detalladamente.
@@ -487,7 +490,7 @@ public class Ejecutar {
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + nombreDirectorio + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = "No existe un directorio con ese nombre.\n";
         }
         return mensaje;
     }
@@ -590,7 +593,8 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>grep</i> para buscar un patrón en un archivo específico.
+     * Ejecuta el comando <ls>grep</i> para buscar un patrón en un archivo
+     * específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje indicando si se encontró el patrón en el archivo o un
@@ -622,7 +626,8 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>tail</i>' para mostrar las últimas líneas de un archivo.
+     * Ejecuta el comando <ls>tail</i>' para mostrar las últimas líneas de un
+     * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las últimas líneas del archivo especificado o un
@@ -691,7 +696,8 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>head</i> para mostrar las primeras líneas de un archivo.
+     * Ejecuta el comando <ls>head</i> para mostrar las primeras líneas de un
+     * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las primeras líneas del archivo especificado o un
@@ -760,14 +766,14 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de un
-     * archivo usando un delimitador específico.
+     * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de
+     * un archivo usando un delimitador específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @return mensaje con las columnas seleccionadas del archivo
-     * especificado o un mensaje de error si la sintaxis es incorrecta.
+     * @return mensaje con las columnas seleccionadas del archivo especificado o
+     * un mensaje de error si la sintaxis es incorrecta.
      */
-    public String ejecutarCut(Ficheros ficheros) { 
+    public String ejecutarCut(Ficheros ficheros) {
 //############################################################ ACA HAY VARIOS RETURN, VER.
 //###########################################################################################
         String mensaje = "";
@@ -850,11 +856,12 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo ordenadas
-     * alfabéticamente. Si se especifica la opción '-n', ordena numéricamente.
+     * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
+     * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena
+     * numéricamente.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-      * @return mensaje con las líneas del archivo ordenadas o un mensaje de
+     * @return mensaje con las líneas del archivo ordenadas o un mensaje de
      * error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
@@ -973,45 +980,43 @@ public class Ejecutar {
     }
 
     /**
-     * Verifica si el fichero o directorio existe.
+     * Verifica si el fichero (archivo o directorio) existe.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich Nombre del fichero o directorio a verificar.
-     * @return true si el fichero o directorio existe, false de lo contrario.
+     * @param nombre del fichero a verificar.
+     * @return true si el fichero existe.
      */
-    private boolean verificarExistenciaFichero(Ficheros ficheros, String fich) {
-        if (!ficheros.existeFichero(fich)) {
-            return false;
-        }
-        return true;
+    private boolean verificarExistenciaFichero(Ficheros ficheros, String nombre) {
+        return ficheros.existeFichero(nombre);
     }
 
     /**
      * Valida la longitud de los permisos.
      *
      * @param permisos String con los permisos a validar.
-     * @return true si la longitud de los permisos es correcta, false de lo
-     * contrario.
+     * @return false si la longitud de los persmisos no es correcta. Asume true
+     * por defecto.
      */
-    private boolean validarLongitudPermisos(String permisos) { //############################### DOS RETURN
-        if (permisos.length() != 3 && permisos.length() != 9) {
-            return false;
+    private boolean validarLongitudPermisos(String permisos) {
+        boolean retorno = true;
+        if (permisos.length() != 3 && permisos.length() != 9) { ///////////////////// NO DEBERIA SER || un o logico??????????????????????????
+            retorno = false;
         }
-        return true;
+        return retorno;
     }
 
     /**
-     * Aplica los permisos numéricos al fichero o directorio.
+     * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich Nombre del fichero o directorio al que se aplicarán los
+     * @param nombre del fichero o directorio al que se aplicarán los
      * permisos.
      * @param permisos String con los permisos numéricos.
      * @return true si se aplicaron los permisos correctamente, false de lo
      * contrario.
      */
-    private boolean aplicarPermisosNumericos(Ficheros ficheros, String fich, String permisos) {
-        String permisosEnLetras = ficheros.obtenerFichero(fich).getPermisos().charAt(0) + "";
+    private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
+        String permisosEnLetras = ficheros.obtenerFichero(nombre).getPermisos().charAt(0) + "";
         boolean permisosValidos = true;
 
         for (int i = 0; i < 3; i++) {
@@ -1048,7 +1053,7 @@ public class Ejecutar {
         }
 
         if (permisosValidos) {
-            ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
+            ficheros.obtenerFichero(nombre).setPermisos(permisosEnLetras);
         }
 
         return permisosValidos;

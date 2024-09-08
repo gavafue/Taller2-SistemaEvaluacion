@@ -3,34 +3,51 @@ package consola;
 /**
  * Este clase permite crear un fichero de tipo archivo.
  *
- * @author
- * @since version 2
+ * Esta clase extiende la clase fichero.
+ *
  */
 public class Archivo extends Fichero {
 
-    //Atributos
+    /**
+     * Este String almacena el contenido del archivo.
+     */
     private String contenido;
 
-    //Constructor comun
+    /**
+     * Constructor comun. Invoca al constructor de la clase superior asignando
+     * por defecto <ul><li>permisos: -rwxr--r--</li><li>propietario:
+     * user</li><li>tipo: Arhivo</li></ul>
+     *
+     * @param nombre a dar al archivo.
+     */
     public Archivo(String nombre) {
         super(nombre, "-rwxr--r--", "user", "Archivo");
         contenido = "[vacio]";
     }
 
     /**
-     * Este constructor admite como parametro el contenido del archivo.
+     * Constructor comun.
+     *
+     * @param nombre a dar al archivo.
+     * @param contenido del archivo.
      */
     public Archivo(String nombre, String contenido) {
         super(nombre, "-rwxr--r--", "user", "Archivo");
         this.contenido = contenido;
     }
 
-    //Getter
+    /**
+     * @returns contenido
+     */
     public String getContenido() {
         return contenido;
     }
 
-    //Setter
+    /**
+     * Establece el valor del contenido recibido por
+     *
+     * @param contenido.
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }

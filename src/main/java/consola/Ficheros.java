@@ -32,7 +32,7 @@ public class Ficheros {
      * Metodo que determina si existe un fichero a partir de un nombre.
      *
      * @param nombre del fichero
-     * @return si existe el fichero
+     * @return true si existe el fichero.
      */
     public boolean existeFichero(String nombre) {
         boolean existe = false;
@@ -112,15 +112,16 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que permite obtener los nombres de los ficheros existentes.
+     * Metodo que permite obtener los nombres de los ficheros (archivos y
+     * directorios) existentes.
      *
-     * @param oculto (si se devuelven los arhivos ocultos o no)
+     * @param ocultos (si se devuelven los arhivos ocultos o no)
      * @return nombres de los arhivos existentes
      */
-    public String obtenerNombres(boolean oculto) {
+    public String obtenerNombres(boolean ocultos) {
         String nombres = "";
         for (int i = 0; i < listaFicheros.size(); i++) {
-            if (!oculto) { //Si no quiero listar los ocultos
+            if (!ocultos) { //Si no quiero listar los ocultos
                 if (listaFicheros.get(i).getNombre().matches("^[^.].*")) { //Omito los nombres que comienzan por punto
                     nombres += listaFicheros.get(i).getNombre();
                 }
@@ -161,28 +162,32 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que carga los ficheros en el sistema.
+     * Metodo que carga los ficheros iniciales en el sistema.
      */
     public void cargarPrimerNivel() {
         Directorio dir1 = new Directorio("dir1");
         Archivo arch1 = new Archivo("arch1");
-        arch1.setContenido("campo1:campo2:campo3:campo4\n" +
-                "dato1:dato2:dato3:dato4\n" +
-                "informacion1:informacion2:informacion3:informacion4"); //Este set contenido podria estar en el constructor.
-        Directorio dir4 = new Directorio("dir4");
-        Archivo dir5 = new Archivo("dir5");
+        arch1.setContenido("campo1:campo2:campo3:campo4\n"
+                + "dato1:dato2:dato3:dato4\n"
+                + "informacion1:informacion2:informacion3:informacion4");
+        Directorio dir2 = new Directorio("dir2");
         Directorio dir3 = new Directorio("dir3");
-        Archivo arch2 = new Archivo("arch2", "La Celeste se impuso por 3-1 en Miami,\n donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo\n y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final,\n y en la última descontó Panamá por un lindo gol de Murillo. FIN.");
+        Archivo arch2 = new Archivo("arch2",
+                "La Celeste se impuso por 3-1 en Miami,\n donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo\n y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final,\n y en la última descontó Panamá por un lindo gol de Murillo. FIN.");
         Archivo arch22 = new Archivo("arch22");
-        arch22.setContenido("\n Los funcionarios estadounidenses han impuesto sanciones a gran parte de los altos directivos de Kaspersky Lab\n después de una reciente medida para prohibir su software antivirus,\n presentando la nueva medida como una respuesta a los continuos riesgos de ciberseguridad.\n El viernes, funcionarios del Departamento del Tesoro impusieron sanciones a 12 altos directivos de Kaspersky,\n pero optaron por no sancionar a la propia empresa ni a su director ejecutivo, Eugene Kaspersky. Los funcionarios estadounidenses han impuesto sanciones a gran parte de los altos directivos de Kaspersky Lab\n después de una reciente medida para prohibir su software antivirus,\n presentando la nueva medida como una respuesta a los continuos riesgos de ciberseguridad.\n El viernes, funcionarios del Departamento del Tesoro impusieron sanciones a 12 altos directivos de Kaspersky,\n pero optaron por no sancionar a la propia empresa ni a su director ejecutivo, Eugene Kaspersky."); //arch1 tiene contenido inicialmente
+        arch22.setContenido("La elaboración de software de computadora"
+                + " es un proceso reiterativo de aprendizaje social,\n"
+                + " y el resultado es la reunión de\n" 
+                + "conocimiento recabado, depurado y organizado"
+                + " a medida que se realiza el proceso. Pressman(2010)");
         Archivo arch33 = new Archivo("arch33");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
         Archivo m = new Archivo("m", "Hola \n10. Chau \n99. Hola 232342\n Chau");
-//Cargo el directorio raiz con ficheros iniciales
+
+        //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
         agregarFichero(dir1);
-        agregarFichero(dir4);
-        agregarFichero(dir5);
+        agregarFichero(dir2);
         agregarFichero(arch2);
         agregarFichero(dir3);
         agregarFichero(arch22);
