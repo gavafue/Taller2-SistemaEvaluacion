@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Clase abstracta que define la estructura general de un fichero. Es la base
- * para especializar en los tipos: directorio o archivo. *
+ * para especializar en los tipos: directorio o archivo.
  */
 public abstract class Fichero {
 

@@ -45,8 +45,6 @@ public class Comandos {
         return hashComandos.containsKey(nombre);
     }
 
-
-
     /**
      * Este metodo devuelve la descripcion de un comando dado su nombre.
      *
@@ -95,7 +93,6 @@ public class Comandos {
      * texto.
      */
     public void cargarComandos() {
-
 
         Comando com0 = new Comando(
                 "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod| '|']",
