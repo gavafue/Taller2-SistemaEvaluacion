@@ -29,7 +29,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     public AltaEvaluacion(Cliente cliente) throws FileNotFoundException {
         this.cliente = cliente;
         initComponents();
-        setLocationRelativeTo(null); //Centrar JFrame
+        setLocationRelativeTo(null); // Centrar JFrame
     }
 
     /**
@@ -68,7 +68,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         this.cliente = cliente;
     }
 
-    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -83,6 +83,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cbxRespuestasValidas = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Generador de Evaluaciones");
@@ -100,7 +101,6 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         PanelVista.setBackground(new java.awt.Color(204, 204, 204));
-        PanelVista.setForeground(new java.awt.Color(0, 0, 0));
         PanelVista.setOpaque(false);
         PanelVista.setLayout(new javax.swing.BoxLayout(PanelVista, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(PanelVista);
@@ -156,42 +156,45 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Título de la evaluación");
 
         jLabel2.setBackground(new java.awt.Color(204, 204, 204));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Crear una evaluación");
 
         cbxRespuestasValidas.setText("Permitir al estudiante ver las respuestas correctas");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setText("Vista previa:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbxRespuestasValidas))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)
-                        .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-                    .addComponent(txtTitulo))
-                .addGap(48, 48, 48))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxRespuestasValidas))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(3, 3, 3)
+                            .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                        .addComponent(txtTitulo)))
+                .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,24 +206,25 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                     .addComponent(cbxRespuestasValidas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(23, 23, 23))))
+                        .addGap(41, 41, 41))))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 600));
@@ -254,14 +258,16 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPreguntaActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es vacio
-            JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
+    private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevaPreguntaActionPerformed
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es
+                                                                                                      // vacio
+            JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             try {
                 tituloEvaluacion = txtTitulo.getText();
-                if (AltaPregunta.getCantidadPreguntas() == 0) { //Si aún no se agregaron preguntas
-                    if (!this.existeTitulo(tituloEvaluacion)) { //Si el título es válido
+                if (AltaPregunta.getCantidadPreguntas() == 0) { // Si aún no se agregaron preguntas
+                    if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
                         AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente);
@@ -277,11 +283,11 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                 Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_btnNuevaPreguntaActionPerformed
+    }// GEN-LAST:event_btnNuevaPreguntaActionPerformed
 
-    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
+    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtTituloActionPerformed
 
-    }//GEN-LAST:event_txtTituloActionPerformed
+    }// GEN-LAST:event_txtTituloActionPerformed
 
     /**
      * Este método permite crear la evaluación a partir del botón "Finalizar",
@@ -289,36 +295,44 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo esta vacio
-            JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error", JOptionPane.ERROR_MESSAGE);
-        } else try {
-            if (AltaPregunta.getCantidadPreguntas() >= 3) {
-                // Obtener el estado del checkbox
-                boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado, false si no lo está
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarActionPerformed
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo
+                                                                                                      // esta vacio
+            JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else
+            try {
+                if (AltaPregunta.getCantidadPreguntas() >= 3) {
+                    // Obtener el estado del checkbox
+                    boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado,
+                                                                                   // false si no lo está
 
-                // Concatenar la información necesaria para enviarla al cliente, incluyendo el valor de respuestasValidas
-                // Prepara el mensaje con el número de preguntas
-                String mensaje = ";;;" + respuestasValidas + ";;;" + AltaPregunta.getCantidadPreguntas() + ",;,Evaluaciones,;,Alta";
-                cliente.concatenarMensaje(mensaje);
-                cliente.intercambiarMensajes(cliente.getInstruccion());
+                    // Concatenar la información necesaria para enviarla al cliente, incluyendo el
+                    // valor de respuestasValidas
+                    // Prepara el mensaje con el número de preguntas
+                    String mensaje = ";;;" + respuestasValidas + ";;;" + AltaPregunta.getCantidadPreguntas()
+                            + ",;,Evaluaciones,;,Alta";
+                    cliente.concatenarMensaje(mensaje);
+                    cliente.intercambiarMensajes(cliente.getInstruccion());
 
-                if (cliente.obtenerCodigo().equals("200")) {
-                    JOptionPane.showMessageDialog(this, "Evaluacion creada con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                    AltaPregunta.setCantidadPreguntas(0);
-                    GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, "docente");
-                    evaluaciones.setVisible(true);
-                    this.dispose();
+                    if (cliente.obtenerCodigo().equals("200")) {
+                        JOptionPane.showMessageDialog(this, "Evaluacion creada con exito", "Mensaje",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        AltaPregunta.setCantidadPreguntas(0);
+                        GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, "docente");
+                        evaluaciones.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(),
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Faltan elementos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Faltan elementos.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnFinalizarActionPerformed
+    }// GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
      * Este método se ejecuta cuando el campo de texto 'txtTitulo' gana el foco.
@@ -326,29 +340,30 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      * texto de ayuda.
      *
      * @param evt el evento que indica que el foco fue ganado por el campo de
-     * texto.
+     *            texto.
      */
-    private void txtTituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusGained
+    private void txtTituloFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_txtTituloFocusGained
         if (txtTitulo.getText().equals("Titulo de la Evaluacion")) {
             txtTitulo.setText(null);
             txtTitulo.requestFocus();
             TextoAyudaOff(txtTitulo);
         }
-    }//GEN-LAST:event_txtTituloFocusGained
+    }// GEN-LAST:event_txtTituloFocusGained
+
     /**
      * Este método se ejecuta cuando el campo de texto 'txtTitulo' pierde el
      * foco. Si el campo está en blanco, activa el texto de ayuda y establece
      * "Titulo de la Evaluacion" como texto predeterminado.
      *
      * @param evt el evento que indica que el foco fue perdido por el campo de
-     * texto
+     *            texto
      */
-    private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusLost
+    private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_txtTituloFocusLost
         if (txtTitulo.getText().isBlank()) {
             TextoAyudaOn(txtTitulo);
             txtTitulo.setText("Titulo de la Evaluacion");
         }
-    }//GEN-LAST:event_txtTituloFocusLost
+    }// GEN-LAST:event_txtTituloFocusLost
 
     /**
      * Este método se ejecuta cuando la ventana gana el foco. Solicita que la
@@ -356,9 +371,9 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      *
      * @param evt el evento que indica que la ventana ha ganado el foco
      */
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowGainedFocus
         this.requestFocusInWindow();
-    }//GEN-LAST:event_formWindowGainedFocus
+    }// GEN-LAST:event_formWindowGainedFocus
 
     /**
      * Este método da funcionamiento al botón "Atrás", que devuelve a la ventana
@@ -366,7 +381,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAtrasActionPerformed
         try {
             GestionEvaluaciones gestionEvaluaciones = new GestionEvaluaciones(cliente, "docente");
             gestionEvaluaciones.setVisible(true);
@@ -377,7 +392,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAtrasActionPerformed
+    }// GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * Este método solicita al server si el título de una evaluación a crear ya
@@ -401,6 +416,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
     private javax.swing.JCheckBox cbxRespuestasValidas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel txtMensaje;

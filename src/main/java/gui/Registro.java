@@ -23,7 +23,7 @@ public class Registro extends javax.swing.JFrame {
     public Registro(Cliente cliente) {
         this.cliente = cliente;
         initComponents();
-        setLocationRelativeTo(null); //Centrar JFrame
+        setLocationRelativeTo(null); // Centrar JFrame
     }
 
     /**
@@ -44,7 +44,7 @@ public class Registro extends javax.swing.JFrame {
         this.cliente = cliente;
     }
 
-    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -56,6 +56,7 @@ public class Registro extends javax.swing.JFrame {
         cboxMostrarContraseña = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblRegistro = new javax.swing.JLabel();
 
@@ -88,7 +89,6 @@ public class Registro extends javax.swing.JFrame {
 
         txtCedula.setBackground(new java.awt.Color(204, 204, 204));
         txtCedula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtCedula.setForeground(new java.awt.Color(0, 0, 0));
         txtCedula.setToolTipText("");
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,12 +111,14 @@ public class Registro extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Contraseña:");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Cedula:");
+        jLabel2.setText("Usuario:");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Para registrar un nuevo estudiante, ingresa su cédula y contraseña.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -140,11 +142,14 @@ public class Registro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -208,13 +213,13 @@ public class Registro extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
+    private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
         if (cboxMostrarContraseña.isSelected()) {
-            txtContrasenia.setEchoChar((char) 0); //Mostrar el texto
+            txtContrasenia.setEchoChar((char) 0); // Mostrar el texto
         } else {
-            txtContrasenia.setEchoChar('*'); //Ocultar el texto
+            txtContrasenia.setEchoChar('*'); // Ocultar el texto
         }
-    }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
+    }// GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
     /**
      * Método que permite crear un nuevo usuario de tipo estudiante a partir de
@@ -222,29 +227,33 @@ public class Registro extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRegistrarActionPerformed
         try {
             String cedula = txtCedula.getText().trim();
             String contrasenia = new String(txtContrasenia.getPassword());
             if (consultarValidez(cedula) && !consultarExistencia(cedula)) {
                 try {
-                    String instruccion = this.getCliente().formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios", "Alta");
+                    String instruccion = this.getCliente().formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios",
+                            "Alta");
                     this.getCliente().intercambiarMensajes(instruccion);
                     if (this.getCliente().obtenerCodigo().equals("200")) {
-                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Creación Exitosa",
+                                JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                                "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                        "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    }// GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * Método que consulta al servidor si la CI ingresada es válida.
@@ -272,19 +281,20 @@ public class Registro extends javax.swing.JFrame {
         return this.getCliente().obtenerCodigo().equals("200");
     }
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowGainedFocus
 
-    }//GEN-LAST:event_formWindowGainedFocus
+    }// GEN-LAST:event_formWindowGainedFocus
 
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtCedulaActionPerformed
 
-    }//GEN-LAST:event_txtCedulaActionPerformed
+    }// GEN-LAST:event_txtCedulaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JCheckBox cboxMostrarContraseña;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -136,10 +136,12 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                 new String[] {
                         "Titulo"
                 }) {
+            @SuppressWarnings("rawtypes")
             Class[] types = new Class[] {
                     java.lang.String.class
             };
 
+            @SuppressWarnings("rawtypes")
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
@@ -321,21 +323,29 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-            try {
-                this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
-                if (this.getCliente().obtenerCodigo().equals("200")) {
-                    JOptionPane.showMessageDialog(null, "Evaluacion eliminada");
-                    this.solicitarTitulosEvaluaciones();
-                    cargarTablaEvaluaciones();
-                } else {
-                    JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
-                            "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+
+            // Ventana de confirmación
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro? En caso de eliminar la evaluación, también se eliminarán todos los historiales asociados a esta.",
+                    "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) { // Si el usuario confirma
+                try {
+                    this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
+                    if (this.getCliente().obtenerCodigo().equals("200")) {
+                        JOptionPane.showMessageDialog(null, "Evaluación eliminada");
+                        this.solicitarTitulosEvaluaciones();
+                        cargarTablaEvaluaciones();
+                    } else {
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                                "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } // Si el usuario elige "No", no se hace nada
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una evaluacion");
+            JOptionPane.showMessageDialog(null, "Seleccione una evaluación");
         }
     }// GEN-LAST:event_btnEliminarActionPerformed
 

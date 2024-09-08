@@ -21,14 +21,15 @@ import java.util.logging.Logger;
 public class AltaPregunta extends javax.swing.JFrame {
 
     private Cliente cliente;
-    private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación de forma dinámica
+    private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación
+                                // de forma dinámica
 
-    //Atributos utilizados como variables globales
+    // Atributos utilizados como variables globales
     private String evaluacion; // Título de la evaluación
     private String pregunta;
     private String enunciado;
     private String tipoPregunta;
-    
+
     private String respuestas; // Respuestas del estudiante a las preguntas de la evaluación
     private static int cantidadPreguntas; // Atributo propio de a clase y no de la instancia
 
@@ -37,7 +38,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * cliente actual y el JPanel vista previa de la evaluación.
      *
      * @param vistaPrevia permite visualizar los cambios en la evaluación de
-     * forma dinámica.
+     *                    forma dinámica.
      * @param cliente
      */
     public AltaPregunta(JPanel vistaPrevia, Cliente cliente) {
@@ -243,7 +244,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         cboxVerdaderoOFalso.setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -379,7 +380,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         jLabel4.setText("Opción 3");
         jLabel4.setToolTipText("");
         panelMultiple.add(jLabel4);
-        jLabel4.setBounds(20, 120, 96, 32);
+        jLabel4.setBounds(20, 120, 97, 32);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel5.setText("Opción 2");
@@ -391,7 +392,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelMultiple.add(jLabel6);
         jLabel6.setBounds(20, 150, 150, 32);
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         jLabel7.setText("Respuesta");
         panelMultiple.add(jLabel7);
         jLabel7.setBounds(20, 210, 170, 30);
@@ -650,7 +651,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -684,7 +685,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * enunciado, que permite al escribir el enunciado y seleccionar el tipo de
      * pregunta a crear abrir el panel correspondiente.
      */
-    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSiguienteActionPerformed
+    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bntSiguienteActionPerformed
         this.setEnunciado(txtEnunciado.getText());
         this.setTipoPregunta((String) cboxTipoPregunta.getSelectedItem());
         lblTipo.setText("Respuesta");
@@ -701,7 +702,7 @@ public class AltaPregunta extends javax.swing.JFrame {
                 this.interfazEspacios();
                 break;
         }
-    }//GEN-LAST:event_bntSiguienteActionPerformed
+    }// GEN-LAST:event_bntSiguienteActionPerformed
 
     /**
      * Método que permite dar funcionalidad desde el JPanel multiple al botón
@@ -712,35 +713,39 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarMultipleActionPerformed
+    private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarMultipleActionPerformed
         if ("Finalizar".equals(btnFinalizarMultiple.getText())) {// Es el docente creando la pregunta
             cantidadPreguntas++;
             this.agregarPreguntaVistaPrevia();
-            this.getCliente().armarMultiple(this.getEnunciado(), String.valueOf(this.spnPuntajeMultiple.getValue()), this.txtOpc1.getText(), this.txtOpc2.getText(), this.txtOpc3.getText(), this.txtOpc4.getText(), String.valueOf(this.cboxOpcionesMultiple.getSelectedIndex() + 1));
+            this.getCliente().armarMultiple(this.getEnunciado(), String.valueOf(this.spnPuntajeMultiple.getValue()),
+                    this.txtOpc1.getText(), this.txtOpc2.getText(), this.txtOpc3.getText(), this.txtOpc4.getText(),
+                    String.valueOf(this.cboxOpcionesMultiple.getSelectedIndex() + 1));
             this.dispose();
         } else {
-            if ("Siguiente".equals(btnFinalizarMultiple.getText())) { // Es un alumno contestando la pregunta multiple opción 
+            if ("Siguiente".equals(btnFinalizarMultiple.getText())) { // Es un alumno contestando la pregunta multiple
+                                                                      // opción
                 try {
                     cantidadPreguntas++;
-                    this.solicitarSiguientePregunta(String.valueOf(cboxOpcionesMultiple.getSelectedIndex() + 1)/*respuesta*/, this);
+                    this.solicitarSiguientePregunta(
+                            String.valueOf(cboxOpcionesMultiple.getSelectedIndex() + 1)/* respuesta */, this);
                 } catch (IOException ex) {
                     Logger.getLogger(AltaPregunta.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-    }//GEN-LAST:event_btnFinalizarMultipleActionPerformed
+    }// GEN-LAST:event_btnFinalizarMultipleActionPerformed
 
-    private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOpc1ActionPerformed
+    private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtOpc1ActionPerformed
 
-    }//GEN-LAST:event_txtOpc1ActionPerformed
+    }// GEN-LAST:event_txtOpc1ActionPerformed
 
-    private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
+    private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
 
-    }//GEN-LAST:event_cboxOpcionesMultipleActionPerformed
+    }// GEN-LAST:event_cboxOpcionesMultipleActionPerformed
 
-    private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoPreguntaActionPerformed
+    private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxTipoPreguntaActionPerformed
 
-    }//GEN-LAST:event_cboxTipoPreguntaActionPerformed
+    }// GEN-LAST:event_cboxTipoPreguntaActionPerformed
 
     /**
      * Método que permite dar funcionalidad desde el JPanel espaciosVF al botón
@@ -753,21 +758,25 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
-        if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {//Es el docente creando la pregunta
+    private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
+        if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {// Es el docente creando la pregunta
             cantidadPreguntas++;
             this.agregarPreguntaVistaPrevia();
             if (this.getTipoPregunta().equals("Verdadero o Falso")) {
-                this.getCliente().armarVF(this.getEnunciado(), String.valueOf(this.spnPuntajeEspaciosVF.getValue())/*puntaje*/, String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/*respuesta*/);
+                this.getCliente().armarVF(this.getEnunciado(),
+                        String.valueOf(this.spnPuntajeEspaciosVF.getValue())/* puntaje */,
+                        String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/* respuesta */);
             } else {
-                this.getCliente().armarEspacios(this.getEnunciado(), String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
+                this.getCliente().armarEspacios(this.getEnunciado(),
+                        String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
             }
             this.dispose();
         } else {
-            if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {//Es un alumno contestando la pregunta vf o de completar
+            if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {// Es un alumno contestando la pregunta vf o de
+                                                                       // completar
                 try {
                     String respuesta;
-                    if (cboxVerdaderoOFalso.isVisible()) { //Si es vf
+                    if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
                         respuesta = String.valueOf(cboxVerdaderoOFalso.getSelectedItem());
                     } else {
                         respuesta = txtRespuestaEspacios.getText();
@@ -779,19 +788,19 @@ public class AltaPregunta extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_btnFinalizarEspaciosVFActionPerformed
+    }// GEN-LAST:event_btnFinalizarEspaciosVFActionPerformed
 
-    private void cboxVerdaderoOFalsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxVerdaderoOFalsoActionPerformed
+    private void cboxVerdaderoOFalsoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxVerdaderoOFalsoActionPerformed
 
-    }//GEN-LAST:event_cboxVerdaderoOFalsoActionPerformed
+    }// GEN-LAST:event_cboxVerdaderoOFalsoActionPerformed
 
-    private void lblEnunciadoMultipleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseClicked
-       
-    }//GEN-LAST:event_lblEnunciadoMultipleMouseClicked
+    private void lblEnunciadoMultipleMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblEnunciadoMultipleMouseClicked
 
-    private void lblEnunciadoMultipleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEnunciadoMultipleMouseEntered
+    }// GEN-LAST:event_lblEnunciadoMultipleMouseClicked
 
-    }//GEN-LAST:event_lblEnunciadoMultipleMouseEntered
+    private void lblEnunciadoMultipleMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblEnunciadoMultipleMouseEntered
+
+    }// GEN-LAST:event_lblEnunciadoMultipleMouseEntered
 
     /**
      * Método que da funcionamiento al botón "consola" ubicado en el JPanel
@@ -799,10 +808,10 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnConsolaMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolaMultipleActionPerformed
+    private void btnConsolaMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolaMultipleActionPerformed
         Consola consola = new Consola();
         consola.setVisible(true);
-    }//GEN-LAST:event_btnConsolaMultipleActionPerformed
+    }// GEN-LAST:event_btnConsolaMultipleActionPerformed
 
     /**
      * Método que da funcionamiento al botón "consola" ubicado en el JPanel
@@ -810,28 +819,36 @@ public class AltaPregunta extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnConsolaEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsolaEspaciosVFActionPerformed
+    private void btnConsolaEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnConsolaEspaciosVFActionPerformed
         Consola consola = new Consola();
         consola.setVisible(true);
-    }//GEN-LAST:event_btnConsolaEspaciosVFActionPerformed
+    }// GEN-LAST:event_btnConsolaEspaciosVFActionPerformed
 
-     /**
+    /**
      * Método que le solicita al servidor la siguiente pregunta de la
      * evaluación.
      *
-     * @param respuesta de la pregunta anterior.
+     * @param respuesta     de la pregunta anterior.
      * @param framePregunta JFrame donde visualiza el estudiante la pregunta de
-     * la evaluación.
+     *                      la evaluación.
      * @throws IOException
      */
     private void solicitarSiguientePregunta(String respuesta, AltaPregunta framePregunta) throws IOException {
-        this.setRespuestas(this.getCliente().prepararRespuestas(this.getRespuestas(), respuesta)); // Almacena la respuesta de la pregunta anterior
-        this.getCliente().intercambiarMensajes(this.getEvaluacion() + ";;;" + cantidadPreguntas /* Corresponde al número de pregunta solicitada*/ + ",;,Evaluaciones,;,ObtenerPregunta");
+        this.setRespuestas(this.getCliente().prepararRespuestas(this.getRespuestas(), respuesta)); // Almacena la
+                                                                                                   // respuesta de la
+                                                                                                   // pregunta anterior
+        this.getCliente()
+                .intercambiarMensajes(this.getEvaluacion() + ";;;"
+                        + cantidadPreguntas /* Corresponde al número de pregunta solicitada */
+                        + ",;,Evaluaciones,;,ObtenerPregunta");
         // Confirmación de envío de respuestas
-        if (this.getCliente().obtenerMensaje().equals("Finalizar")) { // Si el server manda "Finalizar,;,200" no hay más preguntas disponibles
-            int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (this.getCliente().obtenerMensaje().equals("Finalizar")) { // Si el server manda "Finalizar,;,200" no hay más
+                                                                      // preguntas disponibles
+            int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (finalizar == JOptionPane.YES_OPTION) { // Envía las respuestas del estudiante
-                String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones", "Correccion");
+                String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones",
+                        "Correccion");
                 this.getCliente().intercambiarMensajes(enviarRespuestas);
                 AltaPregunta.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
                 this.setRespuestas(""); // Inicializa las respuestas
@@ -847,7 +864,7 @@ public class AltaPregunta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Método que agrega los elementos correspondientes a una pregunta de tipo
      * multiple opción a la vista previa de la evaluación.
@@ -902,7 +919,7 @@ public class AltaPregunta extends javax.swing.JFrame {
     public void crearRespuestaVistaPrevia(Font fuente) {
         String respuesta = "";
         switch (this.getTipoPregunta()) {
-            case "Verdadero o Falso": //Vista como una multiple opcion de dos opciones
+            case "Verdadero o Falso": // Vista como una multiple opcion de dos opciones
                 respuesta = (String) cboxVerdaderoOFalso.getSelectedItem();
                 break;
             case "Multiple opción":
@@ -939,7 +956,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      */
     public void crearFrameNuevaPregunta(AltaPregunta framePregunta) {
         String[] nuevaPregunta = this.getCliente().obtenerMensaje().split(";;;");
-        if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { //Si tiene la estructura de una pregunta          
+        if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { // Si tiene la estructura de una pregunta
             this.cargarEnGui(nuevaPregunta, framePregunta);
             framePregunta.revalidate();
             framePregunta.repaint();
@@ -951,18 +968,18 @@ public class AltaPregunta extends javax.swing.JFrame {
      * tipo multiple.
      *
      * @param pregunta
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiMultiple(String[] pregunta, int puntaje, AltaPregunta framePregunta) {
-        framePregunta.lblEnunciadoMultiple.setText(enunciado);//Se carga el enunciado en Label                
+        framePregunta.lblEnunciadoMultiple.setText(enunciado);// Se carga el enunciado en Label
         framePregunta.txtRespuestaEspacios.setVisible(false);
         framePregunta.cboxOpcionesMultiple.setVisible(true);
         framePregunta.cboxVerdaderoOFalso.setVisible(false);
         framePregunta.panelRespuestaEspaciosVF.setVisible(false);
         this.panelEspaciosVF.setVisible(false);
         this.panelMultiple.setVisible(true);
-        //Aparecen las opciones y el puntaje pero sin posibilidad de editar                
+        // Aparecen las opciones y el puntaje pero sin posibilidad de editar
         framePregunta.spnPuntajeMultiple.setEnabled(false);
         framePregunta.spnPuntajeMultiple.setValue(puntaje);
         framePregunta.txtOpc1.setText(pregunta[2]); // Las opciones son los tokens 2-5
@@ -980,12 +997,12 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo vf.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiVF(int puntaje, AltaPregunta framePregunta) {
         this.panelMultiple.setVisible(false);
-        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado); //Se carga el enunciado en el txtArea  
+        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado); // Se carga el enunciado en el txtArea
         this.panelEspaciosVF.setVisible(true);
         framePregunta.txtRespuestaEspacios.setVisible(false);
         framePregunta.panelRespuestaEspaciosVF.setVisible(true);
@@ -1000,12 +1017,12 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo espacios.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiEspacios(int puntaje, AltaPregunta framePregunta) {
         this.panelMultiple.setVisible(false);
-        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado);//Se carga el enunciado en el txtArea    
+        framePregunta.txtEnunciadoEspaciosVF.setText(enunciado);// Se carga el enunciado en el txtArea
         framePregunta.cboxVerdaderoOFalso.setVisible(false);
         framePregunta.txtRespuestaEspacios.setVisible(true);
         this.panelEspaciosVF.setVisible(true);
@@ -1020,7 +1037,7 @@ public class AltaPregunta extends javax.swing.JFrame {
      * Metodo que permite cargar en un JFrame de tipo pregunta con la pregunta
      * actual.
      *
-     * @param pregunta actual.
+     * @param pregunta      actual.
      * @param framePregunta en el que se agregarán los componentes.
      */
     public void cargarEnGui(String[] pregunta, AltaPregunta framePregunta) {
@@ -1029,7 +1046,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         int puntaje = Integer.parseInt(pregunta[pregunta.length - 1]); // El último token es el puntaje
 
         framePregunta.setLocationRelativeTo(null);
-        framePregunta.panelEnunciado.setVisible(false); // Solo visible al crear la pregunta, en este caso es realizar evaluación como estudiante
+        framePregunta.panelEnunciado.setVisible(false); // Solo visible al crear la pregunta, en este caso es realizar
+                                                        // evaluación como estudiante
         framePregunta.setVisible(true);
 
         switch (tipo) {

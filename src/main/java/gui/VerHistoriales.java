@@ -36,6 +36,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         lblTitulo.setText("Evaluacion: " + titulo);
         this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
+        this.solicitarPuntajeTotalEvaluacion();
     }
 
     /**
@@ -89,6 +90,7 @@ public class VerHistoriales extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -97,6 +99,7 @@ public class VerHistoriales extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         btnRespuestas = new javax.swing.JButton();
+        txtPuntajeTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -147,6 +150,9 @@ public class VerHistoriales extends javax.swing.JFrame {
             }
         });
 
+        txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtPuntajeTotal.setText("Puntaje total posible: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,7 +170,8 @@ public class VerHistoriales extends javax.swing.JFrame {
                                                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtPuntajeTotal)))
                                 .addContainerGap(37, Short.MAX_VALUE)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +179,9 @@ public class VerHistoriales extends javax.swing.JFrame {
                                 .addGap(22, 22, 22)
                                 .addComponent(lblTitulo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307,
+                                .addComponent(txtPuntajeTotal)
+                                .addGap(3, 3, 3)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -180,7 +189,7 @@ public class VerHistoriales extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(24, Short.MAX_VALUE)));
+                                .addContainerGap(17, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -322,11 +331,57 @@ public class VerHistoriales extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Solicita el puntaje total de la evaluación al cliente y actualiza el campo de
+     * texto correspondiente.
+     * Muestra mensajes de error detallados en caso de problemas durante la
+     * solicitud o al procesar la respuesta.
+     */
+    public void solicitarPuntajeTotalEvaluacion() {
+        String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
+                "ObtenerPuntajeTotal");
+
+        try {
+            // Intercambia mensajes con el cliente para solicitar el puntaje total
+            this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica el código de respuesta del cliente
+            String codigoRespuesta = this.getCliente().obtenerCodigo();
+            String mensajeRespuesta = this.getCliente().obtenerMensaje();
+
+            if ("200".equals(codigoRespuesta)) {
+                // Actualiza el campo de texto con el puntaje total
+                txtPuntajeTotal.setText("Puntaje total posible: " + mensajeRespuesta);
+            } else {
+                // Maneja códigos de respuesta inesperados
+                throw new RuntimeException(
+                        "Código de respuesta inesperado: " + codigoRespuesta + " con mensaje: " + mensajeRespuesta);
+            }
+
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red o comunicación
+            System.err.println("Error de comunicación con el cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el cliente. Por favor, intente nuevamente.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            // Manejo de errores inesperados relacionados con la respuesta del cliente
+            System.err.println("Error al solicitar el puntaje total de la evaluación: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al procesar la respuesta del cliente: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Captura cualquier otra excepción inesperada
+            System.err.println("Error inesperado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnRespuestas;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tableHistorico;
+    private javax.swing.JLabel txtPuntajeTotal;
     // End of variables declaration//GEN-END:variables
 }

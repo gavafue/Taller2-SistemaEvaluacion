@@ -50,12 +50,12 @@ public class Login extends javax.swing.JFrame {
      * la interfaz gráfica si la sesión se encuentra online o offline.
      */
     public void solicitarEstablecerConexion() {
-        try { //Online
+        try { // Online
             this.getCliente().establecerConexion();
             this.getCliente().getConexion().probarConexion();
             lblServidor.setForeground(Color.GREEN);
             lblServidor.setText("online");
-        } catch (IOException e) { //Offline
+        } catch (IOException e) { // Offline
             lblServidor.setForeground(Color.red);
             lblServidor.setText("offline");
             System.out.println(e.getMessage());
@@ -63,7 +63,8 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -76,6 +77,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblServidor = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
 
@@ -108,7 +110,6 @@ public class Login extends javax.swing.JFrame {
 
         txtUsuario.setBackground(new java.awt.Color(204, 204, 204));
         txtUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
         txtUsuario.setToolTipText("");
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +119,6 @@ public class Login extends javax.swing.JFrame {
 
         txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtContrasenia.setForeground(new java.awt.Color(0, 0, 0));
 
         cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
         cboxMostrarContraseña.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
@@ -140,9 +140,13 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
 
         lblServidor.setBackground(new java.awt.Color(255, 255, 255));
-        lblServidor.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblServidor.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         lblServidor.setForeground(new java.awt.Color(0, 255, 0));
         lblServidor.setOpaque(true);
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Para iniciar sesión ingresa tu cédula y contraseña");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -170,11 +174,14 @@ public class Login extends javax.swing.JFrame {
                         .addGap(114, 114, 114)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 36, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,13 +247,13 @@ public class Login extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
+    private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
         if (cboxMostrarContraseña.isSelected()) {
-            txtContrasenia.setEchoChar((char) 0); //Mostrar el texto
+            txtContrasenia.setEchoChar((char) 0); // Mostrar el texto
         } else {
-            txtContrasenia.setEchoChar('*'); //Ocultar el texto
+            txtContrasenia.setEchoChar('*'); // Ocultar el texto
         }
-    }//GEN-LAST:event_cboxMostrarContraseñaActionPerformed
+    }// GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
     /**
      * Método que proveé funcionalidad al botón "Ingresar", el cual solicita al
@@ -254,7 +261,7 @@ public class Login extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnIngresarActionPerformed
         try {
             String ci = txtUsuario.getText();
             String contrasenia = new String(txtContrasenia.getPassword());
@@ -262,7 +269,6 @@ public class Login extends javax.swing.JFrame {
             this.getCliente().intercambiarMensajes(instruccion);
             this.getCliente().setId(ci);
             if (this.ventanaInicial()) {// Método que valida rol y código recibido, abriendo la ventana correspondiente
-                JOptionPane.showMessageDialog(Login.this, "Login exitoso");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Login fallido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -272,21 +278,23 @@ public class Login extends javax.swing.JFrame {
             lblServidor.setForeground(Color.RED);
             lblServidor.setText("[offline]");
         }
-    }//GEN-LAST:event_btnIngresarActionPerformed
+    }// GEN-LAST:event_btnIngresarActionPerformed
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowGainedFocus
         this.requestFocusInWindow();
-    }//GEN-LAST:event_formWindowGainedFocus
+    }// GEN-LAST:event_formWindowGainedFocus
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtUsuarioActionPerformed
 
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    }// GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
-     * Este método válida el rol del cliente actual y desplega la ventana correspondiente.
+     * Este método válida el rol del cliente actual y desplega la ventana
+     * correspondiente.
+     * 
      * @return true si es válido o false en caso contrario.
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
     public boolean ventanaInicial() throws FileNotFoundException, IOException {
         String rol = cliente.obtenerMensaje();
@@ -295,7 +303,8 @@ public class Login extends javax.swing.JFrame {
 
         if (codigo.equals("200")) {
             switch (rol) {
-                case "docente": case "estudiante":
+                case "docente":
+                case "estudiante":
                     GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
                     evaluaciones.setVisible(true);
                     validacion = true;
@@ -304,17 +313,18 @@ public class Login extends javax.swing.JFrame {
                     Registro registros = new Registro(cliente);
                     registros.setVisible(true);
                     validacion = true;
-                    break;    
+                    break;
             }
         }
         return validacion;
     }
-       
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JCheckBox cboxMostrarContraseña;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
