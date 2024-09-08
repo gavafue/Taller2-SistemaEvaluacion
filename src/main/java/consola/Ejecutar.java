@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package consola;
 
 import java.time.LocalDateTime;
@@ -10,51 +6,104 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
 import javax.swing.JTextArea;
 
 /**
+ * Esta clase se encarga de ejecutar los comandos.
  *
- * @author Gabriel
  */
 public class Ejecutar {
 
-    private String[] tokens; // PENDIENTE: deberia haber un getTOkens para no acceder el atributo de clase
-                             // directamente
-    private ArrayList<String> tokensParaElPipe; // pasar todos los comandos al arraylist?
+    /**
+     * La linea ingresada en la terminal por el usuario fue tokenizada y
+     * almacenada aqui.
+     */
+    private String[] tokens;
+
+    /**
+     * Para poder procesar el comando pipe se necesita esta colección.
+     */
+    private ArrayList<String> tokensParaElPipe;
+
+    /**
+     * Hora de ejecucion.
+     */
     private String hora;
+
+    /**
+     * Formato para mostrar hora en cada ejecucion.
+     */
     private DateTimeFormatter formatoFecha;
 
+    /**
+     * Constructor.
+     *
+     * @param tokens
+     *
+     */
     public Ejecutar(String[] tokens) {
         this.tokens = tokens;
-        this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");// formato para mostrar la variable hora en cada
-        // ejecucion
+        this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");
         this.hora = LocalDateTime.now().format(formatoFecha);
     }
 
+    /**
+     * @return hora
+     */
     public String getHora() {
         return hora;
     }
 
+    /**
+     * @return tokens
+     */
+    public String[] getTokens() {
+        return tokens;
+    }
+
+    /**
+     * Establece la hora pasada por
+     *
+     * @param hora
+     */
     public void setHora(String hora) {
         this.hora = hora;
     }
 
+    /**
+     * Establece la hora tomandola del sistema.
+     */
     private void actualizarHora() {
         hora = LocalDateTime.now().format(formatoFecha);
     }
 
+    /**
+     * Este metodo formatea un mensaje de ayuda obteniendo informacion desde los
+     * atributos del comando.
+     *
+     * @param comandos
+     * @return mensaje
+     */
     public String obtenerAyudaComando(Comandos comandos) {
         String mensaje = "";
         try {
-            mensaje = "[AYUDA]\n" + comandos.obtenerDescripcion(tokens[1]) + "\n"
+            mensaje = "[AYUDA]\n Descripcion: " + comandos.obtenerDescripcion(tokens[1]) + "\n Ejemplos: "
                     + comandos.obtenerEjemplo(tokens[1]);
         } catch (Exception e) {
-            mensaje = "No hay informacion disponible sobre el comando " + tokens[1];
+            mensaje = "! Error al consultar informacion sobre el comando" + tokens[1];
         }
         return mensaje;
     }
 
+    /**
+     * Metodo principal de esta clase. Deriva la ejecucion al comando
+     * correspondiente.
+     * 
+     * @param comandos
+     * @param ficheros
+     * @param procesos
+     * @param salida   donde mostrar el resultado de la ejecucion.
+     */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
         String mensaje = "";
         actualizarHora();
@@ -122,7 +171,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'man'.
+     * Ejecuta el comando <i>man</i.
      *
      * @param comandos Objeto que contiene los comandos disponibles.
      * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
@@ -141,12 +190,10 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'mkdir' para crear directorios.
+     * Ejecuta el comando <i>mkdir</i> para crear directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
-     * @param procesos Objeto para gestionar los procesos.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
-     * @return Mensaje resultante de la ejecución.
+     * @return mensaje resultante de la operacion.
      */
     public String ejecutarMkdir(Ficheros ficheros) {
         String mensaje = "";
@@ -163,8 +210,6 @@ public class Ejecutar {
      *
      * @param nombreDirectorio Nombre del directorio a crear.
      * @param ficheros         Objeto que gestiona los ficheros y directorios.
-     * @param procesos         Objeto para gestionar los procesos.
-     * @param sintaxis         Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la operación.
      */
     private String crearDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -180,7 +225,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'rmdir' para eliminar directorios.
+     * Ejecuta el comando <i>rmdir</i> para eliminar directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @param procesos Objeto para gestionar los procesos.
@@ -200,11 +245,9 @@ public class Ejecutar {
     /**
      * Elimina un directorio si existe.
      *
-     * @param nombreDirectorio Nombre del directorio a eliminar.
+     * @param nombreDirectorio String con el nombre del directorio a eliminar.
      * @param ficheros         Objeto que gestiona los ficheros y directorios.
-     * @param procesos         Objeto para gestionar los procesos.
-     * @param sintaxis         Etiqueta donde mostrar mensajes de sintaxis.
-     * @return Mensaje resultante de la operación.
+     * @return mensaje resultante de la operación.
      */
     private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros) {
         String mensaje = "";
@@ -218,10 +261,10 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'clear' para limpiar el área de salida.
+     * Ejecuta el comando <i>clear</i> para limpiar el área de salida. Es decir,
+     * limpia la consola estableciendo su texto vacio.
      *
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
-     * @param salida   Área de texto que se limpia.
+     * @param salida JTextÁrea que se limpia.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarClear(JTextArea salida) {
@@ -236,12 +279,12 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'cat' para mostrar el contenido de un archivo si
+     * Ejecuta el comando <i>cat</i> para mostrar el contenido de un archivo si
      * existe y no es un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje detallando el resultado de la ejecución del comando.
+     *
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarCat(Ficheros ficheros) {
         String mensaje = "";
@@ -261,12 +304,12 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'mv' para renombrar un archivo si existe y no es un
-     * directorio.
+     * Ejecuta el comando <i>mv</i> para renombrar un archivo si existe y no es
+     * un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje detallando el resultado de la ejecución del comando.
+     *
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarMv(Ficheros ficheros) {
         String mensaje = "";
@@ -305,20 +348,17 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'ls' para listar archivos y directorios según los
+     * Ejecuta el comando <i>ls</i> para listar archivos y directorios según los
      * parámetros proporcionados.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @param procesos el objeto que gestiona los procesos activos.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje detallando el resultado de la ejecución del comando.
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarLs(Ficheros ficheros) {
         String mensaje = "";
 
         switch (tokens.length) {
             case 1:
-                // Comando ls (sin opciones)
                 mensaje = obtenerListaSimple(ficheros);
                 break;
             case 2:
@@ -340,23 +380,23 @@ public class Ejecutar {
 
     /**
      * Obtiene la lista simple de nombres de archivos y directorios visibles.
+     * Corresponde al <ls>ls</i> sin opciones.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return un mensaje con la lista de nombres de archivos y directorios
-     *         visibles.
+     * @return mensaje con la lista de nombres de archivos y directorios
+     *         visibles. Excluyendo los ocultos.
      */
     private String obtenerListaSimple(Ficheros ficheros) {
-        String mensaje;
-        mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
+        String mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
         return mensaje;
     }
 
     /**
-     * Maneja las opciones de ls con un parámetro.
+     * Maneja las opciones de <ls>ls</i> con un parámetro.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return un mensaje detallando el resultado de la ejecución del comando
-     *         con un parámetro.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     *         un parámetro.
      */
     private String manejarOpcionesUnParametro(Ficheros ficheros) {
         String mensaje;
@@ -379,11 +419,11 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de ls con dos parámetros.
+     * Maneja las opciones de <ls>ls</i> con dos parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return un mensaje detallando el resultado de la ejecución del comando
-     *         con dos parámetros.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     *         dos parámetros.
      */
     private String manejarOpcionesDosParametros(Ficheros ficheros) {
         String mensaje;
@@ -403,11 +443,11 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de ls con tres parámetros.
+     * Maneja las opciones de <ls>ls</i> con tres parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return un mensaje detallando el resultado de la ejecución del comando
-     *         con tres parámetros.
+     * @return mensaje detallando el resultado de la ejecución del comando con
+     *         tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
         String mensaje;
@@ -420,12 +460,13 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el contenido de un directorio para el comando ls [directorio].
+     * Obtiene el contenido de un directorio para el comando <ls>ls</i>
+     * [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
-     * @return un mensaje con el contenido del directorio especificado.
+     * @return mensaje con el contenido del directorio especificado.
      */
     private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
@@ -442,31 +483,31 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando ls -l [directorio].
+     * Obtiene el mensaje para el comando <ls>ls</i> -l [directorio].
+     * ////////////////############################# ACA PASA ALGO
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar detalladamente.
-     * @return un mensaje indicando el resultado de ejecutar ls -l [directorio].
+     * @return mensaje indicando el resultado de ejecutar ls -l [directorio].
      */
     private String obtenerComandoLsL(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + nombreDirectorio + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = "No existe un directorio con ese nombre.\n";
         }
         return mensaje;
     }
 
     /**
-     * Obtiene el mensaje para el comando ls -a [directorio].
+     * Obtiene el mensaje para el comando <ls>ls</i> -a [directorio].
      *
-     * @param ficheros         el objeto que maneja la lista de archivos
-     *                         disponibles.
+     * @param ficheros         objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
      *                         archivos.
-     * @return un mensaje indicando el resultado de ejecutar ls -a [directorio].
+     * @return mensaje indicando el resultado de ejecutar ls -a [directorio].
      */
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
@@ -479,7 +520,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando ls -l -a [directorio].
+     * Obtiene el mensaje para el comando <ls>ls</i> -l -a [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
@@ -500,11 +541,11 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'kill' para eliminar un proceso por su ID.
+     * Ejecuta el comando <ls>kill</i> para eliminar un proceso por su ID.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
      * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje detallando el resultado de la ejecución del comando.
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarKill(Procesos procesos) {
         String mensaje = "";
@@ -559,11 +600,11 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'grep' para buscar un patrón en un archivo específico.
+     * Ejecuta el comando <ls>grep</i> para buscar un patrón en un archivo
+     * específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje indicando si se encontró el patrón en el archivo o un
+     * @return mensaje indicando si se encontró el patrón en el archivo o un
      *         mensaje de error si la expresión es incorrecta.
      */
     private String ejecutarGrep(Ficheros ficheros) {
@@ -592,11 +633,11 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'tail' para mostrar las últimas líneas de un archivo.
+     * Ejecuta el comando <ls>tail</i>' para mostrar las últimas líneas de un
+     * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje con las últimas líneas del archivo especificado o un
+     * @return mensaje con las últimas líneas del archivo especificado o un
      *         mensaje de error si la sintaxis es incorrecta.
      */
     private String ejecutarTail(Ficheros ficheros) {
@@ -626,7 +667,7 @@ public class Ejecutar {
      * @param ficheros      el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      *                      líneas.
-     * @return un mensaje con las últimas 10 líneas del archivo.
+     * @return mensaje con las últimas 10 líneas del archivo.
      */
     private String tailDefault(Ficheros ficheros, String nombreArchivo) {
         String mensaje = "";
@@ -647,7 +688,7 @@ public class Ejecutar {
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      *                      líneas.
      * @param n             el número de líneas que se desean obtener.
-     * @return un mensaje con las últimas n líneas del archivo.
+     * @return mensaje con las últimas n líneas del archivo.
      */
     private String tailN(Ficheros ficheros, String nombreArchivo, int n) {
         String mensaje = "";
@@ -662,11 +703,11 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'head' para mostrar las primeras líneas de un archivo.
+     * Ejecuta el comando <ls>head</i> para mostrar las primeras líneas de un
+     * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje con las primeras líneas del archivo especificado o un
+     * @return mensaje con las primeras líneas del archivo especificado o un
      *         mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
@@ -698,7 +739,7 @@ public class Ejecutar {
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      *                      líneas.
      * @param numLineas     el número de líneas que se desean obtener.
-     * @return un mensaje con las primeras 10 líneas del archivo.
+     * @return mensaje con las primeras 10 líneas del archivo.
      */
     private String headDefault(Ficheros ficheros, String nombreArchivo, int numLineas) {
         String mensaje = "";
@@ -718,7 +759,7 @@ public class Ejecutar {
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      *                      líneas.
      * @param numLineas     el número de líneas que se desean obtener.
-     * @return un mensaje con las primeras n líneas del archivo.
+     * @return mensaje con las primeras n líneas del archivo.
      */
     private String headN(Ficheros ficheros, String nombreArchivo, int numLineas) {
         String mensaje = "";
@@ -732,15 +773,17 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'cut' para mostrar las columnas seleccionadas de un
-     * archivo usando un delimitador específico.
+     * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de
+     * un archivo usando un delimitador específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje con las columnas seleccionadas del archivo
-     *         especificado o un mensaje de error si la sintaxis es incorrecta.
+     * @return mensaje con las columnas seleccionadas del archivo especificado o
+     *         un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
+        // ############################################################ ACA HAY VARIOS
+        // RETURN, VER.
+        // ###########################################################################################
         String mensaje = "";
 
         // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
@@ -821,15 +864,18 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'sort' para mostrar las líneas de un archivo ordenadas
-     * alfabéticamente. Si se especifica la opción '-n', ordena numéricamente.
+     * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
+     * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena
+     * numéricamente.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
-     * @return un mensaje con las líneas del archivo ordenadas o un mensaje de
+     * @return mensaje con las líneas del archivo ordenadas o un mensaje de
      *         error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
+        // ######################################################################################################
+        // REVISAR LA FORMA EN QUE ORDENA.
+        // ######################################################################################################
         String mensaje = "";
         String[] mensajeTokenizado;
 
@@ -902,11 +948,11 @@ public class Ejecutar {
     }
 
     /**
-     * Este metodo es para ejecutar el comando pipe.
+     * Este metodo es para ejecutar el comando <ls>|</i> tambien llamado 'pipe'.
      *
      * @param indexPipe - indice del simbolo pipe en la linea ingresada.
-     * @param ficheros
-     * @return mensaje
+     * @param ficheros  - objeto que maneja la lista de archivos disponibles.
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarPipe(int indexPipe, Ficheros ficheros) {
         String mensaje = "";
@@ -947,48 +993,44 @@ public class Ejecutar {
     }
 
     /**
-     * Verifica si el fichero o directorio existe.
+     * Verifica si el fichero (archivo o directorio) existe.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich     Nombre del fichero o directorio a verificar.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
-     * @return true si el fichero o directorio existe, false de lo contrario.
+     * @param nombre   del fichero a verificar.
+     * @return true si el fichero existe.
      */
-    private boolean verificarExistenciaFichero(Ficheros ficheros, String fich) {
-        if (!ficheros.existeFichero(fich)) {
-            return false;
-        }
-        return true;
+    private boolean verificarExistenciaFichero(Ficheros ficheros, String nombre) {
+        return ficheros.existeFichero(nombre);
     }
 
     /**
      * Valida la longitud de los permisos.
      *
      * @param permisos String con los permisos a validar.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
-     * @return true si la longitud de los permisos es correcta, false de lo
-     *         contrario.
+     * @return false si la longitud de los persmisos no es correcta. Asume true
+     *         por defecto.
      */
     private boolean validarLongitudPermisos(String permisos) {
-        if (permisos.length() != 3 && permisos.length() != 9) {
-            return false;
+        boolean retorno = true;
+        if (permisos.length() != 3 && permisos.length() != 9) { ///////////////////// NO DEBERIA SER || un o
+                                                                ///////////////////// logico??????????????????????????
+            retorno = false;
         }
-        return true;
+        return retorno;
     }
 
     /**
-     * Aplica los permisos numéricos al fichero o directorio.
+     * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich     Nombre del fichero o directorio al que se aplicarán los
+     * @param nombre   del fichero o directorio al que se aplicarán los
      *                 permisos.
      * @param permisos String con los permisos numéricos.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
      * @return true si se aplicaron los permisos correctamente, false de lo
      *         contrario.
      */
-    private boolean aplicarPermisosNumericos(Ficheros ficheros, String fich, String permisos) {
-        String permisosEnLetras = ficheros.obtenerFichero(fich).getPermisos().charAt(0) + "";
+    private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
+        String permisosEnLetras = ficheros.obtenerFichero(nombre).getPermisos().charAt(0) + "";
         boolean permisosValidos = true;
 
         for (int i = 0; i < 3; i++) {
@@ -1025,7 +1067,7 @@ public class Ejecutar {
         }
 
         if (permisosValidos) {
-            ficheros.obtenerFichero(fich).setPermisos(permisosEnLetras);
+            ficheros.obtenerFichero(nombre).setPermisos(permisosEnLetras);
         }
 
         return permisosValidos;
@@ -1038,7 +1080,6 @@ public class Ejecutar {
      * @param fich     Nombre del fichero o directorio al que se aplicarán los
      *                 permisos.
      * @param permisos String con los permisos simbólicos.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
      * @return true si se aplicaron los permisos correctamente, false de lo
      *         contrario.
      */
