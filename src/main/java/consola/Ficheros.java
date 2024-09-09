@@ -3,41 +3,50 @@ package consola;
 import java.util.LinkedList;
 
 /**
- * Esta clase permite crear una lista de ficheros.
+ * Esta clase permite gestionar una coleccion de ficheros.
  *
- * @author
- * @since version 2
+ *
  */
 public class Ficheros {
 
-    //Atributos
+    /**
+     * Coleccion.
+     */
     private LinkedList<Fichero> listaFicheros;
 
-    //Constructor vacio
+    /**
+     * Constructor.
+     */
     public Ficheros() {
         listaFicheros = new LinkedList<Fichero>();
     }
 
-    //Getter de la lista
+    /**
+     * @return listaficheros
+     */
     public LinkedList<Fichero> getListaFicheros() {
         return listaFicheros;
     }
 
-    //Setter de la lista
+    /**
+     * Establece el valor de listaFicheros recibido por
+     *
+     * @param listaFicheros
+     */
     public void setListaFicheros(LinkedList<Fichero> listaFicheros) {
         this.listaFicheros = listaFicheros;
     }
 
     /**
-     * Metodo que determina si existe un fichero a partir de un nombre.
+     * Metodo que determina si existe un fichero a partir de un ficheroBuscado.
      *
-     * @param nombre del fichero
+     * @param ficheroBuscado del fichero
      * @return true si existe el fichero.
      */
-    public boolean existeFichero(String nombre) {
+    public boolean existeFichero(String ficheroBuscado) {
         boolean existe = false;
         for (Fichero existente : listaFicheros) {
-            if (existente.getNombre().equals(nombre)) {
+            if (existente.getNombre().equals(ficheroBuscado)) {
                 existe = true;
             }
         }
@@ -100,13 +109,13 @@ public class Ficheros {
      * Metodo que retorna si un fichero es un directorio o no. Asume que existe
      * el fichero a evaluar.
      *
-     * @param nombre fichero
+     * @param ficheroBuscado fichero
      * @return si es un directorio
      */
-    public boolean esDirectorio(String nombre) {
+    public boolean esDirectorio(String ficheroBuscado) {
         int i = 0;
-        while (!this.obtenerFichero(i).getNombre().equals(nombre)) { //Sin control de rango porque existe
-            i++; //Obtengo indice en el que se encuentra el fichero
+        while (!this.obtenerFichero(i).getNombre().equals(ficheroBuscado)) {
+            i++;
         }
         return this.obtenerFichero(i).getTipo().equals("Directorio");
     }
@@ -177,12 +186,15 @@ public class Ficheros {
         Archivo arch22 = new Archivo("arch22");
         arch22.setContenido("La elaboración de software de computadora"
                 + " es un proceso reiterativo de aprendizaje social,\n"
-                + " y el resultado es la reunión de\n" 
+                + "y el resultado es la reunión de\n"
                 + "conocimiento recabado, depurado y organizado"
                 + " a medida que se realiza el proceso. Pressman(2010)");
         Archivo arch33 = new Archivo("arch33");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
         Archivo m = new Archivo("m", "Hola \n10. Chau \n99. Hola 232342\n Chau");
+        Archivo n = new Archivo(".secreto", "Este archivo esta oculto");
+        Archivo algunosNumeros = new Archivo("algunosNumeros",
+        "10\n3\n7\n300\n40\n1\n230");
 
         //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
@@ -193,6 +205,9 @@ public class Ficheros {
         agregarFichero(arch22);
         agregarFichero(arch33);
         agregarFichero(m);
+        agregarFichero(n);
+        agregarFichero(algunosNumeros);
+
 
     }
 }

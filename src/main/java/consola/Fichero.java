@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Clase abstracta que define la estructura general de un fichero. Es la base
- * para especializar en los tipos: directorio o archivo. *
+ * para especializar en los tipos: directorio o archivo.
  */
 public abstract class Fichero {
 
@@ -34,7 +34,7 @@ public abstract class Fichero {
     private String tipo;
 
     /**
-     * Indica si el formato de fecha.
+     * Indica el formato de fecha.
      */
     private DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

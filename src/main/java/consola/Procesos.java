@@ -5,27 +5,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Esta clase permite crear una lista de procesos.
- *
- * @author
+ * Esta clase maneja una coleccion de procesos.
  */
 public class Procesos {
 
-    //Atributos
+    /**
+     * Coleccion.
+     */
     private LinkedList<Proceso> listaProcesos;
 
-    //Constructor Vacio
+    /**
+     * Constructor. 
+     */
     public Procesos() {
         this.listaProcesos = new LinkedList<>();
         cargarProcesos();
     }
 
-    //Getter
+    /**
+     * @return listaProcesos
+     */
     public List<Proceso> getListaProcesos() {
         return listaProcesos;
     }
 
-    //Setter
+    /**
+     * Establece el valor de listaProcesos recibido por
+     *
+     * @param listaProcesos
+     */
     public void setListaProcesos(LinkedList<Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
@@ -42,18 +50,17 @@ public class Procesos {
     }
 
     /**
-     * Metodo que dado el numero de id de proceso determina si existe o no.
+     * Metodo que dado el numero de id de proceso determina si existe.
      *
      * @param pid
      * @return si existe el proceso o no
      */
     public boolean existeProceso(int pid) {
         boolean existe = false;
-        Iterator<Proceso> iterator = listaProcesos.iterator();
-        while ((iterator.hasNext()) && (!existe)) {
-            Proceso proceso = iterator.next();
-            if (proceso.getPid() == pid) {
+        for (Proceso p : getListaProcesos()) {
+            if (p.getPid() == pid) {
                 existe = true;
+                break;
             }
         }
         return existe;

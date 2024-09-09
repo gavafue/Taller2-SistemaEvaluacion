@@ -54,13 +54,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="lblPenguin" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lblPrompt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtComando" min="-2" pref="609" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="scrlOutput" min="-2" pref="757" max="-2" attributes="0"/>
+                      <Component id="scrlOutput" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -119,6 +119,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtComandoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtComandoKeyPressed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrlOutput">

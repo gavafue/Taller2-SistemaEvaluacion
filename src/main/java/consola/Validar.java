@@ -1,5 +1,8 @@
 package consola;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Esta clase permite validar un comando y sus opciones.
  *
@@ -102,5 +105,21 @@ public class Validar {
         }
 
         return esValida;
+    }    
+    
+    /**
+     * Método que busca la existencia del caracter pipe y devuelve su posición
+     * 
+     * @return la poscion en la que se encuentra el pipe 
+     */    
+    public int posicionPipe() {
+        int indicePipe=0;
+        // Creo un arraylist temporal para usar su metodo
+        // contains(). Esto es mas corto que un for y el codigo mas legible          
+        ArrayList<String>tokensParaElPipe = new ArrayList<>(Arrays.asList(tokens));
+        if (tokensParaElPipe.contains("|")){         
+             indicePipe=tokensParaElPipe.indexOf("|");         
+        }
+        return indicePipe;    
     }
 }

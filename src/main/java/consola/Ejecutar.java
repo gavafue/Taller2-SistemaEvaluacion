@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTextArea;
 
@@ -19,11 +20,6 @@ public class Ejecutar {
      * almacenada aqui.
      */
     private String[] tokens;
-
-    /**
-     * Para poder procesar el comando pipe se necesita esta colección.
-     */
-    private ArrayList<String> tokensParaElPipe;
 
     /**
      * Hora de ejecucion.
@@ -98,7 +94,7 @@ public class Ejecutar {
     /**
      * Metodo principal de esta clase. Deriva la ejecucion al comando
      * correspondiente.
-     * 
+     *
      * @param comandos
      * @param ficheros
      * @param procesos
@@ -108,64 +104,58 @@ public class Ejecutar {
         String mensaje = "";
         actualizarHora();
 
-        tokensParaElPipe = new ArrayList<>(Arrays.asList(tokens)); // Creo un arraylist temporal para usar su metodo
-                                                                   // contains(). Esto es mas corto que un for.
+        switch (tokens[0]) {
+            case "man":
+                mensaje = ejecutarMan(comandos);
+                break;
+            case "mkdir":
+                mensaje = ejecutarMkdir(ficheros);
+                break;
+            case "rmdir":
+                mensaje = ejecutarRmdir(ficheros);
+                break;
+            case "clear":
+                mensaje = ejecutarClear(salida);
+                break;
+            case "cat":
+                mensaje = ejecutarCat(ficheros);
+                break;
+            case "mv":
+                mensaje = ejecutarMv(ficheros);
+                break;
+            case "ls":
+                mensaje = ejecutarLs(ficheros);
+                break;
+            case "ps":
+                mensaje = ejecutarPs(procesos);
+                break;
+            case "kill":
+                mensaje = ejecutarKill(procesos);
+                break;
+            case "grep":
+                mensaje = ejecutarGrep(ficheros);
+                break;
+            case "tail":
+                mensaje = ejecutarTail(ficheros);
+                break;
+            case "head":
+                mensaje = ejecutarHead(ficheros);
+                break;
+            case "cut":
+                mensaje = ejecutarCut(ficheros);
+                break;
+            case "sort":
+                mensaje = ejecutarSort(ficheros);
+                break;
+            case "chmod":
+                mensaje = ejecutarChmod(ficheros);
+                break;
 
-        if (tokensParaElPipe.contains("|")) { // NO PUEDE HABER UN CASE PIPE PORQUE NO ARRANCA CON PIPE.
-            mensaje = ejecutarPipe(tokensParaElPipe.indexOf("|"), ficheros);
-        } else {
-            switch (tokens[0]) {
-                case "man":
-                    mensaje = ejecutarMan(comandos);
-                    break;
-                case "mkdir":
-                    mensaje = ejecutarMkdir(ficheros);
-                    break;
-                case "rmdir":
-                    mensaje = ejecutarRmdir(ficheros);
-                    break;
-                case "clear":
-                    mensaje = ejecutarClear(salida);
-                    break;
-                case "cat":
-                    mensaje = ejecutarCat(ficheros);
-                    break;
-                case "mv":
-                    mensaje = ejecutarMv(ficheros);
-                    break;
-                case "ls":
-                    mensaje = ejecutarLs(ficheros);
-                    break;
-                case "ps":
-                    mensaje = ejecutarPs(procesos);
-                    break;
-                case "kill":
-                    mensaje = ejecutarKill(procesos);
-                    break;
-                case "grep":
-                    mensaje = ejecutarGrep(ficheros);
-                    break;
-                case "tail":
-                    mensaje = ejecutarTail(ficheros);
-                    break;
-                case "head":
-                    mensaje = ejecutarHead(ficheros);
-                    break;
-                case "cut":
-                    mensaje = ejecutarCut(ficheros);
-                    break;
-                case "sort":
-                    mensaje = ejecutarSort(ficheros);
-                    break;
-                case "chmod":
-                    mensaje = ejecutarChmod(ficheros);
-                    break;
-
-                default:
-                    mensaje = "Sintaxis incorrecta\n";
-                    break;
-            }
+            default:
+                mensaje = "Sintaxis incorrecta\n";
+                break;
         }
+
         return mensaje;
 
     }
@@ -399,14 +389,10 @@ public class Ejecutar {
         String mensaje;
         switch (tokens[1]) {
             case "-l":
-                mensaje = ficheros.obtenerInformacionDetallada(false) + "\n"; // Información
-                // detallada
-                // sin
-                // ocultos
+                mensaje = ficheros.obtenerInformacionDetallada(false) + "\n";
                 break;
             case "-a":
-                mensaje = ficheros.obtenerNombres(true) + "\n"; // Muestra nombres
-                // incluyendo ocultos
+                mensaje = ficheros.obtenerNombres(true) + "\n";
                 break;
             default:
                 mensaje = obtenerContenidoDirectorio(ficheros, tokens[1]);
@@ -419,16 +405,12 @@ public class Ejecutar {
      * Maneja las opciones de ls con dos parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
-     * @return mensaje detallando el resultado de la ejecución del comando con
-     *         dos parámetros.
+     * @return mensaje detallando el resultado de la ejecución del comando.
      */
     private String manejarOpcionesDosParametros(Ficheros ficheros) {
         String mensaje;
         if ((tokens[1].equals("-l") && tokens[2].equals("-a")) || (tokens[1].equals("-a") && tokens[2].equals("-l"))) {
-            mensaje = ficheros.obtenerInformacionDetallada(true) + "\n"; // Información
-            // detallada
-            // incluyendo
-            // ocultos
+            mensaje = ficheros.obtenerInformacionDetallada(true) + "\n";
         } else if (tokens[1].equals("-l")) {
             mensaje = obtenerComandoLsL(ficheros, tokens[2]);
         } else if (tokens[1].equals("-a")) {
@@ -485,13 +467,13 @@ public class Ejecutar {
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
-     * @param nombreDirectorio el nombre del directorio a listar detalladamente.
+     * @param segundoParametro el nombre del directorio a listar detalladamente.
      * @return mensaje indicando el resultado de ejecutar ls -l [directorio].
      */
-    private String obtenerComandoLsL(Ficheros ficheros, String nombreDirectorio) {
+    private String obtenerComandoLsL(Ficheros ficheros, String segundoParametro) {
         String mensaje;
-        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + nombreDirectorio + "\n";
+        if (ficheros.existeFichero(segundoParametro) && ficheros.esDirectorio(segundoParametro)) {
+            mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + segundoParametro + "\n";
         } else {
             mensaje = "No existe un directorio con ese nombre.\n";
         }
@@ -500,6 +482,9 @@ public class Ejecutar {
 
     /**
      * Obtiene el mensaje para el comando ls -a [directorio].
+     *
+     * De momento solo imprime un mensaje estandar ya que estamos trahajando con
+     * un unico nivel en el sistema de archivos.
      *
      * @param ficheros         objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
@@ -517,7 +502,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando ls -l -a [directorio].
+     * Obtiene el mensaje para el comando <ls>ls</i> -l -a [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
@@ -547,20 +532,16 @@ public class Ejecutar {
         String mensaje = "";
 
         if (tokens.length == 2) {
-            // Intenta obtener el ID del proceso del segundo token
             String procesoIdStr = tokens[1];
 
             int procesoID = Integer.parseInt(procesoIdStr);
             if (procesos.existeProceso(procesoID)) {
-                // Si el proceso existe, se elimina de la lista de procesos
                 procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
                 mensaje = "Proceso eliminado\n";
             } else {
-                // Si no existe el proceso con el ID proporcionado
-                mensaje = "No existe el proceso\n";
+                mensaje = "No existe proceso con pid" + procesoID + "\n";
             }
         } else {
-            // Si la sintaxis del comando es incorrecta
             mensaje = "Sintaxis incorrecta.\nPruebe man kill\n";
         }
 
@@ -568,7 +549,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'ps' para listar los procesos en ejecución del
+     * Ejecuta el comando <i>ps</i> para listar los procesos en ejecución del
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
@@ -640,37 +621,17 @@ public class Ejecutar {
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
-            mensaje = tailDefault(ficheros, tokens[1]);
+            mensaje = ultimasLineas(ficheros, tokens[1], 10);
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las últimas n líneas
             try {
                 int n = Integer.parseInt(tokens[2]);
-                mensaje = tailN(ficheros, tokens[3], n);
+                mensaje = ultimasLineas(ficheros, tokens[3], n);
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
         } else {
             mensaje = "Sintaxis incorrecta.\nPruebe man tail\n";
-        }
-
-        return mensaje;
-    }
-
-    /**
-     * Obtiene las últimas 10 líneas de un archivo.
-     *
-     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
-     * @param nombreArchivo el nombre del archivo del cual se obtendrán las
-     *                      líneas.
-     * @return mensaje con las últimas 10 líneas del archivo.
-     */
-    private String tailDefault(Ficheros ficheros, String nombreArchivo) {
-        String mensaje = "";
-        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
-        int inicio = Math.max(0, lineasArchivo.length - 10);
-
-        for (int i = inicio; i < lineasArchivo.length; i++) {
-            mensaje += lineasArchivo[i] + "\n";
         }
 
         return mensaje;
@@ -685,7 +646,7 @@ public class Ejecutar {
      * @param n             el número de líneas que se desean obtener.
      * @return mensaje con las últimas n líneas del archivo.
      */
-    private String tailN(Ficheros ficheros, String nombreArchivo, int n) {
+    private String ultimasLineas(Ficheros ficheros, String nombreArchivo, int n) {
         String mensaje = "";
         String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
         int inicio = Math.max(0, lineasArchivo.length - n);
@@ -707,16 +668,16 @@ public class Ejecutar {
      */
     public String ejecutarHead(Ficheros ficheros) {
         String mensaje = "";
-        int numLineas = 10; // Por defecto, mostrar 10 líneas
+        int numLineas;
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
-            mensaje = headDefault(ficheros, tokens[1], numLineas);
+            mensaje = primerasLineas(ficheros, tokens[1], 10);
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
                 numLineas = Integer.parseInt(tokens[2]);
-                mensaje = headN(ficheros, tokens[3], numLineas);
+                mensaje = primerasLineas(ficheros, tokens[3], numLineas);
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
@@ -728,7 +689,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene las primeras 10 líneas de un archivo.
+     * Obtiene las primeras n líneas de un archivo.
      *
      * @param ficheros      el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
@@ -736,7 +697,7 @@ public class Ejecutar {
      * @param numLineas     el número de líneas que se desean obtener.
      * @return mensaje con las primeras 10 líneas del archivo.
      */
-    private String headDefault(Ficheros ficheros, String nombreArchivo, int numLineas) {
+    private String primerasLineas(Ficheros ficheros, String nombreArchivo, int numLineas) {
         String mensaje = "";
         String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
 
@@ -776,54 +737,34 @@ public class Ejecutar {
      *         un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
-        // ############################################################ ACA HAY VARIOS
-        // RETURN, VER.
-        // ###########################################################################################
+
         String mensaje = "";
+        String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
+        String campos = tokens[4]; // Campos a extraer
+        String archivo = tokens[5]; // Nombre del archivo
+        String contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();
 
         // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
         // correctas
-        if (tokens.length == 6 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f")) {
-            String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
-            String campos = tokens[4]; // Campos a extraer
-            String archivo = tokens[5]; // Nombre del archivo
-
-            // Verificar si el archivo existe y no es un directorio
-            if (ficheros.esDirectorio(archivo)) {
-                mensaje += "Error: El archivo especificado no existe o es un directorio.";
-                // Cambiar color a rojo
-                return mensaje;
-            }
-
-            // Verificar que el archivo tenga contenido
-            String contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();
-            if (contenidoArchivo == null || contenidoArchivo.isEmpty()) {
-                mensaje += "Error: El archivo especificado está vacío.";
-                // Cambiar color a rojo
-                return mensaje;
-            }
-
-            // Validar que el delimitador sea el correcto (solo se admite ':')
-            if (!delimitador.equals(":")) {
-                mensaje += "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
-                // Cambiar color a rojo
-                return mensaje;
-            }
+        if (((tokens.length != 6 || !tokens[0].equals("cut")) || !tokens[1].equals("-d")) || !tokens[3].equals("-f")
+                || !delimitador.equals(":")) {
+            mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
+        } else if (ficheros.esDirectorio(archivo)) {// Verificar si el archivo existe y no es un directorio
+            mensaje += "Error: El archivo especificado no existe o es un directorio.";
+        } else if (contenidoArchivo == null || contenidoArchivo.isEmpty()) {
+            mensaje += "Error: El archivo especificado está vacío.";
+        } else {
 
             String[] camposArray = campos.split(",");
             List<Integer> indicesCampos = new ArrayList<>();
-
             // Convertir camposArray a lista de índices (restamos 1 para hacerlos 0-based)
             for (String campo : camposArray) {
                 try {
                     indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
                 } catch (NumberFormatException e) {
                     mensaje += "Error: Los campos especificados no son números válidos.";
-                    // Cambiar color a rojo
-                    return mensaje;
                 }
             }
-
             // Dividir el contenido del archivo por líneas
             String[] lineas = contenidoArchivo.split("\n");
 
@@ -834,6 +775,7 @@ public class Ejecutar {
 
                 // Obtener las columnas después de los campos especificados
                 for (int indice : indicesCampos) {
+
                     if (indice >= 0 && indice < partes.length) {
                         if (lineaResultado.length() > 0) {
                             lineaResultado.append(delimitador); // Agregar delimitador entre columnas
@@ -841,18 +783,12 @@ public class Ejecutar {
                         lineaResultado.append(partes[indice]);
                     } else {
                         mensaje += "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
-                        // Cambiar color a rojo
-                        return mensaje;
                     }
                 }
 
                 mensaje += lineaResultado.toString() + "\n";
             }
 
-            // Cambiar color a celeste
-        } else {
-            mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
-            // Cambiar color a rojo
         }
 
         return mensaje;
@@ -868,26 +804,37 @@ public class Ejecutar {
      *         error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
-        // ######################################################################################################
-        // REVISAR LA FORMA EN QUE ORDENA.
-        // ######################################################################################################
         String mensaje = "";
         String[] mensajeTokenizado;
 
-        // Verificar la cantidad de tokens para determinar el tipo de ordenamiento
-        if (tokens.length == 2) {
-            // Ordenar alfabéticamente las líneas del archivo especificado
+        if (getTokens().length == 2) {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
             Arrays.sort(mensajeTokenizado);
             for (String linea : mensajeTokenizado) {
                 mensaje += linea + "\n";
             }
-        } else if (tokens.length == 3 && tokens[1].equals("-n")) {
+        } else if (getTokens().length == 3 && tokens[1].equals("-n")) {
             // Ordenar numéricamente las líneas del archivo especificado
             mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-            Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
-            for (String linea : mensajeTokenizado) {
-                mensaje += linea + "\n";
+            // Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
+            // De esta otra manera queda mas legible la logica de la operacion de
+            // comparacion y ordenamiento en funcion de esta.
+            // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0.
+            // Y luego se ordenan esos numeros.
+            int[] numeritos = new int[mensajeTokenizado.length];
+            for (int i = 0; i < mensajeTokenizado.length; i++) {
+                try {
+                    numeritos[i] = Integer.parseInt(mensajeTokenizado[i]); // REFINAR CON: inea.contains(".*\\d+.*")
+
+                } catch (NumberFormatException e) {
+                    numeritos[i] = 0;
+                }
+
+            }
+            Arrays.sort(numeritos);
+
+            for (int n : numeritos) {
+                mensaje += Integer.toString(n) + "\n";
             }
         } else {
             // Sintaxis incorrecta
@@ -911,7 +858,7 @@ public class Ejecutar {
         // Verificar la cantidad de argumentos
         if (tokens.length != 3) {
             mensaje = "Sintaxis incorrecta: número incorrecto de argumentos";
-        } else if (!verificarExistenciaFichero(ficheros, fich)) {
+        } else if (!ficheros.existeFichero(fich)) {
             // Verificar si el fichero existe
             mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
         } else if (!validarLongitudPermisos(permisos)) {
@@ -954,7 +901,7 @@ public class Ejecutar {
         String msjComando2 = "";
         String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
         String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length + 1); // despues del pipe. y uno mas,
-                                                                                         // que queda con null
+        // que queda con null
 
         if (tokens[0].equals("tail")) {// primero bloque de IFs para procesar el primer comando
             tokens = tokensA;
@@ -968,33 +915,22 @@ public class Ejecutar {
 
         if (tokensB[0].equals("grep")) { // segundo bloque de IFs para procesar el segundo comando
 
-            ficheros.agregarFichero(new Archivo("temporal", msjComando1)); // creo un archivo con el contenido del
-                                                                           // mensaje1. Ya que grep esta programado para
-                                                                           // levantar contenido de ficheros.
-            tokensB[2] = "temporal"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
+            ficheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
+            // mensaje1. Ya que grep esta programado para
+            // levantar contenido de ficheros.
+            tokensB[2] = "especificado"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
             tokens = tokensB;
             msjComando2 = ejecutarGrep(ficheros);// Va a tomar el tokens global, el cual no esta como lo necesita.
-                                                 // PROUESTA: que todos los ejecutarComando() reciban el tokens como
-                                                 // parametro.
+            // PROUESTA: que todos los ejecutarComando() reciban el tokens como
+            // parametro.
             // borro ese archivo que no debe existir mas.
-            ficheros.eliminarFichero("temporal");
+            ficheros.eliminarFichero("especificado");
             mensaje = msjComando2;
         } else {
             mensaje = "Sintaxis incorrecta en segundo comando. Debe ser grep.";
         }
 
         return mensaje;
-    }
-
-    /**
-     * Verifica si el fichero (archivo o directorio) existe.
-     *
-     * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param nombre   del fichero a verificar.
-     * @return true si el fichero existe.
-     */
-    private boolean verificarExistenciaFichero(Ficheros ficheros, String nombre) {
-        return ficheros.existeFichero(nombre);
     }
 
     /**
@@ -1007,7 +943,7 @@ public class Ejecutar {
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
         if (permisos.length() != 3 && permisos.length() != 9) { ///////////////////// NO DEBERIA SER || un o
-                                                                ///////////////////// logico??????????????????????????
+            ///////////////////// logico??????????????????????????
             retorno = false;
         }
         return retorno;
@@ -1017,8 +953,7 @@ public class Ejecutar {
      * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param nombre   del fichero o directorio al que se aplicarán los
-     *                 permisos.
+     * @param nombre   del fichero o directorio al que se aplicarán los permisos.
      * @param permisos String con los permisos numéricos.
      * @return true si se aplicaron los permisos correctamente, false de lo
      *         contrario.

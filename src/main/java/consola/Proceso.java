@@ -5,23 +5,52 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 /**
- * Esta clase permite crear un proceso.
+ * Esta clase representa un porceso del sistema operativo. Tiene los atributos y
+ * metodos necesarios para ello.
  *
- * @author
  */
 public class Proceso {
 
-    //Atributos
-    private int pid; // PID de la instancia actual
-    private static int siguientePid = 1; // Siguiente PID a asignar, propio de la clase
-    private String usuario;
-    private double memoria; //Porcentaje de memoria en uso
-    private double cpu; //Porcentaje de CPU en uso
-    private String comando;
-    private DateTimeFormatter formatoFecha;
-    private String hora; //Hora en la que se creo el proceso
+    /**
+     * PID de la instancia actual del proceso. Permite identificarlo. Se espera
+     * que tenga un valor entre 1 y 100.
+     */
+    private int pid;
 
-    // Constructor
+    private static int siguientePid = 1; // Siguiente PID a asignar, propio de la clase
+    /**
+     * Usuario que creo el proceso.
+     */
+    private String usuario;
+
+    /**
+     * Porcentaje de memoria de la maquina que ocupa el proceso.
+     */
+    private double memoria;
+
+    /**
+     * POrcentaje de CPU de la maquina que ocupa el proceso.
+     */
+    private double cpu;
+
+    /**
+     * Comando que dio origen al proceso.
+     */
+    private String comando;
+
+    /**
+     * Indica el formato de fecha.
+     */
+    private DateTimeFormatter formatoFecha;
+    /**
+     * Hora en la que se creo proceso.
+     */
+    private String hora;
+
+    /**
+     * Constructor.
+     * @param comando
+     */
     public Proceso(String comando) {
         Random random = new Random();
         this.pid = siguientePid++;

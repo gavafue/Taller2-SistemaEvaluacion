@@ -37,6 +37,12 @@ public class Directorio extends Fichero {
         this.contenido = contenido;
     }
 
+    /**
+     * Este metodo sobreescribe el metodo de Fichero para responder indicando
+     * que es un fichero sin mostrar el contenido. De momento esta implementado
+     * para manejar un solo nivel en el sistema de archivos. Es decir, no hay
+     * nada dentro de los directorios.
+     */
     @Override
     public String obtenerContenido() {
         return "Esto es un directorio";
