@@ -18,7 +18,7 @@ public class Comando {
     private String ejemplo;
     
     /**
-     * Opciones que admite el comando. <b>NO SE ESTA USANDO.</b>
+     * Opciones que admite el comando.
      */
     private String[] opciones;
 

@@ -171,10 +171,9 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>man</i.
+     * Ejecuta el comando man.
      *
      * @param comandos Objeto que contiene los comandos disponibles.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarMan(Comandos comandos) {
@@ -190,7 +189,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>mkdir</i> para crear directorios.
+     * Ejecuta el comando mkdir para crear directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return mensaje resultante de la operacion.
@@ -225,11 +224,9 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>rmdir</i> para eliminar directorios.
+     * Ejecuta el comando rmdir para eliminar directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
-     * @param procesos Objeto para gestionar los procesos.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarRmdir(Ficheros ficheros) {
@@ -261,7 +258,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>clear</i> para limpiar el área de salida. Es decir,
+     * Ejecuta el comando clear para limpiar el área de salida. Es decir,
      * limpia la consola estableciendo su texto vacio.
      *
      * @param salida JTextÁrea que se limpia.
@@ -279,7 +276,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>cat</i> para mostrar el contenido de un archivo si
+     * Ejecuta el comando cat para mostrar el contenido de un archivo si
      * existe y no es un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -304,7 +301,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>mv</i> para renombrar un archivo si existe y no es
+     * Ejecuta el comando mv para renombrar un archivo si existe y no es
      * un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -348,7 +345,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>ls</i> para listar archivos y directorios según los
+     * Ejecuta el comando ls para listar archivos y directorios según los
      * parámetros proporcionados.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -380,7 +377,7 @@ public class Ejecutar {
 
     /**
      * Obtiene la lista simple de nombres de archivos y directorios visibles.
-     * Corresponde al <ls>ls</i> sin opciones.
+     * Corresponde al ls sin opciones.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
@@ -392,7 +389,7 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de <ls>ls</i> con un parámetro.
+     * Maneja las opciones de ls con un parámetro.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
@@ -419,7 +416,7 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de <ls>ls</i> con dos parámetros.
+     * Maneja las opciones de ls con dos parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
@@ -443,7 +440,7 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de <ls>ls</i> con tres parámetros.
+     * Maneja las opciones de ls con tres parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
@@ -460,7 +457,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el contenido de un directorio para el comando <ls>ls</i>
+     * Obtiene el contenido de un directorio para el comando ls
      * [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
@@ -483,7 +480,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l [directorio].
+     * Obtiene el mensaje para el comando ls -l [directorio].
      * ////////////////############################# ACA PASA ALGO
      *
      * @param ficheros         el objeto que maneja la lista de archivos
@@ -502,7 +499,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -a [directorio].
+     * Obtiene el mensaje para el comando ls -a [directorio].
      *
      * @param ficheros         objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
@@ -520,7 +517,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l -a [directorio].
+     * Obtiene el mensaje para el comando ls -l -a [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
@@ -541,10 +538,9 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>kill</i> para eliminar un proceso por su ID.
+     * Ejecuta el comando kill para eliminar un proceso por su ID.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarKill(Procesos procesos) {
@@ -576,7 +572,6 @@ public class Ejecutar {
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
      * @return un mensaje detallando los procesos en ejecución o un mensaje de
      *         error si la sintaxis es incorrecta.
      */
@@ -600,7 +595,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>grep</i> para buscar un patrón en un archivo
+     * Ejecuta el comando grep para buscar un patrón en un archivo
      * específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -633,7 +628,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>tail</i>' para mostrar las últimas líneas de un
+     * Ejecuta el comando tail' para mostrar las últimas líneas de un
      * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -703,7 +698,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>head</i> para mostrar las primeras líneas de un
+     * Ejecuta el comando head para mostrar las primeras líneas de un
      * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -773,7 +768,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de
+     * Ejecuta el comando cut para mostrar las columnas seleccionadas de
      * un archivo usando un delimitador específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -864,7 +859,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
+     * Ejecuta el comando sort para mostrar las líneas de un archivo
      * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena
      * numéricamente.
      *
@@ -906,7 +901,6 @@ public class Ejecutar {
      * Método que permite modificar los permisos de un archivo y/o directorio.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
      * @return Mensaje a imprimir en consola.
      */
     public String ejecutarChmod(Ficheros ficheros) {
@@ -948,7 +942,7 @@ public class Ejecutar {
     }
 
     /**
-     * Este metodo es para ejecutar el comando <ls>|</i> tambien llamado 'pipe'.
+     * Este metodo es para ejecutar el comando | tambien llamado 'pipe'.
      *
      * @param indexPipe - indice del simbolo pipe en la linea ingresada.
      * @param ficheros  - objeto que maneja la lista de archivos disponibles.
