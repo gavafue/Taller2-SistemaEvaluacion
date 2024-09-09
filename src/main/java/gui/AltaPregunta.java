@@ -23,9 +23,10 @@ public class AltaPregunta extends javax.swing.JFrame {
     private Cliente cliente;
     private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación
                                 // de forma dinámica
+    private String rol;
 
     // Atributos utilizados como variables globales
-    private String evaluacion; // Título de la evaluación
+    private String evaluacion; // Título de la evaluación seleccionada o por crear
     private String pregunta;
     private String enunciado;
     private String tipoPregunta;
@@ -41,12 +42,19 @@ public class AltaPregunta extends javax.swing.JFrame {
      *                    forma dinámica.
      * @param cliente
      */
-    public AltaPregunta(JPanel vistaPrevia, Cliente cliente) {
+    public AltaPregunta(JPanel vistaPrevia, Cliente cliente, String rol) {
         this.cliente = cliente;
         this.vistaPrevia = vistaPrevia;
+        this.rol = rol;
         initComponents();
         setLocationRelativeTo(null); // Centrar JFrame
         this.interfazPorDefecto(); // Inicializa la interfaz
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) { // En caso de que cierre una evaluación a medias borra todo lo almacendo en memoria
+                valoresPorDefecto(evt);
+            }
+        });
     }
 
     /**
@@ -991,6 +999,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.txtOpc3.setEnabled(false);
         framePregunta.txtOpc4.setEnabled(false);
         framePregunta.btnFinalizarMultiple.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.cboxOpcionesMultiple.setSelectedIndex(0);
     }
 
     /**
@@ -1011,6 +1021,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.spnPuntajeEspaciosVF.setEnabled(false);
         framePregunta.spnPuntajeEspaciosVF.setValue(puntaje);
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.cboxVerdaderoOFalso.setSelectedIndex(0);
     }
 
     /**
@@ -1031,6 +1043,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.spnPuntajeEspaciosVF.setValue(puntaje);
         framePregunta.lblTipo.setText("Respuesta/s");
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.txtRespuestaEspacios.setText("");
     }
 
     /**
@@ -1060,6 +1074,19 @@ public class AltaPregunta extends javax.swing.JFrame {
             case "Completar":
                 this.cargarEnGuiEspacios(puntaje, framePregunta);
                 break;
+        }
+    }
+
+    /**
+     * Método que inicializa la cantidad de preguntas y las respuestas si se
+     * cierra la evaluación a medias desde el rol estudiante.
+     *
+     * @param evt
+     */
+    public void valoresPorDefecto(java.awt.event.WindowEvent evt) {
+        if(rol.equals("estudiante")){
+            AltaPregunta.setCantidadPreguntas(0);
+            this.setRespuestas("");
         }
     }
 

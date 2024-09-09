@@ -259,8 +259,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      * @param evt
      */
     private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevaPreguntaActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es
-                                                                                                      // vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es                                                                                            // vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
@@ -270,13 +269,13 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente);
+                        AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
                         ventanaPregunta.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente);
+                    AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
                     ventanaPregunta.setVisible(true);
                 }
             } catch (IOException ex) {
