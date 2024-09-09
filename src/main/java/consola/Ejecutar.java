@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import javax.swing.JTextArea;
 
 /**
@@ -213,15 +212,13 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>rmdir</i> para eliminar directorios.
+     * Ejecuta el comando rmdir para eliminar directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
-     * @param procesos Objeto para gestionar los procesos.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarRmdir(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
         if (tokens != null && tokens.length == 2) {
             mensaje = eliminarDirectorio(tokens[1], ficheros);
         } else {
@@ -238,7 +235,7 @@ public class Ejecutar {
      * @return mensaje resultante de la operación.
      */
     private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             ficheros.eliminarFichero(nombreDirectorio);
             mensaje = "Directorio eliminado\n";
@@ -256,7 +253,7 @@ public class Ejecutar {
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarClear(JTextArea salida) {
-        String mensaje = "";
+        String mensaje;
         if (tokens != null && tokens.length == 1) {
             salida.setText("");
             mensaje = "";
@@ -275,7 +272,7 @@ public class Ejecutar {
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarCat(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
 
         if (tokens.length != 2) {
             mensaje = "Sintaxis incorrecta.\nIntente cat [nombre] o man cat\n";
@@ -292,7 +289,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>mv</i> para renombrar un archivo si existe y no es
+     * Ejecuta el comando mv para renombrar un archivo si existe y no es
      * un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -300,7 +297,7 @@ public class Ejecutar {
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarMv(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
 
         // Verifica la cantidad de tokens para determinar la sintaxis correcta.
         if (tokens.length != 3) {
@@ -406,17 +403,14 @@ public class Ejecutar {
     }
 
     /**
-     * Procesa el comando <ls>ls</i> cuando tiene dos parametros. parametros
+     * Procesa el comando ls cuando tiene dos parametros. parametros
      * admitidos:
-     * <ul>
-     * <li>-a -l</li>
-     * <li>-l nombreDirectorio - se deriva cualquiera a
-     * obtenerComandosLsL()</li>
-     * <li>-a nombreDirectorio - se deriva cualquiera a
-     * obtenerComandosLsA()</li>
-     *
-     * <ul>
-     *
+     * -a -l
+     * -l nombreDirectorio - se deriva cualquiera a
+     * obtenerComandosLsL()
+     * -a nombreDirectorio - se deriva cualquiera a
+     * obtenerComandosLsA()
+     *  
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
@@ -568,7 +562,6 @@ public class Ejecutar {
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
-     * @param sintaxis el JLabel donde se muestra la sintaxis del comando.
      * @return un mensaje detallando los procesos en ejecución o un mensaje de
      * error si la sintaxis es incorrecta.
      */
@@ -861,7 +854,6 @@ public class Ejecutar {
      * Método que permite modificar los permisos de un archivo y/o directorio.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param sintaxis Etiqueta donde se indica la sintaxis.
      * @return Mensaje a imprimir en consola.
      */
     public String ejecutarChmod(Ficheros ficheros) {

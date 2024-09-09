@@ -93,7 +93,12 @@ public class Comandos {
      * texto.
      */
     public void cargarComandos() {
-
+        
+        String opcLs [] = {"-l","-a"};
+        String opcSort [] = {"-n"};
+        String opcHeadTail [] = {"-n"};
+        
+        
         Comando com0 = new Comando(
                 "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n Ejemplo: man [COMANDO]\n\n", null);

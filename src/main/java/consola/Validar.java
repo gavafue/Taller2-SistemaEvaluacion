@@ -77,6 +77,8 @@ public class Validar {
      */
     private boolean validarOpciones(String[] opcionesValidas) {
         boolean todasValidas = true;
+        
+        
 
         for (int i = 1; i < tokens.length && todasValidas; i++) {
             todasValidas = esOpcionValida(tokens[i], opcionesValidas);
