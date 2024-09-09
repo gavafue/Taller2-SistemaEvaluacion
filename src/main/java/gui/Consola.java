@@ -271,23 +271,23 @@ public class Consola extends javax.swing.JFrame {
         String comando = txtComando.getText(); // Obtiene el comando ingresado
         this.valoresPorDefecto(); // Interfaz con valores por defecto
         ultimoComando=comando;
-
-        Validar validador = new Validar(comando);
-        Boolean comandoValido = validador.validarComando(hashComandos);        
+        Validar validador = new Validar(comando);        
+        Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
         String[] tokens = validador.getTokens();
-        Ejecutar ejecutar = new Ejecutar(tokens);
-
+        Ejecutar ejecutar = new Ejecutar(tokens);      
+        
+        
         if (comando.equals("exit")) { // Comando salir
             this.dispose();
         } else if (validador.posicionPipe()!=0){            
             txtOutput.append(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros)+ "\n");               
-        } else if (comandoValido) { // Si el comando es válido          
+        } else if (comandoValido) { // Si el comando es válido            
             String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
             txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
-        } else { // Si el comando no es válida
-            lblPenguin.setEnabled(false);
+        } else { // Si el comando no es válida           
+                     
             txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + "Comando ingresado " + comando
-                    + " incorrecto\n");
+                    + " incorrecto\n"+"Intente man "+tokens[0]);
         }
     }
 

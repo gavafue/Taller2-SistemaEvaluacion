@@ -76,19 +76,13 @@ public class Validar {
     private boolean validarOpciones() {
         
         boolean todasValidas = false;
-        String [] paraValidar={};
+        
         
         switch (tokens[0]){                    
             
             case "ls":
-                        if (tokens.length>=1 && tokens.length<=4) {
-                            for (int i = 1; i< tokens.length-1; i++){                                                                
-                                paraValidar[i]=tokens[i];
-                                System.out.println(paraValidar[i]);
-                            }
-                              //todasValidas =validarLs(paraValidar);
-                        }
-                       
+                        todasValidas=validarOpLs();               
+                                       
                 break;
             case "head":
                 break;
@@ -100,39 +94,66 @@ public class Validar {
                   break;
                 
         }
-            return true;
-    }   
-        
-        
-        
-        
-        
-        
-        
+            return todasValidas;
+    }
+    
+     
+    private boolean compararConOpcPosibles (String comando,String[]aComprobar) {
+        Comandos comandos = new Comandos();
+        //arreglo con las opciones validas del comando pasado por parametros
+        String [] opcionesValidas = comandos.obtenerOpciones(comando);
 
-
-
-    /**
-     * Método auxiliar que verifica si una opción es válida. Este método compara
-     * una opción específica (token) con la lista de opciones válidas para
-     * determinar si es aceptable.
-     *
-     * @param opcion La opción a validar.
-     * @param opcionesValidas Las opciones válidas para el comando.
-     * @return true si la opción es válida, false en caso contrario.
-     */
-    private boolean esOpcionValida(String opcion, String[] opcionesValidas) {
-        boolean esValida = false;
-
-        for (String valida : opcionesValidas) {
-            if (opcion.equals(valida)) {
-                esValida = true;
-                break;
+         for (String opcion : aComprobar) {
+                if (!Arrays.asList(opcionesValidas).contains(opcion)) {
+                    return false; // Si algún elemento no está, devuelve false
+                }
+            }
+            return true; // Si todos los elementos están, devuelven true
+        }    
+    
+    private boolean validarOpLs() {        
+        boolean todasValidas=false;
+        
+        if (tokens.length==1){
+            todasValidas=true;
+        } else {                        
+            // Variable para verificar si hay duplicados
+            boolean duplicadoEncontrado = false;
+            int contador = 0;
+            // Creo un arreglo booleano para marcar duplicados
+            boolean[] yaIncluido = new boolean[tokens.length];
+            // Recorrer el arreglo para contar cuántos elementos únicos empiezan con '-'
+            for (int i = 0; i < tokens.length; i++) {
+                if (tokens[i].startsWith("-") && !yaIncluido[i]) {
+                    // Marcar este elemento y buscar duplicados
+                    for (int j = i + 1; j < tokens.length; j++) {
+                        if (tokens[i].equals(tokens[j])) {
+                            duplicadoEncontrado = true;
+                            yaIncluido[j] = true; // Marcar duplicados
+                            System.out.println("Duplicado encontrado: " + tokens[i]);
+                        }
+                    }
+                    contador++;
+                }
+            }
+            if (!duplicadoEncontrado&&(tokens.length>=2&&tokens.length<=4)){
+                // Crear un nuevo arreglo sin duplicados
+                String[] resultado = new String[contador];
+                int index = 0;
+                // Agregar los elementos únicos al nuevo arreglo
+                for (String token : tokens) {
+                    if (token.startsWith("-")) {
+                        resultado[index++] = token;
+                    }
+                }
+                todasValidas=compararConOpcPosibles("ls",resultado);                 
+            } else {
+                todasValidas=false;                 
             }
         }
-
-        return esValida;
-    }    
+        return todasValidas;
+    }  
+   
     
     /**
      * Método que busca la existencia del caracter pipe y devuelve su posición

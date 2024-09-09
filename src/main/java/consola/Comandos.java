@@ -55,7 +55,7 @@ public class Comandos {
         if (this.existeComando(nombre)) {
             descripcion = hashComandos.get(nombre).getDescripcion();
         } else {
-            descripcion = "No hay informacion disponible sobre el comando " + nombre;
+            descripcion = "No hay informacion disponible sobre el comando " +nombre;
         }
         return descripcion;
     }
@@ -72,7 +72,7 @@ public class Comandos {
         if (this.existeComando(nombre)) {
             ejemplo = hashComandos.get(nombre).getEjemplo();
         } else {
-            ejemplo = "No hay ejemplos disponibles sobre el comando " + nombre;
+            ejemplo = "No hay ejemplos disponibles sobre el comando " + nombre+"\n\n"+" Intente man"+"\n";
         }
         return ejemplo;
     }

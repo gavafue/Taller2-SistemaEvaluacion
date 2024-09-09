@@ -340,7 +340,7 @@ public class Ejecutar {
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarLs(Ficheros ficheros) {
-        String mensaje;
+        String mensaje="";
 
         switch (tokens.length) {
             case 1:
@@ -354,9 +354,6 @@ public class Ejecutar {
                 break;
             case 4:
                 mensaje = manejarOpcionesTresParametros(ficheros);
-                break;
-            default:
-                mensaje = "Sintaxis incorrecta.\nIntente man ls\n";
                 break;
         }
 
@@ -418,13 +415,12 @@ public class Ejecutar {
         String mensaje;
         if ((tokens[1].equals("-l") && tokens[2].equals("-a")) || (tokens[1].equals("-a") && tokens[2].equals("-l"))) {
             mensaje = ficheros.obtenerInformacionDetallada(true) + "\n";
-        } else if (tokens[1].equals("-l")) {
+        }else if (tokens[1].equals("-l")) {
             mensaje = obtenerComandoLsL(ficheros, tokens[2]);
-        } else if (tokens[1].equals("-a")) {
-            mensaje = obtenerComandoLsA(ficheros, tokens[2]);
         } else {
-            mensaje = "Sintaxis incorrecta.\nIntente man ls\n";
-        }
+            //Si el tokens[1] no es -l tiene que ser -a de otra manera el validador impide esta ejecucion
+            mensaje = obtenerComandoLsA(ficheros, tokens[2]);
+        } 
         return mensaje;
     }
 
@@ -436,12 +432,10 @@ public class Ejecutar {
      * tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
-        String mensaje;
+        String mensaje="";
         if ((tokens[1].equals("-l") && tokens[2].equals("-a")) || (tokens[1].equals("-a") && tokens[2].equals("-l"))) {
             mensaje = obtenerComandoLsLsA(ficheros, tokens[3]);
-        } else {
-            mensaje = "Sintaxis incorrecta.\nIntente man ls\n";
-        }
+        } 
         return mensaje;
     }
 
