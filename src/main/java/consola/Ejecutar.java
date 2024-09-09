@@ -592,7 +592,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>grep</i> para buscar un patrón en un archivo
+     * Ejecuta el comando grep para buscar un patrón en un archivo
      * específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -625,7 +625,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>tail</i>' para mostrar las últimas líneas de un
+     * Ejecuta el comando tail para mostrar las últimas líneas de un
      * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -639,7 +639,6 @@ public class Ejecutar {
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
 <<<<<<< Updated upstream
-            mensaje = ultimasLineas(ficheros, tokens[1], 10);
 =======
             mensaje = obtenerLineas(ficheros, tokens[1],10,true);
 >>>>>>> Stashed changes
@@ -678,7 +677,6 @@ public class Ejecutar {
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
 <<<<<<< Updated upstream
-            mensaje = primerasLineas(ficheros, tokens[1], 10);
 =======
             mensaje = obtenerLineas(ficheros, tokens[1],10,false);
 >>>>>>> Stashed changes
@@ -709,15 +707,9 @@ public class Ejecutar {
 <<<<<<< Updated upstream
      * @return mensaje con las primeras 10 líneas del archivo.
      */
-    private String primerasLineas(Ficheros ficheros, String nombreArchivo, int numLineas) {
-        String mensaje = "";
-        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+     **/
 
-        for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
-            mensaje += lineasArchivo[i] + "\n";
 =======
-     * @return mensaje con las x líneas del archivo.
-     */    
     private String obtenerLineas (Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje="";
         
@@ -837,6 +829,7 @@ public class Ejecutar {
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje = "";
         String[] mensajeTokenizado;
+        boolean tieneNumeros=true;
 
         if (getTokens().length == 2) {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
@@ -855,15 +848,21 @@ public class Ejecutar {
                 try {
                     numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
 
-                } catch (NumberFormatException e) {
-                    numeritos[i] = 0;
+                } catch (NumberFormatException e) {                  
+                    
+                    tieneNumeros=false;
                 }
 
             }
+            if(!tieneNumeros){
+            
+                mensaje += "El archivo no contiene numeros";
+            } else {
             Arrays.sort(numeritos);
 
             for (int n : numeritos) {
                 mensaje += Integer.toString(n) + "\n";
+            }
             }
         } else {
             // Sintaxis incorrecta
