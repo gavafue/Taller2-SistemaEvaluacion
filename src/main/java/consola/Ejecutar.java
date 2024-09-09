@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTextArea;
 
@@ -140,7 +141,7 @@ public class Ejecutar {
                     mensaje = ejecutarPs(procesos);
                     break;
                 case "kill":
-                    mensaje = ejecutarKill(procesos); ///////////////////////////////// VOY
+                    mensaje = ejecutarKill(procesos);
                     break;
                 case "grep":
                     mensaje = ejecutarGrep(ficheros);
@@ -576,7 +577,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando 'ps' para listar los procesos en ejecución del
+     * Ejecuta el comando <i>ps</i> para listar los procesos en ejecución del
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
@@ -869,34 +870,44 @@ public class Ejecutar {
 
     /**
      * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
-     * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena
-     * numéricamente.
+     * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena por el
+     * valor numerico de la linea.
+     *
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las líneas del archivo ordenadas o un mensaje de
      * error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
-        // ######################################################################################################
-        // REVISAR LA FORMA EN QUE ORDENA.
-        // ######################################################################################################
         String mensaje = "";
         String[] mensajeTokenizado;
 
-        // Verificar la cantidad de tokens para determinar el tipo de ordenamiento
-        if (tokens.length == 2) {
-            // Ordenar alfabéticamente las líneas del archivo especificado
+        if (getTokens().length == 2) {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
             Arrays.sort(mensajeTokenizado);
             for (String linea : mensajeTokenizado) {
                 mensaje += linea + "\n";
             }
-        } else if (tokens.length == 3 && tokens[1].equals("-n")) {
+        } else if (getTokens().length == 3 && tokens[1].equals("-n")) {
             // Ordenar numéricamente las líneas del archivo especificado
             mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-            Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
-            for (String linea : mensajeTokenizado) {
-                mensaje += linea + "\n";
+            //Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
+            // De esta otra manera queda mas legible la logica de la operacion de comparacion y ordenamiento en funcion de esta.
+            // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0. Y luego se ordenan esos numeros.
+            int [] numeritos = new int [mensajeTokenizado.length];
+            for (int i =0;i<mensajeTokenizado.length;i++) {
+                try{
+                numeritos [i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
+                    
+                } catch (NumberFormatException e){
+                    numeritos[i] = 0;
+                }
+                
+            }
+            Arrays.sort(numeritos);
+
+            for (int n : numeritos) {
+                mensaje += Integer.toString(n) + "\n";
             }
         } else {
             // Sintaxis incorrecta

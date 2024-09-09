@@ -193,6 +193,8 @@ public class Ficheros {
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
         Archivo m = new Archivo("m", "Hola \n10. Chau \n99. Hola 232342\n Chau");
         Archivo n = new Archivo(".secreto", "Este archivo esta oculto");
+        Archivo algunosNumeros = new Archivo("algunosNumeros",
+        "10\n3\n7\n300\n40\n1\n230");
 
         //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
@@ -204,6 +206,8 @@ public class Ficheros {
         agregarFichero(arch33);
         agregarFichero(m);
         agregarFichero(n);
+        agregarFichero(algunosNumeros);
+
 
     }
 }
