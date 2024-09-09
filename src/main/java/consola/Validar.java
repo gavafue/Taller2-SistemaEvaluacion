@@ -52,20 +52,18 @@ public class Validar {
         boolean esValido = true;
 
         String comando = tokens[0];
-        if (esValido && !comandos.existeComando(comando)) {
+        if (!comandos.existeComando(comando)) {
             esValido = false;
         }
-
         if (esValido) {
             String[] opcionesValidas = comandos.obtenerOpciones(comando);
             if (opcionesValidas != null) {
-                esValido = validarOpciones(opcionesValidas);
+                esValido = validarOpciones();
             }
         }
 
         return esValido;
     }
-
     /**
      * Método que determina si las opciones del comando ingresado son válidas.
      * Este método recorre las opciones del comando (tokens) y verifica si cada
@@ -75,17 +73,44 @@ public class Validar {
      * @param opcionesValidas Las opciones válidas para el comando.
      * @return true si todas las opciones son válidas, false en caso contrario.
      */
-    private boolean validarOpciones(String[] opcionesValidas) {
-        boolean todasValidas = true;
+    private boolean validarOpciones() {
         
+        boolean todasValidas = false;
+        String [] paraValidar={};
         
-
-        for (int i = 1; i < tokens.length && todasValidas; i++) {
-            todasValidas = esOpcionValida(tokens[i], opcionesValidas);
+        switch (tokens[0]){                    
+            
+            case "ls":
+                        if (tokens.length>=1 && tokens.length<=4) {
+                            for (int i = 1; i< tokens.length-1; i++){                                                                
+                                paraValidar[i]=tokens[i];
+                                System.out.println(paraValidar[i]);
+                            }
+                              //todasValidas =validarLs(paraValidar);
+                        }
+                       
+                break;
+            case "head":
+                break;
+            case "tail":
+                 break;
+            case "sort":
+                  break;
+            case "cut":
+                  break;
+                
         }
+            return true;
+    }   
+        
+        
+        
+        
+        
+        
+        
 
-        return todasValidas;
-    }
+
 
     /**
      * Método auxiliar que verifica si una opción es válida. Este método compara

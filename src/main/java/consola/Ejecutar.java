@@ -688,7 +688,6 @@ public class Ejecutar {
      * @param numLineas el número de líneas que se desean obtener.
      * @return cantidad de lineas solicitadas
      * **/
-
     private String obtenerLineas (Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje="";
         
@@ -731,7 +730,6 @@ public class Ejecutar {
             String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
             String columnas = tokens[4]; // Campos a extraer
             String archivo = tokens[5]; // Nombre del archivo
-
             // Verificar si el archivo existe y no es un directorio
             if (ficheros.esDirectorio(archivo)) {
                 mensaje = "Error: El archivo especificado no existe o es un directorio.";

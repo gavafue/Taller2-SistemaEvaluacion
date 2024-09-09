@@ -2,7 +2,6 @@ package consola;
 
 import java.util.HashMap;
 
-
 /**
  * Esta clase permite crear un HashMap de comandos para la consola Linux.
  *
@@ -103,7 +102,7 @@ public class Comandos {
                 "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n Ejemplo: man [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
-                "\n Ejemplo: ls /etc \n\nLista el contenido del directorio /etc\n\n", null);
+                "\n Ejemplo: ls /etc \n\nLista el contenido del directorio /etc\n\n", opcLs);
         Comando com2 = new Comando("Copia ficheros de [ORIGEN] a [DESTINO]",
                 "\n Ejemplo: cp arch1 /home/respaldo/\n\nCopia arch1 al directorio respaldo\n\n", null);
         Comando com3 = new Comando("Crea un directorio", " Ejemplo: mkdir dir1\n\nCrea dir1 en el directorio actual",
@@ -124,10 +123,10 @@ public class Comandos {
                 "\n Ejemplo: grep palabraAbuscar nombreArchivo", null);
         // tail RF30.
         Comando com11 = new Comando("Mostrar las últimas líneas de un archivo. ",
-                "\n Ejemplo: tail [opción] [argumento]", null);
+                "\n Ejemplo: tail [opción] [argumento]", opcHeadTail);
         // head RF31.
         Comando com12 = new Comando("Mostrar las primeras líneas de un archivo. ",
-                "\n Ejemplo: head [opción] [argumento]", null); // admite como opciones “-n [número]” si no se
+                "\n Ejemplo: head [opción] [argumento]", opcHeadTail); // admite como opciones “-n [número]” si no se
         // especifica, las primeras 10.
         // cut RF34
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
@@ -138,7 +137,7 @@ public class Comandos {
         // archivo de manera ordenada. No hay modificacion en el archivo.
         Comando com14 = new Comando("Para ordenar las líneas de un archivo. ",
                 "\n Ejemplo: sort [opciones] [archivo]",
-                null); // opciones disponibles “-n” para ordenar numéricamente.
+                opcSort); // opciones disponibles “-n” para ordenar numéricamente.
         Comando com15 = new Comando("Para modificar los permisos asignados en un archivo o directorio ",
                 "\n Ejemplo: \nchmod rwxrwxrwx arch1\n Ejemplo: chmod 555 arch1", null);
 
