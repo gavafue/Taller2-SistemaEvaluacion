@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTextArea;
 
@@ -345,7 +343,7 @@ public class Ejecutar {
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarLs(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
 
         switch (tokens.length) {
             case 1:
@@ -370,7 +368,7 @@ public class Ejecutar {
 
     /**
      * Obtiene la lista simple de nombres de archivos y directorios visibles.
-     * Corresponde al <ls>ls</i> sin opciones.
+     * Corresponde al ls sin opciones.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
@@ -382,10 +380,10 @@ public class Ejecutar {
     }
 
     /**
-     * Procesa el comando <ls>ls</i> cuando tiene un unico parametro. Los
+     * Procesa el comando ls cuando tiene un unico parametro. Los
      * parametros admitidos:
-     * <ul><li>-a para incluir elementos ocultos en la respuesta</li> y <li>-l
-     * sin incluir ficheros ocultos en la respuesta.</li><ul>
+     * -a para incluir elementos ocultos en la respuesta y -l
+     * sin incluir ficheros ocultos en la respuesta.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
@@ -437,7 +435,7 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de <ls>ls</i> con tres parámetros.
+     * Maneja las opciones de  ls con tres parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
@@ -454,7 +452,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el contenido de un directorio para el comando <ls>ls</i>
+     * Obtiene el contenido de un directorio para el comando ls 
      * [directorio].
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -476,7 +474,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l [directorio].
+     * Obtiene el mensaje para el comando ls -l [directorio].
      *
      * De momento solo imprime un mensaje estandar ya que estamos trahajando con
      * un unico nivel en el sistema de archivos.
@@ -496,7 +494,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -a [directorio].
+     * Obtiene el mensaje para el comando ls -a [directorio].
      *
      * De momento solo imprime un mensaje estandar ya que estamos trahajando con
      * un unico nivel en el sistema de archivos.
@@ -540,13 +538,13 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>kill</i> para eliminar un proceso por su ID.
+     * Ejecuta el comando kill para eliminar un proceso por su ID.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarKill(Procesos procesos) {
-        String mensaje = "";
+        String mensaje;
 
         if (tokens.length == 2) {
             String procesoIdStr = tokens[1];
@@ -566,7 +564,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>ps</i> para listar los procesos en ejecución del
+     * Ejecuta el comando ps  para listar los procesos en ejecución del
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
@@ -635,16 +633,21 @@ public class Ejecutar {
      * mensaje de error si la sintaxis es incorrecta.
      */
     private String ejecutarTail(Ficheros ficheros) {
-        String mensaje = "";
+        
+        String mensaje;
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
+<<<<<<< Updated upstream
             mensaje = ultimasLineas(ficheros, tokens[1], 10);
+=======
+            mensaje = obtenerLineas(ficheros, tokens[1],10,true);
+>>>>>>> Stashed changes
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las últimas n líneas
             try {
                 int n = Integer.parseInt(tokens[2]);
-                mensaje = ultimasLineas(ficheros, tokens[3], n);
+                mensaje = obtenerLineas(ficheros, tokens[3], n,true);
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
@@ -654,30 +657,13 @@ public class Ejecutar {
 
         return mensaje;
     }
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
     /**
-     * Obtiene las últimas n líneas de un archivo.
-     *
-     * @param ficheros el objeto que maneja la lista de archivos y directorios.
-     * @param nombreArchivo el nombre del archivo del cual se obtendrán las
-     * líneas.
-     * @param n el número de líneas que se desean obtener.
-     * @return mensaje con las últimas n líneas del archivo.
-     */
-    private String ultimasLineas(Ficheros ficheros, String nombreArchivo, int n) {
-        String mensaje = "";
-        String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
-        int inicio = Math.max(0, lineasArchivo.length - n);
-
-        for (int i = inicio; i < lineasArchivo.length; i++) {
-            mensaje += lineasArchivo[i] + "\n";
-        }
-
-        return mensaje;
-    }
-
-    /**
-     * Ejecuta el comando <ls>head</i> para mostrar las primeras líneas de un
+     * Ejecuta el comando head para mostrar las primeras líneas de un
      * archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
@@ -685,17 +671,22 @@ public class Ejecutar {
      * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
-        String mensaje = "";
+        
+        String mensaje;
         int numLineas;
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
+<<<<<<< Updated upstream
             mensaje = primerasLineas(ficheros, tokens[1], 10);
+=======
+            mensaje = obtenerLineas(ficheros, tokens[1],10,false);
+>>>>>>> Stashed changes
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
                 numLineas = Integer.parseInt(tokens[2]);
-                mensaje = primerasLineas(ficheros, tokens[3], numLineas);
+                mensaje = obtenerLineas(ficheros, tokens[3], numLineas,false);
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
@@ -707,12 +698,15 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene las primeras n líneas de un archivo.
+     * Metodo que devuelve las n lineas de un archivo.
+     * Comenzando a contar desde el principio o el final del contenido
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      * líneas.
+     * @param enReversa indica el sentido en el que se muestran las lineas
      * @param numLineas el número de líneas que se desean obtener.
+<<<<<<< Updated upstream
      * @return mensaje con las primeras 10 líneas del archivo.
      */
     private String primerasLineas(Ficheros ficheros, String nombreArchivo, int numLineas) {
@@ -721,13 +715,34 @@ public class Ejecutar {
 
         for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
             mensaje += lineasArchivo[i] + "\n";
+=======
+     * @return mensaje con las x líneas del archivo.
+     */    
+    private String obtenerLineas (Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
+        String mensaje="";
+        
+        try{
+            String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");        
+            if (!enReversa){//Si no es en reversa es un head            
+                for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
+                mensaje += lineasArchivo[i] + "\n";
+                }
+            } else { //es un tail
+                for (int i = Math.max(0, lineasArchivo.length - numLineas); i < lineasArchivo.length; i++) {
+                mensaje += lineasArchivo[i] + "\n";
+                }      
+            }
+        } catch (NullPointerException e) {//No se encontro el archivo
+        
+            mensaje += "No existe el arhivo";
+>>>>>>> Stashed changes
         }
-
+        
         return mensaje;
     }
 
     /**
-     * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de
+     * Ejecuta el comando cut para mostrar las columnas seleccionadas de
      * un archivo usando un delimitador específico.
      *
      * Sintaxis esperada: cut -d ':' -f 1,4 archivo.txt
@@ -810,7 +825,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
+     * Ejecuta el comando sort para mostrar las líneas de un archivo
      * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena por el
      * valor numerico de la linea.
      *
@@ -904,7 +919,7 @@ public class Ejecutar {
     }
 
     /**
-     * Este metodo es para ejecutar el comando <ls>|</i> tambien llamado 'pipe'.
+     * Este metodo es para ejecutar el comando | tambien llamado 'pipe'.
      *
      * @param indexPipe - indice del simbolo pipe en la linea ingresada.
      * @param ficheros - objeto que maneja la lista de archivos disponibles.
