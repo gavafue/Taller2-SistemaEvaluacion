@@ -1,7 +1,7 @@
 package consola;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Esta clase permite crear un HashMap de comandos para la consola Linux.
