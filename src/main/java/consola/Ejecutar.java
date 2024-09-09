@@ -104,58 +104,58 @@ public class Ejecutar {
         String mensaje = "";
         actualizarHora();
 
-            switch (tokens[0]) {
-                case "man":
-                    mensaje = ejecutarMan(comandos);
-                    break;
-                case "mkdir":
-                    mensaje = ejecutarMkdir(ficheros);
-                    break;
-                case "rmdir":
-                    mensaje = ejecutarRmdir(ficheros);
-                    break;
-                case "clear":
-                    mensaje = ejecutarClear(salida);
-                    break;
-                case "cat":
-                    mensaje = ejecutarCat(ficheros);
-                    break;
-                case "mv":
-                    mensaje = ejecutarMv(ficheros);
-                    break;
-                case "ls":
-                    mensaje = ejecutarLs(ficheros);
-                    break;
-                case "ps":
-                    mensaje = ejecutarPs(procesos);
-                    break;
-                case "kill":
-                    mensaje = ejecutarKill(procesos);
-                    break;
-                case "grep":
-                    mensaje = ejecutarGrep(ficheros);
-                    break;
-                case "tail":
-                    mensaje = ejecutarTail(ficheros);
-                    break;
-                case "head":
-                    mensaje = ejecutarHead(ficheros);
-                    break;
-                case "cut":
-                    mensaje = ejecutarCut(ficheros);
-                    break;
-                case "sort":
-                    mensaje = ejecutarSort(ficheros);
-                    break;
-                case "chmod":
-                    mensaje = ejecutarChmod(ficheros);
-                    break;
+        switch (tokens[0]) {
+            case "man":
+                mensaje = ejecutarMan(comandos);
+                break;
+            case "mkdir":
+                mensaje = ejecutarMkdir(ficheros);
+                break;
+            case "rmdir":
+                mensaje = ejecutarRmdir(ficheros);
+                break;
+            case "clear":
+                mensaje = ejecutarClear(salida);
+                break;
+            case "cat":
+                mensaje = ejecutarCat(ficheros);
+                break;
+            case "mv":
+                mensaje = ejecutarMv(ficheros);
+                break;
+            case "ls":
+                mensaje = ejecutarLs(ficheros);
+                break;
+            case "ps":
+                mensaje = ejecutarPs(procesos);
+                break;
+            case "kill":
+                mensaje = ejecutarKill(procesos);
+                break;
+            case "grep":
+                mensaje = ejecutarGrep(ficheros);
+                break;
+            case "tail":
+                mensaje = ejecutarTail(ficheros);
+                break;
+            case "head":
+                mensaje = ejecutarHead(ficheros);
+                break;
+            case "cut":
+                mensaje = ejecutarCut(ficheros);
+                break;
+            case "sort":
+                mensaje = ejecutarSort(ficheros);
+                break;
+            case "chmod":
+                mensaje = ejecutarChmod(ficheros);
+                break;
 
-                default:
-                    mensaje = "Sintaxis incorrecta\n";
-                    break;
-            }
-        
+            default:
+                mensaje = "Sintaxis incorrecta\n";
+                break;
+        }
+
         return mensaje;
 
     }
@@ -639,7 +639,7 @@ public class Ejecutar {
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
-            mensaje = ultimasLineas(ficheros, tokens[1],10);
+            mensaje = ultimasLineas(ficheros, tokens[1], 10);
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las últimas n líneas
             try {
@@ -654,7 +654,7 @@ public class Ejecutar {
 
         return mensaje;
     }
-    
+
     /**
      * Obtiene las últimas n líneas de un archivo.
      *
@@ -690,7 +690,7 @@ public class Ejecutar {
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
-            mensaje = primerasLineas(ficheros, tokens[1],10);
+            mensaje = primerasLineas(ficheros, tokens[1], 10);
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
@@ -715,7 +715,7 @@ public class Ejecutar {
      * @param numLineas el número de líneas que se desean obtener.
      * @return mensaje con las primeras 10 líneas del archivo.
      */
-    private String primerasLineas(Ficheros ficheros, String nombreArchivo,int numLineas) {
+    private String primerasLineas(Ficheros ficheros, String nombreArchivo, int numLineas) {
         String mensaje = "";
         String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
 
@@ -725,71 +725,90 @@ public class Ejecutar {
 
         return mensaje;
     }
-    
+
     /**
      * Ejecuta el comando <ls>cut</i> para mostrar las columnas seleccionadas de
      * un archivo usando un delimitador específico.
+     *
+     * Sintaxis esperada: cut -d ':' -f 1,4 archivo.txt
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las columnas seleccionadas del archivo especificado o
      * un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
-        
-        String mensaje = "" ;
-        String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
-        String campos = tokens[4]; // Campos a extraer
-        String archivo = tokens[5]; // Nombre del archivo
-        String contenidoArchivo = ficheros.obtenerFichero(archivo).obtenerContenido();        
+
+        String mensaje = "";
 
         // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
         // correctas
-        if (((tokens.length != 6 || !tokens[0].equals("cut")) || !tokens[1].equals("-d")) || !tokens[3].equals("-f")||!delimitador.equals(":")) {
-            mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
-        } else if (ficheros.esDirectorio(archivo)) {// Verificar si el archivo existe y no es un directorio
-            mensaje += "Error: El archivo especificado no existe o es un directorio.";     
-        } else if (contenidoArchivo == null || contenidoArchivo.isEmpty()) {
-            mensaje += "Error: El archivo especificado está vacío.";
-        } else {           
+        if (tokens.length == 6 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f")) {
+            String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
+            String columnas = tokens[4]; // Campos a extraer
+            String archivo = tokens[5]; // Nombre del archivo
 
-            String[] camposArray = campos.split(",");
-            List<Integer> indicesCampos = new ArrayList<>();
-            // Convertir camposArray a lista de índices (restamos 1 para hacerlos 0-based)
-            for (String campo : camposArray) {
-                try {
-                    indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
-                } catch (NumberFormatException e) {
-                    mensaje += "Error: Los campos especificados no son números válidos.";                    
-                }
-            }
-            // Dividir el contenido del archivo por líneas
-            String[] lineas = contenidoArchivo.split("\n");
+            // Verificar si el archivo existe y no es un directorio
+            if (ficheros.esDirectorio(archivo)) {
+                mensaje = "Error: El archivo especificado no existe o es un directorio.";
+                // Cambiar color a rojo
+            } else if (ficheros.obtenerFichero(archivo).obtenerContenido() == null || ficheros.obtenerFichero(archivo).obtenerContenido().isEmpty()) {// Verificar que el archivo tenga contenido
+                mensaje = "Error: El archivo especificado está vacío.";
+                // Cambiar color a rojo    
+            } else if (!delimitador.equals(":")) {
+                mensaje = "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
+            } else { ///////////// caso valido
+                String[] columnasArray = columnas.split(",");
+                ArrayList<Integer> indicesCampos = new ArrayList<>();
 
-            // Procesar cada línea
-            for (String linea : lineas) {
-                String[] partes = linea.split(delimitador); // Usar el delimitador especificado
-                StringBuilder lineaResultado = new StringBuilder();
-
-                // Obtener las columnas después de los campos especificados
-                for (int indice : indicesCampos) {
-                    
-                    if (indice >= 0 && indice < partes.length) {
-                        if (lineaResultado.length() > 0) {
-                            lineaResultado.append(delimitador); // Agregar delimitador entre columnas
-                        }
-                        lineaResultado.append(partes[indice]);
-                    } else {
-                        mensaje += "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";                        
+                // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
+                for (String campo : columnasArray) {
+                    try {
+                        indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
+                    } catch (NumberFormatException e) {
+                        mensaje = "Error: Los campos especificados no son números válidos.";
+                        // Cambiar color a rojo
                     }
                 }
-                
-                mensaje += lineaResultado.toString() + "\n";
-            }            
-                  
+
+                if (!mensaje.contains("Error")) {
+                    // Dividir el contenido del archivo por líneas
+                    String[] lineas = ficheros.obtenerFichero(archivo).obtenerContenido().split("\n");
+
+                    // Procesar cada línea
+                    for (String linea : lineas) {
+                        String[] partes = linea.split(delimitador); // Usar el delimitador especificado
+                        StringBuilder lineaResultado = new StringBuilder();////////////////////////////////////////////////////////PROBAR sin esta clase
+
+                        // Obtener las columnas después de los columnas especificados
+                        for (int indice : indicesCampos) {
+
+                            if (indice >= 0 && indice < partes.length) {
+                                if (lineaResultado.length() > 0) {
+                                    lineaResultado.append(delimitador); // Agregar delimitador entre columnas
+                                }
+                                lineaResultado.append(partes[indice]);
+                            } else {
+                                mensaje = "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
+                                // Cambiar color a rojo
+                                return mensaje;
+                            }
+                        }
+
+                        mensaje += lineaResultado.toString() + "\n";
+                    }
+                }
+
+            } ////////////////////// fin caso valido
+
+            // Cambiar color a celeste
+        } else {
+            mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
+            // Cambiar color a rojo
         }
-        
+
         return mensaje;
-    }  
+    }
+
     /**
      * Ejecuta el comando <ls>sort</i> para mostrar las líneas de un archivo
      * ordenadas alfabéticamente. Si se especifica la opción '-n', ordena por el
@@ -816,15 +835,15 @@ public class Ejecutar {
             //Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
             // De esta otra manera queda mas legible la logica de la operacion de comparacion y ordenamiento en funcion de esta.
             // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0. Y luego se ordenan esos numeros.
-            int [] numeritos = new int [mensajeTokenizado.length];
-            for (int i =0;i<mensajeTokenizado.length;i++) {
-                try{
-                numeritos [i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
-                    
-                } catch (NumberFormatException e){
+            int[] numeritos = new int[mensajeTokenizado.length];
+            for (int i = 0; i < mensajeTokenizado.length; i++) {
+                try {
+                    numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
+
+                } catch (NumberFormatException e) {
                     numeritos[i] = 0;
                 }
-                
+
             }
             Arrays.sort(numeritos);
 
@@ -928,7 +947,7 @@ public class Ejecutar {
 
         return mensaje;
     }
-    
+
     /**
      * Valida la longitud de los permisos.
      *
@@ -938,8 +957,7 @@ public class Ejecutar {
      */
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
-        if (permisos.length() != 3 && permisos.length() != 9) { ///////////////////// NO DEBERIA SER || un o
-            ///////////////////// logico??????????????????????????
+        if (permisos.length() != 3 && permisos.length() != 9) {
             retorno = false;
         }
         return retorno;
