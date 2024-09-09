@@ -638,10 +638,7 @@ public class Ejecutar {
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
-<<<<<<< Updated upstream
-=======
             mensaje = obtenerLineas(ficheros, tokens[1],10,true);
->>>>>>> Stashed changes
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las últimas n líneas
             try {
@@ -656,11 +653,6 @@ public class Ejecutar {
 
         return mensaje;
     }
-<<<<<<< Updated upstream
-
-=======
-  
->>>>>>> Stashed changes
     /**
      * Ejecuta el comando head para mostrar las primeras líneas de un
      * archivo.
@@ -676,10 +668,7 @@ public class Ejecutar {
 
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
-<<<<<<< Updated upstream
-=======
             mensaje = obtenerLineas(ficheros, tokens[1],10,false);
->>>>>>> Stashed changes
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
@@ -704,12 +693,9 @@ public class Ejecutar {
      * líneas.
      * @param enReversa indica el sentido en el que se muestran las lineas
      * @param numLineas el número de líneas que se desean obtener.
-<<<<<<< Updated upstream
-     * @return mensaje con las primeras 10 líneas del archivo.
-     */
-     **/
+     * @return cantidad de lineas solicitadas
+     * **/
 
-=======
     private String obtenerLineas (Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje="";
         
@@ -727,7 +713,6 @@ public class Ejecutar {
         } catch (NullPointerException e) {//No se encontro el archivo
         
             mensaje += "No existe el arhivo";
->>>>>>> Stashed changes
         }
         
         return mensaje;
