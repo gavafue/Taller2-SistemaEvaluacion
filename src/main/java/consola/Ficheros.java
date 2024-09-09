@@ -175,13 +175,13 @@ public class Ficheros {
      */
     public void cargarPrimerNivel() {
         Directorio dir1 = new Directorio("dir1");
-        Archivo arch1 = new Archivo("arch1");
+        Archivo arch1 = new Archivo("arch1.csv");
         arch1.setContenido("campo1:campo2:campo3:campo4\n"
                 + "dato1:dato2:dato3:dato4\n"
                 + "informacion1:informacion2:informacion3:informacion4");
         Directorio dir2 = new Directorio("dir2");
         Directorio dir3 = new Directorio("dir3");
-        Archivo arch2 = new Archivo("arch2",
+        Archivo arch2 = new Archivo("arch2.txt",
                 "La Celeste se impuso por 3-1 en Miami,\n donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo\n y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final,\n y en la última descontó Panamá por un lindo gol de Murillo. FIN.");
         Archivo arch22 = new Archivo("arch22");
         arch22.setContenido("La elaboración de software de computadora"
@@ -189,11 +189,11 @@ public class Ficheros {
                 + "y el resultado es la reunión de\n"
                 + "conocimiento recabado, depurado y organizado"
                 + " a medida que se realiza el proceso. Pressman(2010)");
-        Archivo arch33 = new Archivo("arch33");
+        Archivo arch33 = new Archivo("arch33.odt");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
-        Archivo m = new Archivo("m", "Hola \n10. Chau \n99. Hola 232342\n Chau");
-        Archivo n = new Archivo(".secreto", "Este archivo esta oculto");
-        Archivo algunosNumeros = new Archivo("algunosNumeros",
+        Archivo m = new Archivo("m.html", "Hola \n10. Chau \n99. Hola 232342\n Chau");
+        Archivo n = new Archivo(".secreto.txt", "Este archivo esta oculto");
+        Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
         "10\n3\n7\n300\n40\n1\n230");
 
         //Cargo el directorio raiz con ficheros iniciales

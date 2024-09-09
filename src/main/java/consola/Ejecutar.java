@@ -964,7 +964,7 @@ public class Ejecutar {
      * contrario.
      */
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
-        String permisosEnLetras = ficheros.obtenerFichero(nombre).getPermisos().charAt(0) + "";
+        String permisosEnLetras = String.valueOf(ficheros.obtenerFichero(nombre).getPermisos().charAt(0));
         boolean permisosValidos = true;
 
         for (int i = 0; i < 3; i++) {
