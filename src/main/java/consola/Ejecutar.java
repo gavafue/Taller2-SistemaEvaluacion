@@ -21,11 +21,6 @@ public class Ejecutar {
     private String[] tokens;
 
     /**
-     * Para poder procesar el comando pipe se necesita esta colección.
-     */
-    private ArrayList<String> tokensParaElPipe;
-
-    /**
      * Hora de ejecucion.
      */
     private String hora;
@@ -108,12 +103,6 @@ public class Ejecutar {
         String mensaje = "";
         actualizarHora();
 
-        tokensParaElPipe = new ArrayList<>(Arrays.asList(tokens)); // Creo un arraylist temporal para usar su metodo
-        // contains(). Esto es mas corto que un for.
-
-        if (tokensParaElPipe.contains("|")) { // NO PUEDE HABER UN CASE PIPE PORQUE NO ARRANCA CON PIPE.
-            mensaje = ejecutarPipe(tokensParaElPipe.indexOf("|"), ficheros);
-        } else {
             switch (tokens[0]) {
                 case "man":
                     mensaje = ejecutarMan(comandos);
@@ -165,7 +154,7 @@ public class Ejecutar {
                     mensaje = "Sintaxis incorrecta\n";
                     break;
             }
-        }
+        
         return mensaje;
 
     }
@@ -978,16 +967,16 @@ public class Ejecutar {
 
         if (tokensB[0].equals("grep")) { // segundo bloque de IFs para procesar el segundo comando
 
-            ficheros.agregarFichero(new Archivo("temporal", msjComando1)); // creo un archivo con el contenido del
+            ficheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
             // mensaje1. Ya que grep esta programado para
             // levantar contenido de ficheros.
-            tokensB[2] = "temporal"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
+            tokensB[2] = "especificado"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
             tokens = tokensB;
             msjComando2 = ejecutarGrep(ficheros);// Va a tomar el tokens global, el cual no esta como lo necesita.
             // PROUESTA: que todos los ejecutarComando() reciban el tokens como
             // parametro.
             // borro ese archivo que no debe existir mas.
-            ficheros.eliminarFichero("temporal");
+            ficheros.eliminarFichero("especificado");
             mensaje = msjComando2;
         } else {
             mensaje = "Sintaxis incorrecta en segundo comando. Debe ser grep.";
