@@ -186,7 +186,7 @@ public class Ficheros {
         Archivo arch22 = new Archivo("arch22");
         arch22.setContenido("La elaboración de software de computadora"
                 + " es un proceso reiterativo de aprendizaje social,\n"
-                + " y el resultado es la reunión de\n"
+                + "y el resultado es la reunión de\n"
                 + "conocimiento recabado, depurado y organizado"
                 + " a medida que se realiza el proceso. Pressman(2010)");
         Archivo arch33 = new Archivo("arch33");

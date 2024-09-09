@@ -14,7 +14,9 @@ public class Consola extends javax.swing.JFrame {
     // Colecciones necesarias para crear la consola de Linux
     private Comandos hashComandos;
     private Ficheros listaFicheros;
-    private Procesos listaProcesos;
+    private Procesos listaProcesos;   
+    // String para almacenar el ultimo comando ejecutado
+    private String ultimoComando;
 
     /**
      * Constructor vacío que permite crear una instancia de la consola.
@@ -25,6 +27,7 @@ public class Consola extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); // No detiene el programa al cerrar el JFrame
         // Inicialización de las colecciones a utilizar
         hashComandos = new Comandos();
+        String ultimoComando;
         listaFicheros = new Ficheros();
         listaProcesos = new Procesos();
         listaFicheros.cargarPrimerNivel(); // Primer nivel cargado desde memoria
@@ -134,7 +137,7 @@ public class Consola extends javax.swing.JFrame {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -151,7 +154,6 @@ public class Consola extends javax.swing.JFrame {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
@@ -168,11 +170,15 @@ public class Consola extends javax.swing.JFrame {
         txtComando.setForeground(new java.awt.Color(204, 204, 204));
         txtComando.setBorder(null);
         txtComando.setCaretColor(new java.awt.Color(0, 255, 51));
-        txtComando.setOpaque(true);
         txtComando.setSelectionColor(new java.awt.Color(0, 0, 0));
         txtComando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComandoActionPerformed(evt);
+            }
+        });
+        txtComando.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtComandoKeyPressed(evt);
             }
         });
 
@@ -207,48 +213,52 @@ public class Consola extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(lblPrompt)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 757,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap()));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPrompt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrlOutput))
+                .addContainerGap())
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtComando))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPenguin)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComando))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblPenguin)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtComandoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComandoKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_UP || evt.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN ) {
+        txtComando.setText(ultimoComando);        
+        
+    }
+    }//GEN-LAST:event_txtComandoKeyPressed
 
     /**
      * Método encargador de ejecutar el comando ingresado en la consola, que
@@ -260,7 +270,7 @@ public class Consola extends javax.swing.JFrame {
     private void txtComandoActionPerformed(java.awt.event.ActionEvent evt) {
         String comando = txtComando.getText(); // Obtiene el comando ingresado
         this.valoresPorDefecto(); // Interfaz con valores por defecto
-        
+        ultimoComando=comando;
 
         Validar validador = new Validar(comando);
         Boolean comandoValido = validador.validarComando(hashComandos);        
@@ -271,7 +281,7 @@ public class Consola extends javax.swing.JFrame {
             this.dispose();
         } else if (validador.posicionPipe()!=0){            
             txtOutput.append(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros)+ "\n");               
-        } else if (comandoValido) { // Si el comando es válido
+        } else if (comandoValido) { // Si el comando es válido          
             String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
             txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
         } else { // Si el comando no es válida

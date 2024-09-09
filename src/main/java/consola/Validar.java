@@ -105,7 +105,7 @@ public class Validar {
         }
 
         return esValida;
-    }
+    }    
     
     /**
      * Método que busca la existencia del caracter pipe y devuelve su posición
