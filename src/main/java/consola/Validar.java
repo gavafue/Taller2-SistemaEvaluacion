@@ -107,6 +107,11 @@ public class Validar {
         return esValida;
     }
     
+    /**
+     * Método que busca la existencia del caracter pipe y devuelve su posición
+     * 
+     * @return la poscion en la que se encuentra el pipe 
+     */    
     public int posicionPipe() {
         int indicePipe=0;
         // Creo un arraylist temporal para usar su metodo
