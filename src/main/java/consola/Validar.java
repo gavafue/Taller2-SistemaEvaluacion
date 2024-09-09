@@ -97,7 +97,13 @@ public class Validar {
             return todasValidas;
     }
     
-     
+    /**
+     * Metodo que valida las opciones ingresadas con "-" para un comando determinado
+     * 
+     * @param comando del cual desea validar las opciones
+     * @param aComprobar arreglo con las opciones ingresadas por el usuario
+     * @return un booleano indicando si todas las opciones son validas para ese comando 
+     */        
     private boolean compararConOpcPosibles (String comando,String[]aComprobar) {
         Comandos comandos = new Comandos();
         //arreglo con las opciones validas del comando pasado por parametros
@@ -109,8 +115,14 @@ public class Validar {
                 }
             }
             return true; // Si todos los elementos están, devuelven true
-        }    
+        }
     
+     /**
+      * Metodo que utiliza compararConOpcPosibles para validar
+      * las opciones de un ls en todas sus variantes
+      * 
+      * @return si ls opciones utilizadas con ls son validas
+      */   
     private boolean validarOpLs() {        
         boolean todasValidas=false;
         
@@ -152,10 +164,9 @@ public class Validar {
             }
         }
         return todasValidas;
-    }  
-   
-    
-    /**
+    } 
+     
+     /**
      * Método que busca la existencia del caracter pipe y devuelve su posición
      * 
      * @return la poscion en la que se encuentra el pipe 
