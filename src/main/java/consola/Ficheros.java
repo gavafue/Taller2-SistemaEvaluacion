@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * Esta clase permite gestionar una coleccion de ficheros.
  *
- *
+ *@author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Ficheros {
 

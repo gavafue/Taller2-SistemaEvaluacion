@@ -8,6 +8,7 @@ import java.util.Random;
  * Esta clase representa un porceso del sistema operativo. Tiene los atributos y
  * metodos necesarios para ello.
  *
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Proceso {
 
