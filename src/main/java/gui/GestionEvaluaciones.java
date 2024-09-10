@@ -72,7 +72,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
@@ -87,19 +87,21 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         btnRealizar = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
         btnActualizarPassword = new javax.swing.JButton();
+        btnRealizarAlAzar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null },
-                        { null, null, null, null }
-                },
-                new String[] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }));
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,7 +109,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         setResizable(false);
 
         btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
-        btnAgregar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +118,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         });
 
         btnEliminar.setBackground(new java.awt.Color(51, 0, 0));
-        btnEliminar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,23 +127,20 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         });
 
         tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
-        tableEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        tableEvaluaciones.setForeground(new java.awt.Color(0, 0, 0));
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "Titulo"
-                }) {
-            @SuppressWarnings("rawtypes")
-            Class[] types = new Class[] {
-                    java.lang.String.class
+            },
+            new String [] {
+                "Titulo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
             };
 
-            @SuppressWarnings("rawtypes")
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
         });
         tableEvaluaciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,7 +151,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableEvaluaciones);
 
         btnHistorico.setBackground(new java.awt.Color(0, 51, 51));
-        btnHistorico.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setText("Historico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +163,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         lblTitulo.setText("Evaluaciones");
 
         btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
-        btnRealizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,11 +171,9 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
-        lblUsuario.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         lblUsuario.setText("Usuario: ");
 
         btnActualizarPassword.setBackground(new java.awt.Color(102, 102, 102));
-        btnActualizarPassword.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnActualizarPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarPassword.setText("Actualizar Contraseña");
         btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -189,74 +182,81 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             }
         });
 
+        btnRealizarAlAzar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizarAlAzar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRealizarAlAzar.setText("Al Azar");
+        btnRealizarAlAzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarAlAzarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 152,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnActualizarPassword))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
-                                                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jScrollPane2,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 396,
-                                                                Short.MAX_VALUE))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
-                                                        .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btnHistorico,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 105,
-                                                                Short.MAX_VALUE)
-                                                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btnRealizar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                Short.MAX_VALUE))))
-                                .addContainerGap(11, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizarPassword))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRealizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRealizarAlAzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(165, 165, 165)
-                                .addComponent(btnRealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblUsuario)
-                                        .addComponent(btnActualizarPassword))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(btnRealizarAlAzar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(btnActualizarPassword))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Método que proveé funcionamiento al botón "Al Azar" que le permite al estudiante realizar una evaluación aleatoria.
+     * @param evt 
+     */
+    private void btnRealizarAlAzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarAlAzarActionPerformed
+        try {
+            this.solicitarEvaluacionAlAzar();
+        } catch (IOException ex) {
+            Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRealizarAlAzarActionPerformed
+
+     /**
      * Método destinado a proveer funcionalidad al botón "Agregar" que le
      * permite al rol docente crear una evaluación.
      *
@@ -299,7 +299,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No has realizado esta evaluación aún");
                     }
                 }
-
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Error al procesar la solicitud: " + ex.getMessage());
@@ -308,10 +307,6 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una evaluación.");
         }
     }// GEN-LAST:event_btnHistoricoActionPerformed
-
-    private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tableEvaluacionesMouseClicked
-
-    }// GEN-LAST:event_tableEvaluacionesMouseClicked
 
     /**
      * Método destinado a proveer funcionalidad al botón "Eliminar" que le
@@ -351,7 +346,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
 
     /**
      * Método destinado a proveer funcionalidad al botón "Realizar" que le
-     * permite al rol estudiante realizar una evaluación.
+     * permite al rol estudiante realizar una evaluación seleccionada.
      *
      * @param evt
      */
@@ -363,34 +358,53 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         } else {
             try {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-                String aEnviar = this.getCliente().formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta"); // Solicita
-                                                                                                                         // la
-                                                                                                                         // Pregunta
-                                                                                                                         // 0
-                                                                                                                         // de
-                                                                                                                         // una
-                                                                                                                         // evaluacion
-                // El servidor deberia responder con:
-                // TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
-                this.getCliente().intercambiarMensajes(aEnviar);
-                String[] pregunta = this.getCliente().obtenerMensaje().split(";;;"); // el primercampo lo tokenizo por
-                                                                                     // ;;;
-                if (this.getCliente().obtenerCodigo().equals("200")) {
-                    // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
-                    // VerdaderoFalso;;;Enunciado;;;puntaje
-                    // Completar;;;Enunciado;;;puntaje
-                    AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente());
-                    framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
-                    framePregunta.setEvaluacion(titulo);
-                    framePregunta.cargarEnGui(pregunta, framePregunta);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                this.solicitarEvaluacion(titulo);
             } catch (IOException ex) {
                 Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }// GEN-LAST:event_btnRealizarActionPerformed
+
+    /**
+     * Método que permite solicitar una evaluación al Azar.
+     * @throws java.io.IOException
+     */
+    public void solicitarEvaluacionAlAzar() throws IOException{
+        String aEnviar = this.getCliente().formatearMensaje("Solicitud", "Evaluaciones", "ObtenerTituloAlAzar");
+        // Solicita un título aleatorio
+        this.getCliente().intercambiarMensajes(aEnviar);
+        if (this.getCliente().obtenerCodigo().equals("200")) {
+            String titulo = this.getCliente().obtenerMensaje();
+            this.solicitarEvaluacion(titulo);
+        } else {
+            JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(), this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /**
+     * Método que permite solicitar una evaluación.
+     * @param titulo de la evaluación seleccionada.
+     * @throws IOException 
+     */
+    public void solicitarEvaluacion(String titulo) throws IOException {
+        String aEnviar = this.getCliente().formatearMensaje(titulo + ";;;0", "Evaluaciones", "ObtenerPregunta");
+        // Solicita la pregunta 0
+        // El servidor deberia responder con:
+        // TipoPregunta;;;Enunciado;;;Opc1(opcional);;Opc2(opcional);;;Opc3(opcional);;;Opc4(opcional);;;puntaje,;,200
+        this.getCliente().intercambiarMensajes(aEnviar);
+        String[] pregunta = this.getCliente().obtenerMensaje().split(";;;");
+        if (this.getCliente().obtenerCodigo().equals("200")) {
+            // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
+            // VerdaderoFalso;;;Enunciado;;;puntaje
+            // Completar;;;Enunciado;;;puntaje
+            AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente(), "estudiante");
+            framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
+            framePregunta.setEvaluacion(titulo);
+            framePregunta.cargarEnGui(pregunta, framePregunta);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error en la solicitud.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * Método destinado a proveer funcionalidad al botón "Actualizar Contraseña"
@@ -423,7 +437,7 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
      * Método que le solicita al servidor los títulos de las evaluaciones ya
      * existentes.
      */
-    public void solicitarTitulosEvaluaciones() throws IOException {
+    private void solicitarTitulosEvaluaciones() throws IOException {
         cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");
         if (this.getCliente().obtenerCodigo().equals("200")) {
             this.cargarTablaEvaluaciones();
@@ -460,20 +474,27 @@ public class GestionEvaluaciones extends javax.swing.JFrame {
         if (rol.equals("docente")) { // Docente
             btnAgregar.setVisible(true);
             btnRealizar.setVisible(false);
+            btnRealizarAlAzar.setVisible(false);
             btnEliminar.setVisible(true);
         } else { // Estudiante
             btnAgregar.setVisible(false);
             btnRealizar.setVisible(true);
+            btnRealizarAlAzar.setVisible(true);
             btnEliminar.setVisible(false);
         }
     }
-
+    
+    private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {   
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarPassword;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnHistorico;
     private javax.swing.JButton btnRealizar;
+    private javax.swing.JButton btnRealizarAlAzar;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

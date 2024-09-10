@@ -3,6 +3,8 @@ package gui;
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,9 +25,10 @@ public class AltaPregunta extends javax.swing.JFrame {
     private Cliente cliente;
     private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación
                                 // de forma dinámica
+    private String rol;
 
     // Atributos utilizados como variables globales
-    private String evaluacion; // Título de la evaluación
+    private String evaluacion; // Título de la evaluación seleccionada o por crear
     private String pregunta;
     private String enunciado;
     private String tipoPregunta;
@@ -40,13 +43,23 @@ public class AltaPregunta extends javax.swing.JFrame {
      * @param vistaPrevia permite visualizar los cambios en la evaluación de
      *                    forma dinámica.
      * @param cliente
+     * @param rol
      */
-    public AltaPregunta(JPanel vistaPrevia, Cliente cliente) {
+    public AltaPregunta(JPanel vistaPrevia, Cliente cliente, String rol) {
         this.cliente = cliente;
         this.vistaPrevia = vistaPrevia;
+        this.rol = rol;
         initComponents();
         setLocationRelativeTo(null); // Centrar JFrame
         this.interfazPorDefecto(); // Inicializa la interfaz
+        this.agregarMensajesAyuda(); // Carga en interfaz mensajes de ayuda
+        this.agregarCartelesAyudas(); // Carga en interfaz label con carteles de ayuda
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) { // En caso de que cierre una evaluación a medias borra todo lo almacendo en memoria
+                valoresPorDefecto(evt);
+            }
+        });
     }
 
     /**
@@ -65,6 +78,15 @@ public class AltaPregunta extends javax.swing.JFrame {
      */
     public JPanel getVistaPrevia() {
         return vistaPrevia;
+    }
+    
+     /**
+     * Método que permite obtener el rol del cliente actual.
+     *
+     * @return rol del cliente actual
+     */
+    public String getRol(){
+        return rol;
     }
 
     /**
@@ -138,6 +160,15 @@ public class AltaPregunta extends javax.swing.JFrame {
     public void setVistaPrevia(JPanel vistaPrevia) {
         this.vistaPrevia = vistaPrevia;
     }
+    
+    /**
+     * Método que permite modificar el rol de cliente actual, a partir de otro rol.
+     *
+     * @param rol del cliente actual.
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     /**
      * Método que permite modificar el título de evaluación actual, a partir de
@@ -208,6 +239,10 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelEnunciado.setVisible(true);
         panelMultiple.setVisible(false);
         panelEspaciosVF.setVisible(false); // JPanel utilizado tanto para preguntas de completar espacios como VF
+        // Los carteles de ayuda solo son para el docente
+        this.lblAyudaEnunciado.setVisible(false);
+        this.lblAyudaMultiple.setVisible(false);
+        this.lblAyudaEspaciosVF.setVisible(false);
     }
 
     /**
@@ -257,6 +292,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         lblSigno = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEnunciado = new javax.swing.JTextArea();
+        lblAyudaEnunciado = new javax.swing.JLabel();
         panelMultiple = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -274,6 +310,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         btnConsolaMultiple = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         lblEnunciadoMultiple = new javax.swing.JLabel();
+        lblAyudaMultiple = new javax.swing.JLabel();
         panelEspaciosVF = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -286,6 +323,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         spnPuntajeEspaciosVF = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         btnConsolaEspaciosVF = new javax.swing.JButton();
+        lblAyudaEspaciosVF = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -331,6 +369,10 @@ public class AltaPregunta extends javax.swing.JFrame {
         txtEnunciado.setRows(5);
         jScrollPane1.setViewportView(txtEnunciado);
 
+        lblAyudaEnunciado.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblAyudaEnunciado.setForeground(new java.awt.Color(102, 102, 255));
+        lblAyudaEnunciado.setText("¿Necesita Ayuda?");
+
         javax.swing.GroupLayout panelEnunciadoLayout = new javax.swing.GroupLayout(panelEnunciado);
         panelEnunciado.setLayout(panelEnunciadoLayout);
         panelEnunciadoLayout.setHorizontalGroup(
@@ -339,16 +381,17 @@ public class AltaPregunta extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEnunciadoLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAyudaEnunciado))
+                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1))
-                    .addGroup(panelEnunciadoLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(38, 459, Short.MAX_VALUE))
                     .addGroup(panelEnunciadoLayout.createSequentialGroup()
                         .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboxTipoPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
                         .addComponent(bntSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lblSigno)
@@ -358,7 +401,9 @@ public class AltaPregunta extends javax.swing.JFrame {
             panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEnunciadoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addGroup(panelEnunciadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblAyudaEnunciado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -380,7 +425,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         jLabel4.setText("Opción 3");
         jLabel4.setToolTipText("");
         panelMultiple.add(jLabel4);
-        jLabel4.setBounds(20, 120, 97, 32);
+        jLabel4.setBounds(20, 120, 96, 32);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel5.setText("Opción 2");
@@ -523,6 +568,12 @@ public class AltaPregunta extends javax.swing.JFrame {
         panelMultiple.add(lblEnunciadoMultiple);
         lblEnunciadoMultiple.setBounds(20, 20, 370, 24);
 
+        lblAyudaMultiple.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblAyudaMultiple.setForeground(new java.awt.Color(51, 102, 255));
+        lblAyudaMultiple.setText("¿Necesita Ayuda?");
+        panelMultiple.add(lblAyudaMultiple);
+        lblAyudaMultiple.setBounds(20, 240, 100, 16);
+
         panelEspaciosVF.setBackground(new java.awt.Color(255, 255, 255));
         panelEspaciosVF.setPreferredSize(new java.awt.Dimension(587, 227));
 
@@ -611,6 +662,10 @@ public class AltaPregunta extends javax.swing.JFrame {
             }
         });
 
+        lblAyudaEspaciosVF.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblAyudaEspaciosVF.setForeground(new java.awt.Color(51, 102, 255));
+        lblAyudaEspaciosVF.setText("¿Necesita Ayuda?");
+
         javax.swing.GroupLayout panelEspaciosVFLayout = new javax.swing.GroupLayout(panelEspaciosVF);
         panelEspaciosVF.setLayout(panelEspaciosVFLayout);
         panelEspaciosVFLayout.setHorizontalGroup(
@@ -628,8 +683,9 @@ public class AltaPregunta extends javax.swing.JFrame {
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAyudaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -647,11 +703,13 @@ public class AltaPregunta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAyudaEspaciosVF))
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -666,7 +724,7 @@ public class AltaPregunta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelMultiple, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(panelEnunciado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -991,6 +1049,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.txtOpc3.setEnabled(false);
         framePregunta.txtOpc4.setEnabled(false);
         framePregunta.btnFinalizarMultiple.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.cboxOpcionesMultiple.setSelectedIndex(0);
     }
 
     /**
@@ -1011,6 +1071,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.spnPuntajeEspaciosVF.setEnabled(false);
         framePregunta.spnPuntajeEspaciosVF.setValue(puntaje);
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.cboxVerdaderoOFalso.setSelectedIndex(0);
     }
 
     /**
@@ -1031,6 +1093,8 @@ public class AltaPregunta extends javax.swing.JFrame {
         framePregunta.spnPuntajeEspaciosVF.setValue(puntaje);
         framePregunta.lblTipo.setText("Respuesta/s");
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
+        // Elimina el resultado cargado en la pregunta anterior
+        framePregunta.txtRespuestaEspacios.setText("");
     }
 
     /**
@@ -1063,6 +1127,99 @@ public class AltaPregunta extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método que inicializa la cantidad de preguntas y las respuestas si se
+     * cierra la evaluación a medias desde el rol estudiante.
+     *
+     * @param evt
+     */
+    public void valoresPorDefecto(java.awt.event.WindowEvent evt) {
+        if (rol.equals("estudiante")) {
+            AltaPregunta.setCantidadPreguntas(0);
+            this.setRespuestas("");
+        }
+    }
+
+    /**
+     * Método que agrega mensajes de ayuda a los componentes de la interfaz.
+     * Estos mensajes aparecen al posarse con el cursor del mouse encima de los
+     * mismos.
+     */
+    private void agregarMensajesAyuda() {
+        this.txtRespuestaEspacios.setToolTipText("Escriba aquí un máximo de dos respuestas separadas por coma");
+        this.cboxOpcionesMultiple.setToolTipText("Seleccione la opción correcta");
+        this.cboxVerdaderoOFalso.setToolTipText("Seleccione la opción correcta");
+        this.cboxTipoPregunta.setToolTipText("Seleccione el tipo de pregunta");
+        this.txtEnunciado.setToolTipText("Ingrese aquí el enunciado de la consigna");
+    }
+
+    /**
+     * Método que agrega cartes de ayuda a lo largo de la interfaz según corresponda.
+     */
+    private void agregarCartelesAyudas() {
+        if (this.getRol().equals("docente")) {
+            this.lblAyudaEnunciado.setVisible(true);
+            this.lblAyudaMultiple.setVisible(true);
+            this.lblAyudaEspaciosVF.setVisible(true);
+            
+            this.lblAyudaEnunciado.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    cartelAyudaEnunciado();
+                }
+            });
+            this.lblAyudaMultiple.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    cartelAyudaMultiple();
+                }
+            });
+            this.lblAyudaEspaciosVF.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    cartelAyudaEspaciosVF();
+                }
+            });
+        }
+    }
+
+    /**
+     * Método que crea el cartel de ayuda del JPanel "enunciado".
+     */
+    private void cartelAyudaEnunciado() {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el enunciado de la consiga y el tipo de pregunta que desea crear, luego presione el botón siguiente.",
+                "Ayuda",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    /**
+     * Método que crea el cartel de ayuda del JPanel "multiple".
+     */
+    private void cartelAyudaMultiple() {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el puntaje y cuatro respuestas posibles, luego presione el botón siguiente.",
+                "Ayuda",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Método que crea el cartel de ayuda del JPanel "espaciosVF".
+     */
+    private void cartelAyudaEspaciosVF() {
+        if (this.getTipoPregunta().equals("Rellenar espacios")) {
+            JOptionPane.showMessageDialog(this,
+                    "Ingrese el puntaje y un máximo de dos respuestas separadas por coma, luego presione el botón siguiente.",
+                    "Ayuda",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Ingrese el puntaje y seleccione la respuesta correcta, luego presione el botón siguiente.",
+                    "Ayuda",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSiguiente;
     private javax.swing.JButton btnConsolaEspaciosVF;
@@ -1084,6 +1241,9 @@ public class AltaPregunta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAyudaEnunciado;
+    private javax.swing.JLabel lblAyudaEspaciosVF;
+    private javax.swing.JLabel lblAyudaMultiple;
     private javax.swing.JLabel lblEnunciadoMultiple;
     private javax.swing.JLabel lblSigno;
     private javax.swing.JLabel lblTipo;

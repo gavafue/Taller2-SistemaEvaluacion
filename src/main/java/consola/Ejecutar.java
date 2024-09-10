@@ -31,7 +31,7 @@ public class Ejecutar {
     /**
      * Constructor.
      *
-     * @param tokens
+     * @param tokens - La linea ingresada en la terminal por el usuario fue tokenizada
      *
      */
     public Ejecutar(String[] tokens) {
@@ -57,7 +57,7 @@ public class Ejecutar {
     /**
      * Establece la hora pasada por
      *
-     * @param hora
+     * @param hora - hora a asignar.
      */
     public void setHora(String hora) {
         this.hora = hora;
@@ -74,7 +74,7 @@ public class Ejecutar {
      * Este metodo formatea un mensaje de ayuda obteniendo informacion desde los
      * atributos del comando.
      *
-     * @param comandos
+     * @param comandos - comandos cargados en el sistema
      * @return mensaje
      */
     public String obtenerAyudaComando(Comandos comandos) {
@@ -92,10 +92,10 @@ public class Ejecutar {
      * Metodo principal de esta clase. Deriva la ejecucion al comando
      * correspondiente.
      *
-     * @param comandos
-     * @param ficheros
-     * @param procesos
-     * @param salida donde mostrar el resultado de la ejecucion.
+     * @param comandos - coleccion de comandos cargados en el sistema
+     * @param ficheros - ficheros cargados en el sistema
+     * @param procesos - procesos activos en el sistema
+     * @param salida   - donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
         String mensaje = "";
@@ -158,10 +158,9 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>man</i.
+     * Ejecuta el comando man.
      *
      * @param comandos Objeto que contiene los comandos disponibles.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarMan(Comandos comandos) {
@@ -177,7 +176,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>mkdir</i> para crear directorios.
+     * Ejecuta el comando mkdir para crear directorios.
      *
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return mensaje resultante de la operacion.
@@ -196,7 +195,7 @@ public class Ejecutar {
      * Crea un directorio si no existe previamente.
      *
      * @param nombreDirectorio Nombre del directorio a crear.
-     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
      * @return Mensaje resultante de la operación.
      */
     private String crearDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -231,7 +230,7 @@ public class Ejecutar {
      * Elimina un directorio si existe.
      *
      * @param nombreDirectorio String con el nombre del directorio a eliminar.
-     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
      * @return mensaje resultante de la operación.
      */
     private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -246,7 +245,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>clear</i> para limpiar el área de salida. Es decir,
+     * Ejecuta el comando clear para limpiar el área de salida. Es decir,
      * limpia la consola estableciendo su texto vacio.
      *
      * @param salida JTextÁrea que se limpia.
@@ -264,7 +263,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>cat</i> para mostrar el contenido de un archivo si
+     * Ejecuta el comando cat para mostrar el contenido de un archivo si
      * existe y no es un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -333,7 +332,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>ls</i> para listar archivos y directorios según los
+     * Ejecuta el comando ls para listar archivos y directorios según los
      * parámetros proporcionados.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -369,7 +368,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
-     * visibles. Excluyendo los ocultos.
+     *         visibles. Excluyendo los ocultos.
      */
     private String obtenerListaSimple(Ficheros ficheros) {
         String mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
@@ -384,7 +383,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     * un parámetro.
+     *         un parámetro.
      */
     private String manejarOpcionesUnParametro(Ficheros ficheros) {
         String mensaje;
@@ -429,11 +428,11 @@ public class Ejecutar {
     }
 
     /**
-     * Maneja las opciones de  ls con tres parámetros.
+     * Maneja las opciones de ls con tres parámetros.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     * tres parámetros.
+     *         tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
         String mensaje;
@@ -449,7 +448,8 @@ public class Ejecutar {
      * Obtiene el contenido de un directorio para el comando ls 
      * [directorio].
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
      * @return mensaje con el contenido del directorio especificado.
      */
@@ -472,8 +472,11 @@ public class Ejecutar {
      *
      * De momento solo imprime un mensaje estandar ya que estamos trahajando con
      * un unico nivel en el sistema de archivos.
+     * Obtiene el mensaje para el comando ls -l [directorio].
+     * 
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param segundoParametro el nombre del directorio a listar detalladamente.
      * @return mensaje indicando el resultado de ejecutar ls -l [directorio].
      */
@@ -493,9 +496,9 @@ public class Ejecutar {
      * De momento solo imprime un mensaje estandar ya que estamos trahajando con
      * un unico nivel en el sistema de archivos.
      *
-     * @param ficheros objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
-     * archivos.
+     *                         archivos.
      * @return mensaje indicando el resultado de ejecutar ls -a [directorio].
      */
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
@@ -509,16 +512,14 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l -a [directorio].
+     * Obtiene el mensaje para el comando ls -l -a [directorio].
      *
-     * De momento solo imprime un mensaje estandar ya que estamos trahajando con
-     * un unico nivel en el sistema de archivos.
-     *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar detalladamente
-     * con todos los archivos.
+     *                         con todos los archivos.
      * @return un mensaje indicando el resultado de ejecutar ls -l -a
-     * [directorio].
+     *         [directorio].
      */
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
@@ -563,7 +564,7 @@ public class Ejecutar {
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
      * @return un mensaje detallando los procesos en ejecución o un mensaje de
-     * error si la sintaxis es incorrecta.
+     *         error si la sintaxis es incorrecta.
      */
     public String ejecutarPs(Procesos procesos) {
         String mensaje = "";
@@ -590,7 +591,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje indicando si se encontró el patrón en el archivo o un
-     * mensaje de error si la expresión es incorrecta.
+     *         mensaje de error si la expresión es incorrecta.
      */
     private String ejecutarGrep(Ficheros ficheros) {
         String mensaje = "";
@@ -623,7 +624,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las últimas líneas del archivo especificado o un
-     * mensaje de error si la sintaxis es incorrecta.
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     private String ejecutarTail(Ficheros ficheros) {
         
@@ -652,7 +653,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las primeras líneas del archivo especificado o un
-     * mensaje de error si la sintaxis es incorrecta.
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
         
@@ -681,7 +682,7 @@ public class Ejecutar {
      * Metodo que devuelve las n lineas de un archivo.
      * Comenzando a contar desde el principio o el final del contenido
      *
-     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
      * líneas.
      * @param enReversa indica el sentido en el que se muestran las lineas
@@ -719,7 +720,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las columnas seleccionadas del archivo especificado o
-     * un mensaje de error si la sintaxis es incorrecta.
+     *         un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
 
@@ -802,7 +803,7 @@ public class Ejecutar {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las líneas del archivo ordenadas o un mensaje de
-     * error si la sintaxis es incorrecta.
+     *         error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje = "";
@@ -898,7 +899,7 @@ public class Ejecutar {
      * Este metodo es para ejecutar el comando | tambien llamado 'pipe'.
      *
      * @param indexPipe - indice del simbolo pipe en la linea ingresada.
-     * @param ficheros - objeto que maneja la lista de archivos disponibles.
+     * @param ficheros  - objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando.
      */
     public String ejecutarPipe(int indexPipe, Ficheros ficheros) {
@@ -944,7 +945,7 @@ public class Ejecutar {
      *
      * @param permisos String con los permisos a validar.
      * @return false si la longitud de los persmisos no es correcta. Asume true
-     * por defecto.
+     *         por defecto.
      */
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
@@ -958,10 +959,10 @@ public class Ejecutar {
      * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param nombre del fichero o directorio al que se aplicarán los permisos.
+     * @param nombre   del fichero o directorio al que se aplicarán los permisos.
      * @param permisos String con los permisos numéricos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     * contrario.
+     *         contrario.
      */
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
         String permisosEnLetras = String.valueOf(ficheros.obtenerFichero(nombre).getPermisos().charAt(0));
@@ -1011,11 +1012,11 @@ public class Ejecutar {
      * Aplica los permisos simbólicos al fichero o directorio.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich Nombre del fichero o directorio al que se aplicarán los
-     * permisos.
+     * @param fich     Nombre del fichero o directorio al que se aplicarán los
+     *                 permisos.
      * @param permisos String con los permisos simbólicos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     * contrario.
+     *         contrario.
      */
     private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos) {
         boolean permisosValidos = true;
