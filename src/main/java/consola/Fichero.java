@@ -18,10 +18,10 @@ public abstract class Fichero {
 
     /**
      * Permisos del fichero. Se espera que sean de la forma:
-     * <ul>
-     * <li>Tamano fijo de diez caracteres.</li>
-     * <li>Cada caracter debe ser uno de los siguientes: -, w, r, x, d.</li>
-     * </ul>
+     * 
+     * Tamano fijo de diez caracteres.
+     * Cada caracter debe ser uno de los siguientes: -, w, r, x, d.
+     * 
      */
     private String permisos;
 

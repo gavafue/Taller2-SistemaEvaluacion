@@ -15,8 +15,8 @@ public class Archivo extends Fichero {
 
     /**
      * Constructor comun. Invoca al constructor de la clase superior asignando
-     * por defecto <ul><li>permisos: -rwxr--r--</li><li>propietario:
-     * user</li><li>tipo: Arhivo</li></ul>
+     * por defecto permisos: -rwxr--r-- propietario:
+     * user tipo: Arhivo
      *
      * @param nombre a dar al archivo.
      */
@@ -37,7 +37,7 @@ public class Archivo extends Fichero {
     }
 
     /**
-     * @returns contenido
+     * @return contenido
      */
     public String getContenido() {
         return contenido;

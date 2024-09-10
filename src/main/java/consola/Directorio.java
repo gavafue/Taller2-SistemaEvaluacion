@@ -3,8 +3,9 @@ package consola;
 /**
  * Esta clase permite crear un fichero de tipo directorio.
  * 
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
- * */
+ *  Esta clase extiende la clase fichero.
+ *
+ */
 public class Directorio extends Fichero {
 
     /**

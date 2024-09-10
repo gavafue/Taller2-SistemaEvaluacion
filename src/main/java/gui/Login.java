@@ -24,6 +24,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); // Centrar Jframe
         this.cliente = new Cliente(); // Nueva instancia de cliente
+        this.inicializarInterfaz();
         this.solicitarEstablecerConexion();
     }
 
@@ -49,7 +50,7 @@ public class Login extends javax.swing.JFrame {
      * Método que solicita al servidor establecer una conexión e indica mediante
      * la interfaz gráfica si la sesión se encuentra online o offline.
      */
-    public void solicitarEstablecerConexion() {
+    private void solicitarEstablecerConexion() {
         try { // Online
             this.getCliente().establecerConexion();
             this.getCliente().getConexion().probarConexion();
@@ -317,6 +318,18 @@ public class Login extends javax.swing.JFrame {
             }
         }
         return validacion;
+    }
+
+    /**
+     * Método encargado de establecer los valores iniciales de la interfaz
+     * Login.
+     */
+    private void inicializarInterfaz() {
+        this.txtUsuario.setText("");
+        this.txtUsuario.setToolTipText("Escriba aquí su número identificador o CI");
+
+        this.txtContrasenia.setText("");
+        this.txtContrasenia.setToolTipText("Escriba aquí su contraseña");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -50,6 +50,7 @@ public class Proceso {
 
     /**
      * Constructor.
+     *
      * @param comando
      */
     public Proceso(String comando) {
@@ -63,52 +64,98 @@ public class Proceso {
         this.hora = LocalDateTime.now().format(formatoFecha);
     }
 
-    // Getters
+    /**
+     * @return pid
+     */
     public int getPid() {
         return pid;
     }
 
+    /**
+     * @return usuario
+     */
     public String getUsuario() {
         return usuario;
     }
 
+    /**
+     * @return memoria
+     */
     public double getMemoria() {
         return memoria;
     }
 
+    /**
+     * @return cpu
+     */
     public double getCpu() {
         return cpu;
     }
 
+    /**
+     * @return comando
+     */
     public String getComando() {
         return comando;
     }
 
+    /**
+     * @return hora
+     */
     public String getHora() {
         return hora;
     }
 
-    // Setters
+    /**
+     * Establece el valor de pid dado por el
+     *
+     * @param pid - valor entero
+     */
     public void setPid(int pid) {
         this.pid = pid;
     }
 
+    /**
+     * Establece el valor de usuario dado por el
+     *
+     * @param usuario - valor String
+     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * Establece el valor de memoria dado por el
+     *
+     * @param memoria - valor double
+     */
     public void setMemoria(double memoria) {
         this.memoria = memoria;
     }
 
+    /**
+     * Establece el valor de cpu dado por el
+     *
+     * @param cpu - valor double
+     */
     public void setCpu(double cpu) {
         this.cpu = cpu;
     }
 
+    /**
+     * Establece el valor de comando dado por el
+     *
+     * @param comando - valor String
+     */
     public void setComando(String comando) {
         this.comando = comando;
     }
 
+    /**
+     * Establece el valor de hora dado por el
+     *
+     * @param hora - valor String
+     */
     public void setHora(String hora) {
         this.hora = hora;
     }

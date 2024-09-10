@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
  * JFrame destinado a crear una evaluación desde el rol docente.
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class AltaEvaluacion extends javax.swing.JFrame {
 
@@ -23,7 +24,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      * Contructor encargado de crear una instancia de evalucíón a partir del
      * cliente actual.
      *
-     * @param cliente
+     * @param cliente el cliente actual.
      * @throws FileNotFoundException
      */
     public AltaEvaluacion(Cliente cliente) throws FileNotFoundException {
@@ -188,9 +189,9 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                             .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(3, 3, 3)
-                            .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(3, 3, 3)
                             .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                         .addComponent(txtTitulo)))
@@ -210,21 +211,18 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(41, 41, 41))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(41, 41, 41))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 600));
@@ -234,6 +232,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
 
     /**
      * Método que activa placeholder de ayuda.
+     * @param texto texto de ayuda.
      */
     private void TextoAyudaOn(JTextField texto) {
         Font fuente = texto.getFont();
@@ -244,6 +243,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
 
     /**
      * Método que desactiva placeholder de ayuda.
+     * @param texto texto de ayuda.
      */
     private void TextoAyudaOff(JTextField texto) {
         Font fuente = texto.getFont();
@@ -259,8 +259,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      * @param evt
      */
     private void btnNuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevaPreguntaActionPerformed
-        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es
-                                                                                                      // vacio
+        if (txtTitulo.getText().isBlank() || txtTitulo.getText().equals("Titulo de la Evaluacion")) { // Si el titulo es                                                                                            // vacio
             JOptionPane.showMessageDialog(this, "Ingrese un titulo para la evaluación", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
@@ -270,13 +269,13 @@ public class AltaEvaluacion extends javax.swing.JFrame {
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente);
+                        AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
                         ventanaPregunta.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente);
+                    AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
                     ventanaPregunta.setVisible(true);
                 }
             } catch (IOException ex) {
@@ -398,7 +397,7 @@ public class AltaEvaluacion extends javax.swing.JFrame {
      * Este método solicita al server si el título de una evaluación a crear ya
      * existe.
      *
-     * @param titulo
+     * @param titulo de la evaluación.
      * @return true si existe y false en caso contrario.
      * @throws IOException
      */

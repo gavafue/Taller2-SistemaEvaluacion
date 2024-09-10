@@ -7,6 +7,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Clase que establece una conexión cliente-servidor.
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
+ */
 public class ConexionCliente {
     
     private final DataInputStream in; // Flujo de datos de entrada
