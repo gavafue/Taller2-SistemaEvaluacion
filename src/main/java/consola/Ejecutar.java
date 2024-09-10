@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTextArea;
 
@@ -34,7 +32,7 @@ public class Ejecutar {
     /**
      * Constructor.
      *
-     * @param tokens
+     * @param tokens - La linea ingresada en la terminal por el usuario fue tokenizada
      *
      */
     public Ejecutar(String[] tokens) {
@@ -60,7 +58,7 @@ public class Ejecutar {
     /**
      * Establece la hora pasada por
      *
-     * @param hora
+     * @param hora - hora a asignar.
      */
     public void setHora(String hora) {
         this.hora = hora;
@@ -77,7 +75,7 @@ public class Ejecutar {
      * Este metodo formatea un mensaje de ayuda obteniendo informacion desde los
      * atributos del comando.
      *
-     * @param comandos
+     * @param comandos - comandos cargados en el sistema
      * @return mensaje
      */
     public String obtenerAyudaComando(Comandos comandos) {
@@ -95,10 +93,10 @@ public class Ejecutar {
      * Metodo principal de esta clase. Deriva la ejecucion al comando
      * correspondiente.
      *
-     * @param comandos
-     * @param ficheros
-     * @param procesos
-     * @param salida   donde mostrar el resultado de la ejecucion.
+     * @param comandos - coleccion de comandos cargados en el sistema
+     * @param ficheros - ficheros cargados en el sistema
+     * @param procesos - procesos activos en el sistema
+     * @param salida   - donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
         String mensaje = "";
@@ -463,7 +461,7 @@ public class Ejecutar {
 
     /**
      * Obtiene el mensaje para el comando ls -l [directorio].
-     * ////////////////############################# ACA PASA ALGO
+     * 
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
@@ -502,7 +500,7 @@ public class Ejecutar {
     }
 
     /**
-     * Obtiene el mensaje para el comando <ls>ls</i> -l -a [directorio].
+     * Obtiene el mensaje para el comando ls -l -a [directorio].
      *
      * @param ficheros         el objeto que maneja la lista de archivos
      *                         disponibles.
@@ -549,7 +547,7 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>ps</i> para listar los procesos en ejecución del
+     * Ejecuta el comando ps para listar los procesos en ejecución del
      * sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
@@ -942,8 +940,7 @@ public class Ejecutar {
      */
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
-        if (permisos.length() != 3 && permisos.length() != 9) { ///////////////////// NO DEBERIA SER || un o
-            ///////////////////// logico??????????????????????????
+        if (permisos.length() != 3 && permisos.length() != 9) {
             retorno = false;
         }
         return retorno;
