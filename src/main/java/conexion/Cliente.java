@@ -5,6 +5,7 @@ import java.io.IOException;
 /**
  * Esta clase representa al cliente e interactua de forma directa con conexión e
  * interfaz gráfica.
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class Cliente {
 
@@ -138,8 +139,9 @@ public class Cliente {
      * Método que dada la instruccion a enviar por el cliente realiza el
      * intercambio de mensajes.
      *
-     * @param instruccionAEnviar
-     * @throws java.io.IOException
+     * @param instruccionAEnviar la instrucción a enviar del cliente al servidor.
+     * @throws java.io.IOException si ocurre un error al intentar establecer la
+     * conexión.
      */
     public void intercambiarMensajes(String instruccionAEnviar) throws IOException {
         this.establecerConexion();
@@ -164,13 +166,13 @@ public class Cliente {
      * corresponde a
      * "enunciado,,,Multiple,,,puntaje,,,op1,,,op2,,,op3,,,op4,,,respuesta".
      *
-     * @param enunciado
-     * @param puntaje
-     * @param op1
-     * @param op2
-     * @param op3
-     * @param op4
-     * @param respuesta
+     * @param enunciado enunciado de la pregunta.
+     * @param puntaje puntaje asociado a la pregunta.
+     * @param op1 primera posible repuesta.
+     * @param op2 segunda posible respuesta.
+     * @param op3 tercera posible respuesta.
+     * @param op4 cuarta posible respuesta.
+     * @param respuesta respuesta correcta.
      *
      */
     public void armarMultiple(String enunciado, String puntaje, String op1, String op2, String op3, String op4, String respuesta) {
@@ -182,9 +184,9 @@ public class Cliente {
      * Método que da formato a la pregunta de tipo vf. El formato corresponde a
      * "enunciado,,,VF,,,puntaje,,,respuesta".
      *
-     * @param enunciado
-     * @param puntaje
-     * @param respuesta verdadero o falso.
+     * @param enunciado asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
+     * @param respuesta respuesta verdadero o falso.
      */
     public void armarVF(String enunciado, String puntaje, String respuesta) {
         String pregunta = ";;;" + enunciado + ",,,VF,,," + puntaje + ",,," + respuesta;
@@ -196,8 +198,8 @@ public class Cliente {
      * corresponde a "enunciado,,,Completar,,,puntaje,,,respuestas separadas por
      * coma".
      *
-     * @param enunciado
-     * @param puntaje
+     * @param enunciado asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param respuestas separadas por coma.
      */
     public void armarEspacios(String enunciado, String puntaje, String respuestas) {
