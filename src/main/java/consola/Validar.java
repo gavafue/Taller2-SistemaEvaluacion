@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Esta clase permite validar un comando y sus opciones.
+ * Esta clase permite validar un comando y sus opciones
  *
- * @since version 1
+ * @since
  */
 public class Validar {
 
@@ -70,35 +70,41 @@ public class Validar {
      * una de ellas es una opción válida utilizando el método auxiliar
      * esOpcionValida.
      *
-     * @param opcionesValidas Las opciones válidas para el comando.
      * @return true si todas las opciones son válidas, false en caso contrario.
      */
     private boolean validarOpciones() {
         
         boolean todasValidas = false;
         
-        
-        switch (tokens[0]){                    
-            
-            case "ls":
-                        todasValidas=validarOpLs();               
-                                       
-                break;
-            case "head":
-                break;
-            case "tail":
-                 break;
-            case "sort":
-                  break;
-            case "cut":
-                  break;
-                
-        }
+            switch (tokens[0]){                    
+
+                case "ls":
+                            if(tokens.length==1){
+                                todasValidas=true;
+                            } else {
+                                todasValidas=validarOpLs(); 
+                            }
+                            break;
+                case "head":
+                            todasValidas=validarHeadTail();
+                            break;
+                case "tail":
+                            todasValidas=validarHeadTail();
+                            break;
+                case "sort":
+                            todasValidas=validarSort();
+                            break;
+                case "cut":
+                            todasValidas=validarCut();                            
+                            break;
+
+            }
             return todasValidas;
-    }
+        }
+        
     
     /**
-     * Metodo que valida las opciones ingresadas con "-" para un comando determinado
+     * Metodo auxiliar que valida las opciones ingresadas con "-" para un comando determinado
      * 
      * @param comando del cual desea validar las opciones
      * @param aComprobar arreglo con las opciones ingresadas por el usuario
@@ -115,56 +121,139 @@ public class Validar {
                 }
             }
             return true; // Si todos los elementos están, devuelven true
+    }
+    
+    /**
+     * Metodo que controla la posibilidad de colocar 2 veces la misma opcion por parte del usuario
+     * Ejemplo: ls -l -l //NO ES VALIDO
+     * @return si se han encontrado o no opciones duplicadas 
+     */
+    private boolean encontrarDuplicados(){
+        // Variable para verificar si hay duplicados
+        boolean duplicadoEncontrado = false;        
+        // Creo un arreglo booleano para marcar duplicados
+        boolean[] yaIncluido = new boolean[tokens.length];
+        // Recorrer el arreglo para contar cuántos elementos únicos empiezan con '-'
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].startsWith("-") && !yaIncluido[i]) {
+                // Marcar este elemento y buscar duplicados
+                for (int j = i + 1; j < tokens.length; j++) {
+                    if (tokens[i].equals(tokens[j])) {
+                        duplicadoEncontrado = true;
+                        yaIncluido[j] = true; // Marcar duplicados
+                        System.out.println("Duplicado encontrado: " + tokens[i]);
+                    }
+                }                
+            }            
         }
+        return duplicadoEncontrado;
+    }
+    
+    /**
+     * Metodo auxiliar que cuenta la cantidad de opciones ingresadas
+     * @return cantidad de elementos que comienzan con '-' 
+     */   
+    private int contarOpciones(){    
+        int contador = 0;
+        // Recorrer el arreglo y contar los elementos que comienzan con '-'
+        for (String token : tokens) {
+            if (token.startsWith("-")) {
+                contador++;
+            }
+        }
+        return contador;
+    }
     
      /**
-      * Metodo que utiliza compararConOpcPosibles para validar
+      * Metodo que utiliza compararConOpcPosibles y encontrarDuplicado para validar
       * las opciones de un ls en todas sus variantes
+      * ls
+      * ls dir
+      * ls -l || ls -l dir       
+      * ls -a || ls -a dir
+      * ls -l -a || ls -l -a dir
+      * ls -a -l || ls -a -l dir
       * 
-      * @return si ls opciones utilizadas con ls son validas
-      */   
+      * @return si las opciones utilizadas con ls son validas
+      */ 
     private boolean validarOpLs() {        
         boolean todasValidas=false;
+        boolean hayDuplicados=encontrarDuplicados();        
         
-        if (tokens.length==1){
-            todasValidas=true;
-        } else {                        
-            // Variable para verificar si hay duplicados
-            boolean duplicadoEncontrado = false;
-            int contador = 0;
-            // Creo un arreglo booleano para marcar duplicados
-            boolean[] yaIncluido = new boolean[tokens.length];
-            // Recorrer el arreglo para contar cuántos elementos únicos empiezan con '-'
-            for (int i = 0; i < tokens.length; i++) {
-                if (tokens[i].startsWith("-") && !yaIncluido[i]) {
-                    // Marcar este elemento y buscar duplicados
-                    for (int j = i + 1; j < tokens.length; j++) {
-                        if (tokens[i].equals(tokens[j])) {
-                            duplicadoEncontrado = true;
-                            yaIncluido[j] = true; // Marcar duplicados
-                            System.out.println("Duplicado encontrado: " + tokens[i]);
-                        }
-                    }
-                    contador++;
+        if (!hayDuplicados&&(tokens.length>=2&&tokens.length<=4)){
+            // Crear un nuevo arreglo sin duplicados
+            int tamanio= contarOpciones();
+            String[] resultado = new String [tamanio];
+            int index = 0;
+            // Agregar los elementos únicos al nuevo arreglo
+            for (String token : tokens) {
+                if (token.startsWith("-")) {
+                    resultado[index++] = token;
                 }
             }
-            if (!duplicadoEncontrado&&(tokens.length>=2&&tokens.length<=4)){
-                // Crear un nuevo arreglo sin duplicados
-                String[] resultado = new String[contador];
-                int index = 0;
-                // Agregar los elementos únicos al nuevo arreglo
-                for (String token : tokens) {
-                    if (token.startsWith("-")) {
-                        resultado[index++] = token;
-                    }
-                }
-                todasValidas=compararConOpcPosibles("ls",resultado);                 
-            } else {
-                todasValidas=false;                 
-            }
+            todasValidas=compararConOpcPosibles("ls",resultado);                 
+        } else {
+            todasValidas=false;                 
         }
         return todasValidas;
-    } 
+    }
+    
+    /**
+     * Metodo que utiliza contarOpciones y encontrarDuplicados
+     * para validar la sintaxis de tail y head
+     * 
+     * @return si las opciones utilizadas con tail o head son validas
+     */
+    private boolean validarHeadTail(){        
+        boolean valido;
+        boolean hayDuplicados=encontrarDuplicados();
+        int tamanio= contarOpciones();
+        
+        if(tamanio==0&&tokens.length==2){
+            valido=true;
+        }else{
+            valido = !hayDuplicados&&tamanio==1&&tokens[1].equals("-n")&&tokens.length==4;
+        }
+        return valido;
+        
+    }
+
+    /**
+     * Metodo que utiliza contarOpciones y encontrarDuplicados
+     * para validar la sintaxis de sort
+     * 
+     * @return si la sintaxis de sort es correcta
+     */
+    private boolean validarSort(){
+        boolean valido;
+        boolean hayDuplicados=encontrarDuplicados();
+        int tamanio=contarOpciones();
+        
+        if(tamanio==0&&tokens.length==2){
+            valido=true;
+        } else {
+            valido=!hayDuplicados&&tokens.length == 3 && tokens[1].equals("-n");
+        }
+        return valido;    
+    }
+    
+     /**
+     * Metodo que utiliza contarOpciones y encontrarDuplicados
+     * para validar la sintaxis cut
+     * 
+     * @return si la sintaxis de cut es correcta
+     */    
+    private boolean validarCut(){        
+        boolean valido;
+        boolean hayDuplicados=encontrarDuplicados();
+        int tamanio=contarOpciones();
+        if (tokens.length!=6){
+            valido =false;
+        } else {        
+        valido = !hayDuplicados && tamanio==2 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f");
+        }
+        return valido;
+    }
      
      /**
      * Método que busca la existencia del caracter pipe y devuelve su posición
@@ -182,3 +271,4 @@ public class Validar {
         return indicePipe;    
     }
 }
+

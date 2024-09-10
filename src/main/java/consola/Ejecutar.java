@@ -626,18 +626,14 @@ public class Ejecutar {
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
             mensaje = obtenerLineas(ficheros, tokens[1],10,true);
-        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
-            // Caso con opción -n: mostrar las últimas n líneas
+        } else {// Caso con opción -n: mostrar las últimas n líneas           
             try {
                 int n = Integer.parseInt(tokens[2]);
                 mensaje = obtenerLineas(ficheros, tokens[3], n,true);
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
-        } else {
-            mensaje = "Sintaxis incorrecta.\nPruebe man tail\n";
-        }
-
+        } 
         return mensaje;
     }
     /**
@@ -656,7 +652,7 @@ public class Ejecutar {
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
             mensaje = obtenerLineas(ficheros, tokens[1],10,false);
-        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+        } else {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
                 numLineas = Integer.parseInt(tokens[2]);
@@ -664,10 +660,7 @@ public class Ejecutar {
             } catch (NumberFormatException e) {
                 mensaje = "El número de líneas debe ser un valor numérico.\n";
             }
-        } else {
-            mensaje = "Sintaxis incorrecta.\nPruebe man head\n";
-        }
-
+        } 
         return mensaje;
     }
 
@@ -717,72 +710,59 @@ public class Ejecutar {
     public String ejecutarCut(Ficheros ficheros) {
 
         String mensaje = "";
-
-        // Verificar si el comando tiene la cantidad correcta de tokens y las opciones
-        // correctas
-        if (tokens.length == 6 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f")) {
-            String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
-            String columnas = tokens[4]; // Campos a extraer
-            String archivo = tokens[5]; // Nombre del archivo
-            // Verificar si el archivo existe y no es un directorio
-            if (ficheros.esDirectorio(archivo)) {
-                mensaje = "Error: El archivo especificado no existe o es un directorio.";
-                // Cambiar color a rojo
-            } else if (ficheros.obtenerFichero(archivo).obtenerContenido() == null || ficheros.obtenerFichero(archivo).obtenerContenido().isEmpty()) {// Verificar que el archivo tenga contenido
-                mensaje = "Error: El archivo especificado está vacío.";
-                // Cambiar color a rojo    
-            } else if (!delimitador.equals(":")) {
-                mensaje = "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
-            } else { ///////////// caso valido
-                String[] columnasArray = columnas.split(",");
-                ArrayList<Integer> indicesCampos = new ArrayList<>();
-
-                // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
-                for (String campo : columnasArray) {
-                    try {
-                        indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
-                    } catch (NumberFormatException e) {
-                        mensaje = "Error: Los campos especificados no son números válidos.";
-                        // Cambiar color a rojo
-                    }
-                }
-
-                if (!mensaje.contains("Error")) {
-                    // Dividir el contenido del archivo por líneas
-                    String[] lineas = ficheros.obtenerFichero(archivo).obtenerContenido().split("\n");
-
-                    // Procesar cada línea
-                    for (String linea : lineas) {
-                        String[] partes = linea.split(delimitador); // Usar el delimitador especificado
-                        StringBuilder lineaResultado = new StringBuilder();////////////////////////////////////////////////////////PROBAR sin esta clase
-
-                        // Obtener las columnas después de los columnas especificados
-                        for (int indice : indicesCampos) {
-
-                            if (indice >= 0 && indice < partes.length) {
-                                if (lineaResultado.length() > 0) {
-                                    lineaResultado.append(delimitador); // Agregar delimitador entre columnas
-                                }
-                                lineaResultado.append(partes[indice]);
-                            } else {
-                                mensaje = "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
-                                // Cambiar color a rojo
-                                return mensaje;
-                            }
-                        }
-
-                        mensaje += lineaResultado.toString() + "\n";
-                    }
-                }
-
-            } ////////////////////// fin caso valido
-
-            // Cambiar color a celeste
-        } else {
-            mensaje += "Error: Sintaxis incorrecta. La sintaxis correcta es: cut -d ':' -f 1,4 archivo.txt";
+        String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
+        String columnas = tokens[4]; // Campos a extraer
+        String archivo = tokens[5]; // Nombre del archivo
+        // Verificar si el archivo existe y no es un directorio
+        if (ficheros.esDirectorio(archivo)) {
+            mensaje = "Error: El archivo especificado no existe o es un directorio.";
             // Cambiar color a rojo
-        }
+        } else if (ficheros.obtenerFichero(archivo).obtenerContenido() == null || ficheros.obtenerFichero(archivo).obtenerContenido().isEmpty()) {// Verificar que el archivo tenga contenido
+            mensaje = "Error: El archivo especificado está vacío.";
+            // Cambiar color a rojo    
+        } else if (!delimitador.equals(":")) {
+            mensaje = "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
+        } else { ///////////// caso valido
+            String[] columnasArray = columnas.split(",");
+            ArrayList<Integer> indicesCampos = new ArrayList<>();
 
+            // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
+            for (String campo : columnasArray) {
+                try {
+                    indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
+                    System.out.println(tokens.length);
+                } catch (NumberFormatException e) {
+                    mensaje = "Error: Los campos especificados no son números válidos.";                    
+                    // Cambiar color a rojo
+                }
+            }
+            if (!mensaje.contains("Error")) {
+                // Dividir el contenido del archivo por líneas
+                String[] lineas = ficheros.obtenerFichero(archivo).obtenerContenido().split("\n");
+                // Procesar cada línea
+                for (String linea : lineas) {
+                    String[] partes = linea.split(delimitador); // Usar el delimitador especificado
+                    StringBuilder lineaResultado = new StringBuilder();////////////PROBAR sin esta clase
+                    // Obtener las columnas después de los columnas especificados
+                    for (int indice : indicesCampos) {
+
+                        if (indice >= 0 && indice < partes.length) {
+                            if (lineaResultado.length() > 0) {
+                                lineaResultado.append(delimitador); // Agregar delimitador entre columnas
+                            }
+                            lineaResultado.append(partes[indice]);
+                        } else {
+                            mensaje = "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
+                            // Cambiar color a rojo
+                            return mensaje;
+                        }
+                    }
+
+                    mensaje += lineaResultado.toString() + "\n";// Cambiar color a celeste
+                }
+            }
+
+        } 
         return mensaje;
     }
 
@@ -801,13 +781,13 @@ public class Ejecutar {
         String[] mensajeTokenizado;
         boolean tieneNumeros=true;
 
-        if (getTokens().length == 2) {
+        if (tokens.length == 2) {
             mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
             Arrays.sort(mensajeTokenizado);
             for (String linea : mensajeTokenizado) {
                 mensaje += linea + "\n";
             }
-        } else if (getTokens().length == 3 && tokens[1].equals("-n")) {
+        } else {
             // Ordenar numéricamente las líneas del archivo especificado
             mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
             //Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
@@ -817,12 +797,10 @@ public class Ejecutar {
             for (int i = 0; i < mensajeTokenizado.length; i++) {
                 try {
                     numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
-
                 } catch (NumberFormatException e) {                  
                     
                     tieneNumeros=false;
                 }
-
             }
             if(!tieneNumeros){
             
@@ -834,11 +812,7 @@ public class Ejecutar {
                 mensaje += Integer.toString(n) + "\n";
             }
             }
-        } else {
-            // Sintaxis incorrecta
-            mensaje = "Sintaxis incorrecta\n";
         }
-
         return mensaje;
     }
 
