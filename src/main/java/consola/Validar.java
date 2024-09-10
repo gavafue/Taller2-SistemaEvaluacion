@@ -6,7 +6,6 @@ import java.util.Arrays;
 /**
  * Esta clase permite validar un comando y sus opciones.
  *
- * @since version 1
  */
 public class Validar {
 
@@ -23,16 +22,25 @@ public class Validar {
         this.tokens = this.comandoIngresado.split(" ");
     }
 
-    // Getters
+    /**
+     * @return comandoIngresado
+     */
     public String getComandoIngresado() {
         return comandoIngresado;
     }
 
+    /**
+     * @return tokens
+     */
     public String[] getTokens() {
         return tokens;
     }
 
-    // Setters
+    /**
+     * Establece el valor de comandoIngresado y tokens a partir del
+     *
+     * @param input de la linea de la terminal.
+     */
     public void setComandoIngresado(String input) {
         this.comandoIngresado = input.stripLeading();
         this.tokens = input.stripLeading().split(" ");
@@ -77,8 +85,6 @@ public class Validar {
      */
     private boolean validarOpciones(String[] opcionesValidas) {
         boolean todasValidas = true;
-        
-        
 
         for (int i = 1; i < tokens.length && todasValidas; i++) {
             todasValidas = esOpcionValida(tokens[i], opcionesValidas);
@@ -107,21 +113,21 @@ public class Validar {
         }
 
         return esValida;
-    }    
-    
+    }
+
     /**
      * Método que busca la existencia del caracter pipe y devuelve su posición
-     * 
-     * @return la poscion en la que se encuentra el pipe 
-     */    
+     *
+     * @return la poscion en la que se encuentra el pipe
+     */
     public int posicionPipe() {
-        int indicePipe=0;
+        int indicePipe = 0;
         // Creo un arraylist temporal para usar su metodo
         // contains(). Esto es mas corto que un for y el codigo mas legible          
-        ArrayList<String>tokensParaElPipe = new ArrayList<>(Arrays.asList(tokens));
-        if (tokensParaElPipe.contains("|")){         
-             indicePipe=tokensParaElPipe.indexOf("|");         
+        ArrayList<String> tokensParaElPipe = new ArrayList<>(Arrays.asList(tokens));
+        if (tokensParaElPipe.contains("|")) {
+            indicePipe = tokensParaElPipe.indexOf("|");
         }
-        return indicePipe;    
+        return indicePipe;
     }
 }
