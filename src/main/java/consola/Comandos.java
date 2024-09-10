@@ -96,6 +96,7 @@ public class Comandos {
         String opcLs [] = {"-l","-a"};
         String opcSort [] = {"-n"};
         String opcHeadTail [] = {"-n"};
+        String opcCut [] = {"-d","-f"};
         
         
         Comando com0 = new Comando(
@@ -130,7 +131,7 @@ public class Comandos {
         // especifica, las primeras 10.
         // cut RF34
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
-                "\nEjemplo: cut [opción] [argumento]", null); // admite como opciones “-d [delimitador]"
+                "\nEjemplo: cut [opción] [argumento]", opcCut); // admite como opciones “-d [delimitador]"
         // sort RF38
         // creo que el RF38 se podria redactarse distinto (si estamos a tiempo): La
         // consola permitirá el comando “sort” para mostrar en pantalla las líneas de un
