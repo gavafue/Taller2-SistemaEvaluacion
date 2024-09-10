@@ -9,6 +9,8 @@ import javax.swing.JTextArea;
 /**
  * Esta clase se encarga de ejecutar los comandos.
  *
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * 
  */
 public class Ejecutar {
 
@@ -78,7 +80,7 @@ public class Ejecutar {
      * @return mensaje
      */
     public String obtenerAyudaComando(Comandos comandos) {
-        String mensaje = "";
+        String mensaje;
         try {
             mensaje = "[AYUDA]\n Descripcion: " + comandos.obtenerDescripcion(tokens[1]) + "\n Ejemplos: "
                     + comandos.obtenerEjemplo(tokens[1]);
@@ -98,7 +100,7 @@ public class Ejecutar {
      * @param salida donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
-        String mensaje = "";
+        String mensaje;
         actualizarHora();
 
         switch (tokens[0]) {
@@ -149,7 +151,7 @@ public class Ejecutar {
                 break;
 
             default:
-                mensaje = "Sintaxis incorrecta\n";
+                mensaje = "[Comando inexistente]\n";
                 break;
         }
 
@@ -158,21 +160,18 @@ public class Ejecutar {
     }
 
     /**
-     * Ejecuta el comando <i>man</i.
+     * Ejecuta el comando man
      *
      * @param comandos Objeto que contiene los comandos disponibles.
-     * @param sintaxis Etiqueta donde mostrar mensajes de sintaxis.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarMan(Comandos comandos) {
-        String mensaje = "";
+        String mensaje;
         if (tokens != null && tokens.length == 1) {
             mensaje = comandos.obtenerDescripcion("man") + "\n" + comandos.obtenerEjemplo("man");
-        } else if (tokens.length == 2) {
+        } else {//Si tiene mas de 1 token es la ayuda de un comando
             mensaje = obtenerAyudaComando(comandos);
-        } else {
-            mensaje = "Sintaxis incorrecta.\nIntente man [nombre_del_comando] o man";
-        }
+        } 
         return mensaje;
     }
 
@@ -183,12 +182,10 @@ public class Ejecutar {
      * @return mensaje resultante de la operacion.
      */
     public String ejecutarMkdir(Ficheros ficheros) {
-        String mensaje = "";
-        if (tokens != null && tokens.length == 2) {
-            mensaje = crearDirectorio(tokens[1], ficheros);
-        } else {
-            mensaje = "Sintaxis incorrecta.\nIntente mkdir [nombre] o man mkdir\n";
-        }
+        String mensaje;        
+        
+        mensaje = crearDirectorio(tokens[1], ficheros);
+        
         return mensaje;
     }
 
@@ -217,13 +214,9 @@ public class Ejecutar {
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return Mensaje resultante de la ejecución.
      */
-    public String ejecutarRmdir(Ficheros ficheros) {
-        String mensaje;
-        if (tokens != null && tokens.length == 2) {
-            mensaje = eliminarDirectorio(tokens[1], ficheros);
-        } else {
-            mensaje = "Sintaxis incorrecta.\nIntente rmdir [nombre] o man rmdir\n";
-        }
+    public String ejecutarRmdir(Ficheros ficheros) {       
+        String mensaje = eliminarDirectorio(tokens[1], ficheros);
+       
         return mensaje;
     }
 
@@ -254,17 +247,14 @@ public class Ejecutar {
      */
     public String ejecutarClear(JTextArea salida) {
         String mensaje;
-        if (tokens != null && tokens.length == 1) {
-            salida.setText("");
-            mensaje = "";
-        } else {
-            mensaje = "Sintaxis incorrecta\n";
-        }
+        
+        salida.setText("");
+        mensaje = "";
         return mensaje;
     }
 
     /**
-     * Ejecuta el comando <i>cat</i> para mostrar el contenido de un archivo si
+     * Ejecuta el comando cat para mostrar el contenido de un archivo si
      * existe y no es un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -274,17 +264,14 @@ public class Ejecutar {
     public String ejecutarCat(Ficheros ficheros) {
         String mensaje;
 
-        if (tokens.length != 2) {
-            mensaje = "Sintaxis incorrecta.\nIntente cat [nombre] o man cat\n";
+        String nombreArchivo = tokens[1];
+        if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
+            Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
+            mensaje = archivo.obtenerContenido() + "\n";
         } else {
-            String nombreArchivo = tokens[1];
-            if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
-                Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
-                mensaje = archivo.obtenerContenido() + "\n";
-            } else {
-                mensaje = "No existe un archivo con ese nombre\n";
-            }
+            mensaje = "No existe un archivo con ese nombre\n";
         }
+
         return mensaje;
     }
 
@@ -298,40 +285,31 @@ public class Ejecutar {
      */
     public String ejecutarMv(Ficheros ficheros) {
         String mensaje;
+        String nombreActual = tokens[1];
+        String nombreNuevo = tokens[2];
 
-        // Verifica la cantidad de tokens para determinar la sintaxis correcta.
-        if (tokens.length != 3) {
-            mensaje = "[" + getHora() + "]\n"
-                    + "Sintaxis incorrecta.\nIntente mv [nombreActual] [nombreNuevo] o man mv\n";
-        } else {
-            String nombreActual = tokens[1];
-            String nombreNuevo = tokens[2];
+        // Verifica si el archivo existe y no es un directorio.
+        if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
 
-            // Verifica si el archivo existe y no es un directorio.
-            if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
-
-                // Encuentra el índice del archivo en la lista.
-                int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
-                    i++;
-                }
-
-                // Cambia el nombre del archivo.
-                ficheros.obtenerFichero(i).setNombre(nombreNuevo);
-
-                // Construye el mensaje de éxito.
-                mensaje = "El fichero " + nombreActual + " ha sido renombrado a "
-                        + nombreNuevo
-                        + "\n";
-            } else {
-                // Si no existe el archivo, muestra un mensaje de error.
-                mensaje = "No existe un archivo con ese nombre\n";
+            // Encuentra el índice del archivo en la lista.
+            int i = 0;
+            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
+                i++;
             }
+            // Cambia el nombre del archivo.
+            ficheros.obtenerFichero(i).setNombre(nombreNuevo);
+
+            // Construye el mensaje de éxito.
+            mensaje = "El fichero " + nombreActual + " ha sido renombrado a "
+                    + nombreNuevo
+                    + "\n";
+        } else {
+            // Si no existe el archivo, muestra un mensaje de error.
+            mensaje = "No existe un archivo con ese nombre\n";
         }
-
-        return mensaje;
-    }
-
+    return mensaje;
+}
+    
     /**
      * Ejecuta el comando <i>ls</i> para listar archivos y directorios según los
      * parámetros proporcionados.
@@ -533,19 +511,14 @@ public class Ejecutar {
      */
     public String ejecutarKill(Procesos procesos) {
         String mensaje;
-
-        if (tokens.length == 2) {
-            String procesoIdStr = tokens[1];
-
-            int procesoID = Integer.parseInt(procesoIdStr);
-            if (procesos.existeProceso(procesoID)) {
-                procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
-                mensaje = "Proceso eliminado\n";
-            } else {
-                mensaje = "No existe proceso con pid" + procesoID + "\n";
-            }
+        String procesoIdStr = tokens[1];
+        int procesoID = Integer.parseInt(procesoIdStr);
+        
+        if (procesos.existeProceso(procesoID)) {
+            procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
+            mensaje = "Proceso eliminado\n";
         } else {
-            mensaje = "Sintaxis incorrecta.\nPruebe man kill\n";
+            mensaje = "No existe proceso con pid" + procesoID + "\n";
         }
 
         return mensaje;
@@ -560,19 +533,15 @@ public class Ejecutar {
      * error si la sintaxis es incorrecta.
      */
     public String ejecutarPs(Procesos procesos) {
-        String mensaje = "";
+        String mensaje;
 
-        if (tokens.length == 1) {
-            if (procesos.getListaProcesos().isEmpty()) {
-                mensaje = "No existen procesos en ejecución\n";
-            } else {
-                mensaje = "PID | USER | % MEMORY | % CPU | TIME | COMMAND\n";
-                for (Proceso proceso : procesos.getListaProcesos()) {
-                    mensaje += proceso.toString() + "\n";
-                }
-            }
+        if (procesos.getListaProcesos().isEmpty()) {
+            mensaje = "No existen procesos en ejecución\n";
         } else {
-            mensaje = "Sintaxis incorrecta.\nPruebe man ps\n";
+            mensaje = "PID | USER | % MEMORY | % CPU | TIME | COMMAND\n";
+            for (Proceso proceso : procesos.getListaProcesos()) {
+                mensaje += proceso.toString() + "\n";
+            }
         }
 
         return mensaje;
@@ -587,27 +556,22 @@ public class Ejecutar {
      * mensaje de error si la expresión es incorrecta.
      */
     private String ejecutarGrep(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;       
+        String expresion = tokens[1];
+        String nombreArchivo = tokens[2];
 
-        if (tokens.length != 3) {
-            mensaje = "Sintaxis incorrecta: debe ingresar la expresión a buscar y el nombre del archivo.";
-        } else {
-            String expresion = tokens[1];
-            String nombreArchivo = tokens[2];
-
-            if (ficheros.existeFichero(nombreArchivo)) {
-                String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
-                if (contenidoArchivo.contains(expresion)) {
-                    mensaje = "Se encontró la expresión '" + expresion + "' en el archivo '" + nombreArchivo + "'.";
-                    // Por hacer: mostrar el texto resaltado o contar cantidad de ocurrencias.
-                } else {
-                    mensaje = "La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "'.";
-                }
+        if (ficheros.existeFichero(nombreArchivo)) {
+            String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
+            if (contenidoArchivo.contains(expresion)) {
+                mensaje = "Se encontró la expresión '" + expresion + "' en el archivo '" + nombreArchivo + "'.";
+                // Por hacer: mostrar el texto resaltado o contar cantidad de ocurrencias.
             } else {
-                mensaje = "El archivo '" + nombreArchivo + "' indicado no existe.";
+                mensaje = "La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "'.";
             }
+        } else {
+            mensaje = "El archivo '" + nombreArchivo + "' indicado no existe.";
         }
-
+        
         return mensaje;
     }
 
@@ -725,7 +689,6 @@ public class Ejecutar {
         } else { ///////////// caso valido
             String[] columnasArray = columnas.split(",");
             ArrayList<Integer> indicesCampos = new ArrayList<>();
-
             // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
             for (String campo : columnasArray) {
                 try {
@@ -777,44 +740,73 @@ public class Ejecutar {
      * error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
-        String mensaje = "";
+        String mensaje;
         String[] mensajeTokenizado;
-        boolean tieneNumeros=true;
+        boolean tieneNumeros=true;        
 
-        if (tokens.length == 2) {
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
-            Arrays.sort(mensajeTokenizado);
-            for (String linea : mensajeTokenizado) {
-                mensaje += linea + "\n";
-            }
-        } else {
-            // Ordenar numéricamente las líneas del archivo especificado
-            mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-            //Arrays.sort(mensajeTokenizado, Comparator.comparingInt(Integer::parseInt));
-            // De esta otra manera queda mas legible la logica de la operacion de comparacion y ordenamiento en funcion de esta.
-            // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0. Y luego se ordenan esos numeros.
-            int[] numeritos = new int[mensajeTokenizado.length];
-            for (int i = 0; i < mensajeTokenizado.length; i++) {
-                try {
-                    numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
-                } catch (NumberFormatException e) {                  
-                    
-                    tieneNumeros=false;
+        try{
+            if (tokens.length == 2) { 
+                mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
+                mensaje=ordenarAlfabeticamente(mensajeTokenizado);           
+            } else {
+                // Ordenar numéricamente las líneas del archivo especificado
+                mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
+                // De esta otra manera queda mas legible la logica de la operacion de comparacion y ordenamiento en funcion de esta.
+                // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0. Y luego se ordenan esos numeros.
+                int[] numeritos = new int[mensajeTokenizado.length];
+                for (int i = 0; i < mensajeTokenizado.length; i++) {
+                    try {
+                        numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
+                    } catch (NumberFormatException e) {                
+                        tieneNumeros=false;
+                    }
+                }
+                if(!tieneNumeros){               
+                    mensaje = ordenarAlfabeticamente(mensajeTokenizado)+"\n[El contenido no es numèrico]";
+                } else {                
+                    mensaje= ordenarNumeros(numeritos);
                 }
             }
-            if(!tieneNumeros){
-            
-                mensaje += "El archivo no contiene numeros";
-            } else {
-            Arrays.sort(numeritos);
-
-            for (int n : numeritos) {
-                mensaje += Integer.toString(n) + "\n";
-            }
-            }
-        }
+        } catch (NullPointerException ex){            
+            mensaje= "No existe el archivo";        
+          }
         return mensaje;
     }
+   
+    /**
+     * Metodo que recibe un arreglo de String y las ordena alfabeticamente
+     * agregando un salto de linea al final de cada elemento
+     * 
+     * @param lineas es un arreglo con los elemenos a ordenar
+     * @return un String con las lineas ordenadas
+     */    
+    private String ordenarAlfabeticamente(String [] lineas) {       
+       String ordenadas="";      
+       
+       Arrays.sort(lineas);       
+       for (String linea : lineas) {
+            ordenadas += linea + "\n";
+        }
+        return ordenadas;    
+    }
+    
+     /**
+     * Metodo que recibe un arreglo de numeros, los ordena de manera ascendente
+     * y los devuelve en un String separados por saltos de linea
+     * 
+     * @param numeros es el arreglo con los elemenos a ordenar
+     * @return un String con las lineas ordenadas
+     */    
+    private String ordenarNumeros (int [] numeros) {
+        String ordenados="";
+        Arrays.sort(numeros);
+
+        for (int n : numeros) {
+             ordenados += Integer.toString(n) + "\n";
+        }
+        return ordenados; 
+    
+    }   
 
     /**
      * Método que permite modificar los permisos de un archivo y/o directorio.
@@ -825,12 +817,9 @@ public class Ejecutar {
     public String ejecutarChmod(Ficheros ficheros) {
         String permisos = tokens[1];
         String fich = tokens[2];
-        String mensaje = "";
-
-        // Verificar la cantidad de argumentos
-        if (tokens.length != 3) {
-            mensaje = "Sintaxis incorrecta: número incorrecto de argumentos";
-        } else if (!ficheros.existeFichero(fich)) {
+        String mensaje;
+        
+        if (!ficheros.existeFichero(fich)) {
             // Verificar si el fichero existe
             mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
         } else if (!validarLongitudPermisos(permisos)) {
@@ -858,7 +847,7 @@ public class Ejecutar {
         }
 
         return mensaje;
-    }
+    } 
 
     /**
      * Este metodo es para ejecutar el comando | tambien llamado 'pipe'.
@@ -882,7 +871,7 @@ public class Ejecutar {
             tokens = tokensA;
             msjComando1 = ejecutarHead(ficheros);
         } else {
-            mensaje = "Sintaxis incorrecta en primer comando. Debe ser head o tail de un archivo.";
+            mensaje = "Sintaxis incorrecta: el primer comando debe ser head o tail";
         }
 
         if (tokensB[0].equals("grep")) { // segundo bloque de IFs para procesar el segundo comando
@@ -899,7 +888,7 @@ public class Ejecutar {
             ficheros.eliminarFichero("especificado");
             mensaje = msjComando2;
         } else {
-            mensaje = "Sintaxis incorrecta en segundo comando. Debe ser grep.";
+            mensaje = "Sintaxis incorrecta: en segundo comando debe ser grep.";
         }
 
         return mensaje;

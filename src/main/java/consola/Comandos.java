@@ -5,6 +5,7 @@ import java.util.HashMap;
 /**
  * Esta clase permite crear un HashMap de comandos para la consola Linux.
  *
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Comandos {
 
@@ -133,8 +134,7 @@ public class Comandos {
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
                 "\nEjemplo: cut [opción] [argumento]", opcCut); // admite como opciones “-d [delimitador]"
         // sort RF38
-        // creo que el RF38 se podria redactarse distinto (si estamos a tiempo): La
-        // consola permitirá el comando “sort” para mostrar en pantalla las líneas de un
+        // La consola permitirá el comando “sort” para mostrar en pantalla las líneas de un
         // archivo de manera ordenada. No hay modificacion en el archivo.
         Comando com14 = new Comando("Para ordenar las líneas de un archivo. ",
                 "\n Ejemplo: sort [opciones] [archivo]",

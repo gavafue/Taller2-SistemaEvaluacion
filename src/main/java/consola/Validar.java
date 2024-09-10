@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * Esta clase permite validar un comando y sus opciones
  *
- * @since
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Validar {
 
@@ -57,8 +57,11 @@ public class Validar {
         }
         if (esValido) {
             String[] opcionesValidas = comandos.obtenerOpciones(comando);
+            //Se validan los comandos que permiten opciones y el chmod
             if (opcionesValidas != null) {
                 esValido = validarOpciones();
+            }else {
+                esValido=validarSintaxis();            
             }
         }
 
@@ -270,5 +273,54 @@ public class Validar {
         }
         return indicePipe;    
     }
+    
+    /**
+     * Metodo para validar la sintaxis de los comandos que no utilizan modificadores.     
+     *       
+     * @return la validez de la sintaxis en base a la cantidad de tokens esperados
+     */    
+    private boolean validarSintaxis() {
+        boolean sintaxisCorrecta = false;
+        
+        switch (tokens[0]){                    
+
+            case "chmod":
+                        sintaxisCorrecta=(tokens.length==3);
+                        break;
+            case "cp":
+                        sintaxisCorrecta=false;//Futura implementacion
+                        break;
+            case "mv":
+                        sintaxisCorrecta=(tokens.length==3);
+                        break;
+            case "mkdir":
+                        sintaxisCorrecta=(tokens.length==2);
+                        break;
+            case "grep":
+                        sintaxisCorrecta=(tokens.length==3);                           
+                        break;
+            case "kill":
+                        sintaxisCorrecta=(tokens.length==2);                           
+                        break;
+            case "cat":
+                        sintaxisCorrecta=(tokens.length==2);                           
+                        break;
+            case "man":
+                        sintaxisCorrecta=(tokens.length==1)||(tokens.length==2);                            
+                        break;
+            case "rmdir":
+                        sintaxisCorrecta=(tokens.length==2);
+                        break;
+            case "clear":
+                        sintaxisCorrecta=(tokens.length==1);
+                        break;
+            case "ps":
+                        sintaxisCorrecta=(tokens.length==1);
+                        break;
+
+        }
+        return sintaxisCorrecta;
+    }
+  
 }
 
