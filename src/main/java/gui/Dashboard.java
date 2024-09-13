@@ -27,6 +27,13 @@ public class Dashboard extends javax.swing.JFrame {
         initStyles();
         this.cliente = cliente;
         this.rol = rol;
+        BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente);
+        panelBienvenida.setSize(730, 520);
+        panelBienvenida.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(panelBienvenida);
+        panelContent.revalidate();
+        panelContent.repaint();
 
     }
 
@@ -241,7 +248,13 @@ public class Dashboard extends javax.swing.JFrame {
     }// GEN-LAST:event_btnEvaluacionesActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
-        // TODO add your handling code here:
+        BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente);
+        panelBienvenida.setSize(730, 520);
+        panelBienvenida.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(panelBienvenida);
+        panelContent.revalidate();
+        panelContent.repaint();
     }// GEN-LAST:event_btnInicioActionPerformed
 
     /**

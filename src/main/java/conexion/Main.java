@@ -1,7 +1,6 @@
 package conexion;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import gui.Dashboard;
 import gui.Login;
 import java.io.IOException;
 
