@@ -292,7 +292,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Este método válida el rol del cliente actual y desplega la ventana
      * correspondiente.
-     * 
+     *
      * @return true si es válido o false en caso contrario.
      * @throws FileNotFoundException
      * @throws IOException
@@ -306,8 +306,11 @@ public class Login extends javax.swing.JFrame {
             switch (rol) {
                 case "docente":
                 case "estudiante":
-                    GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
-                    evaluaciones.setVisible(true);
+
+                    /*GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
+                    evaluaciones.setVisible(true)*/
+                    Dashboard dashboard = new Dashboard(cliente, rol);
+                    dashboard.setVisible(true);
                     validacion = true;
                     break;
                 case "administrativo":
