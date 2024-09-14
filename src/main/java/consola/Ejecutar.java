@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 /**
  * Esta clase se encarga de ejecutar los comandos.
@@ -85,7 +85,7 @@ public class Ejecutar {
             mensaje = "[AYUDA]\n Descripcion: " + comandos.obtenerDescripcion(tokens[1]) + "\n Ejemplos: "
                     + comandos.obtenerEjemplo(tokens[1]);
         } catch (Exception e) {
-            mensaje = "! Error al consultar informacion sobre el comando" + tokens[1];
+            mensaje = ">> Error al consultar informacion sobre el comando <<" + tokens[1];
         }
         return mensaje;
     }
@@ -99,7 +99,7 @@ public class Ejecutar {
      * @param procesos - procesos activos en el sistema
      * @param salida   - donde mostrar el resultado de la ejecucion.
      */
-    public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextArea salida) {
+    public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
         String mensaje;
         actualizarHora();
 
@@ -151,7 +151,7 @@ public class Ejecutar {
                 break;
 
             default:
-                mensaje = "[Comando inexistente]\n";
+                mensaje = ">> Comando inexistente <<\n";
                 break;
         }
 
@@ -201,9 +201,9 @@ public class Ejecutar {
         if (!ficheros.existeFichero(nombreDirectorio)) {
             Directorio nuevo = new Directorio(nombreDirectorio);
             ficheros.agregarFichero(nuevo);
-            mensaje = "Se ha creado el directorio " + nombreDirectorio;
+            mensaje = "-Se ha creado el directorio-" + nombreDirectorio;
         } else {
-            mensaje = "Ya existe un fichero con el nombre" + nombreDirectorio;
+            mensaje = ">> Ya existe un fichero con el nombre <<" + nombreDirectorio;
         }
         return mensaje;
     }
@@ -231,9 +231,9 @@ public class Ejecutar {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             ficheros.eliminarFichero(nombreDirectorio);
-            mensaje = "Directorio eliminado\n";
+            mensaje = "-Directorio eliminado-\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
@@ -245,11 +245,11 @@ public class Ejecutar {
      * @param salida JTextÁrea que se limpia.
      * @return Mensaje resultante de la ejecución.
      */
-    public String ejecutarClear(JTextArea salida) {
-        String mensaje;
+    public String ejecutarClear(JTextPane salida) {
+        String mensaje="";
         
-        salida.setText("");
-        mensaje = "";
+        salida.setText(" ");
+        
         return mensaje;
     }
 
@@ -269,7 +269,7 @@ public class Ejecutar {
             Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
             mensaje = archivo.obtenerContenido() + "\n";
         } else {
-            mensaje = "No existe un archivo con ese nombre\n";
+            mensaje = ">> No existe un archivo con ese nombre <<\n";
         }
 
         return mensaje;
@@ -300,12 +300,12 @@ public class Ejecutar {
             ficheros.obtenerFichero(i).setNombre(nombreNuevo);
 
             // Construye el mensaje de éxito.
-            mensaje = "El fichero " + nombreActual + " ha sido renombrado a "
+            mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
                     + nombreNuevo
-                    + "\n";
+                    + "-\n";
         } else {
             // Si no existe el archivo, muestra un mensaje de error.
-            mensaje = "No existe un archivo con ese nombre\n";
+            mensaje = ">> No existe un archivo con ese nombre <<\n";
         }
     return mensaje;
 }
@@ -435,7 +435,7 @@ public class Ejecutar {
             }
             mensaje = ficheros.obtenerFichero(i).obtenerContenido() + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
@@ -458,7 +458,7 @@ public class Ejecutar {
         if (ficheros.existeFichero(segundoParametro) && ficheros.esDirectorio(segundoParametro)) {
             mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + segundoParametro + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre.\n";
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
@@ -479,7 +479,7 @@ public class Ejecutar {
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             mensaje = "[" + getHora() + "]\nComando ls -a al directorio " + nombreDirectorio + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
@@ -500,7 +500,7 @@ public class Ejecutar {
             mensaje = "[" + getHora() + "]\nComando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
                     + "\n";
         } else {
-            mensaje = "No existe un directorio con ese nombre\n";
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
@@ -518,9 +518,9 @@ public class Ejecutar {
         
         if (procesos.existeProceso(procesoID)) {
             procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
-            mensaje = "Proceso eliminado\n";
+            mensaje = "-Proceso eliminado-\n";
         } else {
-            mensaje = "No existe proceso con pid" + procesoID + "\n";
+            mensaje = ">> No existe proceso con pid <<" + procesoID + "\n";
         }
 
         return mensaje;
@@ -538,7 +538,7 @@ public class Ejecutar {
         String mensaje;
 
         if (procesos.getListaProcesos().isEmpty()) {
-            mensaje = "No existen procesos en ejecución\n";
+            mensaje = ">> No existen procesos en ejecución <<\n";
         } else {
             mensaje = "PID | USER | % MEMORY | % CPU | TIME | COMMAND\n";
             for (Proceso proceso : procesos.getListaProcesos()) {
@@ -558,20 +558,25 @@ public class Ejecutar {
      *         mensaje de error si la expresión es incorrecta.
      */
     private String ejecutarGrep(Ficheros ficheros) {
-        String mensaje;       
+        String mensaje ="";       
         String expresion = tokens[1];
         String nombreArchivo = tokens[2];
+        boolean existeExpresion = false;
 
         if (ficheros.existeFichero(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
-            if (contenidoArchivo.contains(expresion)) {
-                mensaje = "Se encontró la expresión '" + expresion + "' en el archivo '" + nombreArchivo + "'.";
-                // Por hacer: mostrar el texto resaltado o contar cantidad de ocurrencias.
-            } else {
-                mensaje = "La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "'.";
+            String [] porLineas = contenidoArchivo.split("\n");
+            for (String linea : porLineas){
+                if (linea.contains(expresion)){
+                    existeExpresion=true;
+                    mensaje += "-Coindicencia-\n"+linea+"\n";                }
             }
-        } else {
-            mensaje = "El archivo '" + nombreArchivo + "' indicado no existe.";
+            if (!existeExpresion) {
+                mensaje = ">> La expresión'" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<";
+                }
+            
+        }else {
+            mensaje = ">> El archivo '" + nombreArchivo + "' indicado no existe <<";
         }
         
         return mensaje;
@@ -597,7 +602,7 @@ public class Ejecutar {
                 int n = Integer.parseInt(tokens[2]);
                 mensaje = obtenerLineas(ficheros, tokens[3], n,true);
             } catch (NumberFormatException e) {
-                mensaje = "El número de líneas debe ser un valor numérico.\n";
+                mensaje = ">> El número de líneas debe ser un valor numérico << \n";
             }
         } 
         return mensaje;
@@ -624,7 +629,7 @@ public class Ejecutar {
                 numLineas = Integer.parseInt(tokens[2]);
                 mensaje = obtenerLineas(ficheros, tokens[3], numLineas,false);
             } catch (NumberFormatException e) {
-                mensaje = "El número de líneas debe ser un valor numérico.\n";
+                mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
             }
         } 
         return mensaje;
@@ -657,7 +662,7 @@ public class Ejecutar {
             }
         } catch (NullPointerException e) {//No se encontro el archivo
         
-            mensaje += "No existe el arhivo";
+            mensaje += ">> No existe el arhivo <<";
         }
         
         return mensaje;
@@ -681,13 +686,13 @@ public class Ejecutar {
         String archivo = tokens[5]; // Nombre del archivo
         // Verificar si el archivo existe y no es un directorio
         if (ficheros.esDirectorio(archivo)) {
-            mensaje = "Error: El archivo especificado no existe o es un directorio.";
+            mensaje = ">> Error: El archivo especificado no existe o es un directorio <<";
             // Cambiar color a rojo
         } else if (ficheros.obtenerFichero(archivo).obtenerContenido() == null || ficheros.obtenerFichero(archivo).obtenerContenido().isEmpty()) {// Verificar que el archivo tenga contenido
-            mensaje = "Error: El archivo especificado está vacío.";
+            mensaje = ">> Error: El archivo especificado está vacío <<";
             // Cambiar color a rojo    
         } else if (!delimitador.equals(":")) {
-            mensaje = "Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos).";
+            mensaje = ">> Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos) <<";
         } else { ///////////// caso valido
             String[] columnasArray = columnas.split(",");
             ArrayList<Integer> indicesCampos = new ArrayList<>();
@@ -697,7 +702,7 @@ public class Ejecutar {
                     indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
                     System.out.println(tokens.length);
                 } catch (NumberFormatException e) {
-                    mensaje = "Error: Los campos especificados no son números válidos.";                    
+                    mensaje = ">> Error: Los campos especificados no son números válidos <<";                    
                     // Cambiar color a rojo
                 }
             }
@@ -717,7 +722,7 @@ public class Ejecutar {
                             }
                             lineaResultado.append(partes[indice]);
                         } else {
-                            mensaje = "Error: El índice de columna especificado está fuera del rango de columnas en la línea.";
+                            mensaje = ">> Error: El índice de columna especificado está fuera del rango de columnas en la línea <<";
                             // Cambiar color a rojo
                             return mensaje;
                         }
@@ -764,13 +769,13 @@ public class Ejecutar {
                     }
                 }
                 if(!tieneNumeros){               
-                    mensaje = ordenarAlfabeticamente(mensajeTokenizado)+"\n[El contenido no es numèrico]";
+                    mensaje = ordenarAlfabeticamente(mensajeTokenizado)+"\n>> El contenido no es numèrico <<";
                 } else {                
                     mensaje= ordenarNumeros(numeritos);
                 }
             }
         } catch (NullPointerException ex){            
-            mensaje= "No existe el archivo";        
+            mensaje= ">> No existe el archivo <<";        
           }
         return mensaje;
     }
@@ -823,28 +828,28 @@ public class Ejecutar {
         
         if (!ficheros.existeFichero(fich)) {
             // Verificar si el fichero existe
-            mensaje = "Sintaxis incorrecta: el fichero o directorio '" + fich + "' no existe";
+            mensaje = ">> Sintaxis incorrecta: el fichero o directorio] '" + fich + "' no existe <<";
         } else if (!validarLongitudPermisos(permisos)) {
             // Validar longitud de permisos
-            mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
+            mensaje = ">> Sintaxis incorrecta: longitud incorrecta de permisos <<";
         } else {
             switch (permisos.length()) {
                 case 3:
                     if (!aplicarPermisosNumericos(ficheros, fich, permisos)) {
-                        mensaje = "Sintaxis incorrecta: valor de permisos inválido";
+                        mensaje = ">> Sintaxis incorrecta: valor de permisos inválido <<";
                     } else {
-                        mensaje = "Comando ejecutado correctamente";
+                        mensaje = "-Comando ejecutado correctamente-";
                     }
                     break;
                 case 9:
                     if (!aplicarPermisosSimbolicos(ficheros, fich, permisos)) {
-                        mensaje = "Sintaxis incorrecta: permisos inválidos";
+                        mensaje = ">> Sintaxis incorrecta: permisos inválidos <<";
                     } else {
-                        mensaje = "Comando ejecutado correctamente";
+                        mensaje = "-Comando ejecutado correctamente-";
                     }
                     break;
                 default:
-                    mensaje = "Sintaxis incorrecta: longitud incorrecta de permisos";
+                    mensaje = ">> Sintaxis incorrecta: longitud incorrecta de permisos <<";
             }
         }
 
@@ -873,7 +878,7 @@ public class Ejecutar {
             tokens = tokensA;
             msjComando1 = ejecutarHead(ficheros);
         } else {
-            mensaje = "Sintaxis incorrecta: el primer comando debe ser head o tail";
+            mensaje = ">> Sintaxis incorrecta: el primer comando debe ser head o tail <<";
         }
 
         if (tokensB[0].equals("grep")) { // segundo bloque de IFs para procesar el segundo comando
@@ -890,7 +895,7 @@ public class Ejecutar {
             ficheros.eliminarFichero("especificado");
             mensaje = msjComando2;
         } else {
-            mensaje = "Sintaxis incorrecta: en segundo comando debe ser grep.";
+            mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser grep <<";
         }
 
         return mensaje;
