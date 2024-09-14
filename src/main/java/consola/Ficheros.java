@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * Esta clase permite gestionar una coleccion de ficheros.
  *
- *@author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Ficheros {
 
@@ -180,6 +180,13 @@ public class Ficheros {
                 + "dato1:dato2:dato3:dato4\n"
                 + "informacion1:informacion2:informacion3:informacion4");
         Directorio dir2 = new Directorio("dir2");
+        //###################################################
+
+        dir2.agregarContenido(dir1);
+        dir2.agregarContenido(arch1);
+        dir2.agregarContenido(dir2);
+        
+        //###################################################
         Directorio dir3 = new Directorio("dir3");
         Archivo arch2 = new Archivo("arch2.txt",
                 "La Celeste se impuso por 3-1 en Miami,\n donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo\n y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final,\n y en la última descontó Panamá por un lindo gol de Murillo. FIN.");
@@ -194,7 +201,7 @@ public class Ficheros {
         Archivo m = new Archivo("m.html", "Hola \n10. Chau \n99. Hola 232342\n Chau");
         Archivo n = new Archivo(".secreto.txt", "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
-        "10\n3\n7\n300\n40\n1\n230");
+                "10\n3\n7\n300\n40\n1\n230");
 
         //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
@@ -208,6 +215,14 @@ public class Ficheros {
         agregarFichero(n);
         agregarFichero(algunosNumeros);
 
+    }
 
+    @Override
+    public String toString() {
+        String mensaje = null;
+        for (Fichero f : getListaFicheros()) {
+            mensaje += f.toString() + "\n";
+        }
+        return mensaje;
     }
 }

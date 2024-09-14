@@ -2,8 +2,8 @@ package consola;
 
 /**
  * Esta clase permite crear un fichero de tipo directorio.
- * 
- *  Esta clase extiende la clase fichero.
+ *
+ * Esta clase extiende la clase fichero.
  *
  */
 public class Directorio extends Fichero {
@@ -40,6 +40,16 @@ public class Directorio extends Fichero {
     }
 
     /**
+     * Agrega un nuevo fichero a la coleccion que representa el contenido de
+     * este fichero.
+     *
+     * @param contenido.
+     */
+    public void agregarContenido(Fichero contenido) {
+        this.contenido.agregarFichero(contenido);
+    }
+
+    /**
      * Este metodo sobreescribe el metodo de Fichero para responder indicando
      * que es un fichero sin mostrar el contenido. De momento esta implementado
      * para manejar un solo nivel en el sistema de archivos. Es decir, no hay
@@ -47,7 +57,15 @@ public class Directorio extends Fichero {
      */
     @Override
     public String obtenerContenido() {
-        return "Esto es un directorio";
+        String s = null;
+        if (getContenido().toString() == null) {
+            s = "\n Directorio vacio.";
+        } else {
+            s = getContenido().toString();
+        }
+ 
+        //return "Esto es un directorio";
+        return s;
     }
 
 }
