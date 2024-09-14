@@ -17,27 +17,32 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 /**
- *
- * @author santi
+ * Clase que representa los elementos graficos de la consola y los eventos asociados 
+ * 
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class LaConsola extends javax.swing.JFrame {
     
-    // Colecciones necesarias para crear la consola de Linux
+   /**
+    * Colecciones necesarias para crear la consola de Linux
+    */ 
     private Comandos hashComandos;
     private Ficheros listaFicheros;
     private Procesos listaProcesos;   
-    // String para almacenar el ultimo comando ejecutado
+   /**
+    * String para almacenar el ultimo comando ejecutado
+    */ 
     private String ultimoComando;
-    //Prompt y estilos
+   /**
+    * Prompt y estilos
+    */
     private StyledDocument doc;
     private Style estiloPrompt, estiloComando, estiloError, estiloOK;
     private String prompt = "LaConsola@inet:~$ ";
-    private int posicionPrompt;
-    
-
-    /**
-     * Constructor de la consola
-     */
+    private int posicionPrompt;   
+   /**
+    * Constructor de la consola
+    */
     public LaConsola() {
         
         hashComandos = new Comandos();        
@@ -98,6 +103,9 @@ public class LaConsola extends javax.swing.JFrame {
        });
    }
 
+    /**
+     * Metodo que colocar el prompt y el cursor en la posicion correcta
+     */
     private void mostrarPrompt() {
         try {
             // Insertar el prompt en verde
@@ -109,6 +117,12 @@ public class LaConsola extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método que muestra el resultado de la ejecucion aplicando un estilo concreto.
+     * 
+     * @param  mensaje que se desea mostrar con el estillo correcto
+     * @throws BadLocationException 
+     */
     private void mostrarConEstilo(String mensaje) throws BadLocationException {      
             
         if (mensaje.trim().startsWith(">>")&& mensaje.trim().endsWith("<<")){
@@ -168,6 +182,10 @@ public class LaConsola extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento presionar una tecla
+     * @param evt 
+     */
     private void consolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyPressed
       int caretPosition = consola.getCaretPosition();
     
