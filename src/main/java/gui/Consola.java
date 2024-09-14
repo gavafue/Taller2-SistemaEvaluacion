@@ -287,7 +287,7 @@ public class Consola extends javax.swing.JFrame {
           //  txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
         } else { // Si el comando no es válida           
                      
-            txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + "Comando ingresado " + comando
+            txtOutput.append("[Consola@inet]:~$" + "Comando ingresado " + comando
                     + " incorrecto\n"+"Intente [man "+tokens[0]+"]\n");
         }
     }

@@ -1,7 +1,5 @@
 package consola;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JTextPane;
@@ -20,17 +18,7 @@ public class Ejecutar {
      */
     private String[] tokens;
 
-    /**
-     * Hora de ejecucion.
-     */
-    private String hora;
-
-    /**
-     * Formato para mostrar hora en cada ejecucion.
-     */
-    private DateTimeFormatter formatoFecha;
-
-    /**
+     /**
      * Constructor.
      *
      * @param tokens - La linea ingresada en la terminal por el usuario fue tokenizada
@@ -38,38 +26,13 @@ public class Ejecutar {
      */
     public Ejecutar(String[] tokens) {
         this.tokens = tokens;
-        this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");
-        this.hora = LocalDateTime.now().format(formatoFecha);
+        
     }
-
-    /**
-     * @return hora
-     */
-    public String getHora() {
-        return hora;
-    }
-
     /**
      * @return tokens
      */
     public String[] getTokens() {
         return tokens;
-    }
-
-    /**
-     * Establece la hora pasada por
-     *
-     * @param hora - hora a asignar.
-     */
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
-    /**
-     * Establece la hora tomandola del sistema.
-     */
-    private void actualizarHora() {
-        hora = LocalDateTime.now().format(formatoFecha);
     }
 
     /**
@@ -100,8 +63,7 @@ public class Ejecutar {
      * @param salida   - donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
-        String mensaje;
-        actualizarHora();
+        String mensaje;        
 
         switch (tokens[0]) {
             case "man":
@@ -456,7 +418,7 @@ public class Ejecutar {
     private String obtenerComandoLsL(Ficheros ficheros, String segundoParametro) {
         String mensaje;
         if (ficheros.existeFichero(segundoParametro) && ficheros.esDirectorio(segundoParametro)) {
-            mensaje = "[" + getHora() + "]\nComando ls -l al directorio " + segundoParametro + "\n";
+            mensaje = "´Comando ls -l al directorio " + segundoParametro + "\n";
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -477,7 +439,7 @@ public class Ejecutar {
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            mensaje = "[" + getHora() + "]\nComando ls -a al directorio " + nombreDirectorio + "\n";
+            mensaje = "Comando ls -a al directorio " + nombreDirectorio + "\n";
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -497,7 +459,7 @@ public class Ejecutar {
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            mensaje = "[" + getHora() + "]\nComando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
+            mensaje = "Comando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
                     + "\n";
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";

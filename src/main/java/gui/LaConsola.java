@@ -113,15 +113,14 @@ public class LaConsola extends javax.swing.JFrame {
             
         if (mensaje.trim().startsWith(">>")&& mensaje.trim().endsWith("<<")){
             // Mostrar el mensaje de error en rojo
-            doc.insertString(doc.getLength(), "\n" + mensaje + "\n", estiloError);
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloError);
         } else if (mensaje.trim().startsWith("-") && (mensaje.trim().endsWith("-")||mensaje.endsWith("\n"))){
             // Mostrar el mensaje en celeste
-            doc.insertString(doc.getLength(), "\n" + mensaje + "\n", estiloOK);            
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloOK);            
         } else {
-            doc.insertString(doc.getLength(), "\n" + mensaje + "\n", estiloComando);// Mostrar en blanco            
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloComando);// Mostrar en blanco            
             }
-        } 
-    
+        }    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -132,7 +131,7 @@ public class LaConsola extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
-        setSize(new java.awt.Dimension(1024, 768));
+        setSize(new java.awt.Dimension(1024, 500));
         setType(java.awt.Window.Type.UTILITY);
 
         scrollPane.setPreferredSize(new java.awt.Dimension(1024, 768));
@@ -159,11 +158,11 @@ public class LaConsola extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -186,7 +185,7 @@ public class LaConsola extends javax.swing.JFrame {
         // Comprobar las flechas para mostrar el último comando ingresado
         if (evt.getKeyCode() == KeyEvent.VK_UP||evt.getKeyCode() == KeyEvent.VK_DOWN)  {
             if (ultimoComando != null && !ultimoComando.isEmpty()) {
-                // Limpiar cualquier texto que el usuario haya escrito después del prompt
+                // Limpiar cualquier texto que se haya escrito después del prompt
                 try {
                     doc.remove(posicionPrompt, doc.getLength() - posicionPrompt);
 
@@ -199,11 +198,15 @@ public class LaConsola extends javax.swing.JFrame {
                     ex.printStackTrace();
                 }
             }
-            // Prevenir el comportamiento predeterminado de mover el cursor con la flecha
+            // Prevenir el comportamiento predeterminado de mover el cursor con las flechas
             evt.consume();
         }
-
-            
+        
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER){
+            evt.consume();      
+        
+        
+        }
             
     }//GEN-LAST:event_consolaKeyPressed
         
@@ -214,9 +217,10 @@ public class LaConsola extends javax.swing.JFrame {
     private void consolaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyTyped
        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
         // Obtener el comando introducido al presionar enter
+        
         try {
             String comando = doc.getText(posicionPrompt, doc.getLength() - posicionPrompt).trim();
-            ultimoComando = comando; // Guardar el último comando
+            ultimoComando = comando.trim(); // Guardar el último comando
             
             Validar validador = new Validar(comando);        
             Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
@@ -233,7 +237,7 @@ public class LaConsola extends javax.swing.JFrame {
            } else {                     
                 if(!comando.isEmpty()){
                 doc.insertString(doc.getLength(), "\n>> Comando ingresado " + comando + " incorrecto <<\n"+
-                "[Intente man "+tokens[0]+"\n", estiloError); // Si el comando no es válido                        
+                "[Intente man "+tokens[0]+"]\n", estiloError); // Si el comando no es válido                        
                 }      
            }
             // Mostrar el nuevo prompt

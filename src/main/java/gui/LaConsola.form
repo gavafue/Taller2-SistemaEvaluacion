@@ -7,7 +7,7 @@
       <Point value="[0, 0]"/>
     </Property>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1024, 768]"/>
+      <Dimension value="[1024, 500]"/>
     </Property>
     <Property name="type" type="java.awt.Window$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
       <Value id="UTILITY"/>
@@ -32,12 +32,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="scrollPane" alignment="0" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="0" pref="900" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="scrollPane" alignment="0" pref="600" max="32767" attributes="0"/>
+          <Component id="scrollPane" min="-2" pref="476" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
