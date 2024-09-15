@@ -79,8 +79,9 @@ public class Validar {
     }
     
     public String comenzarEjecucion(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida){
-        String resultado;        
-        if (usaModificadores||tokens[0].equals("grep")) {         
+        String resultado;
+        //Grep se ejecuta desde la clase EjecutarConModificadores, para poder concatenarlo mas facilmente
+        if (usaModificadores||tokens[0].equals("grep")) {        
             EjecutarConModificadores ejecutor = new EjecutarConModificadores(tokens);
             resultado=ejecutor.ejecutarComando(comandos, ficheros, procesos, salida);
         } else{
@@ -90,12 +91,7 @@ public class Validar {
         
         return resultado;
     }
-            
-    
-    
         
-    
-    
     /**
      * Método que determina si las opciones del comando ingresado son válidas.
      * Este método recorre las opciones del comando (tokens) y verifica si cada
@@ -303,6 +299,9 @@ public class Validar {
         }
         return indicePipe;
     }
+    
+    
+    
     
     /**
      * Metodo para validar la sintaxis de los comandos que no utilizan modificadores.     

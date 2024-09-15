@@ -296,7 +296,7 @@ public class EjecutarConModificadores {
                     mensaje += "-Coindicencia-\n"+linea+"\n";                }
             }
             if (!existeExpresion) {
-                mensaje = ">> La expresión'" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<\n";
+                mensaje = ">> La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<\n";
                 }
             
         }else {
@@ -564,7 +564,7 @@ public class EjecutarConModificadores {
             mensaje = ">> Sintaxis incorrecta: el primer comando debe ser head o tail <<\n";
         }
 
-        if (tokensB[0].equals("grep")) { // segundo bloque de IFs para procesar el segundo comando
+        if (tokensB[0].equals("grep")&& tokensB.length==3) { // segundo bloque de IFs para procesar el segundo comando
 
             ficheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
             // mensaje1. Ya que grep esta programado para
@@ -578,7 +578,7 @@ public class EjecutarConModificadores {
             ficheros.eliminarFichero("especificado");
             mensaje = msjComando2;
         } else {
-            mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser grep <<\n";
+            mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser [grep 'expresión'] <<\n"+tokensB.length;
         }
 
         return mensaje;

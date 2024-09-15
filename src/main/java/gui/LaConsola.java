@@ -254,11 +254,20 @@ public class LaConsola extends javax.swing.JFrame {
             String[] tokens = validador.getTokens();
             EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);            
            
-           if (comando.equals("exit")) { // Comando salir
+            if (comando.equals("exit")) { // Comando salir
              this.dispose(); 
-           } else if (validador.posicionPipe()!=0){            
-                consola.setText(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));               
-           } else if (comandoValido) { // Si el comando es válido           
+            //Si aparece un pipe
+            }  else if (validador.posicionPipe()!=0){
+               //Valido el primer comando antes de intentar concatenarlo
+               String [] primerComando = comando.split("\\|");
+               Validar validadorPipe = new Validar (primerComando[0]);
+               if (validadorPipe.validarComando(hashComandos)){
+                    mostrarConEstilo(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));            
+                 }else{
+                    doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
+                    "[Intente man "+tokens[0]+"]\n\n",estiloError);
+               }                             
+           } else if (comandoValido) { // Si es un unico comando valido         
                 String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
                 mostrarConEstilo(resultado);                    
            } else {                     
