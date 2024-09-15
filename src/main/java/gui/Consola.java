@@ -275,7 +275,7 @@ public class Consola extends javax.swing.JFrame {
         Validar validador = new Validar(comando);        
         Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
         String[] tokens = validador.getTokens();
-        Ejecutar ejecutar = new Ejecutar(tokens);      
+        EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);      
         
         
         if (comando.equals("exit")) { // Comando salir

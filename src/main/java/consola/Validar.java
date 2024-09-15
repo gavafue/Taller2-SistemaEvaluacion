@@ -2,6 +2,7 @@ package consola;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JTextPane;
 
 /**
  * Esta clase permite validar un comando y sus opciones
@@ -11,7 +12,8 @@ public class Validar {
 
     private String comandoIngresado; // El comando ingresado por el usuario
     private String[] tokens; // Los tokens resultantes de dividir la orden.
-
+    private boolean esValido, usaModificadores;
+    
     /**
      * Constructor que inicializa el comando a validar.
      *
@@ -56,25 +58,44 @@ public class Validar {
      * @param comandos La lista de comandos disponibles.
      * @return true si el comando es válido, false en caso contrario.
      */
-    public boolean validarComando(Comandos comandos) {
-        boolean esValido = true;
-
+    public boolean validarComando(Comandos comandos){           
         String comando = tokens[0];
-        if (!comandos.existeComando(comando)) {
-            esValido = false;
-        }
-        if (esValido) {
+        boolean existe= comandos.existeComando(comando);
+        boolean esCorrecto=false;
+        
+        if (existe) {
             String[] opcionesValidas = comandos.obtenerOpciones(comando);
-            //Se validan los comandos que permiten opciones y el chmod
+            
+            //Se validan los comandos que permiten opciones
             if (opcionesValidas != null) {
-                esValido = validarOpciones();
+                usaModificadores=true;
+                esCorrecto = validarOpciones();
             }else {
-                esValido=validarSintaxis();            
+                esCorrecto=validarSintaxis();//Se validan comandos sin opciones
+                usaModificadores=false;
             }
         }
-
-        return esValido;
+        return esCorrecto;//no vale
     }
+    
+    public String comenzarEjecucion(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida){
+        String resultado;        
+        if (usaModificadores||tokens[0].equals("grep")) {         
+            EjecutarConModificadores ejecutor = new EjecutarConModificadores(tokens);
+            resultado=ejecutor.ejecutarComando(comandos, ficheros, procesos, salida);
+        } else{
+            EjecutarSinModificadores ejecutor = new EjecutarSinModificadores(tokens);
+            resultado=ejecutor.ejecutarComandoSinMod(comandos, ficheros, procesos, salida);  
+        }
+        
+        return resultado;
+    }
+            
+    
+    
+        
+    
+    
     /**
      * Método que determina si las opciones del comando ingresado son válidas.
      * Este método recorre las opciones del comando (tokens) y verifica si cada
@@ -110,6 +131,7 @@ public class Validar {
                             break;
 
             }
+            esValido=todasValidas;
             return todasValidas;
         }
         
@@ -327,8 +349,30 @@ public class Validar {
                         break;
 
         }
+        esValido=sintaxisCorrecta;
         return sintaxisCorrecta;
     }
+
+    
+    //GetterySetter
+    public boolean isEsValido() {
+        return esValido;
+    }
+
+    public void setEsValido(boolean esValido) {
+        this.esValido = esValido;
+    }
+
+    public boolean isUsaModificadores() {
+        return usaModificadores;
+    }
+
+    public void setUsaModificadores(boolean usaModificadores) {
+        this.usaModificadores = usaModificadores;
+    }
+    
+    
+    
   
 }
 

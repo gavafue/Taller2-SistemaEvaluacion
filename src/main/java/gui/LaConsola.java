@@ -1,7 +1,7 @@
 package gui;
 
 import consola.Comandos;
-import consola.Ejecutar;
+import consola.EjecutarConModificadores;
 import consola.Ficheros;
 import consola.Procesos;
 import consola.Validar;
@@ -109,7 +109,7 @@ public class LaConsola extends javax.swing.JFrame {
     private void mostrarPrompt() {
         try {
             // Insertar el prompt en verde
-            doc.insertString(doc.getLength(), prompt, estiloPrompt);
+            doc.insertString(doc.getLength(),prompt, estiloPrompt);
             posicionPrompt = doc.getLength();  // Establece la posición a partir de la cual se puede escribir
             consola.setCaretPosition(posicionPrompt);  // Coloca el cursor al final del prompt
         } catch (BadLocationException e) {
@@ -125,16 +125,20 @@ public class LaConsola extends javax.swing.JFrame {
      */
     private void mostrarConEstilo(String mensaje) throws BadLocationException {      
             
-        if (mensaje.trim().startsWith(">>")&& mensaje.trim().endsWith("<<")){
+        if(!mensaje.isEmpty()){
+           
+        
+         if (mensaje.trim().startsWith(">>")&& (mensaje.trim().endsWith("<<"))){
             // Mostrar el mensaje de error en rojo
             doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloError);
-        } else if (mensaje.trim().startsWith("-") && (mensaje.trim().endsWith("-")||mensaje.endsWith("\n"))){
+        } else if (mensaje.trim().startsWith("-") && (mensaje.endsWith("\n")||mensaje.trim().endsWith("-"))){
             // Mostrar el mensaje en celeste
             doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloOK);            
         } else {
             doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloComando);// Mostrar en blanco            
             }
-        }    
+        } 
+    }   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -183,7 +187,11 @@ public class LaConsola extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Evento presionar una tecla
+     * Evento presionar una tecla.
+     * 
+     * Se utiliza para controlar la pulsaciòn de teclas fuera de zonas permitidas,
+     * ademàs de mostrar el ùltimo comando ejecutado al presionar las flechas
+     * 
      * @param evt 
      */
     private void consolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyPressed
@@ -221,8 +229,7 @@ public class LaConsola extends javax.swing.JFrame {
         }
         
         if (evt.getKeyCode()== KeyEvent.VK_ENTER){
-            evt.consume();      
-        
+            evt.consume();  
         
         }
             
@@ -231,6 +238,8 @@ public class LaConsola extends javax.swing.JFrame {
     /**
      * Evento de escritura en la consola
      * 
+     * El presionar ENTER se validan y ejecutan los comandos
+     *       
      */
     private void consolaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyTyped
        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
@@ -243,27 +252,29 @@ public class LaConsola extends javax.swing.JFrame {
             Validar validador = new Validar(comando);        
             Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
             String[] tokens = validador.getTokens();
-            Ejecutar ejecutar = new Ejecutar(tokens);            
+            EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);            
            
            if (comando.equals("exit")) { // Comando salir
              this.dispose(); 
            } else if (validador.posicionPipe()!=0){            
-                consola.setText(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros)+ "\n");               
+                consola.setText(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));               
            } else if (comandoValido) { // Si el comando es válido           
-                String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, consola);
+                String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
                 mostrarConEstilo(resultado);                    
            } else {                     
-                if(!comando.isEmpty()){
-                doc.insertString(doc.getLength(), "\n>> Comando ingresado " + comando + " incorrecto <<\n"+
-                "[Intente man "+tokens[0]+"]\n", estiloError); // Si el comando no es válido                        
-                }      
+               if(!comando.isEmpty()){
+                doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
+                "[Intente man "+tokens[0]+"]\n\n",estiloError); // Si el comando no es válido                        
+               }else{
+                 doc.insertString(doc.getLength(), "\n", null);//Salto de linea si no hay comando               
+               }                
            }
             // Mostrar el nuevo prompt
-            mostrarPrompt();
+                mostrarPrompt();
         }catch (BadLocationException ex) {
         }
         // Prevenir la nueva línea predeterminada del JTextPane
-        evt.consume();                
+        //evt.consume();                
         } else {
         consola.setCharacterAttributes(estiloComando, true);                    
         // Asegurar que el texto que se escribe aparece en blanco

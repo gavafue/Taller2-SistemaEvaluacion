@@ -161,10 +161,10 @@ public class Ficheros {
         for (int i = 0; i < listaFicheros.size(); i++) {
             if (!oculto) { //si no quiero listar los ocultos
                 if (listaFicheros.get(i).getNombre().matches("^[^.].*")) { //omito los nombres que comienzan por punto
-                    detalles += ("\n" + listaFicheros.get(i).toString());
+                    detalles += (listaFicheros.get(i).toString()+"\n");
                 }
             } else {
-                detalles += ("\n" + listaFicheros.get(i).toString());
+                detalles += (listaFicheros.get(i).toString()+"\n");
             }
         }
         return detalles;
