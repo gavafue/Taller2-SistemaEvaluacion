@@ -78,6 +78,20 @@ public class Validar {
         return esCorrecto;//no vale
     }
     
+    /**
+     * 
+     *Método que comienza la ejecuciòn de un comando.
+     *Dependiendo si utiliza o no paràmetros se instancia un objeto u otro.
+     *
+     * El comando grep se ejecuta desde la clase EjecutarConModificadores para 
+     * facilitar la concatenaciòn con pipe.
+     * 
+     * @param comandos posibles.  
+     * @param ficheros es la lista con el sistema de ficheros.
+     * @param procesos en ejecucion.
+     * @param salida es el JtextPane donde se muestra el resultado de la ejecucion.
+     * @return un String con el resultado de la ejecucion 
+     */
     public String comenzarEjecucion(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida){
         String resultado;
         //Grep se ejecuta desde la clase EjecutarConModificadores, para poder concatenarlo mas facilmente
@@ -299,9 +313,6 @@ public class Validar {
         }
         return indicePipe;
     }
-    
-    
-    
     
     /**
      * Metodo para validar la sintaxis de los comandos que no utilizan modificadores.     
