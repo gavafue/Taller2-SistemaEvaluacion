@@ -65,6 +65,22 @@ public class Proceso {
     }
 
     /**
+     * Constructor. Para pasar memoria y cpu.
+     *
+     * @param comando
+     */
+    public Proceso(String comando, double memoria, double cpu) {
+        
+        this.pid = siguientePid++;
+        this.usuario = "USER";
+        this.memoria = memoria;
+        this.cpu = cpu;
+        this.comando = comando;
+        this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");
+        this.hora = LocalDateTime.now().format(formatoFecha);
+    }
+
+    /**
      * @return pid
      */
     public int getPid() {

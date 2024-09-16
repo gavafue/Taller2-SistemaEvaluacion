@@ -3,10 +3,11 @@ package consola;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Esta clase maneja una coleccion de procesos.
- * 
+ *
  * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Procesos {
@@ -17,7 +18,49 @@ public class Procesos {
     private LinkedList<Proceso> listaProcesos;
 
     /**
-     * Constructor. 
+     * Memoria disponible y compartido entre todos los procesos.
+     */
+    private int memoriaDisponible = 100;
+
+    /**
+     * Cpu disponible y compartido entre todos los procesos.
+     */
+    private int cpuDisponible = 100;
+
+    /**
+     * return memoriaDisponible
+     */
+    public int getMemoriaDisponible() {
+        return memoriaDisponible;
+    }
+
+    /**
+     * Establece la memoria disponible en el sistema por la dada en
+     *
+     * @param memoriaDisponible
+     */
+    public void setMemoriaDisponible(int memoriaDisponible) {
+        this.memoriaDisponible = memoriaDisponible;
+    }
+
+    /**
+     * return cpuDisponible
+     */
+    public int getCpuDisponible() {
+        return cpuDisponible;
+    }
+
+    /**
+     * Establece el cpu disponible en el sistema por la dado en
+     *
+     * @param cpuDisponible
+     */
+    public void setCpuDisponible(int cpuDisponible) {
+        this.cpuDisponible = cpuDisponible;
+    }
+
+    /**
+     * Constructor.
      */
     public Procesos() {
         this.listaProcesos = new LinkedList<>();
@@ -47,7 +90,12 @@ public class Procesos {
      * @param comando
      */
     public void agregarProceso(String comando) {
-        Proceso proceso = new Proceso(comando);
+        Random random = new Random();
+        int memoriaProceso = random.nextInt(getMemoriaDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
+        setMemoriaDisponible(getMemoriaDisponible() - memoriaProceso);
+        int cpuProceso = random.nextInt(getCpuDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
+        setCpuDisponible(getCpuDisponible() - cpuProceso);
+        Proceso proceso = new Proceso(comando, memoriaProceso, cpuProceso);
         listaProcesos.add(proceso);
     }
 
@@ -92,10 +140,13 @@ public class Procesos {
      * Este metodo permite cargar algunos procesos predefinidos al sistema.
      */
     public void cargarProcesos() {
-        this.agregarProceso("ls dir1");
-        this.agregarProceso("mv arch1 arch2");
-        this.agregarProceso("mkdir dir6");
-        this.agregarProceso("ls dir1");
-        this.agregarProceso("mv arch1 arch2");
+
+        String [] posiblesProcesos = {"ls","mv","man","ps","kill","grep","tail","cut","head","tail","chmod","sort","mv","mkdir","rmdir","clear","cp","|"};
+        Random random = new Random();
+        
+        for(int i=0;i<5;i++){
+            int azar = random.nextInt(posiblesProcesos.length);
+            this.agregarProceso(posiblesProcesos[azar]);
+        }
     }
 }

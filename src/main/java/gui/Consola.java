@@ -26,8 +26,7 @@ public class Consola extends javax.swing.JFrame {
         setLocationRelativeTo(null); // centrar
         setDefaultCloseOperation(DISPOSE_ON_CLOSE); // No detiene el programa al cerrar el JFrame
         // Inicialización de las colecciones a utilizar
-        hashComandos = new Comandos();
-        String ultimoComando;
+        hashComandos = new Comandos();        
         listaFicheros = new Ficheros();
         listaProcesos = new Procesos();
         listaFicheros.cargarPrimerNivel(); // Primer nivel cargado desde memoria
@@ -228,12 +227,12 @@ public class Consola extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComando))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lblPenguin)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -243,7 +242,9 @@ public class Consola extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +275,7 @@ public class Consola extends javax.swing.JFrame {
         Validar validador = new Validar(comando);        
         Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
         String[] tokens = validador.getTokens();
-        Ejecutar ejecutar = new Ejecutar(tokens);      
+        EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);      
         
         
         if (comando.equals("exit")) { // Comando salir
@@ -282,11 +283,11 @@ public class Consola extends javax.swing.JFrame {
         } else if (validador.posicionPipe()!=0){            
             txtOutput.append(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros)+ "\n");               
         } else if (comandoValido) { // Si el comando es válido            
-            String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
-            txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
+           // String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
+          //  txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
         } else { // Si el comando no es válida           
                      
-            txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + "Comando ingresado " + comando
+            txtOutput.append("[Consola@inet]:~$" + "Comando ingresado " + comando
                     + " incorrecto\n"+"Intente [man "+tokens[0]+"]\n");
         }
     }
