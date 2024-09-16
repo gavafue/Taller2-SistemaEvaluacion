@@ -8,6 +8,8 @@ import conexion.Cliente;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 /**
@@ -51,6 +53,7 @@ public class Dashboard extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -61,8 +64,10 @@ public class Dashboard extends javax.swing.JFrame {
         btnEvaluaciones = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        btnPerfil = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         tituloHeader = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
         panelContent = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -76,7 +81,7 @@ public class Dashboard extends javax.swing.JFrame {
         menu.setBackground(new java.awt.Color(13, 71, 161));
 
         imgEvaluacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgEvaluacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/imgEv.png"))); // NOI18N
+        imgEvaluacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imgEv.png"))); // NOI18N
 
         lblMenu.setForeground(new java.awt.Color(255, 255, 255));
         lblMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -85,7 +90,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnEvaluaciones.setBackground(new java.awt.Color(26, 35, 126));
         btnEvaluaciones.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         btnEvaluaciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnEvaluaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/evaluacionicon.png"))); // NOI18N
+        btnEvaluaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/evaluacionicon.png"))); // NOI18N
         btnEvaluaciones.setText("Evaluaciones");
         btnEvaluaciones.setBorder(null);
         btnEvaluaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -97,7 +102,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnInicio.setBackground(new java.awt.Color(26, 35, 126));
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
-        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/homeicon.png"))); // NOI18N
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/homeicon.png"))); // NOI18N
         btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -110,6 +115,24 @@ public class Dashboard extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
+        btnPerfil.setBackground(new java.awt.Color(26, 35, 126));
+        btnPerfil.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        btnPerfil.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profileicon.png"))); // NOI18N
+        btnPerfil.setText("Perfil");
+        btnPerfil.setBorder(null);
+        btnPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnPerfilActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -118,15 +141,17 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(lblMenu, javax.swing.GroupLayout.Alignment.TRAILING,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                        .addComponent(jSeparator1)
+                        .addGroup(menuLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(btnEvaluaciones, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
-                        .addComponent(jSeparator1));
+                                .addContainerGap()));
         menuLayout.setVerticalGroup(
                 menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(menuLayout.createSequentialGroup()
@@ -143,7 +168,10 @@ public class Dashboard extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEvaluaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(369, Short.MAX_VALUE)));
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(323, Short.MAX_VALUE)));
 
         header.setBackground(new java.awt.Color(25, 118, 210));
         header.setPreferredSize(new java.awt.Dimension(750, 150));
@@ -152,6 +180,13 @@ public class Dashboard extends javax.swing.JFrame {
         tituloHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloHeader.setText("Sistema de evaluación - Linux");
 
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -159,11 +194,18 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGroup(headerLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(tituloHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-                                .addContainerGap()));
+                                .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 130,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)));
         headerLayout.setVerticalGroup(
                 headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(headerLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnCerrarSesion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tituloHeader)
                                 .addContainerGap(43, Short.MAX_VALUE)));
 
@@ -230,10 +272,34 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEvaluacionesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEvaluacionesActionPerformed
-        GestionEvaluacionesPanel evaluacionesPanel;
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCerrarSesionActionPerformed
+        this.dispose();
+
         try {
-            evaluacionesPanel = new GestionEvaluacionesPanel(cliente, rol);
+            Login login = new Login();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+        } catch (IOException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }// GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnPerfilActionPerformed
+
+        ActualizarContraseniaPanel actualizarContraseniaPanel = new ActualizarContraseniaPanel(cliente);
+        actualizarContraseniaPanel.setSize(730, 520);
+        actualizarContraseniaPanel.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(actualizarContraseniaPanel);
+        panelContent.revalidate();
+        panelContent.repaint();
+    }// GEN-LAST:event_btnPerfilActionPerformed
+
+    private void btnEvaluacionesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEvaluacionesActionPerformed
+
+        try {
+            GestionEvaluacionesPanel evaluacionesPanel = new GestionEvaluacionesPanel(cliente, rol, panelContent);
             evaluacionesPanel.setSize(730, 520);
             evaluacionesPanel.setLocation(0, 0);
             panelContent.removeAll();
@@ -262,8 +328,10 @@ public class Dashboard extends javax.swing.JFrame {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnEvaluaciones;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnPerfil;
     private javax.swing.JPanel header;
     private javax.swing.JLabel imgEvaluacion;
     private javax.swing.JMenu jMenu1;

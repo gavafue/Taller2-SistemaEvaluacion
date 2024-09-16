@@ -8,8 +8,6 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -17,7 +15,6 @@ import javax.swing.UIManager;
  *
  * @author Gabriel
  */
-
 public class Login extends javax.swing.JFrame {
 
     private Cliente cliente;
@@ -69,7 +66,7 @@ public class Login extends javax.swing.JFrame {
             lblServidor.setVisible(true);
         } catch (IOException e) { // Offline
             lblServidor.setVisible(true);
-            lblServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/errorserver.png")));
+            lblServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/errorserver.png")));
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "El servidor no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -84,11 +81,6 @@ public class Login extends javax.swing.JFrame {
             switch (rol) {
                 case "docente":
                 case "estudiante":
-
-                    /*
-                     * GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, rol);
-                     * evaluaciones.setVisible(true)
-                     */
                     Dashboard dashboard = new Dashboard(cliente, rol);
                     dashboard.setVisible(true);
                     validacion = true;
@@ -123,7 +115,8 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         background = new javax.swing.JPanel();
@@ -144,13 +137,14 @@ public class Login extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1020, 640));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
-        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menu.setBackground(new java.awt.Color(13, 71, 161));
 
-        imgLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/imglogin.png"))); // NOI18N
+        imgLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imglogin.png"))); // NOI18N
         imgLogin.setToolTipText("");
         imgLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         imgLogin.setName(""); // NOI18N
@@ -159,18 +153,15 @@ public class Login extends javax.swing.JFrame {
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(imgLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
-        );
+                menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(menuLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(imgLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                                .addContainerGap()));
         menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
-        );
-
-        background.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 601));
+                menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(imgLogin, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE));
 
         header.setBackground(new java.awt.Color(25, 118, 210));
         header.setPreferredSize(new java.awt.Dimension(750, 150));
@@ -183,18 +174,15 @@ public class Login extends javax.swing.JFrame {
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tituloHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(headerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(tituloHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                                .addContainerGap()));
         headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-        );
-
-        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 0, 620, 160));
+                headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tituloHeader, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE));
 
         panelContent.setBackground(new java.awt.Color(255, 255, 255));
         panelContent.setForeground(new java.awt.Color(255, 255, 255));
@@ -233,7 +221,8 @@ public class Login extends javax.swing.JFrame {
         lblServidor.setBackground(new java.awt.Color(255, 255, 255));
         lblServidor.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         lblServidor.setForeground(new java.awt.Color(0, 255, 0));
-        lblServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagenes/checkserver.png"))); // NOI18N
+        lblServidor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/checkserver.png"))); // NOI18N
         lblServidor.setOpaque(true);
 
         cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
@@ -250,43 +239,74 @@ public class Login extends javax.swing.JFrame {
         javax.swing.GroupLayout panelContentLayout = new javax.swing.GroupLayout(panelContent);
         panelContent.setLayout(panelContentLayout);
         panelContentLayout.setHorizontalGroup(
-            panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboxMostrarContraseña)
-                    .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                            .addComponent(txtUsuario))
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblServidor))
-        );
+                panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblServidor))
+                        .addGroup(panelContentLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(panelContentLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 222,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(panelContentLayout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(cboxMostrarContraseña)
+                                                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel1)
+                                                .addComponent(jLabel2)
+                                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 550,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(43, Short.MAX_VALUE)));
         panelContentLayout.setVerticalGroup(
-            panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContentLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cboxMostrarContraseña)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(lblServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelContentLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboxMostrarContraseña)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37,
+                                        Short.MAX_VALUE)
+                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(lblServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
 
-        background.add(panelContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 159, 610, 440));
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(416, 416, 416)
+                                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 620,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(424, 424, 424)
+                                .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+        backgroundLayout.setVerticalGroup(
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 160,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -299,13 +319,13 @@ public class Login extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
         setLocationRelativeTo(null);
@@ -345,7 +365,6 @@ public class Login extends javax.swing.JFrame {
 
     // TODO add your handling code here:
     // TODO add your handling code here:
-
     /**
      * @param args the command line arguments
      */

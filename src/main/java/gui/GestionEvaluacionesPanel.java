@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,17 +20,18 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
 
     private Cliente cliente;
     private String rol;
+    private JPanel panelContent;
 
     /**
      * Creates new form GestionEvaluacionesPanel
      */
-    public GestionEvaluacionesPanel(Cliente cliente, String rol) throws IOException {
+    public GestionEvaluacionesPanel(Cliente cliente, String rol, JPanel panelContent) throws IOException {
         this.rol = rol;
         this.cliente = cliente;
+        this.panelContent = panelContent;
         initComponents();
         this.determinarInterfaz(); // Muestra determinados elementos gráficos dependiendo del rol
         this.solicitarTitulosEvaluaciones();
-        lblUsuario.setText("Usuario: " + cliente.getId());
     }
 
     /**
@@ -150,6 +152,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -161,8 +164,6 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         btnHistorico = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         btnRealizar = new javax.swing.JButton();
-        lblUsuario = new javax.swing.JLabel();
-        btnActualizarPassword = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(730, 520));
 
@@ -223,7 +224,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         btnHistorico.setText("Historico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistoricoActionPerformed(evt);
+                try {
+                    btnHistoricoActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -239,17 +245,6 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             }
         });
 
-        lblUsuario.setText("Bienvenido ");
-
-        btnActualizarPassword.setBackground(new java.awt.Color(102, 102, 102));
-        btnActualizarPassword.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarPassword.setText("Actualizar Contraseña");
-        btnActualizarPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarPasswordActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,22 +253,9 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(lblUsuario,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(btnActualizarPassword))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(lblTitulo,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 396,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(0, 299, Short.MAX_VALUE)))
-                                                .addContainerGap())
+                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 396,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(305, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,11 +289,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblUsuario)
-                                        .addComponent(btnActualizarPassword))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(35, 35, 35)
                                 .addComponent(lblTitulo)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
@@ -350,15 +328,65 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tableEvaluaciones.getSelectedRow();
+        if (selectedRow != -1) {
+            String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
+
+            // Ventana de confirmación
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro? En caso de eliminar la evaluación, también se eliminarán todos los historiales asociados a esta.",
+                    "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) { // Si el usuario confirma
+                try {
+                    this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
+                    if (this.getCliente().obtenerCodigo().equals("200")) {
+                        JOptionPane.showMessageDialog(null, "Evaluación eliminada");
+                        this.solicitarTitulosEvaluaciones();
+                        cargarTablaEvaluaciones();
+                    } else {
+                        JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
+                                "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } // Si el usuario elige "No", no se hace nada
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una evaluación");
+        }
     }// GEN-LAST:event_btnEliminarActionPerformed
 
     private void tableEvaluacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tableEvaluacionesMouseClicked
         // TODO add your handling code here:
     }// GEN-LAST:event_tableEvaluacionesMouseClicked
 
-    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHistoricoActionPerformed
-        // TODO add your handling code here:
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnHistoricoActionPerformed
+        int selectedRow = tableEvaluaciones.getSelectedRow();
+        if (selectedRow != -1) {
+            String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
+            VerHistorialesPanel historico = new VerHistorialesPanel(titulo, this.getCliente(), this.getRol(),
+                    panelContent);
+            if (this.getRol().equals("docente")) {
+                if (historico.hayHistorialesDisponibles()) {
+                    historico.setSize(730, 520);
+                    historico.setLocation(0, 0);
+                    panelContent.removeAll();
+                    panelContent.add(historico);
+                    panelContent.revalidate();
+                    panelContent.repaint();
+                    historico.setVisible(true);
+                }
+            } else if (this.getRol().equals("estudiante")) {
+                if (historico.hayHistorialesDisponibles() && historico.estudianteRealizoEvaluacion()) {
+                    historico.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No has realizado esta evaluación aún");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una evaluación.");
+        }
 
     }// GEN-LAST:event_btnHistoricoActionPerformed
 
@@ -366,12 +394,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnRealizarActionPerformed
 
-    private void btnActualizarPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnActualizarPasswordActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btnActualizarPasswordActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarPassword;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnHistorico;
@@ -379,7 +402,6 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRealizarAlAzar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tableEvaluaciones;
     // End of variables declaration//GEN-END:variables
 }
