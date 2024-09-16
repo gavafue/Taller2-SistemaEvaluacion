@@ -44,6 +44,7 @@ public class EjecutarConModificadores {
      * @param ficheros - ficheros cargados en el sistema
      * @param procesos - procesos activos en el sistema
      * @param salida   - donde mostrar el resultado de la ejecucion.
+     * @return String resultante de la ejecucion
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
         String mensaje;        
@@ -583,6 +584,5 @@ public class EjecutarConModificadores {
 
         return mensaje;
     }
-
 
 }

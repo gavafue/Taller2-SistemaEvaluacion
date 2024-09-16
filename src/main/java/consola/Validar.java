@@ -381,8 +381,5 @@ public class Validar {
         this.usaModificadores = usaModificadores;
     }
     
-    
-    
-  
 }
 
