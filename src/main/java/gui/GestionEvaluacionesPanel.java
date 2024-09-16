@@ -5,6 +5,8 @@
 package gui;
 
 import conexion.Cliente;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -324,7 +326,17 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+            AltaEvaluacionPanel generador = new AltaEvaluacionPanel(cliente);
+            generador.setSize(730, 520);
+            generador.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(generador);
+            panelContent.revalidate();
+            panelContent.repaint();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }// GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEliminarActionPerformed
