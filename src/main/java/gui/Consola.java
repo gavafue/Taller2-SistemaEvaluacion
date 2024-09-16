@@ -1,37 +1,295 @@
 package gui;
 
-import consola.*;
+import consola.Comandos;
+import consola.EjecutarConModificadores;
+import consola.Ficheros;
+import consola.Procesos;
+import consola.Validar;
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 /**
- * JFrame destinado a ser la interfaz gráfica de la consola de Linux.
+ * Clase que representa los elementos graficos de la consola y los eventos asociados 
+ * 
+ * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public class Consola extends javax.swing.JFrame {
-
-    // Colecciones necesarias para crear la consola de Linux
+    
+   /**
+    * Colecciones necesarias para crear la consola de Linux
+    */ 
     private Comandos hashComandos;
     private Ficheros listaFicheros;
     private Procesos listaProcesos;   
-    // String para almacenar el ultimo comando ejecutado
+   /**
+    * String para almacenar el ultimo comando ejecutado
+    */ 
     private String ultimoComando;
-
-    /**
-     * Constructor vacío que permite crear una instancia de la consola.
-     */
+   /**
+    * Prompt y estilos
+    */
+    private StyledDocument doc;
+    private Style estiloPrompt, estiloComando, estiloError, estiloOK;
+    private String prompt = "LaConsola@inet:~$ ";
+    private int posicionPrompt;   
+   /**
+    * Constructor de la consola
+    */
     public Consola() {
-        initComponents();
-        setLocationRelativeTo(null); // centrar
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // No detiene el programa al cerrar el JFrame
-        // Inicialización de las colecciones a utilizar
+        
         hashComandos = new Comandos();        
         listaFicheros = new Ficheros();
-        listaProcesos = new Procesos();
+        listaProcesos = new Procesos();        
         listaFicheros.cargarPrimerNivel(); // Primer nivel cargado desde memoria
+        
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
+        // Estilos para el texto
+        Color rojosuave= new Color(255, 120, 123);        
+
+        doc = consola.getStyledDocument();
+        estiloPrompt = consola.addStyle("Prompt", null);
+        StyleConstants.setForeground(estiloPrompt, Color.GREEN);
+
+        estiloComando = consola.addStyle("Comando", null);
+        StyleConstants.setForeground(estiloComando, Color.WHITE);
+        
+        estiloOK = consola.addStyle("OK", null);
+        StyleConstants.setForeground(estiloOK, Color.CYAN);
+
+        estiloError = consola.addStyle("Error", null);
+        StyleConstants.setForeground(estiloError, rojosuave);
+        
+        
+        // Personalizar las barras de desplazamiento
+        colorScroll(scrollPane.getVerticalScrollBar());
+        colorScroll(scrollPane.getHorizontalScrollBar());
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        // Mostrar el prompt inicial
+        mostrarPrompt();
+        // Garantizar que el foco esté en el JTextPane y el cursor en la posición correcta al abrir la ventana
+        SwingUtilities.invokeLater(() -> {
+            consola.requestFocusInWindow();
+            consola.setCaretPosition(posicionPrompt);
+        });
+        //Mostrar el Jframe
+        setLocationRelativeTo(null); 
+        setVisible(true);
+        
+    }
+    
+    private void colorScroll(JScrollBar scrollBar) {
+       scrollBar.setBackground(Color.BLACK);
+       scrollBar.setForeground(Color.DARK_GRAY);                
+       scrollBar.setUI(new BasicScrollBarUI() {
+           @Override
+           protected void configureScrollBarColors() {
+               this.thumbColor = Color.DARK_GRAY;
+               this.trackColor = Color.BLACK;
+               this.thumbHighlightColor = Color.GRAY;
+               this.thumbDarkShadowColor = Color.BLACK;
+               
+           }
+       });
+   }
+
+    /**
+     * Metodo que colocar el prompt y el cursor en la posicion correcta
+     */
+    private void mostrarPrompt() {
+        try {
+            // Insertar el prompt en verde
+            doc.insertString(doc.getLength(),prompt, estiloPrompt);
+            posicionPrompt = doc.getLength();  // Establece la posición a partir de la cual se puede escribir
+            consola.setCaretPosition(posicionPrompt);  // Coloca el cursor al final del prompt
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Método que muestra el resultado de la ejecucion aplicando un estilo concreto.
+     * 
+     * @param  mensaje que se desea mostrar con el estillo correcto
+     * @throws BadLocationException 
+     */
+    private void mostrarConEstilo(String mensaje) throws BadLocationException {      
+            
+        if(!mensaje.isEmpty()){
+           
+        
+         if (mensaje.trim().startsWith(">>")&& (mensaje.trim().endsWith("<<"))){
+            // Mostrar el mensaje de error en rojo
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloError);
+        } else if (mensaje.trim().startsWith("-") && (mensaje.endsWith("\n")||mensaje.trim().endsWith("-"))){
+            // Mostrar el mensaje en celeste
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloOK);            
+        } else {
+            doc.insertString(doc.getLength(), "\n\n" + mensaje + "\n", estiloComando);// Mostrar en blanco            
+            }
+        } 
+    }   
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        scrollPane = new javax.swing.JScrollPane();
+        consola = new javax.swing.JTextPane();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
+        setSize(new java.awt.Dimension(1024, 500));
+        setType(java.awt.Window.Type.UTILITY);
+
+        scrollPane.setPreferredSize(new java.awt.Dimension(1024, 768));
+        scrollPane.setRowHeaderView(null);
+
+        consola.setBackground(new java.awt.Color(0, 0, 0));
+        consola.setBorder(null);
+        consola.setFont(new java.awt.Font("Lucida Console", 0, 23)); // NOI18N
+        consola.setCaretColor(new java.awt.Color(255, 255, 255));
+        consola.setMaximumSize(new java.awt.Dimension(1024, 768));
+        consola.setMinimumSize(new java.awt.Dimension(1024, 768));
+        consola.setPreferredSize(new java.awt.Dimension(1024, 768));
+        consola.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                consolaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                consolaKeyTyped(evt);
+            }
+        });
+        scrollPane.setViewportView(consola);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Evento presionar una tecla.
+     * 
+     * Se utiliza para controlar la pulsaciòn de teclas fuera de zonas permitidas,
+     * ademàs de mostrar el ùltimo comando ejecutado al presionar las flechas
+     * 
+     * @param evt 
+     */
+    private void consolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyPressed
+      int caretPosition = consola.getCaretPosition();
+    
+        // Evitar que el cursor se mueva fuera del área del prompt
+        if (caretPosition < posicionPrompt) {
+            consola.setCaretPosition(posicionPrompt);
+        }
+        // Comprobar la tecla Backspace y evitar que borre el prompt
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (caretPosition <= posicionPrompt) {
+            // Consumir el evento para que no borre nada antes del prompt
+            evt.consume();
+            }
+        }        
+        // Comprobar las flechas para mostrar el último comando ingresado
+        if (evt.getKeyCode() == KeyEvent.VK_UP||evt.getKeyCode() == KeyEvent.VK_DOWN)  {
+            if (ultimoComando != null && !ultimoComando.isEmpty()) {
+                // Limpiar cualquier texto que se haya escrito después del prompt
+                try {
+                    doc.remove(posicionPrompt, doc.getLength() - posicionPrompt);
+
+                    // Insertar el último comando después del prompt
+                    doc.insertString(posicionPrompt, ultimoComando, estiloComando);
+
+                    // Colocar el cursor al final del texto
+                    consola.setCaretPosition(doc.getLength());
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            // Prevenir el comportamiento predeterminado de mover el cursor con las flechas
+            evt.consume();
+        }
+        
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER){
+            evt.consume();  
+        
+        }
+            
+    }//GEN-LAST:event_consolaKeyPressed
+        
+    /**
+     * Evento de escritura en la consola
+     * 
+     * El presionar ENTER se validan y ejecutan los comandos
+     *       
+     */
+    private void consolaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyTyped
+       if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+        // Obtener el comando introducido al presionar enter
+        
+        try {
+            String comando = doc.getText(posicionPrompt, doc.getLength() - posicionPrompt).trim();
+            ultimoComando = comando.trim(); // Guardar el último comando
+            
+            Validar validador = new Validar(comando);        
+            Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
+            String[] tokens = validador.getTokens();
+            EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);            
+           
+            if (comando.equals("exit")) { // Comando salir
+             this.dispose(); 
+            //Si aparece un pipe
+            }  else if (validador.posicionPipe()!=0){
+               //Valido el primer comando antes de intentar concatenarlo
+               String [] primerComando = comando.split("\\|");
+               Validar validadorPipe = new Validar (primerComando[0]);
+               if (validadorPipe.validarComando(hashComandos)){
+                    mostrarConEstilo(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));            
+                 }else{
+                    doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
+                    "[Intente man "+tokens[0]+"]\n\n",estiloError);
+               }                             
+           } else if (comandoValido) { // Si es un unico comando valido         
+                String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
+                mostrarConEstilo(resultado);                    
+           } else {                     
+               if(!comando.isEmpty()){
+                doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
+                "[Intente man "+tokens[0]+"]\n\n",estiloError); // Si el comando no es válido                        
+               }else{
+                 doc.insertString(doc.getLength(), "\n", null);//Salto de linea si no hay comando               
+               }                
+           }
+            // Mostrar el nuevo prompt
+                mostrarPrompt();
+        }catch (BadLocationException ex) {
+        }
+        // Prevenir la nueva línea predeterminada del JTextPane
+        //evt.consume();                
+        } else {
+        consola.setCharacterAttributes(estiloComando, true);                    
+        // Asegurar que el texto que se escribe aparece en blanco
+        }        
+    }//GEN-LAST:event_consolaKeyTyped
+     
     /**
      * Método que permite obtener la colección de comandos del sistema.
      *
@@ -89,250 +347,8 @@ public class Consola extends javax.swing.JFrame {
         this.listaProcesos = procesos;
     }
 
-    /**
-     * Método que desactiva el placeholder de ayuda.
-     * 
-     * @param texto
-     */
-    private void helpTextOff(JTextField texto) {
-        Font fuente = texto.getFont();
-        fuente = fuente.deriveFont(Font.PLAIN);
-        texto.setFont(fuente);
-        texto.setForeground(Color.white);
-    }
-
-    /**
-     * Método que pone el texto a formato cursiva.
-     * 
-     * @param texto a modificar.
-     */
-    public void textoCursiva(JTextArea texto) {
-        Font fuente = texto.getFont();
-        fuente = fuente.deriveFont(Font.ITALIC);
-        texto.setFont(fuente);
-    }
-
-    /**
-     * Método que pone el texto a formato normal.
-     * 
-     * @param texto a modificar.
-     */
-    public void textoNormal(JTextArea texto) {
-        Font fuente = texto.getFont();
-        fuente = fuente.deriveFont(Font.PLAIN);
-        texto.setFont(fuente);
-    }
-
-    /**
-     * Método que pone los elementos de la interfaz en valores por defecto.
-     */
-    public void valoresPorDefecto() {
-        this.textoNormal(txtOutput);
-        this.helpTextOff(txtComando);
-        txtComando.setText("");
-        if (!lblPenguin.isEnabled()) { // Imagen del pinguino
-            lblPenguin.setEnabled(true);
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
-        lblPrompt = new javax.swing.JLabel();
-        txtComando = new javax.swing.JTextField();
-        scrlOutput = new javax.swing.JScrollPane();
-        txtOutput = new javax.swing.JTextArea();
-        lblPenguin = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocationByPlatform(true);
-        setResizable(false);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
-
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setForeground(new java.awt.Color(51, 51, 51));
-
-        lblPrompt.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
-        lblPrompt.setForeground(new java.awt.Color(51, 255, 51));
-        lblPrompt.setText("[Consola@inet]:~$");
-
-        txtComando.setBackground(new java.awt.Color(0, 0, 0));
-        txtComando.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
-        txtComando.setForeground(new java.awt.Color(204, 204, 204));
-        txtComando.setBorder(null);
-        txtComando.setCaretColor(new java.awt.Color(0, 255, 51));
-        txtComando.setSelectionColor(new java.awt.Color(0, 0, 0));
-        txtComando.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtComandoActionPerformed(evt);
-            }
-        });
-        txtComando.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtComandoKeyPressed(evt);
-            }
-        });
-
-        scrlOutput.setBackground(new java.awt.Color(51, 51, 51));
-        scrlOutput.setBorder(null);
-        scrlOutput.setForeground(new java.awt.Color(51, 51, 51));
-        scrlOutput.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        txtOutput.setEditable(false);
-        txtOutput.setBackground(new java.awt.Color(0, 0, 0));
-        txtOutput.setColumns(20);
-        txtOutput.setFont(new java.awt.Font("Lucida Console", 0, 16)); // NOI18N
-        txtOutput.setForeground(new java.awt.Color(204, 204, 204));
-        txtOutput.setLineWrap(true);
-        txtOutput.setRows(5);
-        txtOutput.setBorder(null);
-        txtOutput.setSelectionColor(new java.awt.Color(0, 0, 0));
-        txtOutput.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtOutputMouseClicked(evt);
-            }
-        });
-        scrlOutput.setViewportView(txtOutput);
-
-        lblPenguin.setBorder(new javax.swing.border.MatteBorder(null));
-        lblPenguin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPenguinMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(lblPenguin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrlOutput))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(scrlOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComando, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblPenguin)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void txtComandoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComandoKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_UP || evt.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN ) {
-        txtComando.setText(ultimoComando);        
-        
-    }
-    }//GEN-LAST:event_txtComandoKeyPressed
-
-    /**
-     * Método encargador de ejecutar el comando ingresado en la consola, que
-     * deriva a las clases validar y ejecutar respectivamente. Este método se
-     * ejecuta cuando se ingresa el comando y se presiona la tecla ENTER.
-     *
-     * @param evt
-     */
-    private void txtComandoActionPerformed(java.awt.event.ActionEvent evt) {
-        String comando = txtComando.getText(); // Obtiene el comando ingresado
-        this.valoresPorDefecto(); // Interfaz con valores por defecto
-        ultimoComando=comando;
-        Validar validador = new Validar(comando);        
-        Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
-        String[] tokens = validador.getTokens();
-        EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);      
-        
-        
-        if (comando.equals("exit")) { // Comando salir
-            this.dispose();
-        } else if (validador.posicionPipe()!=0){            
-            txtOutput.append(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros)+ "\n");               
-        } else if (comandoValido) { // Si el comando es válido            
-           // String resultado = ejecutar.ejecutarComando(hashComandos, listaFicheros, listaProcesos, txtOutput);
-          //  txtOutput.append("[Consola@inet]:~$" + "[" + ejecutar.getHora() + "] " + comando + "\n" + resultado + "\n");
-        } else { // Si el comando no es válida           
-                     
-            txtOutput.append("[Consola@inet]:~$" + "Comando ingresado " + comando
-                    + " incorrecto\n"+"Intente [man "+tokens[0]+"]\n");
-        }
-    }
-
-    // A continuación, con foco nos referimos a que el elemento está activo y
-    // preparado
-    // para recibir la entrada del usuario, como texto o clics de teclado.
-
-    /**
-     * Método que se ejecuta cuando la ventana gana el foco. Solicita el foco
-     * para la ventana y luego para el campo de texto txtComando.
-     *
-     * @param evt el evento de la ventana ganando el foco
-     */
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
-        this.requestFocusInWindow();
-        txtComando.requestFocus();
-    }
-
-    /**
-     * Método que se ejecuta cuando se hace clic en el label lblPenguin.
-     * Solicita el foco para el campo de texto txtComando.
-     *
-     * @param evt el evento de clic del mouse
-     */
-    private void lblPenguinMouseClicked(java.awt.event.MouseEvent evt) {
-        txtComando.requestFocus();
-    }
-
-    /**
-     * Método que se ejecuta cuando se hace clic en el área de texto txtOutput.
-     * Solicita el foco para el campo de texto txtComando.
-     *
-     * @param evt el evento de clic del mouse
-     */
-    private void txtOutputMouseClicked(java.awt.event.MouseEvent evt) {
-        txtComando.requestFocus();
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblPenguin;
-    private javax.swing.JLabel lblPrompt;
-    private javax.swing.JScrollPane scrlOutput;
-    private javax.swing.JTextField txtComando;
-    private javax.swing.JTextArea txtOutput;
+    private javax.swing.JTextPane consola;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
