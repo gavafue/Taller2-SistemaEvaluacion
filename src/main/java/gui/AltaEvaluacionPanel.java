@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import conexion.Cliente;
@@ -23,12 +24,14 @@ import java.awt.Color;
 public class AltaEvaluacionPanel extends javax.swing.JPanel {
     private String tituloEvaluacion;
     private Cliente cliente;
+    private JPanel panelContent;
 
     /**
      * Creates new form AltaEvaluacionPanel
      */
-    public AltaEvaluacionPanel(Cliente cliente) throws FileNotFoundException {
+    public AltaEvaluacionPanel(Cliente cliente, JPanel panelContent) throws FileNotFoundException {
         this.cliente = cliente;
+        this.panelContent = panelContent;
         initComponents();
         jLabel2.putClientProperty("FlatLaf.styleClass", "h2");
     }
@@ -76,7 +79,8 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnNuevaPregunta = new javax.swing.JButton();
@@ -122,6 +126,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTituloFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTituloFocusLost(evt);
             }
@@ -139,7 +144,12 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
+                try {
+                    btnAtrasActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -164,57 +174,87 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(367, 367, 367))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(156, 156, 156)
-                                    .addComponent(cbxRespuestasValidas)
-                                    .addGap(28, 28, 28))
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(167, 167, 167)
-                                .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))
-                        .addGap(47, 47, 47))))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(57, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                .createSequentialGroup()
+                                                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 84,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(367, 367, 367))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                .createSequentialGroup()
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                        layout.createSequentialGroup()
+                                                                                .addComponent(jLabel1,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                        162,
+                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(156, 156, 156)
+                                                                                .addComponent(cbxRespuestasValidas)
+                                                                                .addGap(28, 28, 28))
+                                                                .addComponent(txtTitulo,
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 626,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jScrollPane1,
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 626,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(btnAtras,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 146,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(167, 167, 167)
+                                                                .addComponent(btnNuevaPregunta,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(3, 3, 3)
+                                                                .addComponent(btnFinalizar,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jLabel3))
+                                                .addGap(47, 47, 47)))));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbxRespuestasValidas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAtras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(91, 91, 91)
-                .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(cbxRespuestasValidas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 48,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(91, 91, 91)
+                                .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -308,8 +348,14 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Evaluacion creada con exito", "Mensaje",
                                 JOptionPane.INFORMATION_MESSAGE);
                         AltaPregunta.setCantidadPreguntas(0);
-                        GestionEvaluaciones evaluaciones = new GestionEvaluaciones(cliente, "docente");
-                        evaluaciones.setVisible(true);
+                        GestionEvaluacionesPanel gestionEvaluacionesPanel = new GestionEvaluacionesPanel(cliente,
+                                "docente", panelContent);
+                        gestionEvaluacionesPanel.setSize(730, 520);
+                        gestionEvaluacionesPanel.setLocation(0, 0);
+                        panelContent.removeAll();
+                        panelContent.add(gestionEvaluacionesPanel);
+                        panelContent.revalidate();
+                        panelContent.repaint();
                     } else {
                         JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Error" + cliente.obtenerCodigo(),
                                 JOptionPane.ERROR_MESSAGE);
@@ -368,17 +414,24 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
      * de gestión.
      *
      * @param evt
+     * @throws IOException
      */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAtrasActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnAtrasActionPerformed
+
         try {
-            GestionEvaluaciones gestionEvaluaciones = new GestionEvaluaciones(cliente, "docente");
-            gestionEvaluaciones.setVisible(true);
-            AltaPregunta.setCantidadPreguntas(0);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+            GestionEvaluacionesPanel gestionEvaluacionesPanel = new GestionEvaluacionesPanel(cliente, "docente",
+                    panelContent);
+            gestionEvaluacionesPanel.setSize(730, 520);
+            gestionEvaluacionesPanel.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(gestionEvaluacionesPanel);
+            panelContent.revalidate();
+            panelContent.repaint();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+
     }// GEN-LAST:event_btnAtrasActionPerformed
 
     /**
