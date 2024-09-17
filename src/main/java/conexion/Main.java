@@ -1,6 +1,6 @@
 package conexion;
 
-import gui.Consola;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import gui.Login;
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ public class Main {
      * @throws IOException si da error de conexión.
      */
     public static void main(String[] args) throws IOException {
+        FlatMacLightLaf.setup();
         Login login = new Login();
         login.setVisible(true);
     }

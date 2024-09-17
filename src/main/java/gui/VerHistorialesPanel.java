@@ -1,38 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
 package gui;
 
 import conexion.Cliente;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * JFrame destinado a mostrar los historiales de una evaluación en particular,
- * conformados por estudiante y puntaje obtenido.
+ *
+ * @author Gabriel
  */
-public class VerHistoriales extends javax.swing.JFrame {
+public class VerHistorialesPanel extends javax.swing.JPanel {
 
     private Cliente cliente;
     private String titulo;
     private String rol;
+    private JPanel panelContent;
 
     /**
-     * Constructor común que permite crear una instancia de la clase, a partir
-     * del título de la evaluación en cuestión, cliente actual y rol.
-     *
-     * @param titulo
-     * @param cliente
-     * @param rol
-     * @throws IOException
+     * Creates new form VerHistorialesPanel
      */
-    public VerHistoriales(String titulo, Cliente cliente, String rol) throws IOException {
+    public VerHistorialesPanel(String titulo, Cliente cliente, String rol, JPanel panelContent) {
         this.titulo = titulo;
         this.cliente = cliente;
         this.rol = rol;
+        this.panelContent = panelContent;
         initComponents();
-        setLocationRelativeTo(null); // Centrar JFrame
         lblTitulo.setText("Evaluacion: " + titulo);
         this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
@@ -88,143 +87,6 @@ public class VerHistoriales extends javax.swing.JFrame {
         this.rol = rol;
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableHistorico = new javax.swing.JTable();
-        btnAtras = new javax.swing.JButton();
-        lblTitulo = new javax.swing.JLabel();
-        btnRespuestas = new javax.swing.JButton();
-        txtPuntajeTotal = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
-        tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-
-                },
-                new String[] {
-                        "CI Estudiante", "Puntaje Obtenido"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean[] {
-                    false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tableHistorico);
-
-        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
-        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtras.setText("Atras");
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
-            }
-        });
-
-        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblTitulo.setText("Evaluación: ");
-
-        btnRespuestas.setBackground(new java.awt.Color(51, 51, 51));
-        btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
-        btnRespuestas.setText("Respuestas Correctas");
-        btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuestasActionPerformed(evt);
-            }
-        });
-
-        txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtPuntajeTotal.setText("Puntaje total posible: ");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtPuntajeTotal)))
-                                .addContainerGap(37, Short.MAX_VALUE)));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(lblTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPuntajeTotal)
-                                .addGap(3, 3, 3)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(17, Short.MAX_VALUE)));
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * Método que proveé funcionamiento al botón "Atrás", que permite cerrar la
-     * ventana actual y abrir la ventana anterior.
-     *
-     * @param evt
-     */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAtrasActionPerformed
-        try {
-            GestionEvaluaciones evaluaciones = new GestionEvaluaciones(this.getCliente(), this.getRol());
-            evaluaciones.setVisible(true);
-            this.dispose();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }// GEN-LAST:event_btnAtrasActionPerformed
-
-    /**
-     * Método que proveé funcionamiento al botón "Respuestas Correctas", que
-     * permite abrir una ventana para visualizar las respuestas correctas de la
-     * evaluación.
-     *
-     * @param evt
-     */
-    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
-        VerRespuestas abrirVentana;
-        abrirVentana = new VerRespuestas(this.getCliente(), this.getTitulo());
-        abrirVentana.setVisible(true);
-    }// GEN-LAST:event_btnRespuestasActionPerformed
-
     /**
      * Método que solicita al servidor los historiales de una evaluación en
      * particular.
@@ -240,7 +102,7 @@ public class VerHistoriales extends javax.swing.JFrame {
                         "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
-            Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -325,7 +187,7 @@ public class VerHistoriales extends javax.swing.JFrame {
             }
         } catch (IOException ex) {
             // Maneja el error pero no muestra alerta aquí
-            Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerHistorialesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Devuelve false si ocurre algún error o no hay historiales
         return false;
@@ -375,6 +237,147 @@ public class VerHistoriales extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableHistorico = new javax.swing.JTable();
+        btnAtras = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        btnRespuestas = new javax.swing.JButton();
+        txtPuntajeTotal = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(730, 520));
+
+        tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
+        tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][] {
+
+                },
+                new String[] {
+                        "CI Estudiante", "Puntaje Obtenido"
+                }) {
+            Class[] types = new Class[] {
+                    java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean[] {
+                    false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableHistorico);
+
+        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    btnAtrasActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblTitulo.setText("Evaluación: ");
+
+        btnRespuestas.setBackground(new java.awt.Color(51, 51, 51));
+        btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRespuestas.setText("Respuestas Correctas");
+        btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRespuestasActionPerformed(evt);
+            }
+        });
+
+        txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtPuntajeTotal.setText("Puntaje total posible: ");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 210,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtPuntajeTotal,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 744,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jScrollPane2,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 701,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(lblTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPuntajeTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69,
+                                        Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(41, 41, 41)));
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnAtrasActionPerformed
+        GestionEvaluacionesPanel evaluacionesPanel = new GestionEvaluacionesPanel(cliente, rol, panelContent);
+        evaluacionesPanel.setSize(730, 520);
+        evaluacionesPanel.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(evaluacionesPanel);
+        panelContent.revalidate();
+        panelContent.repaint();
+    }// GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
+        VerRespuestasPanel evaluacionesPanel = new VerRespuestasPanel(cliente, titulo, rol, panelContent);
+        evaluacionesPanel.setSize(730, 520);
+        evaluacionesPanel.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(evaluacionesPanel);
+        panelContent.revalidate();
+        panelContent.repaint();
+    }// GEN-LAST:event_btnRespuestasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
