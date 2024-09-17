@@ -56,26 +56,25 @@ public class Validar {
      * comando son válidas.
      *
      * @param comandos La lista de comandos disponibles.
-     * @return true si el comando es válido, false en caso contrario.
+     * @return String "200" si el comando es válido o el error concreto en caso contrario.
      */
-    public boolean validarComando(Comandos comandos){           
-        String comando = tokens[0];
-        boolean existe= comandos.existeComando(comando);
-        boolean esCorrecto=false;
-        
-        if (existe) {
-            String[] opcionesValidas = comandos.obtenerOpciones(comando);
-            
-            //Se validan los comandos que permiten opciones
-            if (opcionesValidas != null) {
-                usaModificadores=true;
-                esCorrecto = validarOpciones();
-            }else {
-                esCorrecto=validarSintaxis();//Se validan comandos sin opciones
-                usaModificadores=false;
-            }
-        }
-        return esCorrecto;//no vale
+   public String validarComando(Comandos comandos) {
+    String comando = tokens[0];
+    String resultado =">> Comando ingresado '"
+            + comando + "' inexistente <<\n\nIntente [man] para ver los comandos disponibles\n";
+    
+    boolean existe = comandos.existeComando(comando);
+    if (existe) {
+        String[] opcionesValidas = comandos.obtenerOpciones(comando);
+    if (opcionesValidas != null) {
+        usaModificadores = true;
+        resultado = validarOpciones();
+    } else {
+        usaModificadores = false;
+        resultado = validarSintaxis();
+    }        
+    }    
+    return resultado;
     }
     
     /**
@@ -114,83 +113,82 @@ public class Validar {
      *
      * @return true si todas las opciones son válidas, false en caso contrario.
      */
-    private boolean validarOpciones() {
-        
-        boolean todasValidas = false;
+    private String validarOpciones() {        
+        String resultado = "200";
         
             switch (tokens[0]){                    
 
                 case "ls":
-                            if(tokens.length==1){
-                                todasValidas=true;
-                            } else {
-                                todasValidas=validarOpLs(); 
-                            }
+                            if (tokens.length>1) {
+                                resultado=validarOpLs();
+                            }                            
                             break;
                 case "head":
-                            todasValidas=validarHeadTail();
+                case "tail":            
+                            resultado=validarHeadTail();
                             break;
-                case "tail":
-                            todasValidas=validarHeadTail();
-                            break;
+                
                 case "sort":
-                            todasValidas=validarSort();
+                            resultado=validarSort();
                             break;
                 case "cut":
-                            todasValidas=validarCut();                            
+                            resultado=validarCut();                            
                             break;
-
-            }
-            esValido=todasValidas;
-            return todasValidas;
+            }            
+            
+            return resultado;            
         }
-        
-    
+            
     /**
      * Metodo auxiliar que valida las opciones ingresadas con "-" para un comando determinado
      * 
      * @param comando del cual desea validar las opciones
      * @param aComprobar arreglo con las opciones ingresadas por el usuario
-     * @return un booleano indicando si todas las opciones son validas para ese comando 
+     * @return un String "200" sin todas las opciones con correctas o un mensaje
+     * descriptivo en caso contrario
      */        
-    private boolean compararConOpcPosibles (String comando,String[]aComprobar) {
-        Comandos comandos = new Comandos();
-        //arreglo con las opciones validas del comando pasado por parametros
-        String [] opcionesValidas = comandos.obtenerOpciones(comando);
-
-         for (String opcion : aComprobar) {
-                if (!Arrays.asList(opcionesValidas).contains(opcion)) {
-                    return false; // Si algún elemento no está, devuelve false
-                }
-            }
-            return true; // Si todos los elementos están, devuelven true
+    private String compararConOpcPosibles (String comando,String[]aComprobar) {    
+    Comandos comandos = new Comandos();
+    // Arreglo con las opciones válidas del comando pasado por parámetros
+    String[] opcionesValidas = comandos.obtenerOpciones(comando);    
+    String resultado = "200"; //Valor valido por defecto
+    boolean esValida;
+    
+    for (String opcion : aComprobar) {
+        esValida = Arrays.asList(opcionesValidas).contains(opcion);
+        if (!esValida) {
+            resultado = ">> El modificador " + opcion + " no es válido <<\n";
+           //Se podría utilizar while o un break para salir del bucle, ya que alcanza con encontrar una sola inválida
+           //Tambien podrían mostrarse todas las opciones incorrectas
+        }
+    }    
+    return resultado;
     }
     
     /**
      * Metodo que controla la posibilidad de colocar 2 veces la misma opcion por parte del usuario
      * Ejemplo: ls -l -l //NO ES VALIDO
-     * @return si se han encontrado o no opciones duplicadas 
+     * @return "200" si no existen opciones duplicadas o el mensaje de error concreto en caso contrario 
      */
-    private boolean encontrarDuplicados(){
-        // Variable para verificar si hay duplicados
-        boolean duplicadoEncontrado = false;        
-        // Creo un arreglo booleano para marcar duplicados
-        boolean[] yaIncluido = new boolean[tokens.length];
-        // Recorrer el arreglo para contar cuántos elementos únicos empiezan con '-'
-        for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].startsWith("-") && !yaIncluido[i]) {
-                // Marcar este elemento y buscar duplicados
-                for (int j = i + 1; j < tokens.length; j++) {
-                    if (tokens[i].equals(tokens[j])) {
-                        duplicadoEncontrado = true;
-                        yaIncluido[j] = true; // Marcar duplicados
-                        System.out.println("Duplicado encontrado: " + tokens[i]);
-                    }
-                }                
-            }            
+   private String encontrarDuplicados() {
+    boolean[] yaIncluido = new boolean[tokens.length];
+    String resultado = "200";
+    
+    for (int i = 0; i < tokens.length; i++) {
+        if (tokens[i].startsWith("-") && !yaIncluido[i]) {
+            for (int j = i + 1; j < tokens.length; j++) {
+                if (tokens[i].equals(tokens[j])) {
+                    resultado = ">> Modificador " + tokens[i] + " duplicado <<\n";
+                 //Se podría utilizar while o un break para salir del bucle, ya que alcanza con encontrar una sola duplicada
+                 //También podrían mostrarse todas las opciones duplicadas  
+                }
+            }
         }
-        return duplicadoEncontrado;
     }
+    
+    return resultado;
+}
+
     
     /**
      * Metodo auxiliar que cuenta la cantidad de opciones ingresadas
@@ -217,86 +215,173 @@ public class Validar {
       * ls -l -a || ls -l -a dir
       * ls -a -l || ls -a -l dir
       * 
-      * @return si las opciones utilizadas con ls son validas
+      * @return un mensaje con el error concreto o "200" si es valido
       */ 
-    private boolean validarOpLs() {        
-        boolean todasValidas=false;
-        boolean hayDuplicados=encontrarDuplicados();        
-        
-        if (!hayDuplicados&&(tokens.length>=2&&tokens.length<=4)){
-            // Crear un nuevo arreglo sin duplicados
-            int tamanio= contarOpciones();
-            String[] resultado = new String [tamanio];
-            int index = 0;
-            // Agregar los elementos únicos al nuevo arreglo
-            for (String token : tokens) {
-                if (token.startsWith("-")) {
-                    resultado[index++] = token;
-                }
+    private String validarOpLs() {       
+    String duplicados = encontrarDuplicados();    
+    // Mensaje de error por defecto
+    String mensajeError = ">> Sintaxis incorrecta. Intente [man ls] <<\n";
+
+    if (!duplicados.equals("200")) {
+        // Si hay un error con los duplicados, establecer mensajeError
+        mensajeError = duplicados;
+    } else {
+        // Crear un nuevo arreglo sin duplicados
+        int tamanio = contarOpciones();
+        String[] opcionesUnicas = new String[tamanio];
+        int index = 0;
+        // Agregar los elementos únicos al nuevo arreglo
+        for (String token : tokens) {
+            if (token.startsWith("-")) {
+                opcionesUnicas[index++] = token;
             }
-            todasValidas=compararConOpcPosibles("ls",resultado);                 
-        } else {
-            todasValidas=false;                 
         }
-        return todasValidas;
+        // Validar las opciones y actualizar el mensaje de error
+        mensajeError = compararConOpcPosibles("ls", opcionesUnicas);
+    }
+    
+    return mensajeError;
+        
     }
     
     /**
      * Metodo que utiliza contarOpciones y encontrarDuplicados
      * para validar la sintaxis de tail y head
      * 
-     * @return si las opciones utilizadas con tail o head son validas
+     * @return un mensaje con el error concreto o "200" si la sintaxis es valida
      */
-    private boolean validarHeadTail(){        
-        boolean valido;
-        boolean hayDuplicados=encontrarDuplicados();
-        int tamanio= contarOpciones();
+    private String validarHeadTail(){ 
+            String resultado;
+    // Caso especial para una sola opción
+    if (tokens.length == 1) {
+        resultado = ">> Faltan opciones/parámetros <<\n";
+    } else {
+        // Encontrar duplicados en las opciones
+        String duplicados = encontrarDuplicados();
         
-        if(tamanio==0&&tokens.length==2){
-            valido=true;
-        }else{
-            valido = !hayDuplicados&&tamanio==1&&tokens[1].equals("-n")&&tokens.length==4;
+        // Verificar el caso de duplicados
+        if (!duplicados.equals("200")) {
+            resultado = duplicados;
+        } else {
+            
+            int tamanio = contarOpciones();
+
+            // Verificar el caso especial para tamaño de opciones
+            if (tamanio == 0 && tokens.length == 2) {
+                resultado = "200"; // Valor válido
+            } else {
+                // Crear un nuevo arreglo sin duplicados
+                String[] resultadoArray = new String[tamanio];
+                int index = 0;
+
+                // Agregar los elementos únicos al nuevo arreglo
+                for (String token : tokens) {
+                    if (token.startsWith("-")) {
+                        resultadoArray[index++] = token;
+                    }
+                }
+                // Comparar con opciones posibles
+                String opcValidas = compararConOpcPosibles("head", resultadoArray);
+                // Determinar el resultado final basado en el tamaño de tokens y las opciones válidas
+                if (tokens.length == 4 && opcValidas.equals("200")) {
+                    resultado = "200"; // Valor válido
+                } else if (!opcValidas.equals("200")) {
+                    resultado = opcValidas; // Mensaje de error de opciones válidas
+                } else {
+                    resultado = ">> Sintaxis incorrecta intente man " + tokens[0] + "<<\n"; // Mensaje de error de sintaxis
+                }
+            }
         }
-        return valido;
-        
-    }
+    }    
+    return resultado;
+    }      
 
     /**
      * Metodo que utiliza contarOpciones y encontrarDuplicados
      * para validar la sintaxis de sort
      * 
-     * @return si la sintaxis de sort es correcta
+     * @return un String "200" si la sintaxis de sort es correcta y el mensaje de error en caso contrario.
      */
-    private boolean validarSort(){
-        boolean valido;
-        boolean hayDuplicados=encontrarDuplicados();
-        int tamanio=contarOpciones();
-        
-        if(tamanio==0&&tokens.length==2){
-            valido=true;
-        } else {
-            valido=!hayDuplicados&&tokens.length == 3 && tokens[1].equals("-n");
-        }
-        return valido;    
-    }
-    
+    private String validarSort() {
+    String duplicados = encontrarDuplicados();    
+    // Mensaje de error por defecto
+    String mensajeError = ">> Sintaxis incorrecta. Intente [man sort] <<\n";
+
+    if (!duplicados.equals("200")) {
+        // Si hay opciones duplicadas, las devuelve
+        mensajeError = duplicados;
+    } else {
+        int tamanio = contarOpciones();
+
+        if (tokens.length == 1) {
+            // Si solo hay un token
+            mensajeError = ">> Faltas opciones/parámetros <<\n";
+        } else if (tamanio == 0 && tokens.length == 2) {
+            // Si no hay opciones y tokens.length es 2 el comando puede ejecutarse
+            mensajeError = "200";
+        } else if (tamanio > 0 && tokens.length == 3) {
+            // Si hay opciones y tokens.length es 3, validar las opciones
+            String[] resultadoOpciones = new String[tamanio];
+            int index = 0;
+            for (String token : tokens) {
+                if (token.startsWith("-")) {
+                    resultadoOpciones[index++] = token;
+                }
+            }       
+  
+            String opcValidas = compararConOpcPosibles("sort", resultadoOpciones);
+            // Determinar el resultado final basado en el tamaño de tokens y las opciones válidas
+            if (tokens.length == 3 && opcValidas.equals("200")) {
+                mensajeError = "200"; // Valor válido
+            } else if (!opcValidas.equals("200")) {
+                mensajeError = opcValidas; // Mensaje de error de opciones válidas
+            } else {
+                mensajeError = ">> Sintaxis incorrecta intente man " + tokens[0] + "<<\n"; // Mensaje de error de sintaxis
+            }
+            }
+        }        
+    return mensajeError;
+    }      
+
      /**
      * Metodo que utiliza contarOpciones y encontrarDuplicados
      * para validar la sintaxis cut
      * 
-     * @return si la sintaxis de cut es correcta
+     * @return si la sintaxis de cut es correcta devuelve el String "200", en caso contrario el mensaje de error
      */    
-    private boolean validarCut(){        
-        boolean valido;
-        boolean hayDuplicados=encontrarDuplicados();
-        int tamanio=contarOpciones();
-        if (tokens.length!=6){
-            valido =false;
-        } else {        
-        valido = !hayDuplicados && tamanio==2 && tokens[0].equals("cut") && tokens[1].equals("-d") && tokens[3].equals("-f");
-        }
-        return valido;
+  private String validarCut() {
+    String duplicados = encontrarDuplicados();
+    
+    // Inicializar el mensaje de error por defecto
+    String mensajeError = ">> Sintaxis incorrecta. Intente [man cut] <<\n";
+    // Si hay opciones duplicadas, las devuelve
+    if (!duplicados.equals("200")) {        
+        mensajeError = duplicados;
+    } else {
+        int tamanio = contarOpciones();           
+            String[] resultadoOpciones = new String[tamanio];
+            int index = 0;
+            
+            for (String token : tokens) {
+                if (token.startsWith("-")) {
+                    resultadoOpciones[index++] = token;
+                }
+            }
+            String opValidas = compararConOpcPosibles("cut", resultadoOpciones);
+            
+            if (tokens.length == 6 && opValidas.equals("200") && tokens[1].equals("-d")) {
+                mensajeError = "200"; // Valor válido
+            } else if (!opValidas.equals("200")) {
+                mensajeError = opValidas; // Mensaje de error de opciones válidas
+            } else if ( tokens.length != 6){
+                mensajeError= ">> Cantidad de opciones incorrecta para este comando <<\n";
+            } else {
+                mensajeError = ">> Sintaxis incorrecta intente man " + tokens[0] + "<<\n"; // Mensaje de error de sintaxis
+            }
     }
+    return mensajeError;
+    }
+
      
      /**
      * Método que busca la existencia del caracter pipe y devuelve su posición
@@ -315,12 +400,16 @@ public class Validar {
     }
     
     /**
-     * Metodo para validar la sintaxis de los comandos que no utilizan modificadores.     
+     * Metodo para validar la sintaxis de los comandos que no utilizan modificadores "-"
+     * 
      *       
-     * @return la validez de la sintaxis en base a la cantidad de tokens esperados
+     * @return la validez de la sintaxis en base a la cantidad de tokens esperados 
+     * 
+     * "200" se interpreta como sintaxis 
      */    
-    private boolean validarSintaxis() {
-        boolean sintaxisCorrecta = false;
+    private String validarSintaxis() {
+        boolean sintaxisCorrecta=false;
+        String mensaje;
         
         switch (tokens[0]){                    
 
@@ -358,9 +447,14 @@ public class Validar {
                         sintaxisCorrecta=(tokens.length==1);
                         break;
 
+        }      
+        if(sintaxisCorrecta){
+            mensaje = "200";
+        }else{        
+            mensaje = ">> Sintaxis incorrecta intente man "+tokens[0]+"<<\n";                
         }
         esValido=sintaxisCorrecta;
-        return sintaxisCorrecta;
+        return mensaje;
     }
 
     
