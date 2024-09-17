@@ -101,12 +101,11 @@ public class Comandos {
         
         
         Comando com0 = new Comando(
-                "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|cp|kill|grep|tail|head|cut|sort|chmod| '|']",
+                "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n     Ejemplo: man [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
                 "\n Ejemplo: ls /etc \n\nLista el contenido del directorio /etc\n\n", opcLs);
-        Comando com2 = new Comando("Copia ficheros de [ORIGEN] a [DESTINO]",
-                "\n     Ejemplo: cp arch1 /home/respaldo/\n\nCopia arch1 al directorio respaldo\n\n", null);
+
         Comando com3 = new Comando("Crea un directorio", "  Ejemplo: mkdir dir1 Crea dir1 en el directorio actual",
                 null);
         Comando com4 = new Comando("Borra un directorio sin contenido",
@@ -148,7 +147,7 @@ public class Comandos {
 
         agregarComando("man", com0);
         agregarComando("ls", com1);
-        agregarComando("cp", com2);
+
         agregarComando("mkdir", com3);
         agregarComando("rmdir", com4);
         agregarComando("mv", com5);
