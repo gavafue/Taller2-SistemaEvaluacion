@@ -102,7 +102,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                         "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
-            Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -187,7 +187,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
             }
         } catch (IOException ex) {
             // Maneja el error pero no muestra alerta aquí
-            Logger.getLogger(VerHistoriales.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VerHistorialesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Devuelve false si ocurre algún error o no hay historiales
         return false;

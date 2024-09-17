@@ -321,7 +321,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     panelContent.repaint();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }// GEN-LAST:event_btnNuevaPreguntaActionPerformed
@@ -376,7 +376,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Faltan elementos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
     }// GEN-LAST:event_btnFinalizarActionPerformed
 

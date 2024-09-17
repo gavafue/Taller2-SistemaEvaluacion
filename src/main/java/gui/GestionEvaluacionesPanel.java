@@ -339,7 +339,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         try {
             this.solicitarEvaluacionAlAzar();
         } catch (IOException ex) {
-            Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestionEvaluacionesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
@@ -374,7 +374,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                                 "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GestionEvaluacionesPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } // Si el usuario elige "No", no se hace nada
         } else {
@@ -430,7 +430,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
                 this.solicitarEvaluacion(titulo);
             } catch (IOException ex) {
-                Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestionEvaluacionesPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }// GEN-LAST:event_btnRealizarActionPerformed

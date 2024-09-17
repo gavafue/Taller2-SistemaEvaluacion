@@ -300,7 +300,7 @@ public class Registro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, mensaje, "Error " + codigo, JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE,
                         "Error de comunicación con el servidor", ex);
                 JOptionPane.showMessageDialog(this,
                         "Hubo un problema al comunicarse con el servidor. Por favor, intente nuevamente.",

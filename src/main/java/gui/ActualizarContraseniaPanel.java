@@ -278,7 +278,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
                                                 this.getCliente().getId() + ";;;" + password
                                                                 + ",;,Usuarios,;,CambioPassword");
                         } catch (IOException ex) {
-                                Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(GestionEvaluacionesPanel.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         if (this.getCliente().obtenerCodigo().equals("200")) {
                                 JOptionPane.showMessageDialog(this, "Modificada con éxito");

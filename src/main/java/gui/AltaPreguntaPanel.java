@@ -41,6 +41,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private JPanel panelContentDashboard;
     private AltaEvaluacionPanel panelContentVistaPrevia;
 
+    public void setNombreEvaluacion(String titulo) {
+        txtNombreEvaluacion.setText("Realizando: " + titulo);
+    }
+
     /**
      * Constructor que permite crear una instancia de la clase a partir del
      * cliente actual y el JPanel vista previa de la evaluación.
@@ -434,6 +438,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 this.getCliente().intercambiarMensajes(enviarRespuestas);
                 AltaPreguntaPanel.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
                 this.setRespuestas(""); // Inicializa las respuestas
+                framePregunta.setNombreEvaluacion("");
                 BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);
                 panelBienvenida.setSize(730, 520);
                 panelBienvenida.setLocation(0, 0);
@@ -546,8 +551,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         String[] nuevaPregunta = this.getCliente().obtenerMensaje().split(";;;");
         if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { // Si tiene la estructura de una pregunta
             this.cargarEnGui(nuevaPregunta, framePregunta);
+            framePregunta.setNombreEvaluacion("Evaluacion: " + evaluacion);
             framePregunta.revalidate();
             framePregunta.repaint();
+
         }
     }
 
@@ -581,6 +588,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarMultiple.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxOpcionesMultiple.setSelectedIndex(0);
+        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -603,6 +611,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxVerdaderoOFalso.setSelectedIndex(0);
+        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -625,6 +634,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.txtRespuestaEspacios.setText("");
+        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -758,10 +768,14 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        txtNombreEvaluacion = new javax.swing.JLabel();
         panelMultiple = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -803,6 +817,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNombreEvaluacion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtNombreEvaluacion.setText("sdfsdfsdfsdf");
+        add(txtNombreEvaluacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 390, 40));
 
         panelMultiple.setBackground(new java.awt.Color(255, 255, 255));
         panelMultiple.setPreferredSize(new java.awt.Dimension(587, 227));
@@ -947,7 +965,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             }
         });
         panelMultiple.add(lblEnunciadoMultiple);
-        lblEnunciadoMultiple.setBounds(20, 20, 370, 24);
+        lblEnunciadoMultiple.setBounds(20, 50, 390, 24);
 
         lblAyudaMultiple.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblAyudaMultiple.setForeground(new java.awt.Color(51, 102, 255));
@@ -1296,6 +1314,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner spnPuntajeMultiple;
     private javax.swing.JTextArea txtEnunciado;
     private javax.swing.JTextArea txtEnunciadoEspaciosVF;
+    private javax.swing.JLabel txtNombreEvaluacion;
     private javax.swing.JTextField txtOpc1;
     private javax.swing.JTextField txtOpc2;
     private javax.swing.JTextField txtOpc3;
