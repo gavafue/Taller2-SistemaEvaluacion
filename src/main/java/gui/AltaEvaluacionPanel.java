@@ -295,18 +295,30 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         } else {
             try {
                 tituloEvaluacion = txtTitulo.getText();
-                if (AltaPregunta.getCantidadPreguntas() == 0) { // Si aún no se agregaron preguntas
+                if (AltaPreguntaPanel.getCantidadPreguntas() == 0) { // Si aún no se agregaron preguntas
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
-                        ventanaPregunta.setVisible(true);
+                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                                panelContent, this);
+                        ventanaPregunta.setSize(730, 520);
+                        ventanaPregunta.setLocation(0, 0);
+                        panelContent.removeAll();
+                        panelContent.add(ventanaPregunta);
+                        panelContent.revalidate();
+                        panelContent.repaint();
                     } else {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPregunta ventanaPregunta = new AltaPregunta(PanelVista, cliente, "docente");
-                    ventanaPregunta.setVisible(true);
+                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                            panelContent, this);
+                    ventanaPregunta.setSize(730, 520);
+                    ventanaPregunta.setLocation(0, 0);
+                    panelContent.removeAll();
+                    panelContent.add(ventanaPregunta);
+                    panelContent.revalidate();
+                    panelContent.repaint();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(AltaEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -331,7 +343,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         } else
             try {
-                if (AltaPregunta.getCantidadPreguntas() >= 3) {
+                if (AltaPreguntaPanel.getCantidadPreguntas() >= 3) {
                     // Obtener el estado del checkbox
                     boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado,
                                                                                    // false si no lo está
@@ -339,7 +351,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     // Concatenar la información necesaria para enviarla al cliente, incluyendo el
                     // valor de respuestasValidas
                     // Prepara el mensaje con el número de preguntas
-                    String mensaje = ";;;" + respuestasValidas + ";;;" + AltaPregunta.getCantidadPreguntas()
+                    String mensaje = ";;;" + respuestasValidas + ";;;" + AltaPreguntaPanel.getCantidadPreguntas()
                             + ",;,Evaluaciones,;,Alta";
                     cliente.concatenarMensaje(mensaje);
                     cliente.intercambiarMensajes(cliente.getInstruccion());
@@ -347,7 +359,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     if (cliente.obtenerCodigo().equals("200")) {
                         JOptionPane.showMessageDialog(this, "Evaluacion creada con exito", "Mensaje",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        AltaPregunta.setCantidadPreguntas(0);
+                        AltaPreguntaPanel.setCantidadPreguntas(0);
                         GestionEvaluacionesPanel gestionEvaluacionesPanel = new GestionEvaluacionesPanel(cliente,
                                 "docente", panelContent);
                         gestionEvaluacionesPanel.setSize(730, 520);

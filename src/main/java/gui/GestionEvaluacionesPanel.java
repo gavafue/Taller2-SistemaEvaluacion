@@ -23,6 +23,11 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     private Cliente cliente;
     private String rol;
     private JPanel panelContent;
+    private AltaEvaluacionPanel generador;
+
+    public void setGenerador(AltaEvaluacionPanel generador) {
+        this.generador = generador;
+    }
 
     /**
      * Creates new form GestionEvaluacionesPanel
@@ -34,6 +39,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         initComponents();
         this.determinarInterfaz(); // Muestra determinados elementos gráficos dependiendo del rol
         this.solicitarTitulosEvaluaciones();
+        setGenerador(new AltaEvaluacionPanel(cliente, panelContent));
     }
 
     /**
@@ -99,7 +105,8 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
             // VerdaderoFalso;;;Enunciado;;;puntaje
             // Completar;;;Enunciado;;;puntaje
-            AltaPregunta framePregunta = new AltaPregunta(null, this.getCliente(), "estudiante");
+            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante",
+                    panelContent, this.generador);
             framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
             framePregunta.setEvaluacion(titulo);
             framePregunta.cargarEnGui(pregunta, framePregunta);
@@ -183,7 +190,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                try {
+                    btnAgregarActionPerformed(evt);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -325,18 +337,13 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
-        try {
-            AltaEvaluacionPanel generador = new AltaEvaluacionPanel(cliente, panelContent);
-            generador.setSize(730, 520);
-            generador.setLocation(0, 0);
-            panelContent.removeAll();
-            panelContent.add(generador);
-            panelContent.revalidate();
-            panelContent.repaint();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {// GEN-FIRST:event_btnAgregarActionPerformed
+        generador.setSize(730, 520);
+        generador.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(generador);
+        panelContent.revalidate();
+        panelContent.repaint();
     }// GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEliminarActionPerformed
