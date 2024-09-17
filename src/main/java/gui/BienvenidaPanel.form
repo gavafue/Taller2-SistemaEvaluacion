@@ -31,8 +31,8 @@
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel3" max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="686" max="-2" attributes="0"/>
+                      <Component id="txtSegundoRenglon" max="32767" attributes="0"/>
+                      <Component id="txtPrimerRenglon" min="-2" pref="686" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel5" min="-2" pref="710" max="-2" attributes="0"/>
               </Group>
@@ -45,9 +45,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblSubtitulo" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="txtPrimerRenglon" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="txtSegundoRenglon" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" pref="248" max="-2" attributes="0"/>
               <EmptySpace pref="98" max="32767" attributes="0"/>
@@ -61,7 +61,7 @@
         <Property name="text" type="java.lang.String" value="Bienvenido "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="txtPrimerRenglon">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
@@ -69,7 +69,7 @@
         <Property name="text" type="java.lang.String" value="Este es el espacio donde podr&#xe1;s crear y gestionar evaluaciones de manera f&#xe1;cil."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="txtSegundoRenglon">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>

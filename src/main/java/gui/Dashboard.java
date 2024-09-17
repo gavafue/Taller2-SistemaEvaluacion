@@ -27,7 +27,7 @@ public class Dashboard extends javax.swing.JFrame {
                 initStyles();
                 this.cliente = cliente;
                 this.rol = rol;
-                BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente);
+                BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);
                 panelBienvenida.setSize(730, 520);
                 panelBienvenida.setLocation(0, 0);
                 panelContent.removeAll();
@@ -54,6 +54,9 @@ public class Dashboard extends javax.swing.JFrame {
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
         // Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
@@ -64,6 +67,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btnEvaluaciones = new javax.swing.JButton();
                 btnInicio = new javax.swing.JButton();
                 jSeparator1 = new javax.swing.JSeparator();
+                btnConsola = new javax.swing.JButton();
                 btnPerfil = new javax.swing.JButton();
                 header = new javax.swing.JPanel();
                 tituloHeader = new javax.swing.JLabel();
@@ -116,6 +120,19 @@ public class Dashboard extends javax.swing.JFrame {
 
                 jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
+                btnConsola.setBackground(new java.awt.Color(102, 102, 102));
+                btnConsola.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+                btnConsola.setForeground(new java.awt.Color(255, 255, 255));
+                btnConsola.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/linuxicon.png"))); // NOI18N
+                btnConsola.setText("Abrir consola Linux");
+                btnConsola.setBorder(null);
+                btnConsola.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                btnConsola.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnConsolaActionPerformed(evt);
+                        }
+                });
+
                 btnPerfil.setBackground(new java.awt.Color(26, 35, 126));
                 btnPerfil.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
                 btnPerfil.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,7 +173,12 @@ public class Dashboard extends javax.swing.JFrame {
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 Short.MAX_VALUE)
+                                                                                .addComponent(btnConsola,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
                                                                                 .addComponent(btnPerfil,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 Short.MAX_VALUE))
@@ -194,7 +216,13 @@ public class Dashboard extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 40,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(323, Short.MAX_VALUE)));
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnConsola,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(277, Short.MAX_VALUE)));
 
                 header.setBackground(new java.awt.Color(25, 118, 210));
                 header.setPreferredSize(new java.awt.Dimension(750, 150));
@@ -314,6 +342,12 @@ public class Dashboard extends javax.swing.JFrame {
                 setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
+        private void btnConsolaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPerfil1ActionPerformed
+                Consola consola = new Consola();
+                consola.setVisible(true);
+                consola.setLocationRelativeTo(null);
+        }// GEN-LAST:event_btnPerfil1ActionPerformed
+
         private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCerrarSesionActionPerformed
                 this.dispose();
 
@@ -328,7 +362,6 @@ public class Dashboard extends javax.swing.JFrame {
         }// GEN-LAST:event_btnCerrarSesionActionPerformed
 
         private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnPerfilActionPerformed
-
                 ActualizarContraseniaPanel actualizarContraseniaPanel = new ActualizarContraseniaPanel(cliente);
                 actualizarContraseniaPanel.setSize(730, 520);
                 actualizarContraseniaPanel.setLocation(0, 0);
@@ -357,7 +390,7 @@ public class Dashboard extends javax.swing.JFrame {
         }// GEN-LAST:event_btnEvaluacionesActionPerformed
 
         private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
-                BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente);
+                BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);
                 panelBienvenida.setSize(730, 520);
                 panelBienvenida.setLocation(0, 0);
                 panelContent.removeAll();
@@ -372,6 +405,7 @@ public class Dashboard extends javax.swing.JFrame {
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JPanel background;
         private javax.swing.JButton btnCerrarSesion;
+        private javax.swing.JButton btnConsola;
         private javax.swing.JButton btnEvaluaciones;
         private javax.swing.JButton btnInicio;
         private javax.swing.JButton btnPerfil;

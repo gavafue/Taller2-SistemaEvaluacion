@@ -107,6 +107,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             // Completar;;;Enunciado;;;puntaje
             AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante",
                     panelContent, this.generador);
+            framePregunta.setSize(730, 520);
+            framePregunta.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(framePregunta);
+            panelContent.revalidate();
+            panelContent.repaint();
             framePregunta.setRespuestas(this.getCliente().getId() + ";;;" + titulo);
             framePregunta.setEvaluacion(titulo);
             framePregunta.cargarEnGui(pregunta, framePregunta);
@@ -398,7 +404,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 }
             } else if (this.getRol().equals("estudiante")) {
                 if (historico.hayHistorialesDisponibles() && historico.estudianteRealizoEvaluacion()) {
-                    historico.setVisible(true);
+                    historico.setSize(730, 520);
+                    historico.setLocation(0, 0);
+                    panelContent.removeAll();
+                    panelContent.add(historico);
+                    panelContent.revalidate();
+                    panelContent.repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "No has realizado esta evaluación aún");
                 }
@@ -410,7 +421,18 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_btnHistoricoActionPerformed
 
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tableEvaluaciones.getSelectedRow();
+        if (selectedRow == -1) { // No hay ninguna evaluación seleccionada
+            JOptionPane.showMessageDialog(null, "Seleccione la evaluación a realizar.", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
+                this.solicitarEvaluacion(titulo);
+            } catch (IOException ex) {
+                Logger.getLogger(GestionEvaluaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }// GEN-LAST:event_btnRealizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
