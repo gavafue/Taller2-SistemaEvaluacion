@@ -16,7 +16,8 @@ public class Main {
      * @throws IOException si da error de conexión.
      */
     public static void main(String[] args) throws IOException {
-        Login login = new Login();
-        login.setVisible(true);
+        //Login login = new Login();
+        //login.setVisible(true);
+        Consola con = new Consola();
     }
 }

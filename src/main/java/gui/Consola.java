@@ -180,7 +180,7 @@ public class Consola extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
         );
 
         pack();
@@ -248,45 +248,44 @@ public class Consola extends javax.swing.JFrame {
         try {
             String comando = doc.getText(posicionPrompt, doc.getLength() - posicionPrompt).trim();
             ultimoComando = comando.trim(); // Guardar el último comando
-            
+            System.out.println("El comando es "+comando);
             Validar validador = new Validar(comando);        
-            Boolean comandoValido = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
+            String comandoaValidar = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
             String[] tokens = validador.getTokens();
             EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);            
            
             if (comando.equals("exit")) { // Comando salir
-             this.dispose(); 
-            //Si aparece un pipe
-            }  else if (validador.posicionPipe()!=0){
-               //Valido el primer comando antes de intentar concatenarlo
-               String [] primerComando = comando.split("\\|");
-               Validar validadorPipe = new Validar (primerComando[0]);
-               if (validadorPipe.validarComando(hashComandos)){
+                this.dispose();                 
+            }
+            if (comando.equals("")){//Salto de linea si no hay comando                
+                doc.insertString(doc.getLength(), "\n", null);
+                
+            } else if (validador.posicionPipe()!=0){//Si aparece un pipe
+                
+                //Valido el primer comando antes de intentar concatenarlo
+                String [] primerComando = comando.split("\\|");
+                Validar validadorPipe = new Validar (primerComando[0]);
+                if (validadorPipe.validarComando(hashComandos).equals("200")){
                     mostrarConEstilo(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));            
                  }else{
-                    doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
-                    "[Intente man "+tokens[0]+"]\n\n",estiloError);
+                    doc.insertString(doc.getLength(),"\n\n"+validadorPipe.validarComando(hashComandos)+"\n",estiloError);
                }                             
-           } else if (comandoValido) { // Si es un unico comando valido         
+           } else if (comandoaValidar.equals("200")) { // Si es un unico comando valido         
                 String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
-                mostrarConEstilo(resultado);                    
-           } else {                     
-               if(!comando.isEmpty()){
-                doc.insertString(doc.getLength(), "\n\n>> Comando ingresado " + comando + " incorrecto <<\n"+
-                "[Intente man "+tokens[0]+"]\n\n",estiloError); // Si el comando no es válido                        
-               }else{
-                 doc.insertString(doc.getLength(), "\n", null);//Salto de linea si no hay comando               
-               }                
-           }
-            // Mostrar el nuevo prompt
-                mostrarPrompt();
-        }catch (BadLocationException ex) {
-        }
+                mostrarConEstilo(resultado);                   
+           } else {                 
+                doc.insertString(doc.getLength(),"\n\n"+comandoaValidar+"\n",estiloError); // Si el comando no es válido                        
+               }           
+           mostrarPrompt();// Mostrar el nuevo prompt
+           
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }            
         // Prevenir la nueva línea predeterminada del JTextPane
         //evt.consume();                
         } else {
         consola.setCharacterAttributes(estiloComando, true);                    
-        // Asegurar que el texto que se escribe aparece en blanco
+        // Aseguranos de que el texto que se escribe aparece en blanco mientras no se presiona enter
         }        
     }//GEN-LAST:event_consolaKeyTyped
      
