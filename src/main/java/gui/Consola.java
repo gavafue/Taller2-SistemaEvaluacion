@@ -247,8 +247,7 @@ public class Consola extends javax.swing.JFrame {
         
         try {
             String comando = doc.getText(posicionPrompt, doc.getLength() - posicionPrompt).trim();
-            ultimoComando = comando.trim(); // Guardar el último comando
-            System.out.println("El comando es "+comando);
+            ultimoComando = comando.trim(); // Guardar el último comando            
             Validar validador = new Validar(comando);        
             String comandoaValidar = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
             String[] tokens = validador.getTokens();

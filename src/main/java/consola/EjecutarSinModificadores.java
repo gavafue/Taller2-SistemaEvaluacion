@@ -228,7 +228,7 @@ public class EjecutarSinModificadores {
         String nombreNuevo = tokens[2];
 
         // Verifica si el archivo existe y no es un directorio.
-        if (ficheros.existeFichero(nombreActual) && !ficheros.esDirectorio(nombreActual)) {
+        if (ficheros.existeFichero(nombreActual)) {
 
             // Encuentra el índice del archivo en la lista.
             int i = 0;
