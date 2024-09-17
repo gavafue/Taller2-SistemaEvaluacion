@@ -76,6 +76,8 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -127,17 +129,18 @@ public class Registro extends javax.swing.JFrame {
 
         background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 160));
 
-        jLabel4.setText("que tendrá el estudiante de iniciar sesión en su sistema.");
-        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Esta es la forma que tendrá el estudiante de iniciar sesión en su sistema.");
+        background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        jLabel3.setText(
-                "Para registrar un nuevo estudiante en el sistema debes brindar su cédula y su contraseña. Esta es la forma");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Para registrar un nuevo estudiante en el sistema debes brindar su cédula y su contraseña. ");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Usuario:");
-        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+        background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         txtCedula.setBackground(new java.awt.Color(204, 204, 204));
         txtCedula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -147,16 +150,16 @@ public class Registro extends javax.swing.JFrame {
                 txtCedulaActionPerformed(evt);
             }
         });
-        background.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 550, 40));
+        background.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 550, 40));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Contraseña:");
-        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, 33));
+        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, 33));
 
         txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        background.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 550, 40));
+        background.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 550, 40));
 
         cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
         cboxMostrarContraseña.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
@@ -168,7 +171,7 @@ public class Registro extends javax.swing.JFrame {
                 cboxMostrarContraseñaActionPerformed(evt);
             }
         });
-        background.add(cboxMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        background.add(cboxMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
 
         btnRegistrar.setBackground(new java.awt.Color(0, 51, 0));
         btnRegistrar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
@@ -185,7 +188,7 @@ public class Registro extends javax.swing.JFrame {
                 }
             }
         });
-        background.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 530, 222, 50));
+        background.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 222, 50));
 
         menu.setBackground(new java.awt.Color(13, 71, 161));
 
@@ -217,13 +220,13 @@ public class Registro extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(btnCerrarSesion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11,
-                                        Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 674,
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 596,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
+                                .addGap(84, 84, 84)));
 
-        background.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, 720));
+        background.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, 630));
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -237,13 +240,17 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE));
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+                                .addContainerGap()));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 717,
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 631,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+                                .addContainerGap()));
 
         pack();
         setLocationRelativeTo(null);
