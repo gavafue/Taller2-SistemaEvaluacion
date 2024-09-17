@@ -59,7 +59,7 @@ public class Directorio extends Fichero {
     public String obtenerContenido() {
         String s = null;
         if (getContenido().toString() == null) {
-            s = "\n Directorio vacio.";
+            s = "\n[Directorio vacio]";
         } else {
             s = getContenido().toString();
         }

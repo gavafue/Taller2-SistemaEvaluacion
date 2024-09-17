@@ -327,13 +327,21 @@ public class Validar {
                 if (token.startsWith("-")) {
                     resultadoOpciones[index++] = token;
                 }
+            }       
+  
+            String opcValidas = compararConOpcPosibles("sort", resultadoOpciones);
+            // Determinar el resultado final basado en el tamaño de tokens y las opciones válidas
+            if (tokens.length == 3 && opcValidas.equals("200")) {
+                mensajeError = "200"; // Valor válido
+            } else if (!opcValidas.equals("200")) {
+                mensajeError = opcValidas; // Mensaje de error de opciones válidas
+            } else {
+                mensajeError = ">> Sintaxis incorrecta intente man " + tokens[0] + "<<\n"; // Mensaje de error de sintaxis
             }
-            // Comparar con opciones posibles
-            mensajeError = compararConOpcPosibles("sort", resultadoOpciones);
-        }
-    }    
+            }
+        }        
     return mensajeError;
-}
+    }      
 
      /**
      * Metodo que utiliza contarOpciones y encontrarDuplicados
@@ -350,24 +358,29 @@ public class Validar {
     if (!duplicados.equals("200")) {        
         mensajeError = duplicados;
     } else {
-        int tamanio = contarOpciones();
-
-        if (tamanio != 2 || tokens.length != 6) {
-            // Si la cantidad de opciones es incorrecta
-            mensajeError = ">> Cantidad de opciones incorrecta para este comando <<\n";
-        } else if (tokens[1].equals("-d") && tokens[3].equals("-f")) {            
+        int tamanio = contarOpciones();           
             String[] resultadoOpciones = new String[tamanio];
             int index = 0;
+            
             for (String token : tokens) {
                 if (token.startsWith("-")) {
                     resultadoOpciones[index++] = token;
                 }
             }
-            mensajeError = compararConOpcPosibles("cut", resultadoOpciones);
-        }
+            String opValidas = compararConOpcPosibles("cut", resultadoOpciones);
+            
+            if (tokens.length == 6 && opValidas.equals("200") && tokens[1].equals("-d")) {
+                mensajeError = "200"; // Valor válido
+            } else if (!opValidas.equals("200")) {
+                mensajeError = opValidas; // Mensaje de error de opciones válidas
+            } else if ( tokens.length != 6){
+                mensajeError= ">> Cantidad de opciones incorrecta para este comando <<\n";
+            } else {
+                mensajeError = ">> Sintaxis incorrecta intente man " + tokens[0] + "<<\n"; // Mensaje de error de sintaxis
+            }
     }
     return mensajeError;
-}
+    }
 
      
      /**
