@@ -473,7 +473,7 @@ public class EjecutarConModificadores {
         try {
             if (tokens.length == 2) {
                 mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
-                mensaje = ordenarAlfabeticamente3(mensajeTokenizado);
+                mensaje = ordenarAlfabeticamente(mensajeTokenizado);
             } else {
                 // Ordenar numéricamente las líneas del archivo especificado
                 mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
@@ -507,29 +507,6 @@ public class EjecutarConModificadores {
      * @return un String con las lineas ordenadas
      */
     private String ordenarAlfabeticamente(String[] lineas) {
-        String ordenadas = "";
-
-        Arrays.sort(lineas);
-        for (String linea : lineas) {
-            ordenadas += linea + "\n";
-        }
-        return ordenadas;
-    }
-
-    private String ordenarAlfabeticamente2(String[] lineas) {
-        String ordenadas = "";
-        TreeMap<Character, String> lineasMapeadas = new TreeMap<>(); //TreeMap conviene sobre HashMap porque ordena las key automaticamente.
-        for (String linea : lineas) {
-            lineasMapeadas.put(linea.toLowerCase().charAt(0), linea);//si ya esta, sobreescribe.
-        }
-
-        for (String linea : lineasMapeadas.values()) {
-            ordenadas += linea + "\n";
-        }
-        return ordenadas;
-    }
-
-    private String ordenarAlfabeticamente3(String[] lineas) {
         String ordenadas = "";
         TreeMap<Character, ArrayList<String>> lineasMapeadas = new TreeMap<>();
 
