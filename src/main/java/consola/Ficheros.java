@@ -161,10 +161,10 @@ public class Ficheros {
         for (int i = 0; i < listaFicheros.size(); i++) {
             if (!oculto) { //si no quiero listar los ocultos
                 if (listaFicheros.get(i).getNombre().matches("^[^.].*")) { //omito los nombres que comienzan por punto
-                    detalles += (listaFicheros.get(i).toString()+"\n");
+                    detalles += (listaFicheros.get(i).toString() + "\n");
                 }
             } else {
-                detalles += (listaFicheros.get(i).toString()+"\n");
+                detalles += (listaFicheros.get(i).toString() + "\n");
             }
         }
         return detalles;
@@ -185,11 +185,11 @@ public class Ficheros {
         dir2.agregarContenido(dir1);
         dir2.agregarContenido(arch1);
         dir2.agregarContenido(dir2);
-        
+
         //###################################################
         Directorio dir3 = new Directorio("dir3");
         Archivo arch2 = new Archivo("arch2.txt",
-                "La Celeste se impuso por 3-1 en Miami,\n donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo\n y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final,\n y en la última descontó Panamá por un lindo gol de Murillo. FIN.");
+                "La Celeste se impuso por 3-1 en Miami, \ndonde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo \ny debió esperar hasta los 39 del complemento para asegurar el triunfo. \nDarwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final, \ny en la última descontó Panamá por un lindo gol de Murillo. FIN.");
         Archivo arch22 = new Archivo("arch22");
         arch22.setContenido("La elaboración de software de computadora"
                 + " es un proceso reiterativo de aprendizaje social,\n"
@@ -198,12 +198,44 @@ public class Ficheros {
                 + " a medida que se realiza el proceso. Pressman(2010)");
         Archivo arch33 = new Archivo("arch33.odt");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
-        Archivo m = new Archivo("m.html", "Hola \n10. Chau \n99. Hola 232342\n Chau");
+        Archivo m = new Archivo("m.html", "Hola \n10.Chau \n99.Hola 232342\nChau");
         Archivo n = new Archivo(".secreto.txt", "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
-                "10\n3\n7\n300\n40\n1\n230");
+                "10\n3\n7\n300\n40\n1\n230\n540\n23\n76\n12\n7");
+        Archivo estatuto = new Archivo("estatuto.pdf",
+                "Artículo 4. Son derechos específicos del funcionario docente:\n"
+                + "a) Ejercer sus funciones en el marco de la libertad de cátedra, respetando\n"
+                + "la orientación general fijada en los planes de estudio, cumpliendo el\n"
+                + "programa respectivo y asegurando la consideración crítica de las diversas\n"
+                + "tendencias cuando corresponda.\n"
+                + "b) La libertad de conciencia y la libertad de opinión, sean éstas de orden\n"
+                + "religioso, filosófico, político o de cualquier otra índole, dentro del más\n"
+                + "estricto marco de laicidad, preservando la libertad de los educandos ante\n"
+                + "cualquier forma de coacción.\n"
+                + "Los Consejos respectivos adoptarán las providencias necesarias para hacer\n"
+                + "efectiva esta disposición.\n"
+                + "c) Perfeccionar sus aptitudes técnico-pedagógicas, para lo cual contará con\n"
+                + "el apoyo del Ente, de conformidad con las reglamentaciones que se dicten\n"
+                + "al respecto.\n"
+                + "d) Reunirse en los locales donde se presten servicios para la consideración\n"
+                + "de temas culturales y técnico docentes. El ejercicio de este derecho no\n"
+                + "podrá perjudicar el normal funcionamiento del servicio y deberá ajustarse a\n"
+                + "las normas reglamentarias.\n"
+                + "e) Ser calificado anualmente en su labor del modo que determine la\n"
+                + "reglamentación respectiva. La omisión de calificación por causas no\n"
+                + "imputables al interesado deberá ser denunciada a la jerarquía inspectiva\n"
+                + "superior, quien adoptará las medidas pertinentes para subsanar la falta.\n"
+                + "f) Acceder a su legajo para verificar su contenido y solicitar las\n"
+                + "aclaraciones, adiciones y enmiendas que correspondieran.\n"
+                + "g) Tener estabilidad en su cargo y grado, de acuerdo con las disposiciones\n"
+                + "de este Estatuto y las reglamentaciones complementarias dictadas en\n"
+                + "interés del Servicio.\n"
+                + "h) Acceder al traslado o reubicación conforme a los reglamentos dictados por\n"
+                + "el Consejo Directivo Central o Consejo respectivo. El ejercicio de este derecho\n"
+                + "no puede afectar la estabilidad en el cargo de otros funcionarios docentes\n"
+                + "efectivos.\n");
 
-        //Cargo el directorio raiz con ficheros iniciales
+//Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
         agregarFichero(dir1);
         agregarFichero(dir2);
@@ -214,6 +246,7 @@ public class Ficheros {
         agregarFichero(m);
         agregarFichero(n);
         agregarFichero(algunosNumeros);
+        agregarFichero(estatuto);
 
     }
 
