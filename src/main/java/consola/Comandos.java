@@ -101,19 +101,24 @@ public class Comandos {
         
         
         Comando com0 = new Comando(
-                "\nEsta consola valida la sintaxis de algunos comandos\nde Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|kill|grep|tail|head|cut|sort|chmod| '|']",
+                "\nEsta consola valida la sintaxis de algunos comandos de Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n     Ejemplo: man [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
-                "\n Ejemplo: ls /etc \n\nLista el contenido del directorio /etc\n\n", opcLs);
+                "\n Ejemplo: ls /etc"
+                        + "\n     Lista el contenido del directorio /etc\n\n", opcLs);
 
-        Comando com3 = new Comando("Crea un directorio", "  Ejemplo: mkdir dir1 Crea dir1 en el directorio actual",
+        Comando com3 = new Comando("Crea un directorio", "\n     Ejemplo: mkdir dir1"
+                + "\n     Crea dir1 en el directorio actual",
                 null);
         Comando com4 = new Comando("Borra un directorio sin contenido",
-                "\n     Ejemplo: rmdir dir1 Elimina dir1 siempre que no contenga nada.\n\n", null);
+                "\n     Ejemplo: rmdir dir1 "
+                        + "\n     Elimina dir1 siempre que no contenga nada.\n\n", null);
         Comando com5 = new Comando("Mueve o renombra un directorio.",
-                "\n     Ejemplo: mv arch1 arh2\n\nRenombra arch1 como arch2\n\n", null);
+                "\n     Ejemplo: mv arch1 arh2"
+                        + "\n     Renombra arch1 como arch2\n\n", null);
         Comando com6 = new Comando("Muestra el contenido de un archivo",
-                "\n     Ejemplo: cat respaldo.txt Muestra el contenido de respaldo.txt por pantalla.\n\n", null);
+                "\n     Ejemplo: cat respaldo.txt"
+                        + "\n     Muestra el contenido de respaldo.txt por pantalla.\n\n", null);
         Comando com7 = new Comando("Borra el texto en pantalla.",
                 "\n     Ejemplo: clear [No admite parámetros]\n\n", null);
         Comando com8 = new Comando("Muestra los procesos activos.", "\n     Ejemplo: ps [No admite parámetros]\n\n",
@@ -131,19 +136,21 @@ public class Comandos {
         // especifica, las primeras 10.
         // cut RF34
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
-                "\nEjemplo: cut [opción] [argumento]", opcCut); // admite como opciones “-d [delimitador]"
+                "\n     Ejemplo: cut [opción] [argumento]", opcCut); // admite como opciones “-d [delimitador]"
         // sort RF38
         // La consola permitirá el comando “sort” para mostrar en pantalla las líneas de un
         // archivo de manera ordenada. No hay modificacion en el archivo.
         Comando com14 = new Comando("Para ordenar las líneas de un archivo. ",
-                "\n Ejemplo: sort [opciones] [archivo]",
+                "\n     Ejemplo: sort [opciones] [archivo]",
                 opcSort); // opciones disponibles “-n” para ordenar numéricamente.
         Comando com15 = new Comando("Para modificar los permisos asignados en un archivo o directorio ",
-                "\n     Ejemplo: chmod rwxrwxrwx arch1\n     Ejemplo: chmod 555 arch1", null);
+                "\n     Ejemplo: chmod rwxrwxrwx arch1"
+                        + "\n     Ejemplo: chmod 555 arch1", null);
 
         // RF39. La consola permitirá el uso de pipe ( | ) entre los comandos tail, grep y head. La sintaxis para el uso del pipe sería la siguiente “comando1 | comando2”
         Comando com16 = new Comando("Para redirigir la salida del primer comando hacia la entrada del segundo.\nPrimer comando debe ser tail o head. El segundo, grep (sin especificiar archivo).",
-                "\n     Ejemplo: comando1 | comando2 \n Ejemplo: head arch1 | grep INET", null);
+                "\n     Ejemplo: comando1 | comando2"
+                        + "\n     Ejemplo: head arch1 | grep INET", null);
 
         agregarComando("man", com0);
         agregarComando("ls", com1);
