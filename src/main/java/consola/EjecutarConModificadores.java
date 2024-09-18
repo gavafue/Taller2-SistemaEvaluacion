@@ -2,8 +2,6 @@ package consola;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.TreeMap;
 import javax.swing.JTextPane;
 
@@ -468,7 +466,7 @@ public class EjecutarConModificadores {
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje;
         String[] mensajeTokenizado;
-        boolean tieneNumeros = true;
+        //boolean tieneNumeros = true;
 
         try {
             if (tokens.length == 2) {
@@ -477,24 +475,10 @@ public class EjecutarConModificadores {
             } else {
                 // Ordenar numéricamente las líneas del archivo especificado
                 mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
-                // De esta otra manera queda mas legible la logica de la operacion de comparacion y ordenamiento en funcion de esta.
-                // Si el valor es estrictamente numerico, se guarda, de lo contrario pone un 0. Y luego se ordenan esos numeros.
-                int[] numeritos = new int[mensajeTokenizado.length];
-                for (int i = 0; i < mensajeTokenizado.length; i++) {
-                    try {
-                        numeritos[i] = Integer.parseInt(mensajeTokenizado[i]);  // REFINAR CON: inea.contains(".*\\d+.*")
-                    } catch (NumberFormatException e) {
-                        tieneNumeros = false;
-                    }
-                }
-                if (!tieneNumeros) {
-                    mensaje = ordenarAlfabeticamente(mensajeTokenizado) + "\n>> El contenido no es numérico <<\n";
-                } else {
-                    mensaje = ordenarNumeros(numeritos);
-                }
+                mensaje = sortN(mensajeTokenizado);
             }
         } catch (NullPointerException ex) {
-            mensaje = ">> No existe el archivo <<\n";
+            mensaje = ">> No existe el archivo <<\n Error: " + ex.getMessage() ;
         }
         return mensaje;
     }
@@ -512,9 +496,9 @@ public class EjecutarConModificadores {
 
         for (String linea : lineas) { // CARGO mapa
             char letraInicial = linea.toLowerCase().charAt(0);
-            
+
             ArrayList<String> actual = new ArrayList<>();
-            
+
             if (!lineasMapeadas.containsKey(letraInicial)) {
                 actual.add(linea);
                 lineasMapeadas.put(letraInicial, actual);
@@ -526,6 +510,7 @@ public class EjecutarConModificadores {
 
         }
 
+        // concateno mapa
         for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
@@ -542,15 +527,80 @@ public class EjecutarConModificadores {
      *
      * @param numeros es el arreglo con los elemenos a ordenar
      * @return un String con las lineas ordenadas
+     * 
+     *
      */
-    private String ordenarNumeros(int[] numeros) {
-        String ordenados = "";
-        Arrays.sort(numeros);
+    private String ordenarConNumeros(String[] lineas) {
+        String ordenadas = "";
+        TreeMap<Integer, ArrayList<String>> lineasMapeadas = new TreeMap<>();
+        ArrayList<String> actual = new ArrayList<>();
 
-        for (int n : numeros) {
-            ordenados += Integer.toString(n) + "\n";
+        for (String linea : lineas) { // ######################################## OBTENGO NUMERO
+
+                //Podria buscar en los digitos vecinos a ver si encuentra mas numeros...
+                //tomo el numerito
+               Integer numerito = Integer.parseInt(linea, 0, 0, 10);
+               System.out.println("Numerito: " + numerito);
+
+
+            // CARGO mapa
+            if (!lineasMapeadas.containsKey(numerito)) {
+                actual.add(linea);
+                lineasMapeadas.put(numerito, actual);
+            } else {
+                actual = lineasMapeadas.get(numerito);
+                actual.add(linea);
+                lineasMapeadas.put(numerito, actual);
+            }
+
         }
-        return ordenados;
+
+        // concateno mapa
+        for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
+            for (String l : elemento) {
+                ordenadas += l + "\n";
+            }
+
+        }
+
+        return ordenadas;
+
+    }
+
+    /**
+     * Siguiendo las especificaciones del sort en el proyecto GNU: Si el primer
+     * caracter de la linea es letra, se toma como de valor inferior a cualquier
+     * numero. Por tanto, se mostraria primero. Si el primer caracter es numero,
+     * se ordena por valor con los numeros.
+     *
+     * @param lineas
+     * @return todoJuntoYordenado - que es un string con todas las lineas
+     * ordenadas segun el criterio de este comando.
+     */
+    private String sortN(String[] lineas) {
+        ArrayList<String> conNumeritos = new ArrayList<>();
+        ArrayList<String> soloTexto = new ArrayList<>(); //estos se deben concatenar primero.
+        String todoJuntoYordenado = "";
+
+        for (String linea : lineas) {
+            if (Character.isDigit(linea.charAt(0))) {
+                conNumeritos.add(linea);
+
+            } else {
+
+                soloTexto.add(linea);
+            }
+
+        }
+
+        //Le paso soloTexto a ordenarAlfabeticamente.
+        String[] st = soloTexto.toArray(new String[0]);
+        todoJuntoYordenado += ordenarAlfabeticamente(st);
+        //Le paso numeritos a ordenarNumericamente.
+        String[] cn = conNumeritos.toArray(new String[0]);
+        todoJuntoYordenado += ordenarConNumeros(cn);
+
+        return todoJuntoYordenado;
 
     }
 
