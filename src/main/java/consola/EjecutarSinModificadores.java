@@ -3,10 +3,11 @@ package consola;
 import javax.swing.JTextPane;
 
 /**
- * Esta clase se encarga de ejecutar los comandos que NO utilizan modificadores "-"
+ * Esta clase se encarga de ejecutar los comandos que NO utilizan modificadores
+ * "-"
  *
  * @author Gabriel, Anna, Santiago, Juan y Gonzalo
- * 
+ *
  */
 public class EjecutarSinModificadores {
 
@@ -16,22 +17,24 @@ public class EjecutarSinModificadores {
      */
     private String[] tokens;
 
-     /**
+    /**
      * Constructor.
      *
-     * @param tokens - La linea ingresada en la terminal por el usuario fue tokenizada
+     * @param tokens - La linea ingresada en la terminal por el usuario fue
+     * tokenizada
      *
      */
     public EjecutarSinModificadores(String[] tokens) {
-        this.tokens = tokens;        
+        this.tokens = tokens;
     }
-    
+
     /**
      * @return tokens
      */
     public String[] getTokens() {
         return tokens;
     }
+
     /**
      * Metodo principal de esta clase. Deriva la ejecucion al comando
      * correspondiente.
@@ -39,10 +42,10 @@ public class EjecutarSinModificadores {
      * @param comandos - coleccion de comandos cargados en el sistema
      * @param ficheros - ficheros cargados en el sistema
      * @param procesos - procesos activos en el sistema
-     * @param salida   - donde mostrar el resultado de la ejecucion.
+     * @param salida - donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComandoSinMod(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
-        String mensaje;        
+        String mensaje;
 
         switch (tokens[0]) {
             case "man":
@@ -62,13 +65,13 @@ public class EjecutarSinModificadores {
                 break;
             case "mv":
                 mensaje = ejecutarMv(ficheros);
-                break;           
+                break;
             case "ps":
                 mensaje = ejecutarPs(procesos);
                 break;
             case "kill":
                 mensaje = ejecutarKill(procesos);
-                break;                     
+                break;
             case "chmod":
                 mensaje = ejecutarChmod(ficheros);
                 break;
@@ -94,10 +97,10 @@ public class EjecutarSinModificadores {
             mensaje = comandos.obtenerDescripcion("man") + "\n" + comandos.obtenerEjemplo("man");
         } else {//Si tiene mas de 1 token es la ayuda de un comando
             mensaje = obtenerAyudaComando(comandos);
-        } 
+        }
         return mensaje;
-    }    
-    
+    }
+
     /**
      * Este metodo formatea un mensaje de ayuda obteniendo informacion desde los
      * atributos del comando.
@@ -123,10 +126,10 @@ public class EjecutarSinModificadores {
      * @return mensaje resultante de la operacion.
      */
     public String ejecutarMkdir(Ficheros ficheros) {
-        String mensaje;        
-        
+        String mensaje;
+
         mensaje = crearDirectorio(tokens[1], ficheros);
-        
+
         return mensaje;
     }
 
@@ -134,7 +137,7 @@ public class EjecutarSinModificadores {
      * Crea un directorio si no existe previamente.
      *
      * @param nombreDirectorio Nombre del directorio a crear.
-     * @param ficheros         Objeto que gestiona los ficheros y directorios.
+     * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return Mensaje resultante de la operación.
      */
     private String crearDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -142,9 +145,9 @@ public class EjecutarSinModificadores {
         if (!ficheros.existeFichero(nombreDirectorio)) {
             Directorio nuevo = new Directorio(nombreDirectorio);
             ficheros.agregarFichero(nuevo);
-            mensaje = "-Se ha creado el directorio " + nombreDirectorio+"-\n";
+            mensaje = "-Se ha creado el directorio " + nombreDirectorio + "-\n";
         } else {
-            mensaje = ">> Ya existe un fichero con el nombre "+ nombreDirectorio+"-\n";
+            mensaje = ">> Ya existe un fichero con el nombre " + nombreDirectorio + "-\n";
         }
         return mensaje;
     }
@@ -155,9 +158,9 @@ public class EjecutarSinModificadores {
      * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return Mensaje resultante de la ejecución.
      */
-    public String ejecutarRmdir(Ficheros ficheros) {       
+    public String ejecutarRmdir(Ficheros ficheros) {
         String mensaje = eliminarDirectorio(tokens[1], ficheros);
-       
+
         return mensaje;
     }
 
@@ -165,7 +168,7 @@ public class EjecutarSinModificadores {
      * Elimina un directorio si existe.
      *
      * @param nombreDirectorio String con el nombre del directorio a eliminar.
-     * @param ficheros         Objeto que gestiona los ficheros y directorios.
+     * @param ficheros Objeto que gestiona los ficheros y directorios.
      * @return mensaje resultante de la operación.
      */
     private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -180,21 +183,21 @@ public class EjecutarSinModificadores {
     }
 
     /**
-     * Ejecuta el comando clear para limpiar el área de salida. Es decir,
-     * limpia la consola estableciendo su texto vacio.
+     * Ejecuta el comando clear para limpiar el área de salida. Es decir, limpia
+     * la consola estableciendo su texto vacio.
      *
      * @param salida JTextÁrea que se limpia.
      * @return Mensaje resultante de la ejecución.
      */
     public String ejecutarClear(JTextPane salida) {
-        String mensaje="";        
-       salida.setText("");        
+        String mensaje = "";
+        salida.setText("");
         return mensaje;
     }
 
     /**
-     * Ejecuta el comando cat para mostrar el contenido de un archivo si
-     * existe y no es un directorio.
+     * Ejecuta el comando cat para mostrar el contenido de un archivo si existe
+     * y no es un directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      *
@@ -215,8 +218,8 @@ public class EjecutarSinModificadores {
     }
 
     /**
-     * Ejecuta el comando mv para renombrar un archivo si existe y no es
-     * un directorio.
+     * Ejecuta el comando mv para renombrar un archivo si existe y no es un
+     * directorio.
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      *
@@ -227,56 +230,67 @@ public class EjecutarSinModificadores {
         String nombreActual = tokens[1];
         String nombreNuevo = tokens[2];
 
-        // Verifica si el archivo existe y no es un directorio.
-        if (ficheros.existeFichero(nombreActual)) {
-
-            // Encuentra el índice del archivo en la lista.
-            int i = 0;
-            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
-                i++;
-            }
-            // Cambia el nombre del archivo.
-            ficheros.obtenerFichero(i).setNombre(nombreNuevo);
-
-            // Construye el mensaje de éxito.
-            mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
-                    + nombreNuevo
-                    + "-\n";
+        if (nombreActual.equals(nombreNuevo)) {
+            mensaje = ">> Nombre actual y nombre propuesto son el mismo. <<\n";
         } else {
-            // Si no existe el archivo, muestra un mensaje de error.
-            mensaje = ">> No existe un archivo con ese nombre <<\n";
+
+            // Verifica si el archivo existe y no es un directorio.
+            if (ficheros.existeFichero(nombreActual)) {
+
+                // Encuentra el índice del archivo en la lista.
+                int i = 0;
+                while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
+                    i++;
+                }
+
+                // Cambia el nombre del archivo.
+                ficheros.obtenerFichero(i).setNombre(nombreNuevo);
+
+                // Construye el mensaje de éxito.
+                mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
+                        + nombreNuevo
+                        + "-\n";
+            } else {
+                // Si no existe el archivo, muestra un mensaje de error.
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
+            }
+
         }
         return mensaje;
     }
-    
+
     /**
-     *Ejecuta el comando kill para terminar uno de los procesos en ejecucion
-     * 
+     * Ejecuta el comando kill para terminar uno de los procesos en ejecucion
+     *
      * @param procesos en ejecucion
-     * @return 
+     * @return
      */
     public String ejecutarKill(Procesos procesos) {
         String mensaje;
         String procesoIdStr = tokens[1];
-        int procesoID = Integer.parseInt(procesoIdStr);
         
-        if (procesos.existeProceso(procesoID)) {
-            procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
-            mensaje = "-Proceso eliminado-\n";
-        } else {
-            mensaje = ">> No existe proceso con pid <<" + procesoID + "\n";
+
+        try {
+            int procesoID = Integer.parseInt(procesoIdStr);
+            if (procesos.existeProceso(procesoID)) {
+                procesos.getListaProcesos().remove(procesos.obtenerProceso(procesoID));
+                mensaje = "-Proceso eliminado-\n";
+            } else {
+                mensaje = ">> No existe proceso con pid " + procesoID + " <<\n";
+            }
+        } catch  (NumberFormatException e){
+            mensaje = ">> No existe proceso con pid " + procesoIdStr + " | DEBE SER NUMERO. <<\n";
         }
 
         return mensaje;
     }
 
     /**
-     * Ejecuta el comando ps  para listar los procesos en ejecución del
-     * sistema.
+     * Ejecuta el comando ps para listar los procesos en ejecución del sistema.
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
      * @return un mensaje detallando los procesos en ejecución o un mensaje de
-     *         error si la sintaxis es incorrecta.
+     * error si la sintaxis es incorrecta.
      */
     public String ejecutarPs(Procesos procesos) {
         String mensaje;
@@ -303,7 +317,7 @@ public class EjecutarSinModificadores {
         String permisos = tokens[1];
         String fich = tokens[2];
         String mensaje;
-        
+
         if (!ficheros.existeFichero(fich)) {
             // Verificar si el fichero existe
             mensaje = ">> Sintaxis incorrecta: el fichero o directorio] '" + fich + "' no existe <<\n";
@@ -332,14 +346,14 @@ public class EjecutarSinModificadores {
         }
 
         return mensaje;
-    } 
-   
+    }
+
     /**
      * Valida la longitud de los permisos.
      *
      * @param permisos String con los permisos a validar.
      * @return false si la longitud de los persmisos no es correcta. Asume true
-     *         por defecto.
+     * por defecto.
      */
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
@@ -353,10 +367,10 @@ public class EjecutarSinModificadores {
      * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param nombre   del fichero o directorio al que se aplicarán los permisos.
+     * @param nombre del fichero o directorio al que se aplicarán los permisos.
      * @param permisos String con los permisos numéricos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     *         contrario.
+     * contrario.
      */
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
         String permisosEnLetras = String.valueOf(ficheros.obtenerFichero(nombre).getPermisos().charAt(0));
@@ -406,11 +420,11 @@ public class EjecutarSinModificadores {
      * Aplica los permisos simbólicos al fichero o directorio.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich     Nombre del fichero o directorio al que se aplicarán los
-     *                 permisos.
+     * @param fich Nombre del fichero o directorio al que se aplicarán los
+     * permisos.
      * @param permisos String con los permisos simbólicos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     *         contrario.
+     * contrario.
      */
     private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos) {
         boolean permisosValidos = true;
