@@ -1,8 +1,7 @@
 package consola;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,7 +14,7 @@ public class Procesos {
     /**
      * Coleccion.
      */
-    private LinkedList<Proceso> listaProcesos;
+    private ArrayList<Proceso> listaProcesos;
 
     /**
      * Memoria disponible y compartido entre todos los procesos.
@@ -63,14 +62,14 @@ public class Procesos {
      * Constructor.
      */
     public Procesos() {
-        this.listaProcesos = new LinkedList<>();
+        this.listaProcesos = new ArrayList<>();
         cargarProcesos();
     }
 
     /**
      * @return listaProcesos
      */
-    public List<Proceso> getListaProcesos() {
+    public ArrayList<Proceso> getListaProcesos() {
         return listaProcesos;
     }
 
@@ -79,7 +78,7 @@ public class Procesos {
      *
      * @param listaProcesos
      */
-    public void setListaProcesos(LinkedList<Proceso> listaProcesos) {
+    public void setListaProcesos(ArrayList<Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
 

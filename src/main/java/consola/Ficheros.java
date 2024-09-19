@@ -1,6 +1,6 @@
 package consola;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Esta clase permite gestionar una coleccion de ficheros.
@@ -12,19 +12,19 @@ public class Ficheros {
     /**
      * Coleccion.
      */
-    private LinkedList<Fichero> listaFicheros;
+    private ArrayList<Fichero> listaFicheros;
 
     /**
      * Constructor.
      */
     public Ficheros() {
-        listaFicheros = new LinkedList<Fichero>();
+        listaFicheros = new ArrayList<Fichero>();
     }
 
     /**
      * @return listaficheros
      */
-    public LinkedList<Fichero> getListaFicheros() {
+    public ArrayList<Fichero> getListaFicheros() {
         return listaFicheros;
     }
 
@@ -33,7 +33,7 @@ public class Ficheros {
      *
      * @param listaFicheros
      */
-    public void setListaFicheros(LinkedList<Fichero> listaFicheros) {
+    public void setListaFicheros(ArrayList<Fichero> listaFicheros) {
         this.listaFicheros = listaFicheros;
     }
 
@@ -198,7 +198,7 @@ public class Ficheros {
                 + " a medida que se realiza el proceso. Pressman(2010)");
         Archivo arch33 = new Archivo("arch33.odt");
         arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
-        Archivo m = new Archivo("m.html", "Hola \n10.Chau \n99.Hola 232342\nChau");
+        Archivo m = new Archivo("m.html", "Hola \n10.Chau \n99.Hola 232342\nChau\n9\n1\n11\n");
         Archivo n = new Archivo(".secreto.txt", "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
                 "10\n3\n7\n300\n40\n1\n230\n540\n23\n76\n12\n7");
