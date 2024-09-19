@@ -1,6 +1,6 @@
 package consola;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Esta clase permite gestionar una coleccion de ficheros.
@@ -12,19 +12,19 @@ public class Ficheros {
     /**
      * Coleccion.
      */
-    private LinkedList<Fichero> listaFicheros;
+    private ArrayList<Fichero> listaFicheros;
 
     /**
      * Constructor.
      */
     public Ficheros() {
-        listaFicheros = new LinkedList<Fichero>();
+        listaFicheros = new ArrayList<Fichero>();
     }
 
     /**
      * @return listaficheros
      */
-    public LinkedList<Fichero> getListaFicheros() {
+    public ArrayList<Fichero> getListaFicheros() {
         return listaFicheros;
     }
 
@@ -33,7 +33,7 @@ public class Ficheros {
      *
      * @param listaFicheros
      */
-    public void setListaFicheros(LinkedList<Fichero> listaFicheros) {
+    public void setListaFicheros(ArrayList<Fichero> listaFicheros) {
         this.listaFicheros = listaFicheros;
     }
 
