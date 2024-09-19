@@ -228,9 +228,8 @@ public class Consola extends javax.swing.JFrame {
             evt.consume();
         }
         
-        if (evt.getKeyCode()== KeyEvent.VK_ENTER){
-            evt.consume();  
-        
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER ||(evt.getKeyCode() == KeyEvent.VK_A && (evt.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0)) {
+            evt.consume();//Evitar el comportamiento natural de las teclas ENTER y CONTROL+A 
         }
             
     }//GEN-LAST:event_consolaKeyPressed
