@@ -258,13 +258,12 @@ public class Consola extends javax.swing.JFrame {
             if (comando.equals("")){//Salto de linea si no hay comando                
                 doc.insertString(doc.getLength(), "\n", null);
                 
-            } else if (validador.posicionPipe()!=0){//Si aparece un pipe
-                
+            } else if (validador.tienePipe()){//Si aparece un pipe
                 //Valido el primer comando antes de intentar concatenarlo
                 String [] primerComando = comando.split("\\|");
                 Validar validadorPipe = new Validar (primerComando[0]);
                 if (validadorPipe.validarComando(hashComandos).equals("200")){
-                    mostrarConEstilo(ejecutar.ejecutarPipe(validador.posicionPipe(),listaFicheros));            
+                    mostrarConEstilo(validador.validarPipe(hashComandos, listaFicheros));            
                  }else{
                     doc.insertString(doc.getLength(),"\n\n"+validadorPipe.validarComando(hashComandos)+"\n",estiloError);
                }                             

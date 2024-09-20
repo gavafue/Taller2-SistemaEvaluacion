@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Esta clase maneja una coleccion de procesos.
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  */
 public class Procesos {
 

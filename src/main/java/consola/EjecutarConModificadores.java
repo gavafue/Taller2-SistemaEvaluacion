@@ -604,49 +604,4 @@ public class EjecutarConModificadores {
 
     }
 
-    /**
-     * Este metodo es para ejecutar el comando | tambien llamado 'pipe'.
-     *
-     * @param indexPipe - indice del simbolo pipe en la linea ingresada.
-     * @param ficheros - objeto que maneja la lista de archivos disponibles.
-     * @return mensaje detallando el resultado de la ejecución del comando.
-     */
-    public String ejecutarPipe(int indexPipe, Ficheros ficheros) {
-        String mensaje = "";
-        String msjComando1 = "";
-        String msjComando2 = "";
-        String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
-        String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length + 1); // despues del pipe. y uno mas,
-        // que queda con null
-
-        if (tokens[0].equals("tail")) {// primero bloque de IFs para procesar el primer comando
-            tokens = tokensA;
-            msjComando1 = ejecutarTail(ficheros);
-        } else if (tokens[0].equals("head")) {
-            tokens = tokensA;
-            msjComando1 = ejecutarHead(ficheros);
-        } else {
-            mensaje = ">> Sintaxis incorrecta: el primer comando debe ser head o tail <<\n";
-        }
-
-        if (tokensB[0].equals("grep") && tokensB.length == 3) { // segundo bloque de IFs para procesar el segundo comando
-
-            ficheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
-            // mensaje1. Ya que grep esta programado para
-            // levantar contenido de ficheros.
-            tokensB[2] = "especificado"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
-            tokens = tokensB;
-            msjComando2 = ejecutarGrep(ficheros);// Va a tomar el tokens global, el cual no esta como lo necesita.
-            // PROUESTA: que todos los ejecutarComando() reciban el tokens como
-            // parametro.
-            // borro ese archivo que no debe existir mas.
-            ficheros.eliminarFichero("especificado");
-            mensaje = msjComando2;
-        } else {
-            mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser [grep 'expresión'] <<\n";
-        }
-
-        return mensaje;
-    }
-
 }
