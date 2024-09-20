@@ -6,7 +6,7 @@ import javax.swing.JTextPane;
  * Esta clase se encarga de ejecutar los comandos que NO utilizan modificadores
  * "-"
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
  */
 public class EjecutarSinModificadores {
@@ -29,10 +29,22 @@ public class EjecutarSinModificadores {
     }
 
     /**
+     * Método que permite obtener el comando ingresado dividido en tokens.
+     *
      * @return tokens
      */
     public String[] getTokens() {
         return tokens;
+    }
+
+    /**
+     * Método que permite establecer los tokens actuales a partir de otros
+     * tokens.
+     *
+     * @param tokens los tokens para establecer.
+     */
+    public void setTokens(String[] tokens) {
+        this.tokens = tokens;
     }
 
     /**
@@ -46,7 +58,6 @@ public class EjecutarSinModificadores {
      */
     public String ejecutarComandoSinMod(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
         String mensaje;
-
         switch (tokens[0]) {
             case "man":
                 mensaje = ejecutarMan(comandos);
@@ -75,14 +86,11 @@ public class EjecutarSinModificadores {
             case "chmod":
                 mensaje = ejecutarChmod(ficheros);
                 break;
-
             default:
                 mensaje = ">> Comando inexistente <<\n";
                 break;
         }
-
         return mensaje;
-
     }
 
     /**
@@ -160,7 +168,6 @@ public class EjecutarSinModificadores {
      */
     public String ejecutarRmdir(Ficheros ficheros) {
         String mensaje = eliminarDirectorio(tokens[1], ficheros);
-
         return mensaje;
     }
 
@@ -205,7 +212,6 @@ public class EjecutarSinModificadores {
      */
     public String ejecutarCat(Ficheros ficheros) {
         String mensaje;
-
         String nombreArchivo = tokens[1];
         if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
             Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
@@ -213,7 +219,6 @@ public class EjecutarSinModificadores {
         } else {
             mensaje = ">> No existe un archivo con ese nombre <<\n";
         }
-
         return mensaje;
     }
 
@@ -229,23 +234,18 @@ public class EjecutarSinModificadores {
         String mensaje;
         String nombreActual = tokens[1];
         String nombreNuevo = tokens[2];
-
         if (nombreActual.equals(nombreNuevo)) {
             mensaje = ">> Nombre actual y nombre propuesto son el mismo. <<\n";
         } else {
-
             // Verifica si el archivo existe y no es un directorio.
             if (ficheros.existeFichero(nombreActual)) {
-
                 // Encuentra el índice del archivo en la lista.
                 int i = 0;
                 while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
                     i++;
                 }
-
                 // Cambia el nombre del archivo.
                 ficheros.obtenerFichero(i).setNombre(nombreNuevo);
-
                 // Construye el mensaje de éxito.
                 mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
                         + nombreNuevo
@@ -254,7 +254,6 @@ public class EjecutarSinModificadores {
                 // Si no existe el archivo, muestra un mensaje de error.
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
-
         }
         return mensaje;
     }
@@ -268,8 +267,6 @@ public class EjecutarSinModificadores {
     public String ejecutarKill(Procesos procesos) {
         String mensaje;
         String procesoIdStr = tokens[1];
-        
-
         try {
             int procesoID = Integer.parseInt(procesoIdStr);
             if (procesos.existeProceso(procesoID)) {
@@ -278,10 +275,9 @@ public class EjecutarSinModificadores {
             } else {
                 mensaje = ">> No existe proceso con pid " + procesoID + " <<\n";
             }
-        } catch  (NumberFormatException e){
+        } catch (NumberFormatException e) {
             mensaje = ">> No existe proceso con pid " + procesoIdStr + " | DEBE SER NUMERO. <<\n";
         }
-
         return mensaje;
     }
 
@@ -303,7 +299,6 @@ public class EjecutarSinModificadores {
                 mensaje += proceso.toString() + "\n";
             }
         }
-
         return mensaje;
     }
 
@@ -317,7 +312,6 @@ public class EjecutarSinModificadores {
         String permisos = tokens[1];
         String fich = tokens[2];
         String mensaje;
-
         if (!ficheros.existeFichero(fich)) {
             // Verificar si el fichero existe
             mensaje = ">> Sintaxis incorrecta: el fichero o directorio] '" + fich + "' no existe <<\n";
@@ -344,7 +338,6 @@ public class EjecutarSinModificadores {
                     mensaje = ">> Sintaxis incorrecta: longitud incorrecta de permisos <<\n";
             }
         }
-
         return mensaje;
     }
 
@@ -375,7 +368,6 @@ public class EjecutarSinModificadores {
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
         String permisosEnLetras = String.valueOf(ficheros.obtenerFichero(nombre).getPermisos().charAt(0));
         boolean permisosValidos = true;
-
         for (int i = 0; i < 3; i++) {
             int permisoNum = Character.getNumericValue(permisos.charAt(i));
             if (permisoNum < 0 || permisoNum > 7) {
@@ -408,11 +400,9 @@ public class EjecutarSinModificadores {
                     break;
             }
         }
-
         if (permisosValidos) {
             ficheros.obtenerFichero(nombre).setPermisos(permisosEnLetras);
         }
-
         return permisosValidos;
     }
 
@@ -428,7 +418,6 @@ public class EjecutarSinModificadores {
      */
     private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos) {
         boolean permisosValidos = true;
-
         for (int i = 0; i < permisos.length(); i++) {
             char permiso = permisos.charAt(i);
             switch (i % 3) {
@@ -452,15 +441,12 @@ public class EjecutarSinModificadores {
                 break;
             }
         }
-
         if (permisosValidos) {
             char primerCaracter = ficheros.obtenerFichero(fich).getPermisos().charAt(0);
             permisos = primerCaracter + permisos;
             ficheros.obtenerFichero(fich).setPermisos(permisos);
         } else {
         }
-
         return permisosValidos;
     }
-
 }

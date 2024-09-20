@@ -1,7 +1,6 @@
 package consola;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.TreeMap;
 import javax.swing.JTextPane;
 
@@ -9,7 +8,7 @@ import javax.swing.JTextPane;
  * Esta clase se encarga de ejecutar los comandos que utilizan modificadores "-"
  * Incluyendo las concatenaciones con grep utiizando pipe "|"
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
  */
 public class EjecutarConModificadores {
@@ -32,10 +31,22 @@ public class EjecutarConModificadores {
     }
 
     /**
+     * Método que permite obtener el comando ingresado dividido en tokens.
+     *
      * @return tokens
      */
     public String[] getTokens() {
         return tokens;
+    }
+
+    /**
+     * Método que permite establecer los tokens actuales a partir de otros
+     * tokens.
+     *
+     * @param tokens los tokens para establecer.
+     */
+    public void setTokens(String[] tokens) {
+        this.tokens = tokens;
     }
 
     /**
@@ -50,9 +61,7 @@ public class EjecutarConModificadores {
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
         String mensaje;
-
         switch (tokens[0]) {
-
             case "ls":
                 mensaje = ejecutarLs(ficheros);
                 break;
@@ -71,12 +80,10 @@ public class EjecutarConModificadores {
             case "sort":
                 mensaje = ejecutarSort(ficheros);
                 break;
-
             default:
                 mensaje = ">> Comando inexistente <<\n";
                 break;
         }
-
         return mensaje;
 
     }
@@ -90,7 +97,6 @@ public class EjecutarConModificadores {
      */
     public String ejecutarLs(Ficheros ficheros) {
         String mensaje = "";
-
         switch (tokens.length) {
             case 1:
                 mensaje = obtenerListaSimple(ficheros);
@@ -105,7 +111,6 @@ public class EjecutarConModificadores {
                 mensaje = manejarOpcionesTresParametros(ficheros);
                 break;
         }
-
         return mensaje;
     }
 
@@ -207,10 +212,9 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el mensaje para el comando ls -l [directorio].
      *
-     * De momento solo imprime un mensaje estandar ya que estamos trahajando con
+     * De momento solo imprime un mensaje estandar ya que estamos trabajando con
      * un unico nivel en el sistema de archivos. Obtiene el mensaje para el
      * comando ls -l [directorio].
-     *
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param segundoParametro el nombre del directorio a listar detalladamente.
@@ -229,7 +233,7 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el mensaje para el comando ls -a [directorio].
      *
-     * De momento solo imprime un mensaje estandar ya que estamos trahajando con
+     * De momento solo imprime un mensaje estandar ya que estamos trabajando con
      * un unico nivel en el sistema de archivos.
      *
      * @param ficheros objeto que maneja la lista de archivos disponibles.
@@ -279,7 +283,6 @@ public class EjecutarConModificadores {
         String expresion = tokens[1];
         String nombreArchivo = tokens[2];
         boolean existeExpresion = false;
-
         if (ficheros.existeFichero(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
             String[] porLineas = contenidoArchivo.split("\n");
@@ -292,11 +295,9 @@ public class EjecutarConModificadores {
             if (!existeExpresion) {
                 mensaje = ">> La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<\n";
             }
-
         } else {
             mensaje = ">> El archivo '" + nombreArchivo + "' indicado no existe <<\n";
         }
-
         return mensaje;
     }
 
@@ -308,9 +309,7 @@ public class EjecutarConModificadores {
      * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarTail(Ficheros ficheros) {
-
         String mensaje;
-
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las últimas 10 líneas
             mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
@@ -333,10 +332,8 @@ public class EjecutarConModificadores {
      * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
-
         String mensaje;
         int numLineas;
-
         if (tokens.length == 2) {
             // Caso sin opción -n: mostrar las primeras 10 líneas
             mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
@@ -365,7 +362,6 @@ public class EjecutarConModificadores {
      */
     private String obtenerLineas(Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje = "";
-
         try {
             String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
             if (!enReversa) {//Si no es en reversa es un head            
@@ -378,10 +374,8 @@ public class EjecutarConModificadores {
                 }
             }
         } catch (NullPointerException e) {//No se encontro el archivo
-
             mensaje += ">> No existe el arhivo <<\n";
         }
-
         return mensaje;
     }
 
@@ -396,7 +390,6 @@ public class EjecutarConModificadores {
      * un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
-
         String mensaje = "";
         String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
         String columnas = tokens[4]; // Campos a extraer
@@ -444,11 +437,9 @@ public class EjecutarConModificadores {
                             return mensaje;
                         }
                     }
-
                     mensaje += lineaResultado.toString() + "\n";// Cambiar color a celeste
                 }
             }
-
         }
         return mensaje;
     }
@@ -467,7 +458,6 @@ public class EjecutarConModificadores {
         String mensaje;
         String[] mensajeTokenizado;
         //boolean tieneNumeros = true;
-
         try {
             if (tokens.length == 2) {
                 mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
@@ -478,7 +468,7 @@ public class EjecutarConModificadores {
                 mensaje = sortN(mensajeTokenizado);
             }
         } catch (NullPointerException ex) {
-            mensaje = ">> No existe el archivo <<\n Error: " + ex.getMessage() ;
+            mensaje = ">> No existe el archivo <<\n Error: " + ex.getMessage();
         }
         return mensaje;
     }
@@ -493,12 +483,9 @@ public class EjecutarConModificadores {
     private String ordenarAlfabeticamente(String[] lineas) {
         String ordenadas = "";
         TreeMap<Character, ArrayList<String>> lineasMapeadas = new TreeMap<>();
-
         for (String linea : lineas) { // CARGO mapa
             char letraInicial = linea.toLowerCase().charAt(0);
-
             ArrayList<String> actual = new ArrayList<>();
-
             if (!lineasMapeadas.containsKey(letraInicial)) {
                 actual.add(linea);
                 lineasMapeadas.put(letraInicial, actual);
@@ -507,17 +494,13 @@ public class EjecutarConModificadores {
                 actual.add(linea);
                 lineasMapeadas.put(letraInicial, actual);
             }
-
         }
-
         // concateno mapa
         for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
-
         }
-
         return ordenadas;
     }
 
@@ -527,22 +510,17 @@ public class EjecutarConModificadores {
      *
      * @param numeros es el arreglo con los elemenos a ordenar
      * @return un String con las lineas ordenadas
-     * 
      *
      */
     private String ordenarConNumeros(String[] lineas) {
         String ordenadas = "";
         TreeMap<Integer, ArrayList<String>> lineasMapeadas = new TreeMap<>();
         ArrayList<String> actual = new ArrayList<>();
-
         for (String linea : lineas) { // ######################################## OBTENGO NUMERO
-
-                //Podria buscar en los digitos vecinos a ver si encuentra mas numeros...
-                //tomo el numerito
-               Integer numerito = Integer.parseInt(linea, 0, 0, 10);
-               System.out.println("Numerito: " + numerito);
-
-
+            //Podria buscar en los digitos vecinos a ver si encuentra mas numeros...
+            //tomo el numerito
+            Integer numerito = Integer.parseInt(linea, 0, 0, 10);
+            System.out.println("Numerito: " + numerito);
             // CARGO mapa
             if (!lineasMapeadas.containsKey(numerito)) {
                 actual.add(linea);
@@ -552,19 +530,14 @@ public class EjecutarConModificadores {
                 actual.add(linea);
                 lineasMapeadas.put(numerito, actual);
             }
-
         }
-
         // concateno mapa
         for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
-
         }
-
         return ordenadas;
-
     }
 
     /**
@@ -581,27 +554,19 @@ public class EjecutarConModificadores {
         ArrayList<String> conNumeritos = new ArrayList<>();
         ArrayList<String> soloTexto = new ArrayList<>(); //estos se deben concatenar primero.
         String todoJuntoYordenado = "";
-
         for (String linea : lineas) {
             if (Character.isDigit(linea.charAt(0))) {
                 conNumeritos.add(linea);
-
             } else {
-
                 soloTexto.add(linea);
             }
-
         }
-
         //Le paso soloTexto a ordenarAlfabeticamente.
         String[] st = soloTexto.toArray(new String[0]);
         todoJuntoYordenado += ordenarAlfabeticamente(st);
         //Le paso numeritos a ordenarNumericamente.
         String[] cn = conNumeritos.toArray(new String[0]);
         todoJuntoYordenado += ordenarConNumeros(cn);
-
         return todoJuntoYordenado;
-
     }
-
 }
