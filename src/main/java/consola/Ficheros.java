@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Esta clase permite gestionar una coleccion de ficheros.
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  */
 public class Ficheros {
 
@@ -174,32 +174,47 @@ public class Ficheros {
      * Metodo que carga los ficheros iniciales en el sistema.
      */
     public void cargarPrimerNivel() {
-        Directorio dir1 = new Directorio("dir1");
+        // ############################## ARCHIVOS ##############################
         Archivo arch1 = new Archivo("arch1.csv");
         arch1.setContenido("campo1:campo2:campo3:campo4\n"
                 + "dato1:dato2:dato3:dato4\n"
                 + "informacion1:informacion2:informacion3:informacion4");
-        Directorio dir2 = new Directorio("dir2");
-        //###################################################
-
-        dir2.agregarContenido(dir1);
-        dir2.agregarContenido(arch1);
-        dir2.agregarContenido(dir2);
-
-        //###################################################
-        Directorio dir3 = new Directorio("dir3");
         Archivo arch2 = new Archivo("arch2.txt",
-                "La Celeste se impuso por 3-1 en Miami, \ndonde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo \ny debió esperar hasta los 39 del complemento para asegurar el triunfo. \nDarwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa sobre el final, \ny en la última descontó Panamá por un lindo gol de Murillo. FIN.");
-        Archivo arch22 = new Archivo("arch22");
-        arch22.setContenido("La elaboración de software de computadora"
+                "La Celeste se impuso por 3-1 en Miami, \n"
+                + "donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo \n"
+                + "y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n"
+                + "Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa\n"
+                + " sobre el final, y en la última descontó Panamá por un lindo gol de\n"
+                + " Murillo. FIN.");
+        Archivo arch22 = new Archivo("arch22.txt");
+        arch22.setContenido("La elaboración de software de computadora\n"
                 + " es un proceso reiterativo de aprendizaje social,\n"
                 + "y el resultado es la reunión de\n"
-                + "conocimiento recabado, depurado y organizado"
-                + " a medida que se realiza el proceso. Pressman(2010)");
+                + "conocimiento recabado, depurado y organizado\n"
+                + " a medida que se realiza el proceso. Pressman(2010)\n");
         Archivo arch33 = new Archivo("arch33.odt");
-        arch33.setContenido("Linea 1 \nlinea 2 \nlinea 3 \n linea 4 \n linea 5 \n linea 6 \n linea 7 \n linea 8 \n linea 9 \n linea 10 \n linea 11 \n linea 12. FIN. \n");
-        Archivo m = new Archivo("m.html", "Hola \n10.Chau \n99.Hola 232342\nChau\n9\n1\n11\n");
-        Archivo n = new Archivo(".secreto.txt", "Este archivo esta oculto");
+        arch33.setContenido("Linea 1 \n"
+                + "linea 2 \n"
+                + "linea 3 \n"
+                + "linea 4 \n"
+                + "linea 5 \n"
+                + "linea 6 \n"
+                + "linea 7 \n"
+                + "linea 8 \n"
+                + "linea 9 \n"
+                + "linea 10 \n"
+                + "linea 11 \n"
+                + "linea 12."
+                + "FIN. \n");
+        Archivo m = new Archivo("m.html",
+                "Hola \n"
+                + "10.Chau \n"
+                + "99.Hola 232342\n"
+                + "Chau\n"
+                + "9\n"
+                + "1\n"
+                + "11\n");
+        Archivo s = new Archivo(".secreto.txt", "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
                 "10\n3\n7\n300\n40\n1\n230\n540\n23\n76\n12\n7");
         Archivo estatuto = new Archivo("estatuto.pdf",
@@ -235,7 +250,22 @@ public class Ficheros {
                 + "no puede afectar la estabilidad en el cargo de otros funcionarios docentes\n"
                 + "efectivos.\n");
 
-//Cargo el directorio raiz con ficheros iniciales
+        // ############################## DIRECTORIOS ##############################
+        Directorio dir1 = new Directorio("dir1");
+        dir1.agregarContenido(m);
+        dir1.agregarContenido(estatuto);
+        dir1.agregarContenido(algunosNumeros);
+        Directorio dir2 = new Directorio("dir2");
+        dir2.agregarContenido(dir1);
+        dir2.agregarContenido(arch1);
+        dir2.agregarContenido(dir2);
+        Directorio dir3 = new Directorio("dir3");
+        dir3.agregarContenido(dir2);
+        dir3.agregarContenido(arch33);
+        dir3.agregarContenido(arch22);
+        dir3.agregarContenido(dir2);
+
+        //Cargo el directorio raiz con ficheros iniciales
         agregarFichero(arch1);
         agregarFichero(dir1);
         agregarFichero(dir2);
@@ -244,7 +274,7 @@ public class Ficheros {
         agregarFichero(arch22);
         agregarFichero(arch33);
         agregarFichero(m);
-        agregarFichero(n);
+        agregarFichero(s);
         agregarFichero(algunosNumeros);
         agregarFichero(estatuto);
 

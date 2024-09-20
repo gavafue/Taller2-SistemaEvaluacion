@@ -15,8 +15,7 @@ public class Archivo extends Fichero {
 
     /**
      * Constructor comun. Invoca al constructor de la clase superior asignando
-     * por defecto permisos: -rwxr--r-- propietario:
-     * user tipo: Arhivo
+     * por defecto permisos: -rwxr--r-- propietario: user tipo: Arhivo
      *
      * @param nombre a dar al archivo.
      */

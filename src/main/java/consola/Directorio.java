@@ -63,7 +63,7 @@ public class Directorio extends Fichero {
         } else {
             s = getContenido().toString();
         }
- 
+
         //return "Esto es un directorio";
         return s;
     }

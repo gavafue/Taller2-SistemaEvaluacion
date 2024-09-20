@@ -140,10 +140,10 @@ public class Procesos {
      */
     public void cargarProcesos() {
 
-        String [] posiblesProcesos = {"ls","mv","man","ps","kill","grep","tail","cut","head","tail","chmod","sort","mv","mkdir","rmdir","clear","cp","|"};
+        String[] posiblesProcesos = {"ls", "mv", "man", "ps", "kill", "grep", "tail", "cut", "head", "tail", "chmod", "sort", "mv", "mkdir", "rmdir", "clear", "cp", "|"};
         Random random = new Random();
-        
-        for(int i=0;i<5;i++){
+
+        for (int i = 0; i < 5; i++) {
             int azar = random.nextInt(posiblesProcesos.length);
             this.agregarProceso(posiblesProcesos[azar]);
         }

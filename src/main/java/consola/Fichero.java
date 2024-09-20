@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Clase abstracta que define la estructura general de un fichero. Es la base
  * para especializar en los tipos: directorio o archivo.
- * 
+ *
  * @author Gabriel, Anna, Santiago, Juan y Gonzalo
  */
 public abstract class Fichero {
@@ -18,10 +18,10 @@ public abstract class Fichero {
 
     /**
      * Permisos del fichero. Se espera que sean de la forma:
-     * 
-     * Tamano fijo de diez caracteres.
-     * Cada caracter debe ser uno de los siguientes: -, w, r, x, d.
-     * 
+     *
+     * Tamano fijo de diez caracteres. Cada caracter debe ser uno de los
+     * siguientes: -, w, r, x, d.
+     *
      */
     private String permisos;
 

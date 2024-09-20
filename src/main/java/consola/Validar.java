@@ -226,7 +226,7 @@ public class Validar {
             if (tokens[i].startsWith("-") && !incluido[i]) {
                 for (int j = i + 1; j < tokens.length; j++) {
                     if (tokens[i].equals(tokens[j])) {
-                        resultado = ">> Modificador " + tokens[i] + " duplicado <<\n"; 
+                        resultado = ">> Modificador " + tokens[i] + " duplicado <<\n";
                     }
                 }
             }
@@ -434,6 +434,7 @@ public class Validar {
 
     /**
      * Método que determina si el comando ingresado tiene pipe.
+     *
      * @return true si tiene pipe y false en caso contrario.
      */
     public boolean tienePipe() {
@@ -441,7 +442,9 @@ public class Validar {
     }
 
     /**
-     * Método que determina si el comando con pipe es válido o no, llamando al ejecutor corresopondiente en caso de que lo sea.
+     * Método que determina si el comando con pipe es válido o no, llamando al
+     * ejecutor corresopondiente en caso de que lo sea.
+     *
      * @param hashComandos comandos del sistema.
      * @param listaFicheros ficheros actuales.
      * @return resultado de validar comando con pipe.
@@ -546,4 +549,3 @@ public class Validar {
         return mensaje;
     }
 }
-
