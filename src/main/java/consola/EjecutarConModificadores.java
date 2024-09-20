@@ -199,7 +199,7 @@ public class EjecutarConModificadores {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
             int i = 0;
-            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreDirectorio)) {
+            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreDirectorio)) { //evita bucle
                 i++;
             }
             mensaje = ficheros.obtenerFichero(i).obtenerContenido() + "\n";

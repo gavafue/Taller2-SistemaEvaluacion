@@ -282,7 +282,7 @@ public class Ficheros {
 
     @Override
     public String toString() {
-        String mensaje = null;
+        String mensaje = "";
         for (Fichero f : getListaFicheros()) {
             mensaje += f.toString() + "\n";
         }

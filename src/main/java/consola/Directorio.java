@@ -14,9 +14,9 @@ public class Directorio extends Fichero {
     private Ficheros contenido; //Suponiendo que va a ser navegable
 
     /**
-     * COnstructor
+     * Constructor
      *
-     * @param nombre.
+     * @param nombre del Directorio
      */
     public Directorio(String nombre) {
         super(nombre, "drwxr--r--", "user", "Directorio");
@@ -57,14 +57,12 @@ public class Directorio extends Fichero {
      */
     @Override
     public String obtenerContenido() {
-        String s = null;
-        if (getContenido().toString() == null) {
+        String s = "";
+        if (getContenido().toString().isEmpty()) {
             s = "\n[Directorio vacio]";
         } else {
             s = getContenido().toString();
         }
-
-        //return "Esto es un directorio";
         return s;
     }
 
