@@ -237,6 +237,7 @@ public class Consola extends javax.swing.JFrame {
         consola = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setLocation(new java.awt.Point(0, 0));
         setSize(new java.awt.Dimension(1024, 500));
         setType(java.awt.Window.Type.UTILITY);
@@ -338,15 +339,8 @@ public class Consola extends javax.swing.JFrame {
                     this.dispose();
                 } else if (comando.equals("")) { // Salto de linea si no hay comando                
                     doc.insertString(doc.getLength(), "\n", null);
-                } else if (validador.tienePipe()) { // Si aparece un pipe
-                    // Valido el primer comando antes de intentar concatenarlo
-                    String[] primerComando = comando.split("\\|");
-                    Validar validadorPipe = new Validar(primerComando[0]);
-                    if (validadorPipe.validarComando(hashComandos).equals("200")) {
-                        mostrarConEstilo(validador.validarPipe(hashComandos, listaFicheros));
-                    } else {
-                        doc.insertString(doc.getLength(), "\n\n" + validadorPipe.validarComando(hashComandos) + "\n", estiloError);
-                    }
+                } else if (validador.tienePipe()) { // Si aparece un pipe                    
+                        mostrarConEstilo(validador.validarPipe(listaFicheros));                  
                 } else if (comandoaValidar.equals("200")) { // Si es un unico comando valido         
                     String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
                     mostrarConEstilo(resultado);
