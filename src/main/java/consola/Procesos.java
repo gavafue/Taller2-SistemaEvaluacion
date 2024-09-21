@@ -92,6 +92,7 @@ public class Procesos {
         Random random = new Random();
         int memoriaProceso = random.nextInt(getMemoriaDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
         setMemoriaDisponible(getMemoriaDisponible() - memoriaProceso);
+        random = new Random();
         int cpuProceso = random.nextInt(getCpuDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
         setCpuDisponible(getCpuDisponible() - cpuProceso);
         Proceso proceso = new Proceso(comando, memoriaProceso, cpuProceso);
@@ -140,7 +141,7 @@ public class Procesos {
      */
     public void cargarProcesos() {
 
-        String[] posiblesProcesos = {"ls", "mv", "man", "ps", "kill", "grep", "tail", "cut", "head", "tail", "chmod", "sort", "mv", "mkdir", "rmdir", "clear", "cp", "|"};
+        String[] posiblesProcesos = {"chrome", "bash", "bluetoothd", "NetworkManager", "java", "libreoffice", "spotify", "firefox", "sshd", "apache2", "vsftpd", "vlc", "eclipse", "netbeans", "rmdir", "Gnome", "vscode", "mysqld"};
         Random random = new Random();
 
         for (int i = 0; i < 5; i++) {
