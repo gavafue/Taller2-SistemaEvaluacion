@@ -333,7 +333,7 @@ public class Consola extends javax.swing.JFrame {
                 ultimoComando = comando.trim(); // Guardar el último comando            
                 Validar validador = new Validar(comando);
                 String comandoaValidar = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
-                String[] tokens = validador.getTokens();
+                //String[] tokens = validador.getTokens();
                 if (comando.equals("exit")) { // Comando salir
                     this.dispose();
                 } else if (comando.equals("")) { // Salto de linea si no hay comando                

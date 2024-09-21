@@ -449,45 +449,105 @@ public class Validar {
      * @param listaFicheros ficheros actuales.
      * @return resultado de validar comando con pipe.
      */
+    
     public String validarPipe(Comandos hashComandos, Ficheros listaFicheros) {
-        String mensaje = "";
-        String msjComando1 = "";
-        String msjComando2 = "";
+        String mensaje="";
+        String msjComando1="";
+        String msjComando2;
         int indexPipe = this.posicionPipe();
         String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
-        String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length + 1); // despues del pipe. y uno mas,
-        // que queda con null
-
+        String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length); // despues del pipe. y 2 mas,
+        // que quedan con null
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokensA);
-        if (tokens[0].equals("tail")) {// primero bloque de IFs para procesar el primer comando
-            tokens = tokensA;
-            msjComando1 = ejecutar.ejecutarTail(listaFicheros);
-        } else if (tokens[0].equals("head")) {
-            tokens = tokensA;
-            msjComando1 = ejecutar.ejecutarHead(listaFicheros);
-        } else {
-            mensaje = ">> Sintaxis incorrecta: el primer comando debe ser head o tail <<\n";
+        tokens = tokensA;
+        switch (tokens[0]) {            
+            
+            case "tail":                
+                        //tokens = tokensA;
+                        msjComando1 = ejecutar.ejecutarTail(listaFicheros);
+                        break;
+            case "head":
+                       //tokens = tokensA;
+                        msjComando1 = ejecutar.ejecutarHead(listaFicheros);
+                        break;                        
+            case "grep":                        
+                        //tokens = tokensA;                        
+                        String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
+                        String [] lineas= mensajeSinFiltrar.split("\\n");
+                        /*Si el grep encuentra coincidencia aparece como primer linea "-Coincidencias-"
+                        Se elimina esa primer linea antes de concatenar la segunda busqueda*/
+                        String [] lineasSinPrimera = Arrays.copyOfRange(lineas, 1, lineas.length);
+                        msjComando1=String.join("\n", lineasSinPrimera);
+            default:
+                mensaje = ">> Sintaxis incorrecta: el primer comando debe ser head|tail|grep <<\n";
+                break;
+        }        
+        //Si msjComnado1 no esta vacio el comando se ejecuto correctamnte
+        if (!msjComando1.isEmpty()){
+            String[] tokensSegundoComando={};//Aqui se tokenizara el segundo comando
+            // creo un archivo temporal con el resultado del primer comando               
+            listaFicheros.agregarFichero(new Archivo("especificado", msjComando1));
+            System.out.println("Tokenb+"+tokensB.length);
+            
+            if (tokensB[0].equals("tail")||tokensB[0].equals("head")) {                   
+                if (tokensB.length==1){
+                tokensSegundoComando=new String[]{tokensB[0], "especificado"};         
+                
+                }else if (tokensB.length==3) {
+                tokensSegundoComando=new String[]{tokensB[0],tokensB[1],tokensB[2],"especificado"};
+                    System.out.println("Largo="+tokensSegundoComando.length);
+                    System.out.println(tokensSegundoComando[0]+tokensSegundoComando[1]+tokensSegundoComando[2]+tokensSegundoComando[3]);
+                
+                }                
+                tokens=tokensSegundoComando;
+                                
+                if (validarOpciones().equals("200")){
+                    
+                    System.out.println("Los tokens finales"+ tokens[0]+" "+ tokens[1]+" "+ tokens[2]+" "+ tokens[3]);
+                    
+                    switch (tokens[0]) {
+                
+                    case "tail":    mensaje=ejecutar.ejecutarTail(listaFicheros);
+                                    break;
+                        
+                    case "head":    mensaje=ejecutar.ejecutarHead(listaFicheros);
+                                    break;               
+          
+                    } 
+                    
+                } else {
+            
+                    mensaje = validarOpciones();
+                       
+                }
+            
         }
-        if (tokens[0].equals("head") || tokens[0].equals("tail")) {
-            EjecutarConModificadores ejecutar2 = new EjecutarConModificadores(tokensB);
-            if (tokensB[0].equals("grep") && tokensB.length == 3) { // segundo bloque de IFs para procesar el segundo comando
-                listaFicheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
-                // mensaje1. Ya que grep esta programado para
-                // levantar contenido de ficheros.
-                tokensB[2] = "especificado"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
-                tokens = tokensB;
-                msjComando2 = ejecutar2.ejecutarGrep(listaFicheros);// Va a tomar el tokens global, el cual no esta como lo necesita.
-                // PROUESTA: que todos los ejecutarComando() reciban el tokens como
-                // parametro.
-                // borro ese archivo que no debe existir mas.
-                listaFicheros.eliminarFichero("especificado");
-                mensaje = msjComando2;
-            } else {
-                mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser [grep 'expresión'] <<\n";
-            }
-        }
+       }
         return mensaje;
-    }
+    }   
+        
+     
+         
+//        if (tokens[0].equals("head") || tokens[0].equals("tail")) {
+//            EjecutarConModificadores ejecutar2 = new EjecutarConModificadores(tokensB);
+//            if (tokensB[0].equals("grep") && tokensB.length == 3) { // segundo bloque de IFs para procesar el segundo comando
+//                listaFicheros.agregarFichero(new Archivo("especificado", msjComando1)); // creo un archivo con el contenido del
+//                // mensaje1. Ya que grep esta programado para
+//                // levantar contenido de ficheros.
+//                tokensB[2] = "especificado"; // modifico tokens para poner como 3 parametro el nombre del archivo temporal.
+//                tokens = tokensB;
+//                msjComando2 = ejecutar2.ejecutarGrep(listaFicheros);// Va a tomar el tokens global, el cual no esta como lo necesita.
+//                // PROUESTA: que todos los ejecutarComando() reciban el tokens como
+//                // parametro.
+//                // borro ese archivo que no debe existir mas.
+//                listaFicheros.eliminarFichero("especificado");
+//                mensaje = msjComando2;
+//            } else {
+//                mensaje = ">> Sintaxis incorrecta: en segundo comando debe ser [grep 'expresión'] <<\n";
+//            }
+//        }
+       // return mensaje;
+    //}
 
     /**
      * Metodo para validar la sintaxis de los comandos que no utilizan

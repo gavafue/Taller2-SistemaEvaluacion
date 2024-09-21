@@ -286,10 +286,11 @@ public class EjecutarConModificadores {
         if (ficheros.existeFichero(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
             String[] porLineas = contenidoArchivo.split("\n");
+            mensaje = "-Coincidencias-\n\n";
             for (String linea : porLineas) {
                 if (linea.contains(expresion)) {
                     existeExpresion = true;
-                    mensaje += "-Coindicencia-\n" + linea + "\n";
+                    mensaje +=linea + "\n";
                 }
             }
             if (!existeExpresion) {
