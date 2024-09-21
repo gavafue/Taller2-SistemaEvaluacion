@@ -986,7 +986,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         lblTipo.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
         lblTipo.setForeground(new java.awt.Color(255, 255, 255));
         lblTipo.setText("Respuesta");
-        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 160, -1));
+        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 180, -1));
 
         cboxVerdaderoOFalso.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxVerdaderoOFalso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
@@ -1050,13 +1050,13 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                         .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)))
+                            .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                                .addGap(173, 173, 173)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)))
                 .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

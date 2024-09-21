@@ -212,7 +212,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         });
         add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 220, 50));
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
+        btnAgregar.setBackground(new java.awt.Color(0, 0, 153));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");

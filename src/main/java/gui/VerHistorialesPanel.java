@@ -277,6 +277,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
         tableHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -305,6 +306,8 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tableHistorico);
 
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 85, 651, 310));
+
         btnAtras.setBackground(new java.awt.Color(51, 51, 51));
         btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
@@ -314,9 +317,11 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 btnAtrasActionPerformed(evt);
             }
         });
+        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 401, 119, 46));
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblTitulo.setText("Evaluación:");
+        add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 1401, -1));
 
         btnRespuestas.setBackground(new java.awt.Color(0, 0, 153));
         btnRespuestas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -327,46 +332,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 btnRespuestasActionPerformed(evt);
             }
         });
+        add(btnRespuestas, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 401, 167, 46));
 
         txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPuntajeTotal.setForeground(new java.awt.Color(0, 0, 153));
         txtPuntajeTotal.setText("Puntaje total:");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPuntajeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPuntajeTotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
+        add(txtPuntajeTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 744, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {

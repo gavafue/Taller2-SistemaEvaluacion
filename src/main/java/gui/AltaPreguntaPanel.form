@@ -382,16 +382,15 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel10" min="-2" pref="86" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="spnPuntajeEspaciosVF" min="-2" pref="135" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane3" min="-2" pref="422" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" min="-2" pref="86" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="spnPuntajeEspaciosVF" min="-2" pref="135" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jScrollPane3" alignment="0" min="-2" pref="404" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="55" max="32767" attributes="0"/>
+                          <EmptySpace pref="25" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="panelRespuestaEspaciosVF" min="-2" pref="287" max="-2" attributes="0"/>
@@ -473,7 +472,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="60" y="140" width="160" height="-1"/>
+                  <AbsoluteConstraints x="60" y="140" width="180" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
