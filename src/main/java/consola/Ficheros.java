@@ -274,6 +274,10 @@ public class Ficheros {
         dir2.agregarContenido(arch1);
         dir2.agregarContenido(dir1);
         dir2.agregarContenido(dir2);
+        dir2.agregarContenido(s1);
+        dir2.agregarContenido(s2);
+        dir2.agregarContenido(s3);
+
         Directorio dir3 = new Directorio("dir3");
         dir3.agregarContenido(arch33);
         dir3.agregarContenido(dir2);

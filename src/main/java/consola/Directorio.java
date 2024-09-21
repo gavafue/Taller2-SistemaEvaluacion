@@ -56,7 +56,20 @@ public class Directorio extends Fichero {
      * nada dentro de los directorios.
      */
     @Override
-    public String obtenerContenido() {
+    public String obtenerResumenDelContenido(boolean ocultos) {
+        String s = "";
+        if (getContenido().toString().isEmpty()) {
+            s = "\n[Directorio vacio]";
+        } else {
+
+            s = getContenido().obtenerInformacionDetallada(ocultos);
+
+        }
+        return s;
+    }
+
+    @Override
+    public String obtenerResumenDelContenido() {
         String s = "";
         if (getContenido().toString().isEmpty()) {
             s = "\n[Directorio vacio]";
@@ -65,5 +78,4 @@ public class Directorio extends Fichero {
         }
         return s;
     }
-
 }

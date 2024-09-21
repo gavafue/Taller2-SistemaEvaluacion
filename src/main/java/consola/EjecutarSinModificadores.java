@@ -215,7 +215,7 @@ public class EjecutarSinModificadores {
         String nombreArchivo = tokens[1];
         if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
             Fichero archivo = ficheros.obtenerFichero(nombreArchivo);
-            mensaje = archivo.obtenerContenido() + "\n";
+            mensaje = archivo.obtenerResumenDelContenido() + "\n";
         } else {
             mensaje = ">> No existe un archivo con ese nombre <<\n";
         }

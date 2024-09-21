@@ -52,7 +52,16 @@ public class Archivo extends Fichero {
     }
 
     @Override
-    public String obtenerContenido() {
+    public String obtenerResumenDelContenido() {
         return contenido;
+    }
+
+    @Override
+    public String obtenerResumenDelContenido(boolean opcion) {
+        String retorno = this.getContenido();
+        if (opcion){
+            retorno += "\n";
+        }
+        return retorno;
     }
 }
