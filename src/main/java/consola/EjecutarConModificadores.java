@@ -198,11 +198,9 @@ public class EjecutarConModificadores {
     private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            int i = 0;
-            while (!ficheros.obtenerFichero(i).getNombre().equals(nombreDirectorio)) { //evita bucle
-                i++;
-            }
-            mensaje = ficheros.obtenerFichero(i).obtenerContenido() + "\n";
+            
+            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerContenido() + "\n";
+        
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }

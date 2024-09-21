@@ -147,7 +147,10 @@ public abstract class Fichero {
         return permisos + " " + duenio + " " + fecha + " " + nombre; //Informacion mostrada al realizar un ls
     }
 
-    // Métodos abstractos para obtener contenido
+    /**
+     * Método abstracto para obtener contenido. Su implementacion sera distinta
+     * segun la especilizacion de las subclases.
+     */
     public abstract String obtenerContenido();
-    //public abstract List<Fichero> obtenerContenidoFicheros(); //Suponiendo que fuera escalable, unica forma si mantenemos herencia.
+
 }

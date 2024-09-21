@@ -172,9 +172,14 @@ public class Ficheros {
 
     /**
      * Metodo que carga los ficheros iniciales en el sistema.
+     *
+     *
+     * ##### Esto deberia estar afuera de Ficheros. Porque se arrastra (esta
+     * disponible) en todos los directorios que se creen, ya que su contenido es
+     * de tipo Ficheros. ####
      */
     public void cargarPrimerNivel() {
-        // ############################## ARCHIVOS ##############################
+        // ############################## ARCHIVOS #############################
         Archivo arch1 = new Archivo("arch1.csv");
         arch1.setContenido("campo1:campo2:campo3:campo4\n"
                 + "dato1:dato2:dato3:dato4\n"
@@ -184,14 +189,15 @@ public class Ficheros {
                 + "donde Maximiliano Araujo abrió el marcador a los 15 del primer tiempo \n"
                 + "y debió esperar hasta los 39 del complemento para asegurar el triunfo.\n"
                 + "Darwin Núñez y Federico Viña hicieron los goles del equipo de Bielsa\n"
-                + " sobre el final, y en la última descontó Panamá por un lindo gol de\n"
-                + " Murillo. FIN.");
+                + " sobre el final, y en la última descontó Panamá por un lindo gol de \n"
+                + "Murillo."
+                + "FIN.");
         Archivo arch22 = new Archivo("arch22.txt");
-        arch22.setContenido("La elaboración de software de computadora\n"
-                + " es un proceso reiterativo de aprendizaje social,\n"
-                + "y el resultado es la reunión de\n"
-                + "conocimiento recabado, depurado y organizado\n"
-                + " a medida que se realiza el proceso. Pressman(2010)\n");
+        arch22.setContenido("La elaboración de software de computadora es un \n"
+                + "proceso reiterativo de aprendizaje social,\n"
+                + "y el resultado es la reunión de conocimiento recabado, \n"
+                + "depurado y organizado a medida que se realiza el proceso.\n"
+                + "Pressman(2010)\n");
         Archivo arch33 = new Archivo("arch33.odt");
         arch33.setContenido("Linea 1 \n"
                 + "linea 2 \n"
@@ -215,6 +221,10 @@ public class Ficheros {
                 + "1\n"
                 + "11\n");
         Archivo s = new Archivo(".secreto.txt", "Este archivo esta oculto");
+        Archivo s1 = new Archivo(".Secreto1.txt", "Este archivo esta oculto");
+        Archivo s2 = new Archivo(".granSecreto2.txt", "Este archivo esta oculto");
+        Archivo s3 = new Archivo(".secretoPequeño.txt", "Este archivo esta oculto");
+        Archivo s4 = new Archivo(".secretito.txt", "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
                 "10\n3\n7\n300\n40\n1\n230\n540\n23\n76\n12\n7");
         Archivo estatuto = new Archivo("estatuto.pdf",
@@ -250,22 +260,30 @@ public class Ficheros {
                 + "no puede afectar la estabilidad en el cargo de otros funcionarios docentes\n"
                 + "efectivos.\n");
 
-        // ############################## DIRECTORIOS ##############################
+        // ############################## DIRECTORIOS ##########################
         Directorio dir1 = new Directorio("dir1");
         dir1.agregarContenido(m);
         dir1.agregarContenido(estatuto);
-        dir1.agregarContenido(algunosNumeros);
+        dir1.agregarContenido(arch2);
+        dir1.agregarContenido(arch1);
+        dir1.agregarContenido(arch33);
+        dir1.agregarContenido(arch22);
+        dir1.agregarContenido(estatuto);
+
         Directorio dir2 = new Directorio("dir2");
-        dir2.agregarContenido(dir1);
         dir2.agregarContenido(arch1);
+        dir2.agregarContenido(dir1);
         dir2.agregarContenido(dir2);
         Directorio dir3 = new Directorio("dir3");
-        dir3.agregarContenido(dir2);
         dir3.agregarContenido(arch33);
+        dir3.agregarContenido(dir2);
         dir3.agregarContenido(arch22);
         dir3.agregarContenido(dir2);
 
-        //Cargo el directorio raiz con ficheros iniciales
+        Directorio dir4 = new Directorio("dir4"); // vacio
+        Directorio dir5 = new Directorio("dir5"); // vacio
+
+        /* Cargo el directorio raiz con ficheros iniciales */
         agregarFichero(arch1);
         agregarFichero(dir1);
         agregarFichero(dir2);
@@ -277,15 +295,21 @@ public class Ficheros {
         agregarFichero(s);
         agregarFichero(algunosNumeros);
         agregarFichero(estatuto);
-
+        agregarFichero(dir4);
+        agregarFichero(dir5);
     }
 
+    /**
+     *
+     * @return resumen de la coleccion en formato String. Devuleve cada elemento
+     * por linea, agregando un '\n' al final.
+     */
     @Override
     public String toString() {
-        String mensaje = "";
+        String resumen = "";
         for (Fichero f : getListaFicheros()) {
-            mensaje += f.toString() + "\n";
+            resumen += f.toString() + "\n";
         }
-        return mensaje;
+        return resumen;
     }
 }
