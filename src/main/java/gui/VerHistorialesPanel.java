@@ -5,12 +5,16 @@
 package gui;
 
 import conexion.Cliente;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -32,7 +36,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         this.rol = rol;
         this.panelContent = panelContent;
         initComponents();
-        lblTitulo.setText("Evaluacion: " + titulo);
+        lblTitulo.setText("Evaluación: " + titulo);
         this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
         this.solicitarPuntajeTotalEvaluacion();
@@ -116,7 +120,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
         String[] historial = null;
 
-        String[] columnas = { "CI alumno", "Puntaje" };
+        String[] columnas = { "CI alumno", "Puntaje Obtenido" };
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         for (int i = 0; i < historiales.length; i++) {
             historial = historiales[i].split(",,,");
@@ -129,7 +133,23 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 modelo.addRow(fila);
             }
         }
+        
+        this.darEstiloTabla();
         tableHistorico.setModel(modelo);
+    }
+    
+    public void darEstiloTabla(){
+        // Estilo de la tabla
+        tableHistorico.setGridColor(Color.LIGHT_GRAY);
+        tableHistorico.setShowGrid(true);
+        tableHistorico.setRowHeight(30);
+        tableHistorico.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
+  
+        // Configurar el encabezado
+        JTableHeader header = tableHistorico.getTableHeader();
+        header.setBackground(Color.DARK_GRAY);
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 24));
     }
 
     public Boolean estudianteRealizoEvaluacion() {
@@ -213,7 +233,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
             if ("200".equals(codigoRespuesta)) {
                 // Actualiza el campo de texto con el puntaje total
-                txtPuntajeTotal.setText("Puntaje total posible: " + mensajeRespuesta);
+                txtPuntajeTotal.setText("Puntaje total: " + mensajeRespuesta);
             } else {
                 // Maneja códigos de respuesta inesperados
                 throw new RuntimeException(
@@ -245,7 +265,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -255,119 +275,115 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         btnRespuestas = new javax.swing.JButton();
         txtPuntajeTotal = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
 
         tableHistorico.setBackground(new java.awt.Color(204, 204, 204));
+        tableHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "CI Estudiante", "Puntaje Obtenido"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.String.class, java.lang.Integer.class
+            },
+            new String [] {
+                "CI Estudiante", "Puntaje Obtenido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean[] {
-                    false, false
+            boolean[] canEdit = new boolean [] {
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(tableHistorico);
 
         btnAtras.setBackground(new java.awt.Color(51, 51, 51));
+        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtras.setText("Atras");
+        btnAtras.setText("Atrás");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAtrasActionPerformed(evt);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnAtrasActionPerformed(evt);
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblTitulo.setText("Evaluación: ");
+        lblTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblTitulo.setText("Evaluación:");
 
-        btnRespuestas.setBackground(new java.awt.Color(51, 51, 51));
+        btnRespuestas.setBackground(new java.awt.Color(0, 0, 153));
+        btnRespuestas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
-        btnRespuestas.setText("Respuestas Correctas");
+        btnRespuestas.setText("Ver Respuestas");
         btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRespuestasActionPerformed(evt);
             }
         });
 
-        txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtPuntajeTotal.setText("Puntaje total posible: ");
+        txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtPuntajeTotal.setForeground(new java.awt.Color(0, 0, 153));
+        txtPuntajeTotal.setText("Puntaje total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 210,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 88,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66))
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txtPuntajeTotal,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 744,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jScrollPane2,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 701,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap()));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPuntajeTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(lblTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPuntajeTotal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69,
-                                        Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(41, 41, 41)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPuntajeTotal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnAtrasActionPerformed
-        GestionEvaluacionesPanel evaluacionesPanel = new GestionEvaluacionesPanel(cliente, rol, panelContent);
-        evaluacionesPanel.setSize(730, 520);
-        evaluacionesPanel.setLocation(0, 0);
-        panelContent.removeAll();
-        panelContent.add(evaluacionesPanel);
-        panelContent.revalidate();
-        panelContent.repaint();
-    }// GEN-LAST:event_btnAtrasActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            // GEN-FIRST:event_btnAtrasActionPerformed
+            GestionEvaluacionesPanel evaluacionesPanel = new GestionEvaluacionesPanel(cliente, rol, panelContent);
+            evaluacionesPanel.setSize(730, 520);
+            evaluacionesPanel.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(evaluacionesPanel);
+            panelContent.revalidate();
+            panelContent.repaint();
+        } // GEN-LAST:event_btnAtrasActionPerformed
+        catch (IOException ex) {
+            Logger.getLogger(VerHistorialesPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
         VerRespuestasPanel evaluacionesPanel = new VerRespuestasPanel(cliente, titulo, rol, panelContent);

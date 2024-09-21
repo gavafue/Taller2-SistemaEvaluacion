@@ -33,7 +33,6 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         this.cliente = cliente;
         this.panelContent = panelContent;
         initComponents();
-        jLabel2.putClientProperty("FlatLaf.styleClass", "h2");
     }
 
     /**
@@ -80,7 +79,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnNuevaPregunta = new javax.swing.JButton();
@@ -89,16 +88,17 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         txtMensaje = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cbxRespuestasValidas = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         PanelVista = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        cbxRespuestasValidas = new javax.swing.JCheckBox();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNuevaPregunta.setBackground(new java.awt.Color(51, 0, 204));
-        btnNuevaPregunta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNuevaPregunta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnNuevaPregunta.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevaPregunta.setText("Nueva Pregunta");
         btnNuevaPregunta.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +106,10 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 btnNuevaPreguntaActionPerformed(evt);
             }
         });
+        add(btnNuevaPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 190, 47));
 
         btnFinalizar.setBackground(new java.awt.Color(0, 0, 51));
-        btnFinalizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFinalizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnFinalizar.setForeground(new java.awt.Color(255, 255, 255));
         btnFinalizar.setText("Finalizar");
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +117,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 btnFinalizarActionPerformed(evt);
             }
         });
+        add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 155, 49));
 
         txtTitulo.setBackground(new java.awt.Color(204, 204, 204));
         txtTitulo.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
@@ -126,7 +128,6 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTituloFocusGained(evt);
             }
-
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTituloFocusLost(evt);
             }
@@ -136,125 +137,42 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 txtTituloActionPerformed(evt);
             }
         });
+        add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 647, 31));
 
         txtMensaje.setFont(new java.awt.Font("Lucida Console", 2, 24)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
+        add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 616, 84, -1));
 
-        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAtras.setText("Atras");
+        btnAtras.setBackground(new java.awt.Color(0, 0, 51));
+        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setText("Atrás");
+        btnAtras.setBorder(null);
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAtrasActionPerformed(evt);
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }
+                btnAtrasActionPerformed(evt);
             }
         });
+        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, 146, 48));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel1.setText("Título de la evaluación");
-
-        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Crear una evaluación");
-
-        cbxRespuestasValidas.setText("Permitir al estudiante ver las respuestas correctas");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Ingrese título de la nueva evaluación:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 369, 20));
 
         PanelVista.setBackground(new java.awt.Color(204, 204, 204));
         PanelVista.setOpaque(false);
         PanelVista.setLayout(new javax.swing.BoxLayout(PanelVista, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(PanelVista);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setText("Vista previa:");
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 647, 234));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(57, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                .createSequentialGroup()
-                                                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 84,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(367, 367, 367))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                .createSequentialGroup()
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout
-                                                                .createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                        layout.createSequentialGroup()
-                                                                                .addComponent(jLabel1,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                        162,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(156, 156, 156)
-                                                                                .addComponent(cbxRespuestasValidas)
-                                                                                .addGap(28, 28, 28))
-                                                                .addComponent(txtTitulo,
-                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 626,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jScrollPane1,
-                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 626,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(btnAtras,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 146,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(167, 167, 167)
-                                                                .addComponent(btnNuevaPregunta,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 155,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(3, 3, 3)
-                                                                .addComponent(btnFinalizar,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 155,
-                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(jLabel3))
-                                                .addGap(47, 47, 47)))));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(cbxRespuestasValidas))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(btnNuevaPregunta, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btnAtras, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 48,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(91, 91, 91)
-                                .addComponent(txtMensaje, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("Vista previa de la evaluación:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        cbxRespuestasValidas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbxRespuestasValidas.setText("Permitir al estudiante ver las respuestas al finalizar");
+        add(cbxRespuestasValidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, -1, 33));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -418,21 +336,20 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
      * @param evt
      * @throws IOException
      */
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnAtrasActionPerformed
-
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_btnAtrasActionPerformed
+        GestionEvaluacionesPanel gestionEvaluacionesPanel = null; // TODO Auto-generated catch block
         try {
-            GestionEvaluacionesPanel gestionEvaluacionesPanel = new GestionEvaluacionesPanel(cliente, "docente",
+            gestionEvaluacionesPanel = new GestionEvaluacionesPanel(cliente, "docente",
                     panelContent);
-            gestionEvaluacionesPanel.setSize(730, 520);
-            gestionEvaluacionesPanel.setLocation(0, 0);
-            panelContent.removeAll();
-            panelContent.add(gestionEvaluacionesPanel);
-            panelContent.revalidate();
-            panelContent.repaint();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        gestionEvaluacionesPanel.setSize(730, 520);
+        gestionEvaluacionesPanel.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(gestionEvaluacionesPanel);
+        panelContent.revalidate();
+        panelContent.repaint();
 
     }// GEN-LAST:event_btnAtrasActionPerformed
 
@@ -457,7 +374,6 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnNuevaPregunta;
     private javax.swing.JCheckBox cbxRespuestasValidas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel txtMensaje;
