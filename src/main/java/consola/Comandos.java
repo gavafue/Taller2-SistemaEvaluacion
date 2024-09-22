@@ -56,7 +56,7 @@ public class Comandos {
         if (this.existeComando(nombre)) {
             descripcion = hashComandos.get(nombre).getDescripcion();
         } else {
-            descripcion = "No hay informacion disponible sobre el comando " +nombre;
+            descripcion = "No hay informacion disponible sobre el comando " + nombre;
         }
         return descripcion;
     }
@@ -73,7 +73,7 @@ public class Comandos {
         if (this.existeComando(nombre)) {
             ejemplo = hashComandos.get(nombre).getEjemplo();
         } else {
-            ejemplo = "No hay ejemplos disponibles sobre el comando " + nombre+"\n\n"+" Intente man"+"\n";
+            ejemplo = "No hay ejemplos disponibles sobre el comando " + nombre + "\n\n" + " Intente man" + "\n";
         }
         return ejemplo;
     }
@@ -93,32 +93,31 @@ public class Comandos {
      * texto.
      */
     public void cargarComandos() {
-        
-        String opcLs [] = {"-l","-a"};
-        String opcSort [] = {"-n"};
-        String opcHeadTail [] = {"-n"};
-        String opcCut [] = {"-d","-f"};
-        
-        
+
+        String opcLs[] = {"-l", "-a"};
+        String opcSort[] = {"-n"};
+        String opcHeadTail[] = {"-n"};
+        String opcCut[] = {"-d", "-f"};
+
         Comando com0 = new Comando(
                 "\nEsta consola valida la sintaxis de algunos comandos de Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n     Ejemplo: man [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
                 "\n Ejemplo: ls /etc"
-                        + "\n     Lista el contenido del directorio /etc\n\n", opcLs);
+                + "\n     Lista el contenido del directorio /etc\n\n", opcLs);
 
         Comando com3 = new Comando("Crea un directorio", "\n     Ejemplo: mkdir dir1"
                 + "\n     Crea dir1 en el directorio actual",
                 null);
         Comando com4 = new Comando("Borra un directorio sin contenido",
                 "\n     Ejemplo: rmdir dir1 "
-                        + "\n     Elimina dir1 siempre que no contenga nada.\n\n", null);
+                + "\n     Elimina dir1 siempre que no contenga nada.\n\n", null);
         Comando com5 = new Comando("Mueve o renombra un directorio.",
                 "\n     Ejemplo: mv arch1 arh2"
-                        + "\n     Renombra arch1 como arch2\n\n", null);
+                + "\n     Renombra arch1 como arch2\n\n", null);
         Comando com6 = new Comando("Muestra el contenido de un archivo",
                 "\n     Ejemplo: cat respaldo.txt"
-                        + "\n     Muestra el contenido de respaldo.txt por pantalla.\n\n", null);
+                + "\n     Muestra el contenido de respaldo.txt por pantalla.\n\n", null);
         Comando com7 = new Comando("Borra el texto en pantalla.",
                 "\n     Ejemplo: clear [No admite parámetros]\n\n", null);
         Comando com8 = new Comando("Muestra los procesos activos.", "\n     Ejemplo: ps [No admite parámetros]\n\n",
@@ -145,12 +144,12 @@ public class Comandos {
                 opcSort); // opciones disponibles “-n” para ordenar numéricamente.
         Comando com15 = new Comando("Para modificar los permisos asignados en un archivo o directorio ",
                 "\n     Ejemplo: chmod rwxrwxrwx arch1"
-                        + "\n     Ejemplo: chmod 555 arch1", null);
+                + "\n     Ejemplo: chmod 555 arch1", null);
 
         // RF39. La consola permitirá el uso de pipe ( | ) entre los comandos tail, grep y head. La sintaxis para el uso del pipe sería la siguiente “comando1 | comando2”
         Comando com16 = new Comando("Para redirigir la salida del primer comando hacia la entrada del segundo.\nPrimer comando debe ser tail o head. El segundo, grep (sin especificiar archivo).",
                 "\n     Ejemplo: comando1 | comando2"
-                        + "\n     Ejemplo: head arch1 | grep INET", null);
+                + "\n     Ejemplo: head arch1 | grep INET", null);
 
         agregarComando("man", com0);
         agregarComando("ls", com1);

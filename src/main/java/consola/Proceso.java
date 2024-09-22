@@ -70,7 +70,7 @@ public class Proceso {
      * @param comando
      */
     public Proceso(String comando, double memoria, double cpu) {
-        
+
         this.pid = siguientePid++;
         this.usuario = "USER";
         this.memoria = memoria;
