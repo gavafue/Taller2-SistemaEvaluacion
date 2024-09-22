@@ -119,7 +119,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
         });
         add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 155, 49));
 
-        txtTitulo.setBackground(new java.awt.Color(204, 204, 204));
+        txtTitulo.setBackground(new java.awt.Color(234, 234, 234));
         txtTitulo.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         txtTitulo.setForeground(new java.awt.Color(102, 102, 102));
         txtTitulo.setText("Titulo de la Evaluacion");

@@ -69,7 +69,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
         jLabel2.setText("Usuario:");
 
         txtUsuario.setEditable(false);
-        txtUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        txtUsuario.setBackground(new java.awt.Color(234, 234, 234));
         txtUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtUsuario.setToolTipText("");
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +82,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Nueva contraseña:");
 
-        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setBackground(new java.awt.Color(234, 234, 234));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));

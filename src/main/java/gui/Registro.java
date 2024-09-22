@@ -139,7 +139,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        txtCedula.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedula.setBackground(new java.awt.Color(234, 234, 234));
         txtCedula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtCedula.setToolTipText("");
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +154,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel1.setText("Contraseña:");
         background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, 33));
 
-        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setBackground(new java.awt.Color(234, 234, 234));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         background.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 550, 40));
 
@@ -174,7 +174,6 @@ public class Registro extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setActionCommand("Registrar");
         btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

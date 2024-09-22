@@ -186,7 +186,7 @@ public class Login extends javax.swing.JFrame {
         panelContent.setBackground(new java.awt.Color(255, 255, 255));
         panelContent.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        txtUsuario.setBackground(new java.awt.Color(234, 234, 234));
         txtUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtUsuario.setToolTipText("");
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Usuario:");
 
-        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setBackground(new java.awt.Color(234, 234, 234));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N

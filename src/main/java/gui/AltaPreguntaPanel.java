@@ -7,18 +7,13 @@ package gui;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
-import org.w3c.dom.events.MouseEvent;
-
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
 
 /**
  *
@@ -249,7 +244,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelEspaciosVF.setVisible(false); // JPanel utilizado tanto para preguntas de completar espacios como VF
         // Los carteles de ayuda solo son para el docente
         if(this.getRol().equals("docente")){
-            this.agregarCartelesAyudas(); // Carga en interfaz label con carteles de ayuda
+            this.lblAyudaEnunciado.setVisible(true);
+            this.lblAyudaMultiple.setVisible(true);
+            this.lblAyudaEspaciosVF.setVisible(true);
         }else{
             this.lblAyudaEnunciado.setVisible(false);
             this.lblAyudaMultiple.setVisible(false);
@@ -693,43 +690,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Método que agrega cartes de ayuda a lo largo de la interfaz según
-     * corresponda.
-     */
-    private void agregarCartelesAyudas() {
-        if (rol.equals("docente")) {
-            this.lblAyudaEnunciado.setVisible(true);
-            this.lblAyudaMultiple.setVisible(true);
-            this.lblAyudaEspaciosVF.setVisible(true);
-            
-            // Listener para lblAyudaEnunciado
-            this.lblAyudaEnunciado.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Clic en Ayuda Enunciado"); // Mensaje de depuración
-                    cartelAyudaEnunciado();
-                }
-            });
-
-            // Listener para lblAyudaMultiple
-            this.lblAyudaMultiple.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Clic en Ayuda Multiple"); // Mensaje de depuración
-                    cartelAyudaMultiple();
-                }
-            });
-
-            // Listener para lblAyudaEspaciosVF
-            this.lblAyudaEspaciosVF.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Clic en Ayuda Espacios VF"); // Mensaje de depuración
-                    cartelAyudaEspaciosVF();
-                }
-            });
-        }
-    }
-
-
-    /**
      * Método que crea el cartel de ayuda del JPanel "enunciado".
      */
     private void cartelAyudaEnunciado() {
@@ -746,7 +706,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private void cartelAyudaMultiple() {
         System.out.println("clic en ayuda");
         JOptionPane.showMessageDialog(this,
-                "Ingrese el puntaje y cuatro respuestas posibles, luego presione el botón siguiente.",
+                "Ingrese el puntaje y cuatro respuestas posibles, luego seleccione finalizar.",
                 "Ayuda",
                 JOptionPane.INFORMATION_MESSAGE);
     }
@@ -758,12 +718,12 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         System.out.println("clic en ayuda");
         if (this.getTipoPregunta().equals("Rellenar espacios")) {
             JOptionPane.showMessageDialog(this,
-                    "Ingrese el puntaje y un máximo de dos respuestas separadas por coma, luego presione el botón siguiente.",
+                    "Ingrese el puntaje y un máximo de dos respuestas separadas por coma, luego seleccione finalizar.",
                     "Ayuda",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this,
-                    "Ingrese el puntaje y seleccione la respuesta correcta, luego presione el botón siguiente.",
+                    "Ingrese el puntaje y seleccione la respuesta correcta, luego seleccione finalizar.",
                     "Ayuda",
                     JOptionPane.INFORMATION_MESSAGE);
         }
@@ -857,7 +817,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         });
         panelMultiple.add(cboxOpcionesMultiple, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 150, 30));
 
-        txtOpc1.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc1.setEditable(false);
+        txtOpc1.setBackground(new java.awt.Color(234, 234, 234));
         txtOpc1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         txtOpc1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtOpc1.addActionListener(new java.awt.event.ActionListener() {
@@ -867,17 +828,17 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         });
         panelMultiple.add(txtOpc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 280, 30));
 
-        txtOpc3.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc3.setBackground(new java.awt.Color(234, 234, 234));
         txtOpc3.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         txtOpc3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 280, 30));
 
-        txtOpc2.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc2.setBackground(new java.awt.Color(234, 234, 234));
         txtOpc2.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         txtOpc2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 280, 30));
 
-        txtOpc4.setBackground(new java.awt.Color(204, 204, 204));
+        txtOpc4.setBackground(new java.awt.Color(234, 234, 234));
         txtOpc4.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         txtOpc4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         panelMultiple.add(txtOpc4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 280, 30));
@@ -951,7 +912,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         });
         panelMultiple.add(lblEnunciadoMultiple, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 390, -1));
 
-        lblAyudaMultiple.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblAyudaMultiple.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lblAyudaMultiple.setForeground(new java.awt.Color(51, 102, 255));
         lblAyudaMultiple.setText("¿Necesita Ayuda?");
         lblAyudaMultiple.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -973,7 +934,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel9.setText("Enunciado");
 
-        txtEnunciadoEspaciosVF.setBackground(new java.awt.Color(204, 204, 204));
+        txtEnunciadoEspaciosVF.setBackground(new java.awt.Color(234, 234, 234));
         txtEnunciadoEspaciosVF.setColumns(20);
         txtEnunciadoEspaciosVF.setFont(new java.awt.Font("Dialog", 2, 20)); // NOI18N
         txtEnunciadoEspaciosVF.setLineWrap(true);
@@ -986,7 +947,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         lblTipo.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
         lblTipo.setForeground(new java.awt.Color(255, 255, 255));
         lblTipo.setText("Respuesta");
-        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 180, -1));
+        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 180, -1));
 
         cboxVerdaderoOFalso.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxVerdaderoOFalso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
@@ -1027,7 +988,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Puntaje:");
 
-        lblAyudaEspaciosVF.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblAyudaEspaciosVF.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lblAyudaEspaciosVF.setForeground(new java.awt.Color(51, 102, 255));
         lblAyudaEspaciosVF.setText("¿Necesita Ayuda?");
         lblAyudaEspaciosVF.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1041,40 +1002,42 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelEspaciosVFLayout.setHorizontalGroup(
             panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEspaciosVFLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblAyudaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
+                        .addContainerGap()
+                        .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                                .addGap(173, 173, 173)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)))
-                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)))
+                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelEspaciosVFLayout.setVerticalGroup(
             panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addComponent(lblAyudaEspaciosVF)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addGap(190, 190, 190))
-            .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelEspaciosVFLayout.createSequentialGroup()
+                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         add(panelEspaciosVF, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
@@ -1085,11 +1048,11 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Ingrese tipo:");
-        panelEnunciado.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 307, -1, -1));
+        panelEnunciado.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Nueva Pregunta");
-        panelEnunciado.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 45, -1, -1));
+        panelEnunciado.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         cboxTipoPregunta.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxTipoPregunta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rellenar espacios", "Multiple opción", "Verdadero o Falso" }));
@@ -1099,7 +1062,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 cboxTipoPreguntaActionPerformed(evt);
             }
         });
-        panelEnunciado.add(cboxTipoPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 305, 246, 31));
+        panelEnunciado.add(cboxTipoPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 246, 31));
 
         bntSiguiente.setBackground(new java.awt.Color(0, 0, 204));
         bntSiguiente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -1113,19 +1076,19 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 bntSiguienteActionPerformed(evt);
             }
         });
-        panelEnunciado.add(bntSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 297, 155, 47));
+        panelEnunciado.add(bntSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 155, 47));
         panelEnunciado.add(lblSigno, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 0, -1, 520));
 
-        txtEnunciado.setBackground(new java.awt.Color(204, 204, 204));
+        txtEnunciado.setBackground(new java.awt.Color(234, 234, 234));
         txtEnunciado.setColumns(20);
         txtEnunciado.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txtEnunciado.setLineWrap(true);
         txtEnunciado.setRows(5);
         jScrollPane1.setViewportView(txtEnunciado);
 
-        panelEnunciado.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 134, 657, 157));
+        panelEnunciado.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 657, 157));
 
-        lblAyudaEnunciado.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblAyudaEnunciado.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lblAyudaEnunciado.setForeground(new java.awt.Color(102, 102, 255));
         lblAyudaEnunciado.setText("¿Necesita Ayuda?");
         lblAyudaEnunciado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1133,27 +1096,27 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 lblAyudaEnunciadoMouseClicked(evt);
             }
         });
-        panelEnunciado.add(lblAyudaEnunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 54, 130, -1));
+        panelEnunciado.add(lblAyudaEnunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 130, -1));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel11.setText("Ingrese enunciado:");
-        panelEnunciado.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 98, -1, -1));
+        panelEnunciado.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         add(panelEnunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblAyudaEnunciadoMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaEnunciadoMouseClicked
-        // TODO add your handling code here:
+        cartelAyudaEnunciado();
     }// GEN-LAST:event_lblAyudaEnunciadoMouseClicked
 
     private void lblAyudaMultipleMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaMultipleMouseClicked
-        // TODO add your handling code here:
+        cartelAyudaMultiple();
     }// GEN-LAST:event_lblAyudaMultipleMouseClicked
 
     private void lblAyudaEspaciosVFMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaEspaciosVFMouseClicked
-        // TODO add your handling code here:
+        cartelAyudaEspaciosVF();
     }// GEN-LAST:event_lblAyudaEspaciosVFMouseClicked
-
+    
     private void cboxTipoPreguntaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxTipoPreguntaActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_cboxTipoPreguntaActionPerformed
