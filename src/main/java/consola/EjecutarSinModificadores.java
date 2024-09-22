@@ -155,7 +155,7 @@ public class EjecutarSinModificadores {
             ficheros.agregarFichero(nuevo);
             mensaje = "-Se ha creado el directorio " + nombreDirectorio + "-\n";
         } else {
-            mensaje = ">> Ya existe un fichero con el nombre " + nombreDirectorio + "-\n";
+            mensaje = ">> Ya existe un fichero con el nombre " + nombreDirectorio + "<<\n";
         }
         return mensaje;
     }
