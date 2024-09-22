@@ -103,7 +103,7 @@ public class Comandos {
                 "\nEsta consola valida la sintaxis de algunos comandos de Bash.\n\n[ls|mkdir|rmdir|mv|cat|clear|ps|kill|grep|tail|head|cut|sort|chmod| '|']",
                 "\n     Ejemplo: man [COMANDO]\n\n", null);
         Comando com1 = new Comando("Lista el contenido de un directorio",
-                "\n Ejemplo: ls /etc"
+                "\n     Ejemplo: ls /etc"
                 + "\n     Lista el contenido del directorio /etc\n\n", opcLs);
 
         Comando com3 = new Comando("Crea un directorio", "\n     Ejemplo: mkdir dir1"
@@ -128,10 +128,10 @@ public class Comandos {
                 "\n     Ejemplo: grep palabraAbuscar nombreArchivo", null);
         // tail RF30.
         Comando com11 = new Comando("Mostrar las últimas líneas de un archivo. ",
-                "\n Ejemplo: tail [opción] [argumento]", opcHeadTail);
+                "\n     Ejemplo: tail [opción] [argumento]", opcHeadTail);
         // head RF31.
         Comando com12 = new Comando("Mostrar las primeras líneas de un archivo. ",
-                "\n Ejemplo: head [opción] [argumento]", opcHeadTail); // admite como opciones “-n [número]” si no se
+                "\n     Ejemplo: head [opción] [argumento]", opcHeadTail); // admite como opciones “-n [número]” si no se
         // especifica, las primeras 10.
         // cut RF34
         Comando com13 = new Comando("Para extraer secciones de cada línea de un archivo. ",
