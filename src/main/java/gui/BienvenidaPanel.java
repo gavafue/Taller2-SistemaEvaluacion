@@ -14,22 +14,24 @@ public class BienvenidaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BienvenidaPanel
+     * @param cliente
+     * @param rol
      */
     public BienvenidaPanel(Cliente cliente, String rol) {
         initComponents();
         lblSubtitulo.putClientProperty("FlatLaf.styleClass", "h2");
         if (rol.equals("docente")) {
-            txtPrimerRenglon.setText("Este es el espacio donde podrás crear y gestionar evaluaciones de manera fácil.");
+            txtPrimerRenglon.setText("Este es el espacio donde podrá crear y gestionar evaluaciones de manera fácil.");
             txtSegundoRenglon.setText(
-                    " Aquí también podrás acceder a los historiales de evaluaciones para un seguimiento detallado. ");
+                    "Aquí también podrá acceder a los historiales de evaluaciones para un seguimiento detallado.");
         }
         if (rol.equals("estudiante")) {
 
             txtPrimerRenglon
                     .setText(
-                            "Este es el espacio donde podrás realizar evaluaciones de manera fácil y ver sus resultados.");
+                            "Este es el espacio donde podrá realizar evaluaciones de manera fácil y ver sus resultados.");
             txtSegundoRenglon.setText(
-                    " Aquí también podrás acceder a los historiales de evaluaciones para un seguimiento detallado. ");
+                    "Aquí también podrá acceder a los historiales de evaluaciones para un seguimiento detallado.");
 
         }
 
@@ -43,7 +45,7 @@ public class BienvenidaPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblSubtitulo = new javax.swing.JLabel();
@@ -51,17 +53,18 @@ public class BienvenidaPanel extends javax.swing.JPanel {
         txtSegundoRenglon = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
         setRequestFocusEnabled(false);
 
+        lblSubtitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSubtitulo.setText("Bienvenido ");
 
         txtPrimerRenglon.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtPrimerRenglon.setText("Este es el espacio donde podrás crear y gestionar evaluaciones de manera fácil.");
+        txtPrimerRenglon.setText("Este es el espacio donde podrá crear y gestionar evaluaciones de manera fácil.");
 
         txtSegundoRenglon.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtSegundoRenglon.setText(
-                " Aquí también podrás acceder a los historiales de evaluaciones para un seguimiento detallado. ");
+        txtSegundoRenglon.setText("Aquí también podrá acceder a los historiales de evaluaciones para un seguimiento detallado. ");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imagenbienvenida.png"))); // NOI18N
@@ -70,39 +73,30 @@ public class BienvenidaPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblSubtitulo, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtPrimerRenglon, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        686, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 710,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPrimerRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSubtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(txtPrimerRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(98, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lblSubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPrimerRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

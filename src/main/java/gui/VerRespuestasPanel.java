@@ -11,6 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import conexion.Cliente;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -132,7 +140,12 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
             String[] columnas = { "Enunciado", "Respuesta" };
 
             // Crea el modelo de la tabla con las columnas especificadas
-            DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+            DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Todas las celdas no serán editables
+                }
+            };
 
             for (String preguntaYRespuesta : preguntasYRespuestas) {
                 // Divide cada entrada en pregunta y respuesta
@@ -144,8 +157,8 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                 }
 
                 // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
-                if (separarPreguntaYRespuesta[1].contains("*")) {
-                    String[] separarRespuestas = separarPreguntaYRespuesta[1].split("\\*");
+                if (separarPreguntaYRespuesta[1].contains(",")) {
+                    String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
                     if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
@@ -157,9 +170,9 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                 modelo.addRow(fila);
             }
 
-            // Actualiza el modelo de la tabla y el título
-            jTable1.setModel(modelo);
-            labelTitulo.setText("Respuestas correctas: " + this.getTitulo());
+            this.darEstiloTabla();
+            tableRespuestas.setModel(modelo);
+            labelTitulo.setText("Respuestas de " + this.getTitulo());
 
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
@@ -177,6 +190,25 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         }
     }
 
+    public void darEstiloTabla() {
+        // Estilo de la tabla
+        tableRespuestas.setGridColor(new Color(0, 0, 153));
+        tableRespuestas.setShowGrid(true);
+        tableRespuestas.setRowHeight(30);
+        tableRespuestas.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
+
+        // Suponiendo que tableEvaluaciones ya está en un JScrollPane
+        JScrollPane scrollPane = (JScrollPane) tableRespuestas.getParent().getParent();
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 153), 2)); // Borde azul alrededor del
+                                                                                       // JScrollPane
+
+        // Configurar el encabezado
+        JTableHeader header = tableRespuestas.getTableHeader();
+        header.setBackground(new Color(0, 0, 153));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 24));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,19 +217,20 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableRespuestas = new javax.swing.JTable();
         labelTitulo = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][] {
                         { null, null },
                         { null, null },
@@ -207,22 +240,18 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                 new String[] {
                         "Enunciado", "Respuesta"
                 }));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableRespuestas);
 
-        labelTitulo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        labelTitulo.setText("Respuestas correctas:");
+        labelTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        labelTitulo.setText("Respuestas de");
 
-        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
+        btnAtras.setBackground(new java.awt.Color(0, 0, 153));
+        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atrás");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAtrasActionPerformed(evt);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnAtrasActionPerformed(evt);
             }
         });
 
@@ -230,47 +259,52 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(31, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 683,
+                                        .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 443,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(btnAtras)
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(labelTitulo,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 443,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(240, 240, 240))))
-                                .addGap(0, 21, Short.MAX_VALUE)));
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(29, 29, 29)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60,
+                                .addGap(38, 38, 38)
+                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)));
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnAtrasActionPerformed
-        GestionEvaluacionesPanel panelEvaluaciones = new GestionEvaluacionesPanel(cliente, rol, panelContent);
-        panelEvaluaciones.setSize(730, 520);
-        panelEvaluaciones.setLocation(0, 0);
-        panelContent.removeAll();
-        panelContent.add(panelEvaluaciones);
-        panelContent.revalidate();
-        panelContent.repaint();
-    }// GEN-LAST:event_btnAtrasActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            // GEN-FIRST:event_btnAtrasActionPerformed
+            GestionEvaluacionesPanel panelEvaluaciones = new GestionEvaluacionesPanel(cliente, rol, panelContent);
+            panelEvaluaciones.setSize(730, 520);
+            panelEvaluaciones.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(panelEvaluaciones);
+            panelContent.revalidate();
+            panelContent.repaint();
+        } // GEN-LAST:event_btnAtrasActionPerformed
+        catch (IOException ex) {
+            Logger.getLogger(VerRespuestasPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JTable tableRespuestas;
     // End of variables declaration//GEN-END:variables
 }

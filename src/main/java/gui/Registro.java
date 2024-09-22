@@ -78,6 +78,7 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -95,9 +96,6 @@ public class Registro extends javax.swing.JFrame {
         menu = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +105,7 @@ public class Registro extends javax.swing.JFrame {
         header.setBackground(new java.awt.Color(25, 118, 210));
         header.setPreferredSize(new java.awt.Dimension(750, 150));
 
-        tituloHeader.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tituloHeader.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         tituloHeader.setForeground(new java.awt.Color(255, 255, 255));
         tituloHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloHeader.setText("Registrar un nuevo estudiante en el sistema");
@@ -130,7 +128,7 @@ public class Registro extends javax.swing.JFrame {
         background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 160));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Esta es la forma que tendrá el estudiante de iniciar sesión en su sistema.");
+        jLabel4.setText("Esta es la forma que tendrá el estudiante de iniciar sesión en el sistema.");
         background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -142,7 +140,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        txtCedula.setBackground(new java.awt.Color(204, 204, 204));
+        txtCedula.setBackground(new java.awt.Color(234, 234, 234));
         txtCedula.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         txtCedula.setToolTipText("");
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
@@ -155,11 +153,11 @@ public class Registro extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Contraseña:");
-        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, 33));
+        background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, 33));
 
-        txtContrasenia.setBackground(new java.awt.Color(204, 204, 204));
+        txtContrasenia.setBackground(new java.awt.Color(234, 234, 234));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        background.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 550, 40));
+        background.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 550, 40));
 
         cboxMostrarContraseña.setBackground(new java.awt.Color(255, 255, 255));
         cboxMostrarContraseña.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
@@ -171,30 +169,26 @@ public class Registro extends javax.swing.JFrame {
                 cboxMostrarContraseñaActionPerformed(evt);
             }
         });
-        background.add(cboxMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
+        background.add(cboxMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         btnRegistrar.setBackground(new java.awt.Color(0, 51, 0));
         btnRegistrar.setFont(new java.awt.Font("Cascadia Code", 0, 18)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Registrar estudiante");
+        btnRegistrar.setText("Registrar");
         btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnRegistrarActionPerformed(evt);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnRegistrarActionPerformed(evt);
             }
         });
-        background.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 222, 50));
+        background.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 560, 222, 50));
 
         menu.setBackground(new java.awt.Color(13, 71, 161));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addusericon.png"))); // NOI18N
 
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,34 +201,25 @@ public class Registro extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
                 menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(menuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 106,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)));
+                                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 388,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(menuLayout.createSequentialGroup()
+                                                .addGap(251, 251, 251)
+                                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(423, Short.MAX_VALUE)));
         menuLayout.setVerticalGroup(
                 menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                                .addContainerGap()
+                        .addGroup(menuLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addComponent(btnCerrarSesion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 596,
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 616,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)));
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         background.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, -1, 630));
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,8 +227,7 @@ public class Registro extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
-                                .addContainerGap()));
+                                .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -281,34 +265,39 @@ public class Registro extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
-        String cedula = txtCedula.getText().trim();
-        String contrasenia = new String(txtContrasenia.getPassword());
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            String cedula = txtCedula.getText().trim();
+            String contrasenia = new String(txtContrasenia.getPassword());
 
-        if (consultarValidez(cedula) && !consultarExistencia(cedula)) {
-            try {
-                String instruccion = this.getCliente().formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios",
-                        "Alta");
-                this.getCliente().intercambiarMensajes(instruccion);
+            if (consultarValidez(cedula) && !consultarExistencia(cedula)) {
+                try {
+                    String instruccion = this.getCliente().formatearMensaje(cedula + ";;;" + contrasenia, "Usuarios",
+                            "Alta");
+                    this.getCliente().intercambiarMensajes(instruccion);
 
-                String codigo = this.getCliente().obtenerCodigo();
-                String mensaje = this.getCliente().obtenerMensaje();
+                    String codigo = this.getCliente().obtenerCodigo();
+                    String mensaje = this.getCliente().obtenerMensaje();
 
-                if ("200".equals(codigo)) {
-                    JOptionPane.showMessageDialog(this, mensaje, "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, mensaje, "Error " + codigo, JOptionPane.ERROR_MESSAGE);
+                    if ("200".equals(codigo)) {
+                        JOptionPane.showMessageDialog(this, mensaje, "Creación Exitosa",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, mensaje, "Error " + codigo, JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE,
+                            "Error de comunicación con el servidor", ex);
+                    JOptionPane.showMessageDialog(this,
+                            "Hubo un problema al comunicarse con el servidor. Por favor, intente nuevamente.",
+                            "Error de comunicación", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE,
-                        "Error de comunicación con el servidor", ex);
-                JOptionPane.showMessageDialog(this,
-                        "Hubo un problema al comunicarse con el servidor. Por favor, intente nuevamente.",
-                        "Error de comunicación", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: " + cliente.obtenerMensaje(),
+                        "Error de Validación", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "La cédula es inválida o ya existe en el sistema.",
-                    "Error de Validación", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     // GEN-LAST:event_btnRegistrarActionPerformed
@@ -353,9 +342,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel tituloHeader;
     private javax.swing.JTextField txtCedula;

@@ -5,14 +5,19 @@
 package gui;
 
 import conexion.Cliente;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.JScrollPane;
+
+        
 
 /**
  *
@@ -105,7 +110,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
             // VerdaderoFalso;;;Enunciado;;;puntaje
             // Completar;;;Enunciado;;;puntaje
-            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante",
+            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante", titulo,
                     panelContent, this.generador);
             framePregunta.setSize(730, 520);
             framePregunta.setLocation(0, 0);
@@ -138,12 +143,31 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 return false; // Todas las celdas no serán editables
             }
         };
-        modelo.addColumn("Títulos");
+        modelo.addColumn("Evaluaciones");
         for (String titulo : titulos) {
             modelo.addRow(new Object[] { titulo });
         }
+        this.darEstiloTabla();
         tableEvaluaciones.setModel(modelo);
-    } // Color alternado para las filas
+    }
+    
+    public void darEstiloTabla(){
+        // Estilo de la tabla
+        tableEvaluaciones.setGridColor(new Color(0,0,153));
+        tableEvaluaciones.setShowGrid(true);
+        tableEvaluaciones.setRowHeight(30);
+        tableEvaluaciones.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
+
+        // Suponiendo que tableEvaluaciones ya está en un JScrollPane
+        JScrollPane scrollPane = (JScrollPane) tableEvaluaciones.getParent().getParent();
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0,0,153), 2)); // Borde azul alrededor del JScrollPane
+
+        // Configurar el encabezado
+        JTableHeader header = tableEvaluaciones.getTableHeader();
+        header.setBackground(new Color(0,0,153));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 24));
+    }
 
     private void determinarInterfaz() { // Administrativo no puede acceder
         if (rol.equals("docente")) { // Docente
@@ -168,7 +192,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnRealizarAlAzar = new javax.swing.JButton();
@@ -177,12 +201,14 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableEvaluaciones = new javax.swing.JTable();
         btnHistorico = new javax.swing.JButton();
-        lblTitulo = new javax.swing.JLabel();
         btnRealizar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRealizarAlAzar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizarAlAzar.setBackground(new java.awt.Color(25, 118, 210));
+        btnRealizarAlAzar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRealizarAlAzar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizarAlAzar.setText("Al Azar");
         btnRealizarAlAzar.addActionListener(new java.awt.event.ActionListener() {
@@ -190,22 +216,21 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarAlAzarActionPerformed(evt);
             }
         });
+        add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 51));
+        btnAgregar.setBackground(new java.awt.Color(25, 118, 210));
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnAgregarActionPerformed(evt);
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnAgregarActionPerformed(evt);
             }
         });
+        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
 
-        btnEliminar.setBackground(new java.awt.Color(51, 0, 0));
+        btnEliminar.setBackground(new java.awt.Color(25, 118, 210));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,23 +238,17 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
 
-        tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
+        tableEvaluaciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "Titulo"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.String.class
-            };
+            },
+            new String [] {
 
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
             }
-        });
+        ));
         tableEvaluaciones.setShowGrid(true);
         tableEvaluaciones.setShowHorizontalLines(false);
         tableEvaluaciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,24 +258,21 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
-        btnHistorico.setBackground(new java.awt.Color(0, 51, 51));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 680, 410));
+
+        btnHistorico.setBackground(new java.awt.Color(0, 0, 153));
+        btnHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
-        btnHistorico.setText("Historico");
+        btnHistorico.setText("Histórico");
         btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btnHistoricoActionPerformed(evt);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btnHistoricoActionPerformed(evt);
             }
         });
+        add(btnHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 220, 50));
 
-        lblTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        lblTitulo.setText("Evaluaciones");
-
-        btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizar.setBackground(new java.awt.Color(25, 118, 210));
+        btnRealizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,75 +280,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 396,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap(305, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout
-                                                                .createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING,
-                                                                        false)
-                                                                .addComponent(btnHistorico,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE, 190,
-                                                                        Short.MAX_VALUE)
-                                                                .addComponent(btnEliminar,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE)
-                                                                .addComponent(btnAgregar,
-                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE))
-                                                        .addComponent(btnRealizar,
-                                                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btnRealizarAlAzar,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(20, 20, 20)))));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(lblTitulo)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 414,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(64, 64, 64)
-                                                .addComponent(btnRealizarAlAzar, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnRealizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(40, 40, 40)
-                                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(33, Short.MAX_VALUE)));
+        add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRealizarAlAzarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarAlAzarActionPerformed
@@ -343,7 +291,8 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {// GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
+        AltaPreguntaPanel.setCantidadPreguntas(0);
         generador.setSize(730, 520);
         generador.setLocation(0, 0);
         panelContent.removeAll();
@@ -386,7 +335,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_tableEvaluacionesMouseClicked
 
-    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) throws IOException {// GEN-FIRST:event_btnHistoricoActionPerformed
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHistoricoActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
@@ -442,7 +391,6 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRealizar;
     private javax.swing.JButton btnRealizarAlAzar;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tableEvaluaciones;
     // End of variables declaration//GEN-END:variables
 }
