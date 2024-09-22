@@ -292,6 +292,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
+        AltaPreguntaPanel.setCantidadPreguntas(0);
         generador.setSize(730, 520);
         generador.setLocation(0, 0);
         panelContent.removeAll();

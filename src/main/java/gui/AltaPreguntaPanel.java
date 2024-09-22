@@ -328,9 +328,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      */
     private void btnFinalizarMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarMultipleActionPerformed
         if ("Finalizar".equals(btnFinalizarMultiple.getText())) {// Es el docente creando la pregunta
-            if (txtEnunciado.getText().isEmpty() || txtOpc1.getText().isEmpty() || txtOpc2.getText().isEmpty()
+            if ((((Integer) spnPuntajeMultiple.getValue()) <= 0) || txtEnunciado.getText().isEmpty() || txtOpc1.getText().isEmpty() || txtOpc2.getText().isEmpty()
                     || txtOpc3.getText().isEmpty() || txtOpc4.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+                JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos con valores válidos.");
             } else {
                 cantidadPreguntas++;
                 this.agregarPreguntaVistaPrevia();
@@ -371,8 +371,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      */
     private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
         if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {// Es el docente creando la pregunta
-            if (txtEnunciado.getText().isEmpty() || txtRespuestaEspacios.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+            if ((((Integer) spnPuntajeEspaciosVF.getValue()) <= 0) || txtEnunciado.getText().isEmpty() || txtRespuestaEspacios.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos con valores válidos.");
             } else {
                 cantidadPreguntas++;
                 this.agregarPreguntaVistaPrevia();
@@ -446,10 +446,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 panelContentDashboard.add(panelBienvenida);
                 panelContentDashboard.revalidate();
                 panelContentDashboard.repaint();
-
-            } else if (finalizar == JOptionPane.NO_OPTION) {
-                AltaPreguntaPanel.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
-                this.setRespuestas(""); // Inicializa las respuestas
             }
         } else if (this.getCliente().obtenerCodigo().equals("200")) { // Si la obtiene crea un JFrame con la misma
             this.crearFrameNuevaPregunta(framePregunta);

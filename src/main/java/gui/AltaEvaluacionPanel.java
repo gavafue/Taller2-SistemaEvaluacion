@@ -263,6 +263,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
             try {
                 if (AltaPreguntaPanel.getCantidadPreguntas() >= 3) {
                     // Obtener el estado del checkbox
+                    System.out.println("CANTIDAD DE PREGUNTAS: " + AltaPreguntaPanel.getCantidadPreguntas());
                     boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado,
                                                                                    // false si no lo está
 
