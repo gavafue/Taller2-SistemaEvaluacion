@@ -79,7 +79,8 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
 
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnNuevaPregunta = new javax.swing.JButton();
@@ -128,6 +129,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTituloFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTituloFocusLost(evt);
             }
@@ -217,7 +219,8 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
+                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                                tituloEvaluacion,
                                 panelContent, this);
                         ventanaPregunta.setSize(730, 520);
                         ventanaPregunta.setLocation(0, 0);
@@ -229,7 +232,8 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
+                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                            tituloEvaluacion,
                             panelContent, this);
                     ventanaPregunta.setSize(730, 520);
                     ventanaPregunta.setLocation(0, 0);
