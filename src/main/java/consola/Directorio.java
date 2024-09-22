@@ -70,12 +70,15 @@ public class Directorio extends Fichero {
 
     @Override
     public String obtenerResumenDelContenido() {
-        String s = "";
+        String s = "-";
         if (getContenido().toString().isEmpty()) {
             s = "\n[Directorio vacio]";
         } else {
-            s = getContenido().toString();
-        }
+            //for(Fichero f: this.getContenido().getListaFicheros()){
+            //    s += f.toString().substring(36) + "\n"; //Para dejar afuera permisos y propietario.
+            s += "\n\n" + this.getContenido().obtenerNombres(false);
+            }
+   
         return s;
     }
 }

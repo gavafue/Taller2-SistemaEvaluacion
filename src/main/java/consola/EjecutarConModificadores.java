@@ -146,7 +146,7 @@ public class EjecutarConModificadores {
                 mensaje = ficheros.obtenerNombres(true) + "\n";
                 break;
             default:
-                mensaje = obtenerContenidoDirectorio(ficheros, tokens[1], false);
+                mensaje = obtenerContenidoDirectorio(ficheros, tokens[1]);
                 break;
         }
         return mensaje;
@@ -188,8 +188,29 @@ public class EjecutarConModificadores {
         return mensaje;
     }
 
-    /**
+    
+        /**
      * Obtiene el contenido de un directorio para el comando ls [directorio].
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar.
+     * @return mensaje con el contenido del directorio especificado.
+     */
+    private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+            
+                mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido() + "\n";
+
+
+        } else {
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
+        }
+        return mensaje;
+    }
+    
+    /**
+     * Obtiene el contenido de un directorio para el comando ls  -l [directorio] y ls -a [directorio].
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
