@@ -123,7 +123,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         String[] historial = null;
 
         String[] columnas = { "CI alumno", "Puntaje Obtenido" };
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Todas las celdas no serán editables
+            }
+        };
         for (int i = 0; i < historiales.length; i++) {
             historial = historiales[i].split(",,,");
             if (this.getRol().equals("docente")) {
@@ -135,25 +140,26 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 modelo.addRow(fila);
             }
         }
-        
+
         this.darEstiloTabla();
         tableHistorico.setModel(modelo);
     }
-    
-    public void darEstiloTabla(){
+
+    public void darEstiloTabla() {
         // Estilo de la tabla
-        tableHistorico.setGridColor(new Color(0,0,153));
+        tableHistorico.setGridColor(new Color(0, 0, 153));
         tableHistorico.setShowGrid(true);
         tableHistorico.setRowHeight(30);
         tableHistorico.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
 
         // Suponiendo que tableEvaluaciones ya está en un JScrollPane
         JScrollPane scrollPane = (JScrollPane) tableHistorico.getParent().getParent();
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0,0,153), 2)); // Borde azul alrededor del JScrollPane
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 153), 2)); // Borde azul alrededor del
+                                                                                       // JScrollPane
 
         // Configurar el encabezado
         JTableHeader header = tableHistorico.getTableHeader();
-        header.setBackground(new Color(0,0,153));
+        header.setBackground(new Color(0, 0, 153));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Arial", Font.BOLD, 24));
     }
@@ -271,7 +277,8 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -287,26 +294,25 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
         tableHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "CI Estudiante", "Puntaje Obtenido"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                },
+                new String[] {
+                        "CI Estudiante", "Puntaje Obtenido"
+                }) {
+            Class[] types = new Class[] {
+                    java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false
+            boolean[] canEdit = new boolean[] {
+                    false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane2.setViewportView(tableHistorico);
