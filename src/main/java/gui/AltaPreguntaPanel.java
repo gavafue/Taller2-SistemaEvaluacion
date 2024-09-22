@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import java.io.IOException;
@@ -16,38 +12,82 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
+ * JFrame utilizado para hacer altas de preguntas como docentes, y completar las
+ * preguntas como estudiantes. Admite preguntas de multiple opción, verdadero o
+ * falso y completas espacios en blanco.
  *
- * @author Gabriel
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class AltaPreguntaPanel extends javax.swing.JPanel {
+
+    /**
+     * Cliente actual en el sistema.
+     */
     private Cliente cliente;
+
+    /**
+     * Panel de vista previa para manejo de interfaz.
+     */
     private JPanel vistaPrevia; // Atributo para poder intercambiar datos con la vista previa de la evaluación
-                                // de forma dinámica
+    // de forma dinámica
+
+    /**
+     * Rol del cliente actual.
+     */
     private String rol;
 
-    // Atributos utilizados como variables globales
-    private String evaluacion; // Título de la evaluación seleccionada o por crear
+    /**
+     * Título de la evaluación actual.
+     */
+    private String evaluacion;
+
+    /**
+     * Pregunta actual en formato String.
+     */
     private String pregunta;
+
+    /**
+     * Enunciado de la pregunta actual.
+     */
     private String enunciado;
+
+    /**
+     * Tipo de pregunta de la pregunta actual.
+     */
     private String tipoPregunta;
 
+    /**
+     * Respuestas dadas hasta el momento por el estudiante.
+     */
     private String respuestas; // Respuestas del estudiante a las preguntas de la evaluación
+
+    /**
+     * Cantidad de preguntas creadas por el docente, o respondidas por el
+     * estudiante. El uso cambia según el rol.
+     */
     private static int cantidadPreguntas; // Atributo propio de a clase y no de la instancia
+
+    /**
+     * Panel de contenido para manejo de interfaz.
+     */
     private JPanel panelContentDashboard;
+
+    /**
+     * JFrame AltaEvaluacionPanel para manejo de interfaz dinámico.
+     */
     private AltaEvaluacionPanel panelContentVistaPrevia;
 
     /**
      * Constructor que permite crear una instancia de la clase a partir del
      * cliente actual y el JPanel vista previa de la evaluación.
      *
-     * @param vistaPrevia             permite visualizar los cambios en la
-     *                                evaluación de
-     *                                forma dinámica.
-     * @param cliente
-     * @param rol
-     * @param evaluacion
-     * @param panelContentDashboard
-     * @param panelContentVistaPrevia
+     * @param vistaPrevia permite visualizar los cambios en la evaluación de
+     * forma dinámica.
+     * @param cliente cliente actual.
+     * @param rol rol del cliente actual.
+     * @param evaluacion título de la evaluación.
+     * @param panelContentDashboard panel de contenido.
+     * @param panelContentVistaPrevia panel de vista previa.
      */
     public AltaPreguntaPanel(JPanel vistaPrevia, Cliente cliente, String rol, String evaluacion,
             JPanel panelContentDashboard,
@@ -169,7 +209,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Método que permite modificar el rol de cliente actual, a partir de otro rol.
+     * Método que permite modificar el rol de cliente actual, a partir de otro
+     * rol.
      *
      * @param rol del cliente actual.
      */
@@ -353,7 +394,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             }
         } else {
             if ("Siguiente".equals(btnFinalizarMultiple.getText())) { // Es un alumno contestando la pregunta multiple
-                                                                      // opción
+                // opción
                 try {
                     cantidadPreguntas++;
                     this.solicitarSiguientePregunta(
@@ -371,7 +412,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * En caso de ser un docente se agrega la pregunta a la evaluación y en caso
      * de ser estudiante se despliega la siguiente pregunta y se almacena la
      * respuesta en memoria.
-     * 
+     *
      * Este botón es compartido por el tipo de pregunta espacios y vf.
      *
      * @param evt
@@ -401,7 +442,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             }
         } else {
             if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {// Es un alumno contestando la pregunta vf o de
-                                                                       // completar
+                // completar
                 try {
                     String respuesta;
                     if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
@@ -422,22 +463,22 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que le solicita al servidor la siguiente pregunta de la
      * evaluación.
      *
-     * @param respuesta     de la pregunta anterior.
+     * @param respuesta de la pregunta anterior.
      * @param framePregunta JFrame donde visualiza el estudiante la pregunta de
-     *                      la evaluación.
+     * la evaluación.
      * @throws IOException
      */
     private void solicitarSiguientePregunta(String respuesta, AltaPreguntaPanel framePregunta) throws IOException {
         this.setRespuestas(this.getCliente().prepararRespuestas(this.getRespuestas(), respuesta)); // Almacena la
-                                                                                                   // respuesta de la
-                                                                                                   // pregunta anterior
+        // respuesta de la
+        // pregunta anterior
         this.getCliente()
                 .intercambiarMensajes(this.getEvaluacion() + ";;;"
                         + cantidadPreguntas /* Corresponde al número de pregunta solicitada */
                         + ",;,Evaluaciones,;,ObtenerPregunta");
         // Confirmación de envío de respuestas
         if (this.getCliente().obtenerMensaje().equals("Finalizar")) { // Si el server manda "Finalizar,;,200" no hay más
-                                                                      // preguntas disponibles
+            // preguntas disponibles
             int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (finalizar == JOptionPane.YES_OPTION) { // Envía las respuestas del estudiante
@@ -586,7 +627,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * tipo multiple.
      *
      * @param pregunta
-     * @param puntaje       asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiMultiple(String[] pregunta, int puntaje, AltaPreguntaPanel framePregunta) {
@@ -617,7 +658,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo vf.
      *
-     * @param puntaje       asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiVF(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -639,7 +680,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo espacios.
      *
-     * @param puntaje       asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiEspacios(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -661,7 +702,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Metodo que permite cargar en un JFrame de tipo pregunta con la pregunta
      * actual.
      *
-     * @param pregunta      actual.
+     * @param pregunta actual.
      * @param framePregunta en el que se agregarán los componentes.
      */
     public void cargarEnGui(String[] pregunta, AltaPreguntaPanel framePregunta) {
@@ -670,7 +711,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         int puntaje = Integer.parseInt(pregunta[pregunta.length - 1]); // El último token es el puntaje
 
         framePregunta.panelEnunciado.setVisible(false); // Solo visible al crear la pregunta, en este caso es realizar
-                                                        // evaluación como estudiante
+        // evaluación como estudiante
         framePregunta.setVisible(true);
         switch (tipo) {
             case "Multiple":
@@ -751,20 +792,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
+
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1160,14 +1189,32 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         add(panelEspaciosVF, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que abre el cartel de ayuda al presionar clic en el label ayuda
+     * del panel enunciado.
+     *
+     * @param evt
+     */
     private void lblAyudaEnunciadoMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaEnunciadoMouseClicked
         cartelAyudaEnunciado();
     }// GEN-LAST:event_lblAyudaEnunciadoMouseClicked
 
+    /**
+     * Método que abre el cartel de ayuda al presionar clic en el label ayuda
+     * del panel multiple.
+     *
+     * @param evt
+     */
     private void lblAyudaMultipleMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaMultipleMouseClicked
         cartelAyudaMultiple();
     }// GEN-LAST:event_lblAyudaMultipleMouseClicked
 
+    /**
+     * Método que abre el cartel de ayuda al presionar clic en el label ayuda
+     * del panel espaciosVF.
+     *
+     * @param evt
+     */
     private void lblAyudaEspaciosVFMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblAyudaEspaciosVFMouseClicked
         cartelAyudaEspaciosVF();
     }// GEN-LAST:event_lblAyudaEspaciosVFMouseClicked
@@ -1179,7 +1226,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_cboxOpcionesMultipleActionPerformed
-     // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
+    // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
 
     private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtOpc1ActionPerformed
         // TODO add your handling code here:

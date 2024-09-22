@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,25 +12,40 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.JScrollPane;
 
-        
-
 /**
+ * JFrame que permite gestionar las evaluaciones actuales del sistema.
  *
- * @author Gabriel
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class GestionEvaluacionesPanel extends javax.swing.JPanel {
 
+    /**
+     * Cliente actual conectado al sistema.
+     */
     private Cliente cliente;
-    private String rol;
-    private JPanel panelContent;
-    private AltaEvaluacionPanel generador;
-
-    public void setGenerador(AltaEvaluacionPanel generador) {
-        this.generador = generador;
-    }
 
     /**
-     * Creates new form GestionEvaluacionesPanel
+     * Rol del cliente actual.
+     */
+    private String rol;
+
+    /**
+     * Panel de contenido.
+     */
+    private JPanel panelContent;
+
+    /**
+     * Instancia del JFrame AltaEvaluacionPanel para creación de evaluaciones.
+     */
+    private AltaEvaluacionPanel generador;
+
+    /**
+     * COnstructor que inicializa los componentes de la interfaz y sus
+     * atributos.
+     * @param cliente cliente actual.
+     * @param rol rol del cliente actual.
+     * @param panelContent panel de control para manejo de interfaz.
+     * @throws java.io.IOException
      */
     public GestionEvaluacionesPanel(Cliente cliente, String rol, JPanel panelContent) throws IOException {
         this.rol = rol;
@@ -66,8 +76,19 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }
 
     /**
+     * Método que pemrite modificar la instancia del JFrame AltaEvaluaciónPanel.
+     *
+     * @param generador
+     */
+    public void setGenerador(AltaEvaluacionPanel generador) {
+        this.generador = generador;
+    }
+
+    /**
      * Método que permite modificar el cliente actual conectado, dado otro
      * cliente.
+     *
+     * @param cliente cliente a establecer.
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -75,11 +96,18 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
 
     /**
      * Método que permite modificar el rol del cliente, dado otro rol.
+     *
+     * @param rol rol a establecer.
      */
     public void setRol(String rol) {
         this.rol = rol;
     }
 
+    /**
+     * Método que solicita al servidor el título de una evaluación al azar.
+     *
+     * @throws IOException
+     */
     public void solicitarEvaluacionAlAzar() throws IOException {
         String aEnviar = this.getCliente().formatearMensaje("Solicitud", "Evaluaciones", "ObtenerTituloAlAzar");
         // Solicita un título aleatorio
@@ -94,7 +122,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Método que permite solicitar una evaluación.
+     * Método que permite solicitar una evaluación en particular al servidor.
      *
      * @param titulo de la evaluación seleccionada.
      * @throws IOException
@@ -126,6 +154,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método que permite solicitar todos los títulos de las evaluaciones
+     * disponibles al servidor.
+     *
+     * @throws IOException
+     */
     private void solicitarTitulosEvaluaciones() throws IOException {
         cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");
         if (this.getCliente().obtenerCodigo().equals("200")) {
@@ -135,6 +169,12 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método que permite cargar la tabla de evaluaciones con los títulos de las
+     * mismas.
+     *
+     * @throws IOException
+     */
     public void cargarTablaEvaluaciones() throws IOException {
         String[] titulos = this.getCliente().obtenerMensaje().split(";;;");
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -145,30 +185,37 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         };
         modelo.addColumn("Evaluaciones");
         for (String titulo : titulos) {
-            modelo.addRow(new Object[] { titulo });
+            modelo.addRow(new Object[]{titulo});
         }
         this.darEstiloTabla();
         tableEvaluaciones.setModel(modelo);
     }
-    
-    public void darEstiloTabla(){
+
+    /**
+     * Método que le da estilo a la tabla de evaluaciones.
+     */
+    public void darEstiloTabla() {
         // Estilo de la tabla
-        tableEvaluaciones.setGridColor(new Color(0,0,153));
+        tableEvaluaciones.setGridColor(new Color(0, 0, 153));
         tableEvaluaciones.setShowGrid(true);
         tableEvaluaciones.setRowHeight(30);
         tableEvaluaciones.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
 
         // Suponiendo que tableEvaluaciones ya está en un JScrollPane
         JScrollPane scrollPane = (JScrollPane) tableEvaluaciones.getParent().getParent();
-        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0,0,153), 2)); // Borde azul alrededor del JScrollPane
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 153), 2)); // Borde azul alrededor del JScrollPane
 
         // Configurar el encabezado
         JTableHeader header = tableEvaluaciones.getTableHeader();
-        header.setBackground(new Color(0,0,153));
+        header.setBackground(new Color(0, 0, 153));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Arial", Font.BOLD, 24));
     }
 
+    /**
+     * Método que determina cómo se verá la interfaz en función del rol del
+     * cliente.
+     */
     private void determinarInterfaz() { // Administrativo no puede acceder
         if (rol.equals("docente")) { // Docente
             btnAgregar.setVisible(true);
@@ -183,15 +230,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -283,6 +322,11 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que proveé funcionalidad al botón realizar al azar.
+     *
+     * @param evt
+     */
     private void btnRealizarAlAzarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarAlAzarActionPerformed
         try {
             this.solicitarEvaluacionAlAzar();
@@ -291,6 +335,11 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         }
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
+    /**
+     * Método que proveé funcionalidad al botón agregar.
+     *
+     * @param evt
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
         AltaPreguntaPanel.setCantidadPreguntas(0);
         generador.setSize(730, 520);
@@ -301,16 +350,20 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         panelContent.repaint();
     }// GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Método que proveé funcionalidad al botón eliminar, que solicita dar de
+     * baja una evaluación al servidor.
+     *
+     * @param evt
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEliminarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
             String titulo = (String) tableEvaluaciones.getValueAt(selectedRow, 0);
-
             // Ventana de confirmación
             int confirm = JOptionPane.showConfirmDialog(null,
                     "¿Estás seguro? En caso de eliminar la evaluación, también se eliminarán todos los historiales asociados a esta.",
                     "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
             if (confirm == JOptionPane.YES_OPTION) { // Si el usuario confirma
                 try {
                     this.getCliente().intercambiarMensajes(titulo + ",;,Evaluaciones,;,Eliminar");
@@ -335,6 +388,13 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_tableEvaluacionesMouseClicked
 
+    /**
+     * Método que proveé funcionalidad al botón ver historiales, que deriva al
+     * JFrame VerHistorialesPanel en caso de que haya historiales disponibles.
+     * En caso contrario muestra un mensaje de aviso por pantalla.
+     *
+     * @param evt
+     */
     private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHistoricoActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow != -1) {
@@ -369,6 +429,11 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
 
     }// GEN-LAST:event_btnHistoricoActionPerformed
 
+    /**
+     * Método que proveé funcionamiento al botón realizar.
+     *
+     * @param evt
+     */
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarActionPerformed
         int selectedRow = tableEvaluaciones.getSelectedRow();
         if (selectedRow == -1) { // No hay ninguna evaluación seleccionada

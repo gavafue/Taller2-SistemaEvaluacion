@@ -21,13 +21,23 @@ import javax.swing.text.StyledDocument;
  * asociados. Esta clase instancia las colecciones para garantizar única
  * instancia.
  *
- * @author Gabriel, Ana, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo.
  */
 public class Consola extends javax.swing.JFrame {
 
-    //Colecciones necesarias para el manejo de la consola
+    /**
+     * Colección de comandos en el sistema.
+     */
     private Comandos hashComandos;
+
+    /**
+     * Colección de ficheros en el sistema.
+     */
     private Ficheros listaFicheros;
+
+    /**
+     * Colección de procesos del sistema.
+     */
     private Procesos listaProcesos;
 
     /**
@@ -35,10 +45,24 @@ public class Consola extends javax.swing.JFrame {
      */
     private String ultimoComando;
 
-    //Estilos
+    /**
+     * Prompt de la consola, es final al no ser modificable.
+     */
     private final String prompt = "LaConsola@inet:~$ ";
+
+    /**
+     * Posición actual del prompt en la consola.
+     */
     private int posicionPrompt;
+
+    /**
+     * Documentos de estilos.
+     */
     private StyledDocument doc;
+
+    /**
+     * Atributos de estilos.
+     */
     private Style estiloPrompt, estiloComando, estiloError, estiloOK;
 
     /**
@@ -155,15 +179,13 @@ public class Consola extends javax.swing.JFrame {
         // Estilos para el texto
         Color rojosuave = new Color(255, 120, 123);
         doc = consola.getStyledDocument();
+
         estiloPrompt = consola.addStyle("Prompt", null);
         StyleConstants.setForeground(estiloPrompt, Color.GREEN);
-
         estiloComando = consola.addStyle("Comando", null);
         StyleConstants.setForeground(estiloComando, Color.WHITE);
-
         estiloOK = consola.addStyle("OK", null);
         StyleConstants.setForeground(estiloOK, Color.CYAN);
-
         estiloError = consola.addStyle("Error", null);
         StyleConstants.setForeground(estiloError, rojosuave);
 
@@ -189,7 +211,6 @@ public class Consola extends javax.swing.JFrame {
                 this.trackColor = Color.BLACK;
                 this.thumbHighlightColor = Color.GRAY;
                 this.thumbDarkShadowColor = Color.BLACK;
-
             }
         });
     }
@@ -334,14 +355,13 @@ public class Consola extends javax.swing.JFrame {
                 String comando = doc.getText(posicionPrompt, doc.getLength() - posicionPrompt).trim();
                 ultimoComando = comando.trim(); // Guardar el último comando            
                 Validar validador = new Validar(comando);
-                String comandoaValidar = validador.validarComando(hashComandos);//Valida sintaxis completa con todos los parametros       
-                //String[] tokens = validador.getTokens();
+                String comandoaValidar = validador.validarComando(hashComandos); // Valida sintaxis completa con todos los parametros       
                 if (comando.equals("exit")) { // Comando salir
                     this.dispose();
                 } else if (comando.equals("")) { // Salto de linea si no hay comando                
                     doc.insertString(doc.getLength(), "\n", null);
                 } else if (validador.tienePipe()) { // Si aparece un pipe                    
-                        mostrarConEstilo(validador.validarPipe(listaFicheros));                  
+                    mostrarConEstilo(validador.validarPipe(listaFicheros));
                 } else if (comandoaValidar.equals("200")) { // Si es un unico comando valido         
                     String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
                     mostrarConEstilo(resultado);
@@ -352,8 +372,6 @@ public class Consola extends javax.swing.JFrame {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-            // Prevenir la nueva línea predeterminada del JTextPane
-            //evt.consume();                
         } else {
             consola.setCharacterAttributes(estiloComando, true);
             // Aseguranos de que el texto que se escribe aparece en blanco mientras no se presiona enter

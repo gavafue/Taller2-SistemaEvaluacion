@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-
 import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,22 +15,41 @@ import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
 
 /**
+ * JFrame destinado a permitir visualizar las preguntas y respuestas correctas
+ * de una evaluación.
  *
- * @author Gabriel
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class VerRespuestasPanel extends javax.swing.JPanel {
 
+    /**
+     * Cliente actual del sistema.
+     */
     private Cliente cliente;
-    private String titulo;
-    private JPanel panelContent;
-    private String rol;
-
-    public JPanel getPanelContent() {
-        return panelContent;
-    }
 
     /**
-     * Creates new form VerRespuestasPanel
+     * Rol del cliente actual.
+     */
+    private String rol;
+
+    /**
+     * Título de la evaluación de la que se mostrarán las preguntas y
+     * respuestas.
+     */
+    private String titulo;
+
+    /**
+     * Panel de contenido.
+     */
+    private JPanel panelContent;
+
+    /**
+     * Constructor común encargado de inicializar los elementos de la interfaz y
+     * los atributos de la clase.
+     * @param cliente cliente actual.
+     * @param titulo titulo de la evaluación.
+     * @param rol rol del cliente actual.
+     * @param panelContent panel de contenido para manejo de interfaz.
      */
     public VerRespuestasPanel(Cliente cliente, String titulo, String rol, JPanel panelContent) {
         this.cliente = cliente;
@@ -66,6 +79,15 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     }
 
     /**
+     * Método que permite obtener el panel de contenido.
+     *
+     * @return el panel de contenido.
+     */
+    public JPanel getPanelContent() {
+        return panelContent;
+    }
+
+    /**
      * Método que permite modificar el cliente actual dado otro cliente.
      *
      * @param cliente
@@ -85,8 +107,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
 
     /**
      * Solicita al cliente las preguntas y respuestas correctas de la evaluación
-     * seleccionada
-     * y actualiza la tabla con la información recibida.
+     * seleccionada y actualiza la tabla con la información recibida.
      */
     public void solicitarPreguntasYRespuestas() {
         try {
@@ -130,14 +151,14 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Carga las preguntas y respuestas desde el cliente y actualiza la tabla y el
-     * título.
+     * Método que carga las preguntas y respuestas de una cierta evaluación en
+     * la tabla.
      */
     public void cargarPreguntasYRespuestas() {
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = { "Enunciado", "Respuesta" };
+            String[] columnas = {"Enunciado", "Respuesta"};
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -146,7 +167,6 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                     return false; // Todas las celdas no serán editables
                 }
             };
-
             for (String preguntaYRespuesta : preguntasYRespuestas) {
                 // Divide cada entrada en pregunta y respuesta
                 String[] separarPreguntaYRespuesta = preguntaYRespuesta.split(",,,");
@@ -155,7 +175,6 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                     throw new IllegalArgumentException(
                             "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
                 }
-
                 // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
                 if (separarPreguntaYRespuesta[1].contains(",")) {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
@@ -164,16 +183,13 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
                 }
-
                 // Agrega la fila a la tabla
-                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
+                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};
                 modelo.addRow(fila);
             }
-
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
             labelTitulo.setText("Respuestas de " + this.getTitulo());
-
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
@@ -190,6 +206,10 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método que da estilo a la tabla que contiene las repuestas correctas de
+     * una evaluación.
+     */
     public void darEstiloTabla() {
         // Estilo de la tabla
         tableRespuestas.setGridColor(new Color(0, 0, 153));
@@ -200,7 +220,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         // Suponiendo que tableEvaluaciones ya está en un JScrollPane
         JScrollPane scrollPane = (JScrollPane) tableRespuestas.getParent().getParent();
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 153), 2)); // Borde azul alrededor del
-                                                                                       // JScrollPane
+        // JScrollPane
 
         // Configurar el encabezado
         JTableHeader header = tableRespuestas.getTableHeader();
@@ -285,6 +305,12 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                                 .addGap(32, 32, 32)));
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que da funcionamiento al botón "atrás", que redirecciona a la
+     * pestaña de gestión.
+     *
+     * @param evt
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             // GEN-FIRST:event_btnAtrasActionPerformed

@@ -9,9 +9,24 @@ import java.io.IOException;
  */
 public class Cliente {
 
-    private String id; //Número identificador del cliente, en general la CI
-    private String instruccion; //Última instruccion por enviar del cliente al servidor
-    private String respuesta; //Última respuesta dada por el servidor al cliente
+    /**
+     * Número identificador del cliente, en general la CI.
+     */
+    private String id; 
+    
+    /**
+     * Última instruccion por enviar del cliente al servidor.
+     */
+    private String instruccion; 
+    
+    /**
+     * Última respuesta dada por el servidor al cliente.
+     */
+    private String respuesta; 
+    
+    /**
+     * Conexión entre el cliente y el servidor.
+     */
     private ConexionCliente conexion;
 
     /**

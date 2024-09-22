@@ -13,8 +13,19 @@ import java.net.UnknownHostException;
  */
 public class ConexionCliente {
     
-    private final DataInputStream in; // Flujo de datos de entrada
-    private final DataOutputStream out; // Flujo de datos de salida
+    /**
+     * Flujos de datos de entrada.
+     */
+    private final DataInputStream in;
+    
+    /**
+     * Flujo de datos de salida.
+     */
+    private final DataOutputStream out;
+    
+    /**
+     * Socket a utilizar.
+     */
     private final Socket soc;
 
     /**

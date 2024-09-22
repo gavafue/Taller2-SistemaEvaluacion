@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui;
 
 import conexion.Cliente;
@@ -19,18 +15,40 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
- *
- * @author Gabriel
+ * JFrame que representa los historiales de una evaluación, donde se visualizan
+ * todos los estudiantes que la realizaron y su puntaje desde el rol docente.
+ * Minetras que desde el rol estudiante solo se visualiza su propio puntaje.
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class VerHistorialesPanel extends javax.swing.JPanel {
 
+    /**
+     * Cliente actual en el sistema.
+     */
     private Cliente cliente;
+
+    /**
+     * Título de la evaluación de la que se verán los historiales.
+     */
     private String titulo;
+
+    /**
+     * Rol del cliente actual.
+     */
     private String rol;
+
+    /**
+     * Panel de contenido.
+     */
     private JPanel panelContent;
 
     /**
-     * Creates new form VerHistorialesPanel
+     * Constructor que permite instanciar el JFrame VerHistoriales y carga los
+     * atributos necesarios para ello.
+     * @param titulo titulo de la evaluación.
+     * @param cliente cliente actual.
+     * @param panelContent panel de contenido para manejo de interfaz.
+     * @param rol rol del cliente actual.
      */
     public VerHistorialesPanel(String titulo, Cliente cliente, String rol, JPanel panelContent) {
         this.titulo = titulo;
@@ -74,6 +92,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
     /**
      * Método que permite modificar el cliente actual conectado, dado otro
      * cliente.
+     * @param cliente actual.
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -81,6 +100,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
     /**
      * Método que pemite modificar el título de la evaluación, dado otro título.
+     * @param titulo titulo de la evaluación.
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -88,6 +108,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
     /**
      * Método que permite modificar el rol del cliente, dado otro rol.
+     * @param rol rol del cliente actual.
      */
     public void setRol(String rol) {
         this.rol = rol;
@@ -122,7 +143,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
         String[] historial = null;
 
-        String[] columnas = { "CI alumno", "Puntaje Obtenido" };
+        String[] columnas = {"CI alumno", "Puntaje Obtenido"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -132,11 +153,11 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         for (int i = 0; i < historiales.length; i++) {
             historial = historiales[i].split(",,,");
             if (this.getRol().equals("docente")) {
-                Object[] fila = { historial[0]/* cialumno] */, historial[1]/* puntaje */ };
+                Object[] fila = {historial[0]/* cialumno] */, historial[1]/* puntaje */};
                 modelo.addRow(fila);
             }
             if (this.getCliente().getId().equals(historial[0]) && this.getRol().equals("estudiante")) {
-                Object[] fila = { historial[0]/* cialumno] */, historial[1]/* puntaje */ };
+                Object[] fila = {historial[0]/* cialumno] */, historial[1]/* puntaje */};
                 modelo.addRow(fila);
             }
         }
@@ -145,6 +166,9 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         tableHistorico.setModel(modelo);
     }
 
+    /**
+     * Método destinado a dar estilo a la tabla del JFrame.
+     */
     public void darEstiloTabla() {
         // Estilo de la tabla
         tableHistorico.setGridColor(new Color(0, 0, 153));
@@ -155,8 +179,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         // Suponiendo que tableEvaluaciones ya está en un JScrollPane
         JScrollPane scrollPane = (JScrollPane) tableHistorico.getParent().getParent();
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 153), 2)); // Borde azul alrededor del
-                                                                                       // JScrollPane
-
+        // JScrollPane
         // Configurar el encabezado
         JTableHeader header = tableHistorico.getTableHeader();
         header.setBackground(new Color(0, 0, 153));
@@ -164,6 +187,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         header.setFont(new Font("Arial", Font.BOLD, 24));
     }
 
+    /**
+     * Método que determina si un estudiante realizó una evaluación o no, a
+     * partir de una petición al servidor.
+     *
+     * @return
+     */
     public Boolean estudianteRealizoEvaluacion() {
         boolean estudianteRealizoEvaluacion = false;
         String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
@@ -177,6 +206,11 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         return estudianteRealizoEvaluacion;
     }
 
+    /**
+     * Método que determina si mostrar las respuestas correctas o no al
+     * finalizar una evaluación como rol estudiante, a partir de una solicitud
+     * al servidor.
+     */
     public void visualizarBtnRespuestas() {
         try {
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
@@ -207,42 +241,44 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método que verifica si hay evaluaciones disposibles, a partir de una
+     * petición al servdior.
+     *
+     * @return true si hay historiales o false en caso contrario.
+     */
     public boolean hayHistorialesDisponibles() {
+        boolean retorno = false;
         try {
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Historiales", "Ver");
             this.getCliente().intercambiarMensajes(instruccion);
-
             // Verifica si el código de respuesta es "200" para historiales disponibles
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 String[] historiales = this.getCliente().obtenerMensaje().split(";;;");
-                return historiales.length > 0 && !historiales[0].isEmpty();
+                retorno = historiales.length > 0 && !historiales[0].isEmpty();
             }
         } catch (IOException ex) {
             // Maneja el error pero no muestra alerta aquí
             Logger.getLogger(VerHistorialesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Devuelve false si ocurre algún error o no hay historiales
-        return false;
+        return retorno;
     }
 
     /**
-     * Solicita el puntaje total de la evaluación al cliente y actualiza el campo de
-     * texto correspondiente.
-     * Muestra mensajes de error detallados en caso de problemas durante la
-     * solicitud o al procesar la respuesta.
+     * Solicita el puntaje total de la evaluación al cliente y actualiza el
+     * campo de texto correspondiente. Muestra mensajes de error detallados en
+     * caso de problemas durante la solicitud o al procesar la respuesta.
      */
     public void solicitarPuntajeTotalEvaluacion() {
         String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
                 "ObtenerPuntajeTotal");
-
         try {
             // Intercambia mensajes con el cliente para solicitar el puntaje total
             this.getCliente().intercambiarMensajes(instruccion);
-
             // Verifica el código de respuesta del cliente
             String codigoRespuesta = this.getCliente().obtenerCodigo();
             String mensajeRespuesta = this.getCliente().obtenerMensaje();
-
             if ("200".equals(codigoRespuesta)) {
                 // Actualiza el campo de texto con el puntaje total
                 txtPuntajeTotal.setText("Puntaje total: " + mensajeRespuesta);
@@ -251,7 +287,6 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 throw new RuntimeException(
                         "Código de respuesta inesperado: " + codigoRespuesta + " con mensaje: " + mensajeRespuesta);
             }
-
         } catch (IOException e) {
             // Manejo de errores de entrada/salida, como problemas de red o comunicación
             System.err.println("Error de comunicación con el cliente: " + e.getMessage());
@@ -270,14 +305,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -351,6 +379,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         add(txtPuntajeTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 744, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que proveé funcionamiento al botón "atrás", que redirecciona a la
+     * pestaña de gestión.
+     *
+     * @param evt
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             // GEN-FIRST:event_btnAtrasActionPerformed
@@ -367,6 +401,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método que proveé funcionamiento al botón "ver respuestas", que
+     * redirecciona al JFrame correspondiente.
+     *
+     * @param evt
+     */
     private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
         VerRespuestasPanel evaluacionesPanel = new VerRespuestasPanel(cliente, titulo, rol, panelContent);
         evaluacionesPanel.setSize(730, 520);

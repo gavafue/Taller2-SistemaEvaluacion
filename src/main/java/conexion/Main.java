@@ -5,7 +5,8 @@ import gui.Login;
 import java.io.IOException;
 
 /**
- *
+ * Clase que da inicio al programa. 
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class Main {
 
