@@ -140,7 +140,12 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
             String[] columnas = { "Enunciado", "Respuesta" };
 
             // Crea el modelo de la tabla con las columnas especificadas
-            DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+            DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Todas las celdas no serán editables
+                }
+            };
 
             for (String preguntaYRespuesta : preguntasYRespuestas) {
                 // Divide cada entrada en pregunta y respuesta
