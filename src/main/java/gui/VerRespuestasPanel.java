@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -185,17 +187,22 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
 
      public void darEstiloTabla(){
         // Estilo de la tabla
-        tableRespuestas.setGridColor(Color.LIGHT_GRAY);
+        tableRespuestas.setGridColor(new Color(0,0,153));
         tableRespuestas.setShowGrid(true);
         tableRespuestas.setRowHeight(30);
         tableRespuestas.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
-  
+
+        // Suponiendo que tableEvaluaciones ya está en un JScrollPane
+        JScrollPane scrollPane = (JScrollPane) tableRespuestas.getParent().getParent();
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0,0,153), 2)); // Borde azul alrededor del JScrollPane
+
         // Configurar el encabezado
         JTableHeader header = tableRespuestas.getTableHeader();
-        header.setBackground(Color.DARK_GRAY);
+        header.setBackground(new Color(0,0,153));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Arial", Font.BOLD, 24));
     }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -215,7 +222,6 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
 
-        tableRespuestas.setBackground(new java.awt.Color(204, 204, 204));
         tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,7 +239,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         labelTitulo.setText("Respuestas de");
 
-        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
+        btnAtras.setBackground(new java.awt.Color(0, 0, 153));
         btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setText("Atrás");
@@ -247,14 +253,14 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,10 +268,10 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
 

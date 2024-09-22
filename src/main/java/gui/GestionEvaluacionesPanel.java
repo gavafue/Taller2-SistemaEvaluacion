@@ -12,10 +12,12 @@ import java.awt.Font;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.JScrollPane;
+
+        
 
 /**
  *
@@ -151,14 +153,18 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     
     public void darEstiloTabla(){
         // Estilo de la tabla
-        tableEvaluaciones.setGridColor(Color.LIGHT_GRAY);
+        tableEvaluaciones.setGridColor(new Color(0,0,153));
         tableEvaluaciones.setShowGrid(true);
         tableEvaluaciones.setRowHeight(30);
         tableEvaluaciones.setIntercellSpacing(new Dimension(0, 0)); // Espacio entre celdas verticalmente
-  
+
+        // Suponiendo que tableEvaluaciones ya está en un JScrollPane
+        JScrollPane scrollPane = (JScrollPane) tableEvaluaciones.getParent().getParent();
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0,0,153), 2)); // Borde azul alrededor del JScrollPane
+
         // Configurar el encabezado
         JTableHeader header = tableEvaluaciones.getTableHeader();
-        header.setBackground(Color.DARK_GRAY);
+        header.setBackground(new Color(0,0,153));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("Arial", Font.BOLD, 24));
     }
@@ -201,7 +207,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(730, 520));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRealizarAlAzar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizarAlAzar.setBackground(new java.awt.Color(25, 118, 210));
         btnRealizarAlAzar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRealizarAlAzar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizarAlAzar.setText("Al Azar");
@@ -210,9 +216,9 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarAlAzarActionPerformed(evt);
             }
         });
-        add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 220, 50));
+        add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 153));
+        btnAgregar.setBackground(new java.awt.Color(25, 118, 210));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar");
@@ -221,9 +227,9 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnAgregarActionPerformed(evt);
             }
         });
-        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 220, 50));
+        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
 
-        btnEliminar.setBackground(new java.awt.Color(0, 0, 51));
+        btnEliminar.setBackground(new java.awt.Color(25, 118, 210));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
@@ -232,9 +238,8 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 220, 50));
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
 
-        tableEvaluaciones.setBackground(new java.awt.Color(204, 204, 204));
         tableEvaluaciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,9 +258,9 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 33, 680, 370));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 680, 410));
 
-        btnHistorico.setBackground(new java.awt.Color(0, 0, 51));
+        btnHistorico.setBackground(new java.awt.Color(0, 0, 153));
         btnHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnHistorico.setForeground(new java.awt.Color(255, 255, 255));
         btnHistorico.setText("Histórico");
@@ -264,9 +269,9 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnHistoricoActionPerformed(evt);
             }
         });
-        add(btnHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, 220, 50));
+        add(btnHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 220, 50));
 
-        btnRealizar.setBackground(new java.awt.Color(0, 0, 153));
+        btnRealizar.setBackground(new java.awt.Color(25, 118, 210));
         btnRealizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRealizar.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizar.setText("Realizar");
@@ -275,7 +280,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarActionPerformed(evt);
             }
         });
-        add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 220, 50));
+        add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRealizarAlAzarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRealizarAlAzarActionPerformed
