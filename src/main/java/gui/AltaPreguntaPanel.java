@@ -36,10 +36,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private JPanel panelContentDashboard;
     private AltaEvaluacionPanel panelContentVistaPrevia;
 
-    public void setNombreEvaluacion(String titulo) {
-        txtNombreEvaluacion.setText(titulo);
-    }
-
     /**
      * Constructor que permite crear una instancia de la clase a partir del
      * cliente actual y el JPanel vista previa de la evaluación.
@@ -48,21 +44,23 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      *                    forma dinámica.
      * @param cliente
      * @param rol
+     * @param evaluacion
      * @param panelContentDashboard
      * @param panelContentVistaPrevia
      */
-    public AltaPreguntaPanel(JPanel vistaPrevia, Cliente cliente, String rol, JPanel panelContentDashboard,
+    public AltaPreguntaPanel(JPanel vistaPrevia, Cliente cliente, String rol, String evaluacion, JPanel panelContentDashboard,
         AltaEvaluacionPanel panelContentVistaPrevia) {
         this.cliente = cliente;
         this.vistaPrevia = vistaPrevia;
         this.rol = rol;
-
+        this.evaluacion = evaluacion;
         initComponents();
         valoresPorDefecto();
         this.agregarMensajesAyuda(); // Carga en interfaz mensajes de ayuda
         this.interfazPorDefecto(); // Inicializa la interfaz
         this.panelContentDashboard = panelContentDashboard;
         this.panelContentVistaPrevia = panelContentVistaPrevia;
+ 
     }
 
     /**
@@ -144,6 +142,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      */
     public static int getCantidadPreguntas() {
         return cantidadPreguntas;
+    }
+    
+    public void setNombreEvaluacion(String titulo) {
+        txtNombreEvaluacion.setText(titulo);
     }
 
     /**
@@ -252,6 +254,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             this.lblAyudaMultiple.setVisible(false);
             this.lblAyudaEspaciosVF.setVisible(false);
         }
+        this.txtEnunciadoEspaciosVF.setEditable(false);
+        this.setNombreEvaluacion(this.getEvaluacion());
     }
 
     /**
@@ -459,14 +463,31 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * multiple opción a la vista previa de la evaluación.
      *
      * @param fuente a utilizar.
+     * @param indice de la respuesta correcta
      */
-    public void vistaPreviaMultiple(Font fuente) {
+    public void vistaPreviaMultiple(Font fuente, int indice) {
         // Creación de radio buttons con las opciones correspondientes
         JRadioButton opc1 = new JRadioButton(txtOpc1.getText());
         JRadioButton opc2 = new JRadioButton(txtOpc2.getText());
         JRadioButton opc3 = new JRadioButton(txtOpc3.getText());
         JRadioButton opc4 = new JRadioButton(txtOpc4.getText());
-
+        
+        // Marcamos solo la opciön correcta
+        switch (indice) {
+            case 1:
+                opc1.setSelected(true);
+                break;
+            case 2:
+                opc2.setSelected(true);
+                break;
+            case 3:
+                opc3.setSelected(true);
+                break;
+            default:
+                opc4.setSelected(true);
+                break;
+        }
+        
         // Estética de las opciones
         opc1.setOpaque(false);
         opc2.setOpaque(false);
@@ -476,6 +497,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         opc2.setFont(fuente);
         opc3.setFont(fuente);
         opc4.setFont(fuente);
+        opc1.setEnabled(false);
+        opc2.setEnabled(false);
+        opc3.setEnabled(false);
+        opc4.setEnabled(false);
 
         // Alta en la vista previa
         vistaPrevia.add(opc1);
@@ -492,10 +517,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      */
     public void crearPreguntaVistaPrevia(Font fuente) {
         JLabel lblpregunta = new JLabel(cantidadPreguntas + " - " + enunciado);
-        lblpregunta.setOpaque(true);
-        lblpregunta.setFont(new java.awt.Font("Dialog", 0, 18));
-        lblpregunta.setForeground(new java.awt.Color(255, 255, 255));
-        lblpregunta.setBackground(new java.awt.Color(0, 0, 0));
+        lblpregunta.setOpaque(false);
+        lblpregunta.setFont(new java.awt.Font("Arial", 0, 18));
         vistaPrevia.add(lblpregunta);
     }
 
@@ -513,14 +536,17 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 break;
             case "Multiple opción":
                 respuesta = (String) cboxOpcionesMultiple.getSelectedItem();
-                this.vistaPreviaMultiple(fuente);
+                int indice = (Integer) cboxOpcionesMultiple.getSelectedIndex() + 1;
+                this.vistaPreviaMultiple(fuente, indice);
                 break;
             case "Rellenar espacios":
                 respuesta = txtRespuestaEspacios.getText();
                 break;
         }
         JLabel lblRespuesta = new JLabel("Respuesta: " + respuesta);
-        lblRespuesta.setFont(fuente);
+        lblRespuesta.setOpaque(false);
+        lblRespuesta.setFont(new java.awt.Font("Arial", 0, 18));
+        lblRespuesta.setForeground(new Color(0,0,153));
         vistaPrevia.add(lblRespuesta);
     }
 
@@ -546,7 +572,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         String[] nuevaPregunta = this.getCliente().obtenerMensaje().split(";;;");
         if ((nuevaPregunta.length >= 3) && (nuevaPregunta.length <= 7)) { // Si tiene la estructura de una pregunta
             this.cargarEnGui(nuevaPregunta, framePregunta);
-            framePregunta.setNombreEvaluacion("Evaluacion: " + evaluacion);
             framePregunta.revalidate();
             framePregunta.repaint();
         }
@@ -582,7 +607,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarMultiple.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxOpcionesMultiple.setSelectedIndex(0);
-        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -605,7 +629,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxVerdaderoOFalso.setSelectedIndex(0);
-        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -628,7 +651,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.txtRespuestaEspacios.setText("");
-        framePregunta.setNombreEvaluacion(evaluacion);
     }
 
     /**
@@ -879,7 +901,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         });
         panelMultiple.add(cboxOpcionesMultiple, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 150, 30));
 
-        txtOpc1.setEditable(false);
         txtOpc1.setBackground(new java.awt.Color(234, 234, 234));
         txtOpc1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         txtOpc1.setDisabledTextColor(new java.awt.Color(0, 0, 0));

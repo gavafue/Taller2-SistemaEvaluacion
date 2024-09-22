@@ -110,7 +110,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
             // VerdaderoFalso;;;Enunciado;;;puntaje
             // Completar;;;Enunciado;;;puntaje
-            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante",
+            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante", titulo,
                     panelContent, this.generador);
             framePregunta.setSize(730, 520);
             framePregunta.setLocation(0, 0);

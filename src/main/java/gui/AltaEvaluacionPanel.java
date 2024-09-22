@@ -217,7 +217,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
                                 panelContent, this);
                         ventanaPregunta.setSize(730, 520);
                         ventanaPregunta.setLocation(0, 0);
@@ -229,7 +229,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
                             panelContent, this);
                     ventanaPregunta.setSize(730, 520);
                     ventanaPregunta.setLocation(0, 0);
