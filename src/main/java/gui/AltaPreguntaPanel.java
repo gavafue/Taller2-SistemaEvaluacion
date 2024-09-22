@@ -744,6 +744,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtNombreEvaluacion = new javax.swing.JLabel();
         panelEnunciado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -754,7 +755,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         txtEnunciado = new javax.swing.JTextArea();
         lblAyudaEnunciado = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtNombreEvaluacion = new javax.swing.JLabel();
         panelMultiple = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -786,6 +786,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         lblAyudaEspaciosVF = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNombreEvaluacion.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        txtNombreEvaluacion.setText("Nombre Evaluación");
+        add(txtNombreEvaluacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 390, 40));
 
         panelEnunciado.setBackground(new java.awt.Color(255, 255, 255));
         panelEnunciado.setPreferredSize(new java.awt.Dimension(587, 227));
@@ -849,10 +853,6 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
 
         add(panelEnunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
 
-        txtNombreEvaluacion.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        txtNombreEvaluacion.setText("Nombre Evaluación");
-        add(txtNombreEvaluacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 390, 40));
-
         panelMultiple.setBackground(new java.awt.Color(255, 255, 255));
         panelMultiple.setPreferredSize(new java.awt.Dimension(587, 227));
         panelMultiple.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -910,6 +910,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelMultiple.add(txtOpc4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 280, 30));
 
         panelPuntaje.setBackground(new java.awt.Color(0, 0, 51));
+        panelPuntaje.setPreferredSize(new java.awt.Dimension(260, 520));
 
         btnFinalizarMultiple.setBackground(new java.awt.Color(51, 0, 204));
         btnFinalizarMultiple.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -936,31 +937,30 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelPuntaje.setLayout(panelPuntajeLayout);
         panelPuntajeLayout.setHorizontalGroup(
             panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPuntajeLayout.createSequentialGroup()
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPuntajeLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPuntajeLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addGroup(panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelPuntajeLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(495, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPuntajeLayout.createSequentialGroup()
+                        .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPuntajeLayout.createSequentialGroup()
+                        .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90))))
         );
         panelPuntajeLayout.setVerticalGroup(
             panelPuntajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPuntajeLayout.createSequentialGroup()
-                .addGap(168, 168, 168)
+                .addGap(143, 143, 143)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(spnPuntajeMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(29, 29, 29)
                 .addComponent(btnFinalizarMultiple, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
-        panelMultiple.add(panelPuntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, -1, -1));
+        panelMultiple.add(panelPuntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 0, 260, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel8.setText("Opción 1");
@@ -1008,8 +1008,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
 
         lblTipo.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
         lblTipo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTipo.setText("Respuesta");
-        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 180, -1));
+        lblTipo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        panelRespuestaEspaciosVF.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 260, -1));
 
         cboxVerdaderoOFalso.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cboxVerdaderoOFalso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verdadero", "Falso" }));
@@ -1024,7 +1026,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 cboxVerdaderoOFalsoActionPerformed(evt);
             }
         });
-        panelRespuestaEspaciosVF.add(cboxVerdaderoOFalso, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 160, 36));
+        panelRespuestaEspaciosVF.add(cboxVerdaderoOFalso, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 160, 36));
 
         btnFinalizarEspaciosVF.setBackground(new java.awt.Color(51, 0, 204));
         btnFinalizarEspaciosVF.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -1039,10 +1041,10 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 btnFinalizarEspaciosVFActionPerformed(evt);
             }
         });
-        panelRespuestaEspaciosVF.add(btnFinalizarEspaciosVF, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 160, -1));
+        panelRespuestaEspaciosVF.add(btnFinalizarEspaciosVF, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 160, -1));
 
         txtRespuestaEspacios.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
-        panelRespuestaEspaciosVF.add(txtRespuestaEspacios, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 182, 160, 36));
+        panelRespuestaEspaciosVF.add(txtRespuestaEspacios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 160, 36));
 
         spnPuntajeEspaciosVF.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         spnPuntajeEspaciosVF.setModel(new javax.swing.SpinnerNumberModel());
@@ -1066,7 +1068,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                 .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEspaciosVFLayout.createSequentialGroup()
-                        .addContainerGap(180, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spnPuntajeEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1080,8 +1082,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                         .addGroup(panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)))
-                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelEspaciosVFLayout.setVerticalGroup(
             panelEspaciosVFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1099,7 +1101,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelEspaciosVFLayout.createSequentialGroup()
                 .addComponent(panelRespuestaEspaciosVF, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         add(panelEspaciosVF, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
