@@ -306,7 +306,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -322,30 +322,31 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
         tableHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableHistorico.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "CI Estudiante", "Puntaje Obtenido"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.String.class, java.lang.Integer.class
+            },
+            new String [] {
+                "CI Estudiante", "Puntaje Obtenido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean[] {
-                    false, false
+            boolean[] canEdit = new boolean [] {
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(tableHistorico);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 650, 340));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 650, 340));
 
         btnAtras.setBackground(new java.awt.Color(0, 0, 153));
         btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -356,11 +357,11 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 btnAtrasActionPerformed(evt);
             }
         });
-        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 119, 46));
+        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, 119, 40));
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblTitulo.setText("Evaluación:");
-        add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 1401, -1));
+        add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 1401, -1));
 
         btnRespuestas.setBackground(new java.awt.Color(25, 118, 210));
         btnRespuestas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -371,12 +372,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 btnRespuestasActionPerformed(evt);
             }
         });
-        add(btnRespuestas, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 167, 46));
+        add(btnRespuestas, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, 167, 40));
 
         txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPuntajeTotal.setForeground(new java.awt.Color(0, 0, 153));
         txtPuntajeTotal.setText("Puntaje total:");
-        add(txtPuntajeTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 744, -1));
+        add(txtPuntajeTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 744, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     /**

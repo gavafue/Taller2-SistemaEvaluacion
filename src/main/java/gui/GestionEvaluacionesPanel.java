@@ -255,7 +255,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarAlAzarActionPerformed(evt);
             }
         });
-        add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
+        add(btnRealizarAlAzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 190, 40));
 
         btnAgregar.setBackground(new java.awt.Color(25, 118, 210));
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -266,7 +266,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnAgregarActionPerformed(evt);
             }
         });
-        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 220, 50));
+        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 190, 40));
 
         btnEliminar.setBackground(new java.awt.Color(25, 118, 210));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -277,7 +277,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 190, 40));
 
         tableEvaluaciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableEvaluaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -297,7 +297,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tableEvaluaciones);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 680, 410));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 650, 380));
 
         btnHistorico.setBackground(new java.awt.Color(0, 0, 153));
         btnHistorico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -308,7 +308,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnHistoricoActionPerformed(evt);
             }
         });
-        add(btnHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 220, 50));
+        add(btnHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 190, 40));
 
         btnRealizar.setBackground(new java.awt.Color(25, 118, 210));
         btnRealizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -319,7 +319,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                 btnRealizarActionPerformed(evt);
             }
         });
-        add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 220, 50));
+        add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 190, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
