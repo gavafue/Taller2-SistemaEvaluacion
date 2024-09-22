@@ -188,8 +188,7 @@ public class EjecutarConModificadores {
         return mensaje;
     }
 
-    
-        /**
+    /**
      * Obtiene el contenido de un directorio para el comando ls [directorio].
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
@@ -199,18 +198,18 @@ public class EjecutarConModificadores {
     private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            
-                mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido() + "\n";
 
+            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido() + "\n";
 
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
         return mensaje;
     }
-    
+
     /**
-     * Obtiene el contenido de un directorio para el comando ls  -l [directorio] y ls -a [directorio].
+     * Obtiene el contenido de un directorio para el comando ls -l [directorio]
+     * y ls -a [directorio].
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
@@ -219,9 +218,8 @@ public class EjecutarConModificadores {
     private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio, boolean ocultos) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            
-                mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido(ocultos) + "\n";
 
+            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido(ocultos) + "\n";
 
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
@@ -243,7 +241,7 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsL(Ficheros ficheros, String segundoParametro) {
         String mensaje;
         if (ficheros.existeFichero(segundoParametro) && ficheros.esDirectorio(segundoParametro)) {
-            //mensaje = "´Comando ls -l al directorio " + segundoParametro + "\n";
+
             mensaje = obtenerContenidoDirectorio(ficheros, segundoParametro, false);
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
@@ -265,7 +263,7 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            //mensaje = "Comando ls -a al directorio " + nombreDirectorio + "\n";
+
             mensaje = obtenerContenidoDirectorio(ficheros, nombreDirectorio, true);
 
         } else {
@@ -286,8 +284,7 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            //mensaje = "Comando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
-            //        + "\n";
+
             mensaje = obtenerContenidoDirectorio(ficheros, nombreDirectorio, true);
 
         } else {
