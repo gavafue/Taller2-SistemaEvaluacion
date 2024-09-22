@@ -110,7 +110,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             // MulitpleOpcion;;;Enunciado;;;Opc1;;Opc2;;;Opc3;;;Opc4;;;puntaje
             // VerdaderoFalso;;;Enunciado;;;puntaje
             // Completar;;;Enunciado;;;puntaje
-            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante",
+            AltaPreguntaPanel framePregunta = new AltaPreguntaPanel(null, this.getCliente(), "estudiante", titulo,
                     panelContent, this.generador);
             framePregunta.setSize(730, 520);
             framePregunta.setLocation(0, 0);
@@ -292,6 +292,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_btnRealizarAlAzarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
+        AltaPreguntaPanel.setCantidadPreguntas(0);
         generador.setSize(730, 520);
         generador.setLocation(0, 0);
         panelContent.removeAll();

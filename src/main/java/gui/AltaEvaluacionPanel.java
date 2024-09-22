@@ -106,7 +106,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 btnNuevaPreguntaActionPerformed(evt);
             }
         });
-        add(btnNuevaPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 190, 47));
+        add(btnNuevaPregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 190, 47));
 
         btnFinalizar.setBackground(new java.awt.Color(0, 0, 51));
         btnFinalizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -117,7 +117,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 btnFinalizarActionPerformed(evt);
             }
         });
-        add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 155, 49));
+        add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, 155, 49));
 
         txtTitulo.setBackground(new java.awt.Color(234, 234, 234));
         txtTitulo.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
@@ -137,7 +137,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 txtTituloActionPerformed(evt);
             }
         });
-        add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 647, 31));
+        add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 647, 31));
 
         txtMensaje.setFont(new java.awt.Font("Lucida Console", 2, 24)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
@@ -153,26 +153,26 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                 btnAtrasActionPerformed(evt);
             }
         });
-        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, 146, 48));
+        add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 420, 146, 48));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Ingrese título de la nueva evaluación:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 369, 20));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 369, 20));
 
         PanelVista.setBackground(new java.awt.Color(204, 204, 204));
         PanelVista.setOpaque(false);
         PanelVista.setLayout(new javax.swing.BoxLayout(PanelVista, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(PanelVista);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 647, 234));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 647, 234));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Vista previa de la evaluación:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         cbxRespuestasValidas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxRespuestasValidas.setText("Permitir al estudiante ver las respuestas al finalizar");
-        add(cbxRespuestasValidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, -1, 33));
+        add(cbxRespuestasValidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, 33));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -217,7 +217,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     if (!this.existeTitulo(tituloEvaluacion)) { // Si el título es válido
                         cliente.setInstruccion(tituloEvaluacion);
                         txtTitulo.setEditable(false);
-                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                        AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
                                 panelContent, this);
                         ventanaPregunta.setSize(730, 520);
                         ventanaPregunta.setLocation(0, 0);
@@ -229,7 +229,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Título en uso", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente",
+                    AltaPreguntaPanel ventanaPregunta = new AltaPreguntaPanel(PanelVista, cliente, "docente", tituloEvaluacion,
                             panelContent, this);
                     ventanaPregunta.setSize(730, 520);
                     ventanaPregunta.setLocation(0, 0);
@@ -263,6 +263,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
             try {
                 if (AltaPreguntaPanel.getCantidadPreguntas() >= 3) {
                     // Obtener el estado del checkbox
+                    System.out.println("CANTIDAD DE PREGUNTAS: " + AltaPreguntaPanel.getCantidadPreguntas());
                     boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado,
                                                                                    // false si no lo está
 
