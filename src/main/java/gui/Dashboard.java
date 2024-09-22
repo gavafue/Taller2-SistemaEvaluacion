@@ -78,6 +78,7 @@ public class Dashboard extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
