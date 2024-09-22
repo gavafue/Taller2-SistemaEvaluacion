@@ -173,10 +173,6 @@ public class Ficheros {
     /**
      * Metodo que carga los ficheros iniciales en el sistema.
      *
-     *
-     * ##### Esto deberia estar afuera de Ficheros. Porque se arrastra (esta
-     * disponible) en todos los directorios que se creen, ya que su contenido es
-     * de tipo Ficheros. ####
      */
     public void cargarPrimerNivel() {
         // ############################## ARCHIVOS #############################
@@ -220,11 +216,17 @@ public class Ficheros {
                 + "9\n"
                 + "1\n"
                 + "11\n");
-        Archivo s = new Archivo(".secreto.txt", "Este archivo esta oculto");
-        Archivo s1 = new Archivo(".Secreto1.txt", "Este archivo esta oculto");
-        Archivo s2 = new Archivo(".granSecreto2.txt", "Este archivo esta oculto");
-        Archivo s3 = new Archivo(".secretoPequeño.txt", "Este archivo esta oculto");
-        Archivo s4 = new Archivo(".secretito.txt", "Este archivo esta oculto");
+        Archivo s = new Archivo(".secreto.txt",
+                "Este archivo esta oculto");
+        Archivo s1 = new Archivo(".Secreto1.txt",
+                "Este verano no toco la ceibalita.");
+        Archivo s2 = new Archivo(".granSecreto2.txt",
+                "Si usted está leyendo esto es porque debe de ser una persona muy...\n"
+                + "apasionada por la informática, lo felicitamos por ello.");
+        Archivo s3 = new Archivo(".secretoPequeño.txt",
+                "Este equipo es el mejor que me podría haber tocado.");
+        Archivo s4 = new Archivo(".secretito.txt",
+                "Este archivo esta oculto");
         Archivo algunosNumeros = new Archivo("algunosNumeros.txt",
                 "10\n3\n7\n300\n40\n1\n230\n540\n23\n76\n12\n7");
         Archivo estatuto = new Archivo("estatuto.pdf",
@@ -274,6 +276,10 @@ public class Ficheros {
         dir2.agregarContenido(arch1);
         dir2.agregarContenido(dir1);
         dir2.agregarContenido(dir2);
+        dir2.agregarContenido(s1);
+        dir2.agregarContenido(s2);
+        dir2.agregarContenido(s3);
+
         Directorio dir3 = new Directorio("dir3");
         dir3.agregarContenido(arch33);
         dir3.agregarContenido(dir2);

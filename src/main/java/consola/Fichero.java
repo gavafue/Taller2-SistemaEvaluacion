@@ -151,6 +151,15 @@ public abstract class Fichero {
      * Método abstracto para obtener contenido. Su implementacion sera distinta
      * segun la especilizacion de las subclases.
      */
-    public abstract String obtenerContenido();
+    public abstract String obtenerResumenDelContenido();
+
+    /**
+     * Método abstracto para obtener contenido. Su implementacion sera distinta
+     * segun la especilizacion de las subclases.
+     *
+     * @param opcion que determina un comportamiento distinto al devolver el
+     * resumen.
+     */
+    public abstract String obtenerResumenDelContenido(boolean opcion);
 
 }

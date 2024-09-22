@@ -50,20 +50,37 @@ public class Directorio extends Fichero {
     }
 
     /**
-     * Este metodo sobreescribe el metodo de Fichero para responder indicando
-     * que es un fichero sin mostrar el contenido. De momento esta implementado
-     * para manejar un solo nivel en el sistema de archivos. Es decir, no hay
-     * nada dentro de los directorios.
+     *Este metodo sobreescribe el metodo de Fichero para 
+     * @return s con un resumen del contenido, solo listando los nombres.
+     *
      */
     @Override
-    public String obtenerContenido() {
+    public String obtenerResumenDelContenido() {
+        String s = "-";
+        if (getContenido().toString().isEmpty()) {
+            s = "\n[Directorio vacio]";
+        } else {
+            s += "\n\n" + this.getContenido().obtenerNombres(false);
+        }
+
+        return s;
+    }
+
+    /**
+     * Este metodo sobreescribe el metodo de Fichero para 
+     * @return s con un resumen del contenido, detallada. Con porpietario y permisos.
+     * @param ocultos -  permite indicar si se quiere que se incluyan los ocultos en el resumen.
+     */
+    @Override
+    public String obtenerResumenDelContenido(boolean ocultos) {
         String s = "";
         if (getContenido().toString().isEmpty()) {
             s = "\n[Directorio vacio]";
         } else {
-            s = getContenido().toString();
+
+            s = getContenido().obtenerInformacionDetallada(ocultos);
+
         }
         return s;
     }
-
 }

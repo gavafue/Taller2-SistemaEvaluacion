@@ -198,9 +198,29 @@ public class EjecutarConModificadores {
     private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            
-            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerContenido() + "\n";
-        
+
+            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido() + "\n";
+
+        } else {
+            mensaje = ">> No existe un directorio con ese nombre <<\n";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Obtiene el contenido de un directorio para el comando ls -l [directorio]
+     * y ls -a [directorio].
+     *
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param nombreDirectorio el nombre del directorio a listar.
+     * @return mensaje con el contenido del directorio especificado.
+     */
+    private String obtenerContenidoDirectorio(Ficheros ficheros, String nombreDirectorio, boolean ocultos) {
+        String mensaje;
+        if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
+
+            mensaje = ficheros.obtenerFichero(nombreDirectorio).obtenerResumenDelContenido(ocultos) + "\n";
+
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -221,7 +241,8 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsL(Ficheros ficheros, String segundoParametro) {
         String mensaje;
         if (ficheros.existeFichero(segundoParametro) && ficheros.esDirectorio(segundoParametro)) {
-            mensaje = "´Comando ls -l al directorio " + segundoParametro + "\n";
+
+            mensaje = obtenerContenidoDirectorio(ficheros, segundoParametro, false);
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -242,7 +263,9 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            mensaje = "Comando ls -a al directorio " + nombreDirectorio + "\n";
+
+            mensaje = obtenerContenidoDirectorio(ficheros, nombreDirectorio, true);
+
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -261,8 +284,9 @@ public class EjecutarConModificadores {
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
         if (ficheros.existeFichero(nombreDirectorio) && ficheros.esDirectorio(nombreDirectorio)) {
-            mensaje = "Comando (ls -a -l) o (ls -l -a) al directorio " + nombreDirectorio
-                    + "\n";
+
+            mensaje = obtenerContenidoDirectorio(ficheros, nombreDirectorio, true);
+
         } else {
             mensaje = ">> No existe un directorio con ese nombre <<\n";
         }
@@ -282,13 +306,13 @@ public class EjecutarConModificadores {
         String nombreArchivo = tokens[2];
         boolean existeExpresion = false;
         if (ficheros.existeFichero(nombreArchivo)) {
-            String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido();
+            String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido();
             String[] porLineas = contenidoArchivo.split("\n");
             mensaje = "-Coincidencias-\n";
             for (String linea : porLineas) {
                 if (linea.contains(expresion)) {
                     existeExpresion = true;
-                    mensaje +="\n"+linea + "\n";
+                    mensaje += "\n" + linea + "\n";
                 }
             }
             if (!existeExpresion) {
@@ -362,7 +386,7 @@ public class EjecutarConModificadores {
     private String obtenerLineas(Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje = "";
         try {
-            String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerContenido().split("\\R");
+            String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido().split("\\R");
             if (!enReversa) {//Si no es en reversa es un head            
                 for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
                     mensaje += lineasArchivo[i] + "\n";
@@ -397,7 +421,7 @@ public class EjecutarConModificadores {
         if (!ficheros.existeFichero(archivo) || !ficheros.existeFichero(archivo) && ficheros.esDirectorio(archivo)) {
             mensaje = ">> Error: El archivo especificado no existe o es un directorio <<\n";
             // Cambiar color a rojo
-        } else if (ficheros.obtenerFichero(archivo).obtenerContenido() == null || ficheros.obtenerFichero(archivo).obtenerContenido().isEmpty()) {// Verificar que el archivo tenga contenido
+        } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo tenga contenido
             mensaje = ">> Error: El archivo especificado está vacío <<\n";
             // Cambiar color a rojo    
         } else if (!delimitador.equals(":")) {
@@ -417,7 +441,7 @@ public class EjecutarConModificadores {
             }
             if (!mensaje.contains("Error")) {
                 // Dividir el contenido del archivo por líneas
-                String[] lineas = ficheros.obtenerFichero(archivo).obtenerContenido().split("\n");
+                String[] lineas = ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().split("\n");
                 // Procesar cada línea
                 for (String linea : lineas) {
                     String[] partes = linea.split(delimitador); // Usar el delimitador especificado
@@ -459,11 +483,11 @@ public class EjecutarConModificadores {
         //boolean tieneNumeros = true;
         try {
             if (tokens.length == 2) {
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerContenido().split("\\R");
+                mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
                 mensaje = ordenarAlfabeticamente(mensajeTokenizado);
             } else {
                 // Ordenar numéricamente las líneas del archivo especificado
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerContenido().split("\\R");
+                mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerResumenDelContenido().split("\\R");
                 mensaje = sortN(mensajeTokenizado);
             }
         } catch (NullPointerException ex) {
