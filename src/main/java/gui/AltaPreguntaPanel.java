@@ -283,6 +283,18 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     public static void setCantidadPreguntas(int cantidadPreguntas) {
         AltaPreguntaPanel.cantidadPreguntas = cantidadPreguntas;
     }
+    
+    /**
+     * Método que devuelve true si el texto contiene mas de una coma ","
+     * false en caso contrario
+     * 
+     * @param texto a procesar
+     * @return 
+     */
+    private boolean muchasRespuestas (String texto){    
+        String [] respuestas = texto.split(",");
+        return(respuestas.length > 2 || texto.endsWith(","));
+    }
 
     /**
      * Método que pone los elementos de la interfaz en valores por defecto. Abre
@@ -427,44 +439,49 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void btnFinalizarEspaciosVFActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFinalizarEspaciosVFActionPerformed
-        if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {// Es el docente creando la pregunta
-            if ((((Integer) spnPuntajeEspaciosVF.getValue()) <= 0) || txtEnunciado.getText().isEmpty()
-                    || txtRespuestaEspacios.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos con valores válidos.");
-            } else {
-                cantidadPreguntas++;
-                this.agregarPreguntaVistaPrevia();
-                if (this.getTipoPregunta().equals("Verdadero o Falso")) {
-                    this.getCliente().armarVF(this.getEnunciado(),
-                            String.valueOf(this.spnPuntajeEspaciosVF.getValue())/* puntaje */,
-                            String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/* respuesta */);
+        if (!muchasRespuestas(txtRespuestaEspacios.getText())) { //No puede haber mas de 2 comas en la respuesta de rellenar      
+            if (btnFinalizarEspaciosVF.getText().equals("Finalizar")) {// Es el docente creando la pregunta
+                if ((((Integer) spnPuntajeEspaciosVF.getValue()) <= 0) || txtEnunciado.getText().isEmpty()
+                        || txtRespuestaEspacios.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos con valores válidos.");
                 } else {
-                    this.getCliente().armarEspacios(this.getEnunciado(),
-                            String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
-                }
-                panelContentDashboard.removeAll();
-                panelContentVistaPrevia.setSize(730, 520);
-                panelContentVistaPrevia.setLocation(0, 0);
-                panelContentDashboard.add(panelContentVistaPrevia);
-                panelContentDashboard.revalidate();
-                panelContentDashboard.repaint();
-            }
-        } else {
-            if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {// Es un alumno contestando la pregunta vf o de
-                // completar
-                try {
-                    String respuesta;
-                    if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
-                        respuesta = String.valueOf(cboxVerdaderoOFalso.getSelectedItem());
-                    } else {
-                        respuesta = txtRespuestaEspacios.getText();
-                    }
                     cantidadPreguntas++;
-                    this.solicitarSiguientePregunta(respuesta, this);
-                } catch (IOException ex) {
-                    Logger.getLogger(AltaPreguntaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    this.agregarPreguntaVistaPrevia();
+                    if (this.getTipoPregunta().equals("Verdadero o Falso")) {
+                        this.getCliente().armarVF(this.getEnunciado(),
+                                String.valueOf(this.spnPuntajeEspaciosVF.getValue())/* puntaje */,
+                                String.valueOf(this.cboxVerdaderoOFalso.getSelectedItem())/* respuesta */);
+                    } else {
+                        this.getCliente().armarEspacios(this.getEnunciado(),
+                                String.valueOf(this.spnPuntajeEspaciosVF.getValue()), this.txtRespuestaEspacios.getText());
+                    }
+                    panelContentDashboard.removeAll();
+                    panelContentVistaPrevia.setSize(730, 520);
+                    panelContentVistaPrevia.setLocation(0, 0);
+                    panelContentDashboard.add(panelContentVistaPrevia);
+                    panelContentDashboard.revalidate();
+                    panelContentDashboard.repaint();
+                }
+            } else {
+                if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {// Es un alumno contestando la pregunta vf o de
+                    // completar
+                    try {
+                        String respuesta;
+                        if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
+                            respuesta = String.valueOf(cboxVerdaderoOFalso.getSelectedItem());
+                        } else {
+                            respuesta = txtRespuestaEspacios.getText();
+                        }
+                        cantidadPreguntas++;
+                        this.solicitarSiguientePregunta(respuesta, this);
+                    } catch (IOException ex) {
+                        Logger.getLogger(AltaPreguntaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Máximo 2 respuestas separadas por ','");
         }
     }
 
