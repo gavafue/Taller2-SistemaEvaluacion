@@ -46,7 +46,7 @@ public class BienvenidaPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(730, 520));
         setRequestFocusEnabled(false);
 
-        lblSubtitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblSubtitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblSubtitulo.setText("Bienvenido ");
 
         txtPrimerRenglon.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -76,13 +76,13 @@ public class BienvenidaPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(43, 43, 43)
                 .addComponent(lblSubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPrimerRenglon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPrimerRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtSegundoRenglon, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(92, Short.MAX_VALUE))
         );
