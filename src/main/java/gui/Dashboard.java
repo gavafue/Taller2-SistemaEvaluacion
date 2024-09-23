@@ -343,7 +343,7 @@ public class Dashboard extends javax.swing.JFrame {
      * Método que proveé funcionamiento al botón inicio, que redirecciona a una
      * pestaña con un mesnaje de bienvenida al sistema.
      *
-     * @param evt
+     * @param evt 
      */
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnInicioActionPerformed
         BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Procesos {
 
     /**
-     * Coleccion.
+     * Coleccion de procesos del sistema.
      */
     private ArrayList<Proceso> listaProcesos;
 
@@ -27,39 +27,8 @@ public class Procesos {
     private int cpuDisponible = 100;
 
     /**
-     * return memoriaDisponible
-     */
-    public int getMemoriaDisponible() {
-        return memoriaDisponible;
-    }
-
-    /**
-     * Establece la memoria disponible en el sistema por la dada en
-     *
-     * @param memoriaDisponible
-     */
-    public void setMemoriaDisponible(int memoriaDisponible) {
-        this.memoriaDisponible = memoriaDisponible;
-    }
-
-    /**
-     * return cpuDisponible
-     */
-    public int getCpuDisponible() {
-        return cpuDisponible;
-    }
-
-    /**
-     * Establece el cpu disponible en el sistema por la dado en
-     *
-     * @param cpuDisponible
-     */
-    public void setCpuDisponible(int cpuDisponible) {
-        this.cpuDisponible = cpuDisponible;
-    }
-
-    /**
-     * Constructor.
+     * Constructor que crea una colección de procesos vacía y la carga desde
+     * memoria.
      */
     public Procesos() {
         this.listaProcesos = new ArrayList<>();
@@ -67,42 +36,77 @@ public class Procesos {
     }
 
     /**
-     * @return listaProcesos
+     * Método que permite obtener la memoria disponible. return
+     * memoriaDisponible
+     */
+    public int getMemoriaDisponible() {
+        return memoriaDisponible;
+    }
+
+    /**
+     * Establece la memoria disponible en el sistema.
+     *
+     * @param memoriaDisponible en el sistema.
+     */
+    public void setMemoriaDisponible(int memoriaDisponible) {
+        this.memoriaDisponible = memoriaDisponible;
+    }
+
+    /**
+     * Método que permite obtener el cpu disponible en el sistema. return
+     * cpuDisponible en el sistema.
+     */
+    public int getCpuDisponible() {
+        return cpuDisponible;
+    }
+
+    /**
+     * Establece el cpu disponible en el sistema.
+     *
+     * @param cpuDisponible en el sistema.
+     */
+    public void setCpuDisponible(int cpuDisponible) {
+        this.cpuDisponible = cpuDisponible;
+    }
+
+    /**
+     * Método que permite obtener la lista de procesos del sistema.
+     *
+     * @return lista de procesos del sistema.
      */
     public ArrayList<Proceso> getListaProcesos() {
         return listaProcesos;
     }
 
     /**
-     * Establece el valor de listaProcesos recibido por
+     * Establece el valor de listaProcesos.
      *
-     * @param listaProcesos
+     * @param listaProcesos a establecer.
      */
     public void setListaProcesos(ArrayList<Proceso> listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
 
     /**
-     * Metodo que dado el comando a ejecutar, crea y agrega un proceso a la
-     * lista de procesos.
+     * Método que permite crear un proceso dado el nombre de instrucción.
      *
-     * @param comando
+     * @param instruccion que desemboca al proceso.
      */
-    public void agregarProceso(String comando) {
+    public void agregarProceso(String instruccion) {
         Random random = new Random();
         int memoriaProceso = random.nextInt(getMemoriaDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
         setMemoriaDisponible(getMemoriaDisponible() - memoriaProceso);
         random = new Random();
         int cpuProceso = random.nextInt(getCpuDisponible() - 10);  // CONTEMPLAR POSIBILIDAD DE QUE DE 0. ME RESERVO 10% PARA LOS QUE VIENEN.
         setCpuDisponible(getCpuDisponible() - cpuProceso);
-        Proceso proceso = new Proceso(comando, memoriaProceso, cpuProceso);
+        Proceso proceso = new Proceso(instruccion, memoriaProceso, cpuProceso);
         listaProcesos.add(proceso);
     }
 
     /**
-     * Metodo que dado el numero de id de proceso determina si existe.
+     * Método que dado el número de id de proceso determina si existe.
      *
-     * @param pid
+     * @param pid id del proceso.
      * @return si existe el proceso o no
      */
     public boolean existeProceso(int pid) {
@@ -117,11 +121,11 @@ public class Procesos {
     }
 
     /**
-     * Metodo que dado el numero de id del proceso permite obtenerlo de la
+     * Método que dado el número de id del proceso permite obtenerlo de la
      * lista. Asume que existe el proceso.
      *
-     * @param pid
-     * @return
+     * @param pid id del proceso.
+     * @return el proceso con dicha id.
      */
     public Proceso obtenerProceso(int pid) {
         boolean encontrado = false;
@@ -140,10 +144,8 @@ public class Procesos {
      * Este metodo permite cargar algunos procesos predefinidos al sistema.
      */
     public void cargarProcesos() {
-
         String[] posiblesProcesos = {"chrome", "bash", "bluetoothd", "NetworkManager", "java", "libreoffice", "spotify", "firefox", "sshd", "apache2", "vsftpd", "vlc", "eclipse", "netbeans", "rmdir", "Gnome", "vscode", "mysqld"};
         Random random = new Random();
-
         for (int i = 0; i < 5; i++) {
             int azar = random.nextInt(posiblesProcesos.length);
             this.agregarProceso(posiblesProcesos[azar]);

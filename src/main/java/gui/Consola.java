@@ -199,7 +199,7 @@ public class Consola extends javax.swing.JFrame {
     /**
      * Este método modifica el color de la barra de desplazamiento.
      *
-     * @param scrollBar
+     * @param scrollBar a modificar.
      */
     private void colorScroll(JScrollBar scrollBar) {
         scrollBar.setBackground(Color.BLACK);

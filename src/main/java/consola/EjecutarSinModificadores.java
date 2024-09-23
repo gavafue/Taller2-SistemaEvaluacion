@@ -18,7 +18,7 @@ public class EjecutarSinModificadores {
     private String[] tokens;
 
     /**
-     * Constructor.
+     * Constructor común que crea instancia de la clase.
      *
      * @param tokens - La linea ingresada en la terminal por el usuario fue
      * tokenizada

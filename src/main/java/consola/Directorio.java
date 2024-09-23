@@ -1,10 +1,10 @@
 package consola;
 
 /**
- * Esta clase permite crear un fichero de tipo directorio.
+ * Esta clase permite crear un fichero de tipo directorio. Extiende la clase
+ * fichero.
  *
- * Esta clase extiende la clase fichero.
- *
+ * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class Directorio extends Fichero {
 
@@ -14,7 +14,7 @@ public class Directorio extends Fichero {
     private Ficheros contenido; //Suponiendo que va a ser navegable
 
     /**
-     * Constructor
+     * Constructor que permite crear un directorio vacío dado su nombre.
      *
      * @param nombre del Directorio
      */
@@ -24,35 +24,37 @@ public class Directorio extends Fichero {
     }
 
     /**
-     * @return contenido
+     * Método que permite obtener el contenido del directorio.
+     *
+     * @return contenido del directorio.
      */
     public Ficheros getContenido() {
         return contenido;
     }
 
     /**
-     * Establece el valor de contenido recibido por
+     * Establece el valor de contenido.
      *
-     * @param contenido.
+     * @param contenido a establecer.
      */
     public void setContenido(Ficheros contenido) {
         this.contenido = contenido;
     }
 
     /**
-     * Agrega un nuevo fichero a la coleccion que representa el contenido de
-     * este fichero.
+     * Agrega un nuevo fichero a la coleccion que representa el contenido del
+     * fichero.
      *
-     * @param contenido.
+     * @param contenido del fichero.
      */
     public void agregarContenido(Fichero contenido) {
         this.contenido.agregarFichero(contenido);
     }
 
     /**
-     *Este metodo sobreescribe el metodo de Fichero para 
-     * @return s con un resumen del contenido, solo listando los nombres.
+     * Método que retorna el resumen de contenido del directorio.
      *
+     * @return resumen del contenido del directorio.
      */
     @Override
     public String obtenerResumenDelContenido() {
@@ -62,14 +64,14 @@ public class Directorio extends Fichero {
         } else {
             s += "\n\n" + this.getContenido().obtenerNombres(false);
         }
-
         return s;
     }
 
     /**
-     * Este metodo sobreescribe el metodo de Fichero para 
-     * @return s con un resumen del contenido, detallada. Con porpietario y permisos.
-     * @param ocultos -  permite indicar si se quiere que se incluyan los ocultos en el resumen.
+     * Método que permite obtener el reusmen del contenido de un directorio.
+     *
+     * @param ocultos habilitados o no.
+     * @return resumen del contenido.
      */
     @Override
     public String obtenerResumenDelContenido(boolean ocultos) {
@@ -77,9 +79,7 @@ public class Directorio extends Fichero {
         if (getContenido().toString().isEmpty()) {
             s = "\n[Directorio vacio]";
         } else {
-
             s = getContenido().obtenerInformacionDetallada(ocultos);
-
         }
         return s;
     }

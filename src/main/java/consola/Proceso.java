@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * Esta clase representa un porceso del sistema operativo. Tiene los atributos y
- * metodos necesarios para ello.
+ * métodos necesarios para ello.
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  */
 public class Proceso {
 
@@ -18,104 +18,124 @@ public class Proceso {
      */
     private int pid;
 
-    private static int siguientePid = 1; // Siguiente PID a asignar, propio de la clase
+    /**
+     * Siguiente PID a asignar, propio de la clase y no de la instancia.
+     */
+    private static int siguientePid = 1;
+
     /**
      * Usuario que creo el proceso.
      */
     private String usuario;
 
     /**
-     * Porcentaje de memoria de la maquina que ocupa el proceso.
+     * Porcentaje de memoria de la máquina que ocupa el proceso.
      */
     private double memoria;
 
     /**
-     * POrcentaje de CPU de la maquina que ocupa el proceso.
+     * Porcentaje de CPU de la maquina que ocupa el proceso.
      */
     private double cpu;
 
     /**
-     * Comando que dio origen al proceso.
+     * Instrucción que dio origen al proceso.
      */
-    private String comando;
+    private String instruccion;
 
     /**
      * Indica el formato de fecha.
      */
     private DateTimeFormatter formatoFecha;
+
     /**
      * Hora en la que se creo proceso.
      */
     private String hora;
 
     /**
-     * Constructor.
+     * Constructor que crea un proceso a partir de una instrucción.
      *
-     * @param comando
+     * @param instruccion del sistema.
      */
-    public Proceso(String comando) {
+    public Proceso(String instruccion) {
         Random random = new Random();
         this.pid = siguientePid++;
         this.usuario = "USER";
         this.memoria = random.nextInt(100) + 1; //Valor entre 1 y 100
         this.cpu = random.nextInt(100) + 1;
-        this.comando = comando;
+        this.instruccion = instruccion;
         this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");
         this.hora = LocalDateTime.now().format(formatoFecha);
     }
 
     /**
-     * Constructor. Para pasar memoria y cpu.
+     * Constructor que crea un proceso a partir de una instrucción, uso en cpu y
+     * memoria.
      *
-     * @param comando
+     * @param instruccion del sistema.
+     * @param memoria en uso.
+     * @param cpu en uso.
+     *
      */
-    public Proceso(String comando, double memoria, double cpu) {
-
+    public Proceso(String instruccion, double memoria, double cpu) {
         this.pid = siguientePid++;
         this.usuario = "USER";
         this.memoria = memoria;
         this.cpu = cpu;
-        this.comando = comando;
+        this.instruccion = instruccion;
         this.formatoFecha = DateTimeFormatter.ofPattern("HH:mm:ss");
         this.hora = LocalDateTime.now().format(formatoFecha);
     }
 
     /**
-     * @return pid
+     * Método que permite obtener el id del proceso.
+     *
+     * @return id del proceso.
      */
     public int getPid() {
         return pid;
     }
 
     /**
-     * @return usuario
+     * Método que permite obtener el usuario que ejecutó el proceso.
+     *
+     * @return usuario que ejecutó el proceso.
      */
     public String getUsuario() {
         return usuario;
     }
 
     /**
-     * @return memoria
+     * Método que permite obtener la memoria que usa el proceso.
+     *
+     * @return memoria en uso.
      */
     public double getMemoria() {
         return memoria;
     }
 
     /**
-     * @return cpu
+     * Método que permite obtener el porcentaje de cpu en uso por el proceso.
+     *
+     * @return porcentaje de uso de cpu.
      */
     public double getCpu() {
         return cpu;
     }
 
     /**
-     * @return comando
+     * Método que permite obtener la instrucción.
+     *
+     * @return instrucción del proceso.
      */
-    public String getComando() {
-        return comando;
+    public String getInstruccion() {
+        return instruccion;
     }
 
     /**
+     * Método que permite obtener la hora en la que se ejecutó el proceso.
+     *
      * @return hora
      */
     public String getHora() {
@@ -123,61 +143,61 @@ public class Proceso {
     }
 
     /**
-     * Establece el valor de pid dado por el
+     * Establece el valor de pid.
      *
-     * @param pid - valor entero
+     * @param pid id del proceso.
      */
     public void setPid(int pid) {
         this.pid = pid;
     }
 
     /**
-     * Establece el valor de usuario dado por el
+     * Establece el usuario.
      *
-     * @param usuario - valor String
+     * @param usuario a establecer.
      */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
     /**
-     * Establece el valor de memoria dado por el
+     * Establece el valor de memoria.
      *
-     * @param memoria - valor double
+     * @param memoria en uso.
      */
     public void setMemoria(double memoria) {
         this.memoria = memoria;
     }
 
     /**
-     * Establece el valor de cpu dado por el
+     * Establece el valor de cpu.
      *
-     * @param cpu - valor double
+     * @param cpu en uso.
      */
     public void setCpu(double cpu) {
         this.cpu = cpu;
     }
 
     /**
-     * Establece el valor de comando dado por el
+     * Establece el valor de la instrucción.
      *
-     * @param comando - valor String
+     * @param instruccion instrucción.
      */
-    public void setComando(String comando) {
-        this.comando = comando;
+    public void setInstruccion(String instruccion) {
+        this.instruccion = instruccion;
     }
 
     /**
-     * Establece el valor de hora dado por el
+     * Establece el valor de hora.
      *
-     * @param hora - valor String
+     * @param hora de ejecución.
      */
     public void setHora(String hora) {
         this.hora = hora;
     }
 
     /**
-     * Metodo que permite transformar un objeto de tipo Proceso a String.
+     * Método que permite transformar un objeto de tipo Proceso a String.
      *
      * @return proceso en formato String
      */
@@ -189,6 +209,6 @@ public class Proceso {
                 + memoria + "  |  "
                 + cpu + "  | "
                 + hora + " | "
-                + comando;
+                + instruccion;
     }
 }

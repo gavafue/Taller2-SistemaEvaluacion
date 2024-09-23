@@ -53,7 +53,7 @@ public class Registro extends javax.swing.JFrame {
     /**
      * Método que permite modificar el cliente actual dado otro cliente.
      *
-     * @param cliente
+     * @param cliente actual
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;

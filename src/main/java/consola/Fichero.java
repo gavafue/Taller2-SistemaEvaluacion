@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Clase abstracta que define la estructura general de un fichero. Es la base
- * para especializar en los tipos: directorio o archivo.
+ * para directorio o archivo.
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  */
 public abstract class Fichero {
 
@@ -46,11 +46,11 @@ public abstract class Fichero {
     private String fecha = LocalDateTime.now().format(formatoFecha);
 
     /**
-     * Constructor.
+     * Constructor común que permite crear un fichero.
      *
      * @param nombre para el fichero
      * @param permisos originales del fichero
-     * @param duenio
+     * @param duenio del fichero
      * @param tipo de fichero
      */
     public Fichero(String nombre, String permisos, String duenio, String tipo) {
@@ -61,13 +61,17 @@ public abstract class Fichero {
     }
 
     /**
-     * @return nombre
+     * Método que permite obtener el nombre del fichero.
+     *
+     * @return nombre del fichero.
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
+     * Método que permite obtener la fecha de creación del fichero.
+     *
      * @return fecha
      */
     public String getFecha() {
@@ -75,6 +79,8 @@ public abstract class Fichero {
     }
 
     /**
+     * Método que permite obtener los permisos del fichero.
+     *
      * @return permisos
      */
     public String getPermisos() {
@@ -82,56 +88,63 @@ public abstract class Fichero {
     }
 
     /**
+     * Método que permite obtener el propietario del fichero.
+     *
      * @return duenio
      */
     public String getDuenio() {
         return duenio;
     }
 
+    /**
+     * Método que permite obtener el tipo de fichero.
+     *
+     * @return tipo de fichero, archivo o directorio.
+     */
     public String getTipo() {
         return tipo;
     }
 
     /**
-     * Establece el valor de nombre recibido por
+     * Establece el nombre del fichero.
      *
-     * @param nombre.
+     * @param nombre del fichero.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Establece el valor de la fecha recibido por
+     * Establece el valor de la fecha.
      *
-     * @param fecha.
+     * @param fecha dle fichero.
      */
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     /**
-     * Establece el valor de los permisos recibido por
+     * Establece el valor de los permisos.
      *
-     * @param permisos.
+     * @param permisos del fichero.
      */
     public void setPermisos(String permisos) {
         this.permisos = permisos;
     }
 
     /**
-     * Establece el valor del duenio recibido por
+     * Establece el valor del propietario.
      *
-     * @param duenio.
+     * @param duenio del fichero.
      */
     public void setDuenio(String duenio) {
         this.duenio = duenio;
     }
 
     /**
-     * Establece el valor del tipo de fichero recibido por
+     * Establece el valor del tipo de fichero.
      *
-     * @param tipo.
+     * @param tipo de fichero.
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
@@ -149,7 +162,9 @@ public abstract class Fichero {
 
     /**
      * Método abstracto para obtener contenido. Su implementacion sera distinta
-     * segun la especilizacion de las subclases.
+     * segín la especilizacion de las subclases.
+     *
+     * @return resumen del contenido del fichero.
      */
     public abstract String obtenerResumenDelContenido();
 
@@ -159,7 +174,7 @@ public abstract class Fichero {
      *
      * @param opcion que determina un comportamiento distinto al devolver el
      * resumen.
+     * @return resumen del contenido del fichero.
      */
     public abstract String obtenerResumenDelContenido(boolean opcion);
-
 }

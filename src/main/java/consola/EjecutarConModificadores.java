@@ -14,15 +14,15 @@ import javax.swing.JTextPane;
 public class EjecutarConModificadores {
 
     /**
-     * La linea ingresada en la terminal por el usuario fue tokenizada y
+     * La línea ingresada en la terminal por el usuario fue tokenizada y
      * almacenada aqui.
      */
     private String[] tokens;
 
     /**
-     * Constructor.
+     * Constructor común que crea instancia de la clase.
      *
-     * @param tokens - La linea ingresada en la terminal por el usuario fue
+     * @param tokens - La linea ingresada en la terminal por el usuario que fue
      * tokenizada
      *
      */
@@ -33,7 +33,7 @@ public class EjecutarConModificadores {
     /**
      * Método que permite obtener el comando ingresado dividido en tokens.
      *
-     * @return tokens
+     * @return comando dividido en tokens
      */
     public String[] getTokens() {
         return tokens;
@@ -50,7 +50,7 @@ public class EjecutarConModificadores {
     }
 
     /**
-     * Metodo principal de esta clase. Deriva la ejecucion al comando
+     * Método principal de esta clase. Deriva la ejecucion al comando
      * correspondiente.
      *
      * @param comandos - coleccion de comandos cargados en el sistema

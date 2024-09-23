@@ -8,11 +8,25 @@ import javax.swing.JTextPane;
  * Esta clase permite validar un comando y sus opciones. A partir de esto
  * determinar a que clase ejecutora derivar.
  *
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
+ *
  */
 public class Validar {
 
+    /**
+     * Comando ingresado.
+     */
     private String comandoIngresado; // El comando ingresado por el usuario
+
+    /**
+     * Tokens del comando fraccionados por espacio.
+     */
     private String[] tokens; // Los tokens resultantes de dividir la orden.
+
+    /**
+     * Atributos de tipo boolean para verificar si es válido el comando y si usa
+     * modificadores o no.
+     */
     private boolean esValido, usaModificadores;
 
     /**
@@ -185,7 +199,7 @@ public class Validar {
     }
 
     /**
-     * Metodo auxiliar que valida las opciones ingresadas con "-" para un
+     * Método auxiliar que valida las opciones ingresadas con "-" para un
      * comando determinado
      *
      * @param comando del cual desea validar las opciones
@@ -212,7 +226,7 @@ public class Validar {
     }
 
     /**
-     * Metodo que controla la posibilidad de colocar 2 veces la misma opcion por
+     * Método que controla la posibilidad de colocar 2 veces la misma opcion por
      * parte del usuario Ejemplo: ls -l -l
      *
      * @return "200" si no existen opciones duplicadas o el mensaje de error
@@ -251,7 +265,7 @@ public class Validar {
     }
 
     /**
-     * Metodo que utiliza compararConOpcPosibles y encontrarDuplicado para
+     * Método que utiliza compararConOpcPosibles y encontrarDuplicado para
      * validar las opciones de un ls en todas sus variantes ls ls dir ls -l ||
      * ls -l dir ls -a || ls -a dir ls -l -a || ls -l -a dir ls -a -l || ls -a
      * -l dir
@@ -284,7 +298,7 @@ public class Validar {
     }
 
     /**
-     * Metodo que utiliza contarOpciones y encontrarDuplicados para validar la
+     * Método que utiliza contarOpciones y encontrarDuplicados para validar la
      * sintaxis de tail y head
      *
      * @return un mensaje con el error concreto o "200" si la sintaxis es valida
@@ -334,7 +348,7 @@ public class Validar {
     }
 
     /**
-     * Metodo que utiliza contarOpciones y encontrarDuplicados para validar la
+     * Método que utiliza contarOpciones y encontrarDuplicados para validar la
      * sintaxis de sort.
      *
      * @return un String "200" si la sintaxis de sort es correcta y el mensaje
@@ -380,7 +394,7 @@ public class Validar {
     }
 
     /**
-     * Metodo que utiliza contarOpciones y encontrarDuplicados para validar la
+     * Método que utiliza contarOpciones y encontrarDuplicados para validar la
      * sintaxis cut.
      *
      * @return si la sintaxis de cut es correcta devuelve el String "200", en
@@ -439,15 +453,16 @@ public class Validar {
      */
     public boolean tienePipe() {
         return this.posicionPipe() != 0;
-    }    
-     /**
-     * Método que determina si el primer comando del pipe es válido o no.
-     * En caso de serlo, genera un fichero auxiliar para almacenar el
-     * resultado y llama al metodo concatenarComando
-     *     
+    }
+
+    /**
+     * Método que determina si el primer comando del pipe es válido o no. En
+     * caso de serlo, genera un fichero auxiliar para almacenar el resultado y
+     * llama al método concatenarComando
+     *
      * @param listaFicheros ficheros actuales.
      * @return resultado de la concatenacion de comandos.
-     */    
+     */
     public String validarPipe(Ficheros listaFicheros) {
         String mensaje = "";
         String msjComando1 = "";
@@ -458,29 +473,27 @@ public class Validar {
         tokens = tokensA;
         System.out.println("TokensA=" + tokens.length);
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);
-
         switch (tokens[0]) {
-
             case "tail":
-                        esValido = validarOpciones().equals("200");
-                        msjComando1 = ejecutar.ejecutarTail(listaFicheros);
-                        System.out.println("esValudo:" + esValido + "//" + msjComando1);
-                        break;
+                esValido = validarOpciones().equals("200");
+                msjComando1 = ejecutar.ejecutarTail(listaFicheros);
+                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                break;
             case "head":
-                        esValido = validarOpciones().equals("200");
-                        msjComando1 = ejecutar.ejecutarHead(listaFicheros);
-                        System.out.println("esValudo:" + esValido + "//" + msjComando1);
-                        break;
+                esValido = validarOpciones().equals("200");
+                msjComando1 = ejecutar.ejecutarHead(listaFicheros);
+                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                break;
             case "grep":
-                        String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
-                        esValido = validarSintaxis().equals("200");
-                        String[] lineas = mensajeSinFiltrar.split("\\n");
-                        /*Si el grep encuentra coincidencia aparece al principio "-Coincidencias-\n"
+                String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
+                esValido = validarSintaxis().equals("200");
+                String[] lineas = mensajeSinFiltrar.split("\\n");
+                /*Si el grep encuentra coincidencia aparece al principio "-Coincidencias-\n"
                          Se elimina la primera linea antes de concatenar la segunda busqueda*/
-                        String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
-                        msjComando1 = String.join("\n", lineasSinPrimeras);
-                        System.out.println("esValudo:" + esValido + "//" + msjComando1);
-                        break;
+                String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
+                msjComando1 = String.join("\n", lineasSinPrimeras);
+                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                break;
             default:
                 mensaje = ">> El primer comando a concatenar debe ser head|tail|grep <<\n";
                 esValido = false;
@@ -497,18 +510,19 @@ public class Validar {
             mensaje = ">> El comando " + tokens[0] + " tiene un problema de sintaxis <<\n";
         } else {
             mensaje = ">> No hay resultados <<\n";//Puede que el primer comando sea correcto pero que no encuentre coincidencias
-
         }
         return mensaje;
     }
-     
+
     /**
-     * Metodo auxiliar que utiliza el resultado de la ejecucion de un comando como entrada.
-     * 
-     * @param tokensB nuevos tokens que contienen el fichero auxiliar con los resultados del comando anterior.
+     * Metodo auxiliar que utiliza el resultado de la ejecucion de un comando
+     * como entrada.
+     *
+     * @param tokensB nuevos tokens que contienen el fichero auxiliar con los
+     * resultados del comando anterior.
      * @param listaFicheros lista de ficheros actuales.
      * @param ejecutar para realizar la segunda ejecucion.
-     * @return 
+     * @return
      */
     private String concatenarComando(String[] tokensB, Ficheros listaFicheros, EjecutarConModificadores ejecutar) {
         String mensaje = "";
@@ -517,7 +531,6 @@ public class Validar {
         // Verificar que tokensB tenga al menos un elemento
         if (tokensB.length >= 1) {
             String comando = tokensB[0];
-
             // Validar que el comando sea uno de los permitidos
             if (comando.equals("tail") || comando.equals("head") || comando.equals("grep")) {
                 // Determinar la longitud válida de tokensB según el comando
@@ -529,7 +542,6 @@ public class Validar {
                     // Para grep longitud debe ser 2
                     longitudValida = (tokensB.length == 2);
                 }
-
                 if (longitudValida) {
                     // Crear tokensSegundoComando copiando tokensB y agregando "especificado" al final
                     tokensSegundoComando = Arrays.copyOf(tokensB, tokensB.length + 1);
@@ -538,7 +550,6 @@ public class Validar {
                     // Actualizar tokens y el ejecutor
                     tokens = tokensSegundoComando;
                     ejecutar.setTokens(tokensSegundoComando);
-
                     // Validar opciones o sintaxis según el comando
                     boolean validacionExitosa;
                     String mensajeValidacion;
@@ -583,23 +594,21 @@ public class Validar {
         return mensaje;
     }
 
-
     /**
-     * Metodo para validar la sintaxis de los comandos que no utilizan
+     * Método para validar la sintaxis de los comandos que no utilizan
      * modificadores "-"
      *
      *
      * @return la validez de la sintaxis en base a la cantidad de tokens
-     * esperados
+     * esperados.
      *
-     * "200" se interpreta como sintaxis
+     * "200" se interpreta como sintaxis válida.
      */
     private String validarSintaxis() {
         boolean sintaxisCorrecta = false;
         String mensaje;
 
         switch (tokens[0]) {
-
             case "chmod":
                 sintaxisCorrecta = (tokens.length == 3);
                 break;
@@ -633,7 +642,6 @@ public class Validar {
             case "ps":
                 sintaxisCorrecta = (tokens.length == 1);
                 break;
-
         }
         if (sintaxisCorrecta) {
             mensaje = "200";

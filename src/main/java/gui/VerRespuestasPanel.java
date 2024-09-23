@@ -90,7 +90,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     /**
      * Método que permite modificar el cliente actual dado otro cliente.
      *
-     * @param cliente
+     * @param cliente actual.
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -99,7 +99,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     /**
      * Método que permite modificar el título de la evluación dado otro título.
      *
-     * @param titulo
+     * @param titulo de la evaluación.
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;

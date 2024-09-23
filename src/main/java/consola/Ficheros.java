@@ -10,37 +10,40 @@ import java.util.ArrayList;
 public class Ficheros {
 
     /**
-     * Coleccion.
+     * Colección de ficheros.
      */
     private ArrayList<Fichero> listaFicheros;
 
     /**
-     * Constructor.
+     * Constructor vacío que inicializa la colección.
      */
     public Ficheros() {
         listaFicheros = new ArrayList<Fichero>();
     }
 
     /**
-     * @return listaficheros
+     * Método que permite obtener la lista de ficheros.
+     *
+     * @return lista de ficheros
      */
     public ArrayList<Fichero> getListaFicheros() {
         return listaFicheros;
     }
 
     /**
-     * Establece el valor de listaFicheros recibido por
+     * Establece el valor de la colección de ficheros.
      *
-     * @param listaFicheros
+     * @param listaFicheros colección de ficheros.
      */
     public void setListaFicheros(ArrayList<Fichero> listaFicheros) {
         this.listaFicheros = listaFicheros;
     }
 
     /**
-     * Metodo que determina si existe un fichero a partir de un ficheroBuscado.
+     * Método que determina si existe un fichero a partir de un nombre de
+     * fichero.
      *
-     * @param ficheroBuscado del fichero
+     * @param ficheroBuscado nombre del fichero a buscar.
      * @return true si existe el fichero.
      */
     public boolean existeFichero(String ficheroBuscado) {
@@ -54,9 +57,9 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que permite agregar un fichero a la lista de ficheros.
+     * Método que permite agregar un fichero a la lista de ficheros.
      *
-     * @param nuevo fichero
+     * @param nuevo fichero a agregar.
      */
     public void agregarFichero(Fichero nuevo) {
         if (!existeFichero(nuevo.getNombre())) {
@@ -79,18 +82,18 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que retorna el fichero dado su posicion en la lista. Asume que el
-     * numero de indice es valido.
+     * Método que retorna el fichero dado su posición en la lista. Asume que el
+     * número de indice es valido.
      *
-     * @param indice
-     * @return fichero
+     * @param indice del fichero
+     * @return fichero en el indice indicado
      */
     public Fichero obtenerFichero(int indice) {
         return this.getListaFicheros().get(indice);
     }
 
     /**
-     * Metodo que retorna el fichero dado su nombre.
+     * Método que retorna el fichero dado su nombre.
      *
      * @param nombre del fichero a buscar.
      * @return encontrado Fichero encontrado en la coleccion.
@@ -106,11 +109,11 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que retorna si un fichero es un directorio o no. Asume que existe
+     * Método que retorna si un fichero es un directorio o no. Asume que existe
      * el fichero a evaluar.
      *
-     * @param ficheroBuscado fichero
-     * @return si es un directorio
+     * @param ficheroBuscado nombre del fichero
+     * @return si es un directorio o no
      */
     public boolean esDirectorio(String ficheroBuscado) {
         int i = 0;
@@ -121,7 +124,7 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que permite obtener los nombres de los ficheros (archivos y
+     * Método que permite obtener los nombres de los ficheros (archivos y
      * directorios) existentes.
      *
      * @param ocultos (si se devuelven los arhivos ocultos o no)
@@ -150,8 +153,8 @@ public class Ficheros {
     }
 
     /**
-     * Metodo que permite obetener los nombres de los ficheros existentes y su
-     * informacion detallada.
+     * Método que permite obetener los nombres de los ficheros existentes y su
+     * información detallada.
      *
      * @param oculto (si se devuelven los arhivos ocultos o no)
      * @return nombres de los arhivos existentes e informacion detallada
@@ -169,9 +172,23 @@ public class Ficheros {
         }
         return detalles;
     }
+    
+    /**
+     * Método que devuelve la colección de ficheros en formato String.
+     *
+     * @return colección de ficheros en formato String.
+     */
+    @Override
+    public String toString() {
+        String resumen = "";
+        for (Fichero f : getListaFicheros()) {
+            resumen += f.toString() + "\n";
+        }
+        return resumen;
+    }
 
     /**
-     * Metodo que carga los ficheros iniciales en el sistema.
+     * Método que carga los ficheros iniciales en el sistema.
      *
      */
     public void cargarPrimerNivel() {
@@ -303,19 +320,5 @@ public class Ficheros {
         agregarFichero(estatuto);
         agregarFichero(dir4);
         agregarFichero(dir5);
-    }
-
-    /**
-     *
-     * @return resumen de la coleccion en formato String. Devuleve cada elemento
-     * por linea, agregando un '\n' al final.
-     */
-    @Override
-    public String toString() {
-        String resumen = "";
-        for (Fichero f : getListaFicheros()) {
-            resumen += f.toString() + "\n";
-        }
-        return resumen;
     }
 }

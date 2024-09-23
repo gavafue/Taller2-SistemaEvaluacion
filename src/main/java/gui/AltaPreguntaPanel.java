@@ -186,6 +186,12 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         return cantidadPreguntas;
     }
 
+    /**
+     * Método que permite establecer el título de la evaluación en interfaz
+     * gráfica.
+     *
+     * @param titulo de la evaluación actual.
+     */
     public void setNombreEvaluacion(String titulo) {
         txtNombreEvaluacion.setText(titulo);
     }
@@ -611,7 +617,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que crea el JFrame destinado a la nueva pregunta a responder por
      * el estudiante.
      *
-     * @param framePregunta.
+     * @param framePregunta en el que se creará
      */
     public void crearFrameNuevaPregunta(AltaPreguntaPanel framePregunta) {
         String[] nuevaPregunta = this.getCliente().obtenerMensaje().split(";;;");
@@ -626,7 +632,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo multiple.
      *
-     * @param pregunta
+     * @param pregunta a cargar
      * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */

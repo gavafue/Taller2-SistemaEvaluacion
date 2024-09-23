@@ -53,7 +53,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Método que permite modificar el cliente actual dado otro cliente.
      *
-     * @param cliente
+     * @param cliente a establecer.
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;

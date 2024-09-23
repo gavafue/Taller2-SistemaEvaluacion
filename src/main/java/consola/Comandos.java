@@ -5,19 +5,21 @@ import java.util.HashMap;
 /**
  * Esta clase permite crear un HashMap de comandos para la consola Linux.
  *
- * @author Gabriel, Anna, Santiago, Juan y Gonzalo
+ * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  */
 public class Comandos {
 
     /**
-     * Coleccion de elementos tipo Comando. En esta, la clave es el nombre del
-     * comando. El nombre del comando es asignado al agregarlo a la coleccion
+     * Colección de elementos tipo Comando. En esta colección la clave es el
+     * nombre del comando. El nombre del comando es asignado al agregarlo a la
+     * colección.
      *
      */
     private HashMap<String, Comando> hashComandos;
 
     /**
-     * Constructor comun.
+     * Constructor común que inicializa la colección y carga los comandos desde
+     * memoria.
      */
     public Comandos() {
         hashComandos = new HashMap<String, Comando>();
@@ -25,31 +27,31 @@ public class Comandos {
     }
 
     /**
-     * Este metodo agrega un comando a hashComandos dado el nombre del comando y
-     * sus caracteristicas.
+     * Este método agrega un comando a la colección dado el nombre del comando y
+     * sus características.
      *
-     * @param nombre del comando
-     * @param comando
+     * @param nombre del comando.
+     * @param comando objeto que contiene las caracteristicas del comando.
      */
     public void agregarComando(String nombre, Comando comando) {
         hashComandos.put(nombre, comando);
     }
 
     /**
-     * Este metodo determina si un comando existe.
+     * Este método determina si un comando existe.
      *
      * @param nombre del comando
-     * @return si el comando existe
+     * @return si el comando existe o no.
      */
     public boolean existeComando(String nombre) {
         return hashComandos.containsKey(nombre);
     }
 
     /**
-     * Este metodo devuelve la descripcion de un comando dado su nombre.
+     * Este método devuelve la descripcion de un comando dado su nombre.
      *
      * @param nombre del comando
-     * @return descripcion
+     * @return descripcion del comando.
      */
     public String obtenerDescripcion(String nombre) {
         String descripcion = "";
@@ -62,11 +64,11 @@ public class Comandos {
     }
 
     /**
-     * Este metodo devuelve un ejemplo en formato String dado el nombre de un
+     * Este método devuelve un ejemplo en formato String dado el nombre de un
      * comando.
      *
      * @param nombre del comando
-     * @return ejemplo
+     * @return ejemplo de uso del comando.
      */
     public String obtenerEjemplo(String nombre) {
         String ejemplo = "";
@@ -79,7 +81,8 @@ public class Comandos {
     }
 
     /**
-     * Este metodo dado el nombre de un comando retorna sus extensiones validas.
+     * Este método dado el nombre de un comando retorna sus extensiones o
+     * opciones validas.
      *
      * @param nombre del comando
      * @return extensiones validas del comando
@@ -89,11 +92,9 @@ public class Comandos {
     }
 
     /**
-     * Este metodo carga los comandos al sistema a partir de un archivo de
-     * texto.
+     * Este metodo carga los comandos en el sistema.
      */
     public void cargarComandos() {
-
         String opcLs[] = {"-l", "-a"};
         String opcSort[] = {"-n"};
         String opcHeadTail[] = {"-n"};
@@ -105,7 +106,6 @@ public class Comandos {
         Comando com1 = new Comando("Lista el contenido de un directorio",
                 "\n     Ejemplo: ls /etc"
                 + "\n     Lista el contenido del directorio /etc\n\n", opcLs);
-
         Comando com3 = new Comando("Crea un directorio", "\n     Ejemplo: mkdir dir1"
                 + "\n     Crea dir1 en el directorio actual",
                 null);
@@ -153,7 +153,6 @@ public class Comandos {
 
         agregarComando("man", com0);
         agregarComando("ls", com1);
-
         agregarComando("mkdir", com3);
         agregarComando("rmdir", com4);
         agregarComando("mv", com5);
@@ -168,6 +167,5 @@ public class Comandos {
         agregarComando("sort", com14);
         agregarComando("chmod", com15);
         agregarComando("|", com16);
-
     }
 }
