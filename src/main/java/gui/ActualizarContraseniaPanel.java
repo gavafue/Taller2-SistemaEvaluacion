@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import conexion.Cliente;
+import java.util.Arrays;
 
 /**
  * JFrame que proveé la interfaz y las funcionalidade necesarias para actualizar
@@ -28,7 +29,6 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
     public ActualizarContraseniaPanel(Cliente cliente) {
         this.cliente = cliente;
         initComponents();
-        txtUsuario.setText(this.cliente.getId());
     }
 
     /**
@@ -55,13 +55,13 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtContrasenia = new javax.swing.JPasswordField();
         cboxMostrarContraseña = new javax.swing.JCheckBox();
         btnActualizarContrasenia = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txtContrasenia2 = new javax.swing.JPasswordField();
 
         setPreferredSize(new java.awt.Dimension(730, 520));
 
@@ -69,21 +69,11 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Usuario:");
-
-        txtUsuario.setEditable(false);
-        txtUsuario.setBackground(new java.awt.Color(234, 234, 234));
-        txtUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtUsuario.setToolTipText("");
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Nueva contraseña:");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Nueva contraseña:");
+        jLabel3.setText("Repetir contraseña:");
 
         txtContrasenia.setBackground(new java.awt.Color(234, 234, 234));
         txtContrasenia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -110,11 +100,14 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setText("En este apartado usted podrá actualizar su contraseña.");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("A continuación, rellene el último campo y seleccione \"Actualizar\":");
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setText("A continuación, rellene ambos campos y seleccione \"Actualizar\":");
+
+        txtContrasenia2.setBackground(new java.awt.Color(234, 234, 234));
+        txtContrasenia2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -123,38 +116,36 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(340, 340, 340))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnActualizarContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtContrasenia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtContrasenia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cboxMostrarContraseña, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(txtContrasenia2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 52, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(39, 39, 39)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtContrasenia2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(cboxMostrarContraseña)
                 .addGap(24, 24, 24)
                 .addComponent(btnActualizarContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,7 +157,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -184,15 +175,10 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtUsuarioActionPerformed
-
-    }// GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * Método que proveé funcionamiento al combobox mostrar contraseña.
@@ -202,8 +188,10 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
     private void cboxMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxMostrarContraseñaActionPerformed
         if (cboxMostrarContraseña.isSelected()) {
             txtContrasenia.setEchoChar((char) 0); // Mostrar el texto
+            txtContrasenia2.setEchoChar((char) 0);
         } else {
             txtContrasenia.setEchoChar('*'); // Ocultar el texto
+            txtContrasenia2.setEchoChar('*'); // Ocultar el texto
         }
     }// GEN-LAST:event_cboxMostrarContraseñaActionPerformed
 
@@ -215,7 +203,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
      */
     private void btnActualizarContraseniaActionPerformed(java.awt.event.ActionEvent evt) {
         String password = new String(txtContrasenia.getPassword());// GEN-FIRST:event_btnActualizarContraseniaActionPerformed
-        if (txtContrasenia != null && !password.isBlank()) {
+        if (txtContrasenia != null && !password.isBlank() && (Arrays.equals(txtContrasenia.getPassword(), txtContrasenia2.getPassword()))) {
             try {
                 this.getCliente().intercambiarMensajes(
                         this.getCliente().getId() + ";;;" + password
@@ -230,7 +218,7 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
                         "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "NO SE MODIFICO. La password no puede ser vacia.");
+            JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos válidos");
         }
     }// GEN-LAST:event_btnActualizarContraseniaActionPerformed
 
@@ -244,6 +232,6 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPasswordField txtContrasenia;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JPasswordField txtContrasenia2;
     // End of variables declaration//GEN-END:variables
 }

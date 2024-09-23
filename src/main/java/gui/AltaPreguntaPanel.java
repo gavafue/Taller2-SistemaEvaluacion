@@ -308,6 +308,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     public void interfazMultiple() {
         lblEnunciadoMultiple.setText(enunciado);
         panelMultiple.setVisible(true);
+        this.lblEnunciadoMultiple.setToolTipText(enunciado);
     }
 
     /**
@@ -322,6 +323,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelEspaciosVF.setVisible(true);
         txtRespuestaEspacios.setVisible(true);
         cboxVerdaderoOFalso.setVisible(false);
+        this.txtEnunciadoEspaciosVF.setToolTipText(enunciado);
     }
 
     /**
@@ -334,6 +336,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         txtRespuestaEspacios.setText("a");
         txtRespuestaEspacios.setVisible(false);
         cboxVerdaderoOFalso.setVisible(true);
+        this.txtEnunciadoEspaciosVF.setToolTipText(enunciado);
     }
 
     /**
@@ -652,6 +655,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarMultiple.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxOpcionesMultiple.setSelectedIndex(0);
+        this.lblEnunciadoMultiple.setToolTipText(enunciado);
     }
 
     /**
@@ -673,6 +677,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.cboxVerdaderoOFalso.setSelectedIndex(0);
+        this.txtEnunciadoEspaciosVF.setToolTipText(enunciado);
     }
 
     /**
@@ -694,6 +699,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         framePregunta.btnFinalizarEspaciosVF.setText("Siguiente");
         // Elimina el resultado cargado en la pregunta anterior
         framePregunta.txtRespuestaEspacios.setText("");
+        this.txtEnunciadoEspaciosVF.setToolTipText(enunciado);
     }
 
     /**
