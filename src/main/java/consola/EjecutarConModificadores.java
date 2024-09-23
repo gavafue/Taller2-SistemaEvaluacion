@@ -491,7 +491,7 @@ public class EjecutarConModificadores {
                 mensaje = sortN(mensajeTokenizado);
             }
         } catch (NullPointerException ex) {
-            mensaje = ">> No existe el archivo <<\n Error: " + ex.getMessage();
+            mensaje = ">> No existe el archivo <<\n";
         }
         return mensaje;
     }
