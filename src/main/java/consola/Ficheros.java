@@ -172,7 +172,7 @@ public class Ficheros {
         }
         return detalles;
     }
-    
+
     /**
      * Método que devuelve la colección de ficheros en formato String.
      *
@@ -279,6 +279,18 @@ public class Ficheros {
                 + "no puede afectar la estabilidad en el cargo de otros funcionarios docentes\n"
                 + "efectivos.\n");
 
+        Archivo test = new Archivo("test.txt",
+                "### ARCHIVO ORDENABLE ###\n"
+                + "1 - texto\n"
+                + "3 - texto\n"
+                + "2 - texto\n"
+                + "4 - texto\n"
+                + "### Tester no te aparezcas por acá. ###\n"
+                + "Texto a\n"
+                + "Texto b\n"
+                + "Texto c\n"
+                + "0 - texto\n");
+
         // ############################## DIRECTORIOS ##########################
         Directorio dir1 = new Directorio("dir1");
         dir1.agregarContenido(m);
@@ -320,5 +332,7 @@ public class Ficheros {
         agregarFichero(estatuto);
         agregarFichero(dir4);
         agregarFichero(dir5);
+        agregarFichero(test);
+
     }
 }

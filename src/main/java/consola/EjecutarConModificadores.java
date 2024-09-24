@@ -538,17 +538,19 @@ public class EjecutarConModificadores {
     private String ordenarConNumeros(String[] lineas) {
         String ordenadas = "";
         TreeMap<Integer, ArrayList<String>> lineasMapeadas = new TreeMap<>();
-        ArrayList<String> actual = new ArrayList<>();
-        for (String linea : lineas) { // ######################################## OBTENGO NUMERO
-            //Podria buscar en los digitos vecinos a ver si encuentra mas numeros...
-            //tomo el numerito
-            Integer numerito = Integer.parseInt(linea, 0, 0, 10);
-            System.out.println("Numerito: " + numerito);
+        ArrayList<String> actual;
+        for (String linea : lineas) {
+            actual = new ArrayList<>();
+            Integer numerito = Character.getNumericValue(linea.charAt(0)); //duplica
             // CARGO mapa
             if (!lineasMapeadas.containsKey(numerito)) {
+                //Si no contiene la key, lo guardo en mi lista local e ingreso esa lista como valor en el mapa.
                 actual.add(linea);
-                lineasMapeadas.put(numerito, actual);
+                lineasMapeadas.put(numerito, actual); // agrego toda la lista cada iteraci[on.
             } else {
+                //Si efectivamente contiene la key, guardo el valor del mapa para esa key en mi lista local.
+                //Le agrego el valor actual a la lista local y vuelvo a cargar en el mapa con la misma key.
+
                 actual = lineasMapeadas.get(numerito);
                 actual.add(linea);
                 lineasMapeadas.put(numerito, actual);
@@ -564,8 +566,7 @@ public class EjecutarConModificadores {
     }
 
     /**
-     * Siguiendo las especificaciones del sort en el proyecto GNU: Si el primer
-     * caracter de la linea es letra, se toma como de valor inferior a cualquier
+     * Si el primer caracter de la linea es letra, se toma como de valor inferior a cualquier
      * numero. Por tanto, se mostraria primero. Si el primer caracter es numero,
      * se ordena por valor con los numeros.
      *
