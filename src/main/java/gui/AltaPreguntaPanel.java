@@ -1009,7 +1009,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         jLabel3.setText("Puntaje");
 
         spnPuntajeMultiple.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        spnPuntajeMultiple.setModel(new javax.swing.SpinnerNumberModel());
+        spnPuntajeMultiple.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         javax.swing.GroupLayout panelPuntajeLayout = new javax.swing.GroupLayout(panelPuntaje);
         panelPuntaje.setLayout(panelPuntajeLayout);
@@ -1125,7 +1125,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         panelRespuestaEspaciosVF.add(txtRespuestaEspacios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 160, 36));
 
         spnPuntajeEspaciosVF.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
-        spnPuntajeEspaciosVF.setModel(new javax.swing.SpinnerNumberModel());
+        spnPuntajeEspaciosVF.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Puntaje:");
