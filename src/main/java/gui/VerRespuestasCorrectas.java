@@ -20,7 +20,7 @@ import javax.swing.table.JTableHeader;
  *
  * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
-public class VerRespuestasPanel extends javax.swing.JPanel {
+public class VerRespuestasCorrectas extends javax.swing.JPanel {
 
     /**
      * Cliente actual del sistema.
@@ -51,7 +51,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
      * @param rol rol del cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
      */
-    public VerRespuestasPanel(Cliente cliente, String titulo, String rol, JPanel panelContent) {
+    public VerRespuestasCorrectas(Cliente cliente, String titulo, String rol, JPanel panelContent) {
         this.cliente = cliente;
         this.titulo = titulo;
         this.panelContent = panelContent;
@@ -158,7 +158,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = {"Enunciado", "Respuesta"};
+            String[] columnas = {"Enunciado", "Respuesta Correcta"};
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -189,7 +189,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
             }
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
-            labelTitulo.setText("Respuestas de " + this.getTitulo());
+            labelTitulo.setText("Respuestas Correctas de " + this.getTitulo());
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
@@ -250,7 +250,7 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(730, 520));
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        labelTitulo.setText("Respuestas de");
+        labelTitulo.setText("Respuestas Correctas de");
 
         tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
@@ -282,11 +282,10 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                    .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -309,19 +308,14 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            // GEN-FIRST:event_btnAtrasActionPerformed
-            GestionEvaluacionesPanel panelEvaluaciones = new GestionEvaluacionesPanel(cliente, rol, panelContent);
-            panelEvaluaciones.setSize(730, 520);
-            panelEvaluaciones.setLocation(0, 0);
-            panelContent.removeAll();
-            panelContent.add(panelEvaluaciones);
-            panelContent.revalidate();
-            panelContent.repaint();
-        } // GEN-LAST:event_btnAtrasActionPerformed
-        catch (IOException ex) {
-            Logger.getLogger(VerRespuestasPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // GEN-FIRST:event_btnAtrasActionPerformed
+        VerHistorialesPanel panelEvaluaciones = new VerHistorialesPanel(titulo, cliente, rol, panelContent);
+        panelEvaluaciones.setSize(730, 520);
+        panelEvaluaciones.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(panelEvaluaciones);
+        panelContent.revalidate();
+        panelContent.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

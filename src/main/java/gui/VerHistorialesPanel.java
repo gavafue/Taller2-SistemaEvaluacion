@@ -161,7 +161,6 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                 modelo.addRow(fila);
             }
         }
-
         this.darEstiloTabla();
         tableHistorico.setModel(modelo);
     }
@@ -218,9 +217,9 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
             this.getCliente().intercambiarMensajes(instruccion);
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 if (this.getCliente().obtenerMensaje().equals("true")) {
-                    btnRespuestas.setVisible(true);
+                    btnCorrectas.setVisible(true);
                 } else {
-                    btnRespuestas.setVisible(false);
+                    btnCorrectas.setVisible(false);
                 }
             }
         } catch (IOException e) {
@@ -313,8 +312,9 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         tableHistorico = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        btnRespuestas = new javax.swing.JButton();
+        btnCorrectas = new javax.swing.JButton();
         txtPuntajeTotal = new javax.swing.JLabel();
+        btnRespuestas = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
@@ -345,6 +345,12 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tableHistorico);
+        if (tableHistorico.getColumnModel().getColumnCount() > 0) {
+            tableHistorico.getColumnModel().getColumn(0).setResizable(false);
+            tableHistorico.getColumnModel().getColumn(0).setPreferredWidth(500);
+            tableHistorico.getColumnModel().getColumn(1).setResizable(false);
+            tableHistorico.getColumnModel().getColumn(1).setPreferredWidth(500);
+        }
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 650, 340));
 
@@ -363,22 +369,79 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         lblTitulo.setText("Evaluación:");
         add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 1401, -1));
 
-        btnRespuestas.setBackground(new java.awt.Color(25, 118, 210));
-        btnRespuestas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
-        btnRespuestas.setText("Ver Respuestas");
-        btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
+        btnCorrectas.setBackground(new java.awt.Color(25, 118, 210));
+        btnCorrectas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCorrectas.setForeground(new java.awt.Color(255, 255, 255));
+        btnCorrectas.setText("Ver Correctas");
+        btnCorrectas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuestasActionPerformed(evt);
+                btnCorrectasActionPerformed(evt);
             }
         });
-        add(btnRespuestas, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, 167, 40));
+        add(btnCorrectas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 167, 40));
 
         txtPuntajeTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPuntajeTotal.setForeground(new java.awt.Color(0, 0, 153));
         txtPuntajeTotal.setText("Puntaje total:");
         add(txtPuntajeTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 744, -1));
+
+        btnRespuestas.setBackground(new java.awt.Color(25, 118, 210));
+        btnRespuestas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnRespuestas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRespuestas.setText("Ver Respuestas");
+        btnRespuestas.setActionCommand("Ver Respuestas");
+        btnRespuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRespuestasActionPerformed(evt);
+            }
+        });
+        add(btnRespuestas, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 167, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCorrectasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrectasActionPerformed
+        VerRespuestasCorrectas evaluacionesPanel = new VerRespuestasCorrectas(cliente, titulo, rol, panelContent);
+        evaluacionesPanel.setSize(730, 520);
+        evaluacionesPanel.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(evaluacionesPanel);
+        panelContent.revalidate();
+        panelContent.repaint();
+    }//GEN-LAST:event_btnCorrectasActionPerformed
+
+    /**
+     * Método que proveé funcionamiento al botón "ver respuestas", que
+     * redirecciona al JFrame correspondiente.
+     *
+     * @param evt
+     */
+    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuestasActionPerformed
+        String idEstudiante = "";
+        if (this.rol.equals("docente")) {
+            int selectedRow = tableHistorico.getSelectedRow();
+            if (selectedRow == -1) { // No hay ninguna evaluación seleccionada
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un estudiante", "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                idEstudiante = (String) tableHistorico.getValueAt(selectedRow, 0);
+                VerRespuestasEstudiante evaluacionesPanel = new VerRespuestasEstudiante (cliente, titulo, idEstudiante, rol, panelContent);
+                evaluacionesPanel.setSize(730, 520);
+                evaluacionesPanel.setLocation(0, 0);
+                panelContent.removeAll();
+                panelContent.add(evaluacionesPanel);
+                panelContent.revalidate();
+                panelContent.repaint();
+            }
+        } else {
+            idEstudiante = this.getCliente().getId();
+            VerRespuestasEstudiante  evaluacionesPanel = new VerRespuestasEstudiante (cliente, titulo, idEstudiante, rol, panelContent);
+            evaluacionesPanel.setSize(730, 520);
+            evaluacionesPanel.setLocation(0, 0);
+            panelContent.removeAll();
+            panelContent.add(evaluacionesPanel);
+            panelContent.revalidate();
+            panelContent.repaint();
+        }
+    }//GEN-LAST:event_btnRespuestasActionPerformed
 
     /**
      * Método que proveé funcionamiento al botón "atrás", que redirecciona a la
@@ -402,24 +465,9 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * Método que proveé funcionamiento al botón "ver respuestas", que
-     * redirecciona al JFrame correspondiente.
-     *
-     * @param evt
-     */
-    private void btnRespuestasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRespuestasActionPerformed
-        VerRespuestasPanel evaluacionesPanel = new VerRespuestasPanel(cliente, titulo, rol, panelContent);
-        evaluacionesPanel.setSize(730, 520);
-        evaluacionesPanel.setLocation(0, 0);
-        panelContent.removeAll();
-        panelContent.add(evaluacionesPanel);
-        panelContent.revalidate();
-        panelContent.repaint();
-    }// GEN-LAST:event_btnRespuestasActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnCorrectas;
     private javax.swing.JButton btnRespuestas;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;
