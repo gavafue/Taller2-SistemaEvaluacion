@@ -1,5 +1,4 @@
 package gui;
-
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -8,15 +7,14 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
 
 /**
- * JFrame destinado a permitir visualizar las preguntas y respuestas correctas
- * de una evaluación.
+ * JFrame destinado a permitir visualizar las respuestas del estudiante
+ * en una evaluación.
  *
  * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
@@ -64,7 +62,8 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
         this.panelContent = panelContent;
         this.rol = rol;
         initComponents();
-        this.solicitarRespuestas();
+        this.solicitarRespuestasCorrectas();
+        this.solicitarRespuestasEstudiante();
     }
 
     /**
@@ -129,10 +128,15 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     }
     
     /**
+     * Almacena las respuestasCorrectas para compararlas
+     */
+    private ArrayList<String> respuestasCorrectas;
+    
+    /**
      * Solicita al cliente las respuestas de un estudiante a una evaluación
      * seleccionada y actualiza la tabla con la información recibida.
      */
-    public void solicitarRespuestas() {
+    public void solicitarRespuestasEstudiante() {
         try {
             // Prepara el mensaje de solicitud y lo envía al cliente
             String instruccion = this.getCliente().formatearMensaje(this.getTitulo() + ";;;" + this.getIdEstudiante(), "Evaluaciones",
@@ -171,6 +175,69 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    /**
+     * Solicita al cliente las respuestas correctas de evaluación seleccionada y
+     * las almacena en la lista
+     */
+    public void solicitarRespuestasCorrectas() {
+        try {
+            // Prepara el mensaje de solicitud y lo envía al cliente
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ObtenerCorrectas");
+            this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica el código de respuesta del cliente
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                cargarRespuestasCorrectas();
+            } else {
+                throw new RuntimeException("Código de respuesta inesperado: " + this.getCliente().obtenerCodigo());
+            }
+        } catch (IOException e) {
+            // Manejo de errores
+            System.err.println("Error de comunicación con el servidor. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor. Detalles: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Captura cualquier otra excepción inesperada
+            System.err.println("Ha ocurrido un error inesperado al solicitar respuestas correctas. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Método que carga las respuestas correctas en una lista para compararlas
+     * con las del estudiante
+     * 
+     */
+    public void cargarRespuestasCorrectas() {
+        try {
+            respuestasCorrectas = new ArrayList<>(); // Inicializar la lista
+            String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
+            for (String preguntaYRespuesta : preguntasYRespuestas) {
+                String[] separarPreguntaYRespuesta = preguntaYRespuesta.split(",,,");
+                if (separarPreguntaYRespuesta.length >= 2) {
+                    respuestasCorrectas.add(separarPreguntaYRespuesta[1]);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cargar respuestas correctas. Detalles: " + e.getMessage());
+        }
+    }
+    
+     /**
+     * Método que compara las respuestas del estudiantes con las
+     * con las correctas e instancia el renderizador para colorear las celdas
+     *
+     */
+    public void compararConCorrectas() {
+        if (respuestasCorrectas == null || respuestasCorrectas.isEmpty()) {
+            System.err.println("Las respuestas correctas no están disponibles.");
+            return;
+        }
+        RendererColores renderer = new RendererColores(respuestasCorrectas);
+        tableRespuestas.getColumnModel().getColumn(1).setCellRenderer(renderer);
     }
 
     /**
@@ -213,6 +280,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
             labelTitulo.setText("Respuestas de " + this.getTitulo());
+            this.compararConCorrectas();
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());

@@ -8,8 +8,6 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
@@ -42,7 +40,7 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
      * Panel de contenido.
      */
     private JPanel panelContent;
-
+    
     /**
      * Constructor común encargado de inicializar los elementos de la interfaz y
      * los atributos de la clase.
@@ -56,8 +54,8 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
         this.titulo = titulo;
         this.panelContent = panelContent;
         this.rol = rol;
-        initComponents();
-        this.solicitarPreguntasYRespuestas();
+        initComponents();        
+        this.solicitarPreguntasYRespuestas();   
     }
 
     /**
@@ -182,14 +180,15 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
-                }
+                }                
                 // Agrega la fila a la tabla
-                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};
+                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};                
                 modelo.addRow(fila);
-            }
+            }            
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
             labelTitulo.setText("Respuestas Correctas de " + this.getTitulo());
+            
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
