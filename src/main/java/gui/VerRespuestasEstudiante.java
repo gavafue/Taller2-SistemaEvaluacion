@@ -7,7 +7,6 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
@@ -198,7 +197,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
                     throw new IllegalArgumentException(
                             "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
                 }
-                // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
+                // Verifica si la respuesta contiene una coma y ajusta según sea necesario
                 if (separarPreguntaYRespuesta[1].contains(",")) {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
                     if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {

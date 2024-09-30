@@ -469,8 +469,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                         String respuesta;
                         if (cboxVerdaderoOFalso.isVisible()) { // Si es vf
                             respuesta = String.valueOf(cboxVerdaderoOFalso.getSelectedItem());
-                        } else {
-                            respuesta = txtRespuestaEspacios.getText();
+                        } else {                            
+                            respuesta = txtRespuestaEspacios.getText();                                                    
                         }
                         cantidadPreguntas++;
                         this.solicitarSiguientePregunta(respuesta, this);
