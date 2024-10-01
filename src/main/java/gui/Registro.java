@@ -281,6 +281,8 @@ public class Registro extends javax.swing.JFrame {
                     if ("200".equals(codigo)) {
                         JOptionPane.showMessageDialog(this, mensaje, "Creación Exitosa",
                                 JOptionPane.INFORMATION_MESSAGE);
+                        txtCedula.setText(null);
+                        txtContrasenia.setText((null));
                     } else {
                         JOptionPane.showMessageDialog(this, mensaje, "Error " + codigo, JOptionPane.ERROR_MESSAGE);
                     }

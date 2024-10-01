@@ -213,6 +213,8 @@ public class ActualizarContraseniaPanel extends javax.swing.JPanel {
             }
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 JOptionPane.showMessageDialog(this, "Modificada con éxito");
+                txtContrasenia.setText(null);
+                txtContrasenia2.setText(null);
             } else {
                 JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
                         "Error" + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);

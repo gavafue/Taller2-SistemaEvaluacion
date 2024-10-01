@@ -81,13 +81,12 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Constructor que permite crear una instancia de la clase a partir del
      * cliente actual y el JPanel vista previa de la evaluación.
      *
-     * @param vistaPrevia             permite visualizar los cambios en la
-     *                                evaluación de
-     *                                forma dinámica.
-     * @param cliente                 cliente actual.
-     * @param rol                     rol del cliente actual.
-     * @param evaluacion              título de la evaluación.
-     * @param panelContentDashboard   panel de contenido.
+     * @param vistaPrevia permite visualizar los cambios en la evaluación de
+     * forma dinámica.
+     * @param cliente cliente actual.
+     * @param rol rol del cliente actual.
+     * @param evaluacion título de la evaluación.
+     * @param panelContentDashboard panel de contenido.
      * @param panelContentVistaPrevia panel de vista previa.
      */
     public AltaPreguntaPanel(JPanel vistaPrevia, Cliente cliente, String rol, String evaluacion,
@@ -286,9 +285,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     }
 
     /**
-     * Método que devuelve true si el texto contiene mas de una coma ","
-     * false en caso contrario
-     * 
+     * Método que devuelve true si el texto contiene mas de una coma "," false
+     * en caso contrario
+     *
      * @param texto a procesar
      * @return
      */
@@ -363,16 +362,28 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * enunciado, que permite al escribir el enunciado y seleccionar el tipo de
      * pregunta a crear abrir el panel correspondiente.
      */
-    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bntSiguienteActionPerformed
+    private void bntSiguienteActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_bntSiguienteActionPerformed
+        // Verificar si el campo de texto está vacío
         if (txtEnunciado.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
         } else {
-            this.setEnunciado(txtEnunciado.getText());
-            this.setTipoPregunta((String) cboxTipoPregunta.getSelectedItem());
+            String textoEnunciado = txtEnunciado.getText();
+            String tipoPregunta = (String) cboxTipoPregunta.getSelectedItem();
+
+            // Verificar si el tipo de pregunta es "Rellenar Espacios" y si el enunciado no contiene '_'
+            if (tipoPregunta.equals("Rellenar espacios") && !textoEnunciado.contains("_")) {
+                JOptionPane.showMessageDialog(null, "Por favor, debe poner mínimo un '_' en su enunciado.");
+                return; // Salir del método para evitar continuar
+            }
+
+            // Si todas las validaciones son correctas, establecer el enunciado y tipo de pregunta
+            this.setEnunciado(textoEnunciado);
+            this.setTipoPregunta(tipoPregunta);
             lblTipo.setText("Respuesta");
             this.remove(panelEnunciado);
 
-            switch (this.getTipoPregunta()) {
+            // Continuar con el flujo según el tipo de pregunta
+            switch (tipoPregunta) {
                 case "Verdadero o Falso":
                     this.interfazVF();
                     break;
@@ -405,8 +416,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                 // Agregar pregunta a la evaluación
                 agregarPregunta();
             }
-        }
-        // Verificar si el botón es "Siguiente" (rol estudiante)
+        } // Verificar si el botón es "Siguiente" (rol estudiante)
         else if ("Siguiente".equals(btnFinalizarMultiple.getText())) {
             try {
                 // Solicitar la siguiente pregunta
@@ -461,9 +471,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * @param evt
      */
     /**
-     * Método que permite dar funcionalidad desde el JPanel de espacios en blanco o
-     * verdadero/falso al botón "Finalizar" desde el rol docente y "Siguiente" desde
-     * el rol estudiante.
+     * Método que permite dar funcionalidad desde el JPanel de espacios en
+     * blanco o verdadero/falso al botón "Finalizar" desde el rol docente y
+     * "Siguiente" desde el rol estudiante.
      *
      * @param evento
      */
@@ -479,8 +489,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
                     // Agregar pregunta a la evaluación
                     agregarPreguntaVF();
                 }
-            }
-            // Verificar si el botón es "Siguiente" (rol estudiante)
+            } // Verificar si el botón es "Siguiente" (rol estudiante)
             else if (btnFinalizarEspaciosVF.getText().equals("Siguiente")) {
                 try {
                     // Obtener la respuesta del estudiante
@@ -550,9 +559,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que le solicita al servidor la siguiente pregunta de la
      * evaluación.
      *
-     * @param respuesta     de la pregunta anterior.
+     * @param respuesta de la pregunta anterior.
      * @param framePregunta JFrame donde visualiza el estudiante la pregunta de
-     *                      la evaluación.
+     * la evaluación.
      * @throws IOException
      */
     private void solicitarSiguientePregunta(String respuesta, AltaPreguntaPanel framePregunta) throws IOException {
@@ -713,8 +722,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo multiple.
      *
-     * @param pregunta      a cargar
-     * @param puntaje       asociado a la pregunta.
+     * @param pregunta a cargar
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiMultiple(String[] pregunta, int puntaje, AltaPreguntaPanel framePregunta) {
@@ -746,7 +755,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo vf.
      *
-     * @param puntaje       asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiVF(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -768,7 +777,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo espacios.
      *
-     * @param puntaje       asociado a la pregunta.
+     * @param puntaje asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiEspacios(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -790,7 +799,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Metodo que permite cargar en un JFrame de tipo pregunta con la pregunta
      * actual.
      *
-     * @param pregunta      actual.
+     * @param pregunta actual.
      * @param framePregunta en el que se agregarán los componentes.
      */
     public void cargarEnGui(String[] pregunta, AltaPreguntaPanel framePregunta) {
@@ -1304,7 +1313,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_cboxOpcionesMultipleActionPerformed
-     // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
+    // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
 
     private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtOpc1ActionPerformed
         // TODO add your handling code here:

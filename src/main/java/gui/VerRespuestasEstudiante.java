@@ -10,11 +10,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.JTableHeader;
 
 /**
- * JFrame destinado a permitir visualizar las respuestas del estudiante
- * en una evaluación.
+ * JFrame destinado a permitir visualizar las respuestas del estudiante en una
+ * evaluación.
  *
  * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
@@ -49,11 +50,11 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     /**
      * Constructor común encargado de inicializar los elementos de la interfaz y
      * los atributos de la clase.
-     * 
-     * @param cliente      cliente actual.
-     * @param titulo       titulo de la evaluación.
+     *
+     * @param cliente cliente actual.
+     * @param titulo titulo de la evaluación.
      * @param idEstudiante id del estudiante.
-     * @param rol          rol del cliente actual.
+     * @param rol rol del cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
      */
     public VerRespuestasEstudiante(Cliente cliente, String titulo, String idEstudiante, String rol,
@@ -66,7 +67,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
         initComponents();
         solicitarRespuestasEstudiante();
         solicitarCalcularPorcentaje();
-
+        this.tableRespuestas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -89,7 +90,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
 
     /**
      * Permite obtener la id del estudiante.
-     * 
+     *
      * @return la id del estudiante.
      */
     public String getIdEstudiante() {
@@ -125,7 +126,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
 
     /**
      * Permite establecer la id del estudiante.
-     * 
+     *
      * @param idEstudiante id del estudiante.
      */
     public void setIdEstudiante(String idEstudiante) {
@@ -188,7 +189,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = { "Enunciado", "Respuesta del Estudiante" };
+            String[] columnas = {"Enunciado", "Respuesta del Estudiante"};
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -216,7 +217,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
                     separarPreguntaYRespuesta[1] = "Sin responder";
                 }
                 // Agrega la fila a la tabla
-                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
+                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};
                 modelo.addRow(fila);
             }
             this.darEstiloTabla();
@@ -249,10 +250,9 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     }
 
     /**
-     * Metodo que solicita al servidor comparar las respuestas del estudiando con
-     * las correctas
-     * para colorear la tabla
-     * 
+     * Metodo que solicita al servidor comparar las respuestas del estudiando
+     * con las correctas para colorear la tabla
+     *
      */
     public void solicitarCompararRespuestas() {
         try {
