@@ -212,6 +212,8 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
+                } else if (separarPreguntaYRespuesta[1].equals(valorPorDefecto)) {
+                    separarPreguntaYRespuesta[1] = "Sin responder";
                 }
                 // Agrega la fila a la tabla
                 Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
