@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -57,6 +58,7 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
         this.rol = rol;
         initComponents();
         this.solicitarPreguntasYRespuestas();
+        this.tableRespuestas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**

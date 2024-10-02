@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
  * JFrame que permite gestionar las evaluaciones actuales del sistema.
@@ -55,6 +56,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
         this.determinarInterfaz(); // Muestra determinados elementos gráficos dependiendo del rol
         this.solicitarTitulosEvaluaciones();
         setGenerador(new AltaEvaluacionPanel(cliente, panelContent));
+        this.tableEvaluaciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**

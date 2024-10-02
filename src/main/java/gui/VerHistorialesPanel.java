@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -18,6 +19,7 @@ import javax.swing.table.JTableHeader;
  * JFrame que representa los historiales de una evaluación, donde se visualizan
  * todos los estudiantes que la realizaron y su puntaje desde el rol docente.
  * Minetras que desde el rol estudiante solo se visualiza su propio puntaje.
+ *
  * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
 public class VerHistorialesPanel extends javax.swing.JPanel {
@@ -45,6 +47,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
     /**
      * Constructor que permite instanciar el JFrame VerHistoriales y carga los
      * atributos necesarios para ello.
+     *
      * @param titulo titulo de la evaluación.
      * @param cliente cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
@@ -60,6 +63,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
         this.solicitarHistoriales();
         this.visualizarBtnRespuestas();
         this.solicitarPuntajeTotalEvaluacion();
+        this.tableHistorico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -92,6 +96,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
     /**
      * Método que permite modificar el cliente actual conectado, dado otro
      * cliente.
+     *
      * @param cliente actual.
      */
     public void setCliente(Cliente cliente) {
@@ -100,6 +105,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
     /**
      * Método que pemite modificar el título de la evaluación, dado otro título.
+     *
      * @param titulo titulo de la evaluación.
      */
     public void setTitulo(String titulo) {
@@ -108,6 +114,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
 
     /**
      * Método que permite modificar el rol del cliente, dado otro rol.
+     *
      * @param rol rol del cliente actual.
      */
     public void setRol(String rol) {
@@ -218,8 +225,10 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
             if (this.getCliente().obtenerCodigo().equals("200")) {
                 if (this.getCliente().obtenerMensaje().equals("true")) {
                     btnCorrectas.setVisible(true);
+                    btnRespuestas.setVisible(true);
                 } else {
                     btnCorrectas.setVisible(false);
+                    btnRespuestas.setVisible(false);
                 }
             }
         } catch (IOException e) {
@@ -423,7 +432,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 idEstudiante = (String) tableHistorico.getValueAt(selectedRow, 0);
-                VerRespuestasEstudiante evaluacionesPanel = new VerRespuestasEstudiante (cliente, titulo, idEstudiante, rol, panelContent);
+                VerRespuestasEstudiante evaluacionesPanel = new VerRespuestasEstudiante(cliente, titulo, idEstudiante, rol, panelContent);
                 evaluacionesPanel.setSize(730, 520);
                 evaluacionesPanel.setLocation(0, 0);
                 panelContent.removeAll();
@@ -433,7 +442,7 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
             }
         } else {
             idEstudiante = this.getCliente().getId();
-            VerRespuestasEstudiante  evaluacionesPanel = new VerRespuestasEstudiante (cliente, titulo, idEstudiante, rol, panelContent);
+            VerRespuestasEstudiante evaluacionesPanel = new VerRespuestasEstudiante(cliente, titulo, idEstudiante, rol, panelContent);
             evaluacionesPanel.setSize(730, 520);
             evaluacionesPanel.setLocation(0, 0);
             panelContent.removeAll();
