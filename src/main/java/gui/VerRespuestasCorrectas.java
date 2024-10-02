@@ -8,8 +8,6 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
@@ -20,7 +18,7 @@ import javax.swing.table.JTableHeader;
  *
  * @author Ana, Gabriel, Gonzalo, Juan y Santiago.
  */
-public class VerRespuestasPanel extends javax.swing.JPanel {
+public class VerRespuestasCorrectas extends javax.swing.JPanel {
 
     /**
      * Cliente actual del sistema.
@@ -46,12 +44,13 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     /**
      * Constructor común encargado de inicializar los elementos de la interfaz y
      * los atributos de la clase.
-     * @param cliente cliente actual.
-     * @param titulo titulo de la evaluación.
-     * @param rol rol del cliente actual.
+     * 
+     * @param cliente      cliente actual.
+     * @param titulo       titulo de la evaluación.
+     * @param rol          rol del cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
      */
-    public VerRespuestasPanel(Cliente cliente, String titulo, String rol, JPanel panelContent) {
+    public VerRespuestasCorrectas(Cliente cliente, String titulo, String rol, JPanel panelContent) {
         this.cliente = cliente;
         this.titulo = titulo;
         this.panelContent = panelContent;
@@ -155,10 +154,11 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
      * la tabla.
      */
     public void cargarPreguntasYRespuestas() {
+        String valorPorDefecto = "xF_45&3";
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = {"Enunciado", "Respuesta"};
+            String[] columnas = { "Enunciado", "Respuesta Correcta" };
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -175,21 +175,21 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
                     throw new IllegalArgumentException(
                             "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
                 }
-                // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
                 if (separarPreguntaYRespuesta[1].contains(",")) {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
-                    if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
+                    if (separarRespuestas.length > 1 && valorPorDefecto.equals(separarRespuestas[1])) {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
                 }
                 // Agrega la fila a la tabla
-                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};
+                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
                 modelo.addRow(fila);
             }
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
-            labelTitulo.setText("Respuestas de " + this.getTitulo());
+            labelTitulo.setText("Respuestas Correctas de " + this.getTitulo());
+
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
@@ -238,7 +238,8 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labelTitulo = new javax.swing.JLabel();
@@ -250,20 +251,19 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(730, 520));
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        labelTitulo.setText("Respuestas de");
+        labelTitulo.setText("Respuestas Correctas de");
 
         tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Enunciado", "Respuesta"
-            }
-        ));
+                new Object[][] {
+                        { null, null },
+                        { null, null },
+                        { null, null },
+                        { null, null }
+                },
+                new String[] {
+                        "Enunciado", "Respuesta"
+                }));
         jScrollPane1.setViewportView(tableRespuestas);
 
         btnAtras.setBackground(new java.awt.Color(0, 0, 153));
@@ -279,27 +279,30 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                                        .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(40, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAtras)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAtras)
+                                .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -309,19 +312,14 @@ public class VerRespuestasPanel extends javax.swing.JPanel {
      * @param evt
      */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            // GEN-FIRST:event_btnAtrasActionPerformed
-            GestionEvaluacionesPanel panelEvaluaciones = new GestionEvaluacionesPanel(cliente, rol, panelContent);
-            panelEvaluaciones.setSize(730, 520);
-            panelEvaluaciones.setLocation(0, 0);
-            panelContent.removeAll();
-            panelContent.add(panelEvaluaciones);
-            panelContent.revalidate();
-            panelContent.repaint();
-        } // GEN-LAST:event_btnAtrasActionPerformed
-        catch (IOException ex) {
-            Logger.getLogger(VerRespuestasPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // GEN-FIRST:event_btnAtrasActionPerformed
+        VerHistorialesPanel panelEvaluaciones = new VerHistorialesPanel(titulo, cliente, rol, panelContent);
+        panelEvaluaciones.setSize(730, 520);
+        panelEvaluaciones.setLocation(0, 0);
+        panelContent.removeAll();
+        panelContent.add(panelEvaluaciones);
+        panelContent.revalidate();
+        panelContent.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
