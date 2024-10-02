@@ -1,4 +1,5 @@
 package gui;
+
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -7,7 +8,6 @@ import conexion.Cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.table.JTableHeader;
@@ -40,7 +40,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
      * La id del estudiante.
      */
     private String idEstudiante;
-    
+
     /**
      * Panel de contenido.
      */
@@ -49,21 +49,24 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     /**
      * Constructor común encargado de inicializar los elementos de la interfaz y
      * los atributos de la clase.
-     * @param cliente cliente actual.
-     * @param titulo titulo de la evaluación.
+     * 
+     * @param cliente      cliente actual.
+     * @param titulo       titulo de la evaluación.
      * @param idEstudiante id del estudiante.
-     * @param rol rol del cliente actual.
+     * @param rol          rol del cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
      */
-    public VerRespuestasEstudiante(Cliente cliente, String titulo, String idEstudiante, String rol, JPanel panelContent) {
+    public VerRespuestasEstudiante(Cliente cliente, String titulo, String idEstudiante, String rol,
+            JPanel panelContent) {
         this.cliente = cliente;
         this.titulo = titulo;
         this.idEstudiante = idEstudiante;
         this.panelContent = panelContent;
         this.rol = rol;
         initComponents();
-        this.solicitarRespuestasCorrectas();
-        this.solicitarRespuestasEstudiante();
+        solicitarRespuestasEstudiante();
+        solicitarCalcularPorcentaje();
+
     }
 
     /**
@@ -86,6 +89,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
 
     /**
      * Permite obtener la id del estudiante.
+     * 
      * @return la id del estudiante.
      */
     public String getIdEstudiante() {
@@ -121,17 +125,13 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
 
     /**
      * Permite establecer la id del estudiante.
+     * 
      * @param idEstudiante id del estudiante.
      */
     public void setIdEstudiante(String idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
-    
-    /**
-     * Almacena las respuestasCorrectas para compararlas
-     */
-    private ArrayList<String> respuestasCorrectas;
-    
+
     /**
      * Solicita al cliente las respuestas de un estudiante a una evaluación
      * seleccionada y actualiza la tabla con la información recibida.
@@ -139,7 +139,8 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     public void solicitarRespuestasEstudiante() {
         try {
             // Prepara el mensaje de solicitud y lo envía al cliente
-            String instruccion = this.getCliente().formatearMensaje(this.getTitulo() + ";;;" + this.getIdEstudiante(), "Evaluaciones",
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo() + ";;;" + this.getIdEstudiante(),
+                    "Evaluaciones",
                     "ObtenerRespuestas");
             this.getCliente().intercambiarMensajes(instruccion);
 
@@ -176,79 +177,18 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    /**
-     * Solicita al cliente las respuestas correctas de evaluación seleccionada y
-     * las almacena en la lista
-     */
-    public void solicitarRespuestasCorrectas() {
-        try {
-            // Prepara el mensaje de solicitud y lo envía al cliente
-            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones", "ObtenerCorrectas");
-            this.getCliente().intercambiarMensajes(instruccion);
-
-            // Verifica el código de respuesta del cliente
-            if (this.getCliente().obtenerCodigo().equals("200")) {
-                cargarRespuestasCorrectas();
-            } else {
-                throw new RuntimeException("Código de respuesta inesperado: " + this.getCliente().obtenerCodigo());
-            }
-        } catch (IOException e) {
-            // Manejo de errores
-            System.err.println("Error de comunicación con el servidor. Detalles: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor. Detalles: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            // Captura cualquier otra excepción inesperada
-            System.err.println("Ha ocurrido un error inesperado al solicitar respuestas correctas. Detalles: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     /**
-     * Método que carga las respuestas correctas en una lista para compararlas
-     * con las del estudiante
-     * 
-     */
-    public void cargarRespuestasCorrectas() {
-        try {
-            respuestasCorrectas = new ArrayList<>(); // Inicializar la lista
-            String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            for (String preguntaYRespuesta : preguntasYRespuestas) {
-                String[] separarPreguntaYRespuesta = preguntaYRespuesta.split(",,,");
-                if (separarPreguntaYRespuesta.length >= 2) {
-                    respuestasCorrectas.add(separarPreguntaYRespuesta[1]);
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error al cargar respuestas correctas. Detalles: " + e.getMessage());
-        }
-    }
-    
-     /**
-     * Método que compara las respuestas del estudiantes con las
-     * con las correctas e instancia el renderizador para colorear las celdas
+     *
+     * Método que carga las preguntas y respuestas del estudiante en la tabla
      *
      */
-    public void compararConCorrectas() {
-        if (respuestasCorrectas == null || respuestasCorrectas.isEmpty()) {
-            System.err.println("Las respuestas correctas no están disponibles.");
-            return;
-        }
-        RendererColores renderer = new RendererColores(respuestasCorrectas);
-        tableRespuestas.getColumnModel().getColumn(1).setCellRenderer(renderer);
-    }
-
-    /**
-     * Método que carga las preguntas y respuestas de una cierta evaluación en
-     * la tabla.
-     */
     public void cargarRespuestas() {
+        String valorPorDefecto = "xF_45&3";
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = {"Enunciado", "Respuesta del Estudiante"};
+            String[] columnas = { "Enunciado", "Respuesta del Estudiante" };
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -265,22 +205,33 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
                     throw new IllegalArgumentException(
                             "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
                 }
-                // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
+                // Verifica si la respuesta contiene una coma y ajusta según sea necesario
                 if (separarPreguntaYRespuesta[1].contains(",")) {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
-                    if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
+                    if (separarRespuestas.length > 1 && valorPorDefecto.equals(separarRespuestas[1])) {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
+                } else if (separarPreguntaYRespuesta[1].equals(valorPorDefecto)) {
+                    separarPreguntaYRespuesta[1] = "Sin responder";
                 }
                 // Agrega la fila a la tabla
-                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};
+                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
                 modelo.addRow(fila);
             }
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
             labelTitulo.setText("Respuestas de " + this.getTitulo());
-            this.compararConCorrectas();
+
+            /**
+             * Se hace la solicitud al server de comprar las respuestas con las
+             * correctas Devolvera algo del tipo
+             * Correcto,,,Incorrecto,,,Correcto,;,200 En base a este codigo se
+             * modificar el renderizador de la tabla para colorearla
+             */
+            solicitarCompararRespuestas();
+            RendererColores colorearRespuestas = new RendererColores(this.getCliente().obtenerMensaje().split(",,,"));
+            tableRespuestas.getColumnModel().getColumn(1).setCellRenderer(colorearRespuestas);
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
@@ -294,6 +245,96 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
         } catch (Exception e) {
             // Captura cualquier otra excepción inesperada
             System.err.println("Error inesperado al cargar preguntas y respuestas. Detalles: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Metodo que solicita al servidor comparar las respuestas del estudiando con
+     * las correctas
+     * para colorear la tabla
+     * 
+     */
+    public void solicitarCompararRespuestas() {
+        try {
+            // Prepara el mensaje de solicitud y lo envía al cliente
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo() + ";;;" + this.getIdEstudiante(),
+                    "Evaluaciones",
+                    "CompararRespuestas");
+            this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica el código de respuesta del cliente
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                // cargarRespuestas();
+            } else {
+                throw new RuntimeException("Código de respuesta inesperado: " + this.getCliente().obtenerCodigo());
+            }
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red
+            System.err.println("Error de comunicación con el servidor. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son
+            // null
+            System.err.println("Referencia nula detectada. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            // Manejo de excepciones en caso de respuestas inesperadas del cliente
+            System.err.println("Error en la respuesta del cliente. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la respuesta del cliente. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Captura cualquier otra excepción inesperada
+            System.err.println(
+                    "Ha ocurrido un error inesperado al solicitar preguntas y respuestas. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void solicitarCalcularPorcentaje() {
+        try {
+            // Prepara el mensaje de solicitud y lo envía al cliente
+            String instruccion = this.getCliente().formatearMensaje(this.getTitulo() + ";;;" + this.getIdEstudiante(),
+                    "Evaluaciones",
+                    "CalcularPorcentaje");
+            this.getCliente().intercambiarMensajes(instruccion);
+
+            // Verifica el código de respuesta del cliente
+            if (this.getCliente().obtenerCodigo().equals("200")) {
+                lblPorcentajeAcierto.setText("Porcentaje de acierto: " + this.getCliente().obtenerMensaje() + "%");
+            } else {
+                throw new RuntimeException("Código de respuesta inesperado: " + this.getCliente().obtenerCodigo());
+            }
+        } catch (IOException e) {
+            // Manejo de errores de entrada/salida, como problemas de red
+            System.err.println("Error de comunicación con el servidor. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de comunicación con el servidor. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            // Manejo de errores de puntero nulo, por ejemplo, si cliente o respuesta son
+            // null
+            System.err.println("Referencia nula detectada. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: datos incompletos o nulos. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            // Manejo de excepciones en caso de respuestas inesperadas del cliente
+            System.err.println("Error en la respuesta del cliente. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la respuesta del cliente. Detalles: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Captura cualquier otra excepción inesperada
+            System.err.println(
+                    "Ha ocurrido un error inesperado al solicitar preguntas y respuestas. Detalles: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado. Detalles: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -329,13 +370,16 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labelTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableRespuestas = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
+        lblPorcentajeAcierto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(730, 520));
@@ -345,16 +389,15 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
 
         tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Enunciado", "Respuesta"
-            }
-        ));
+                new Object[][] {
+                        { null, null },
+                        { null, null },
+                        { null, null },
+                        { null, null }
+                },
+                new String[] {
+                        "Enunciado", "Respuesta"
+                }));
         jScrollPane1.setViewportView(tableRespuestas);
 
         btnAtras.setBackground(new java.awt.Color(0, 0, 153));
@@ -367,29 +410,44 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
             }
         });
 
+        lblPorcentajeAcierto.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblPorcentajeAcierto.setText("Porcentaje de acierto:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                    .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblPorcentajeAcierto,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 290,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                                        .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 660,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(40, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAtras)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnAtras)
+                                        .addComponent(lblPorcentajeAcierto))
+                                .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -412,6 +470,7 @@ public class VerRespuestasEstudiante extends javax.swing.JPanel {
     private javax.swing.JButton btnAtras;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JLabel lblPorcentajeAcierto;
     private javax.swing.JTable tableRespuestas;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,13 +40,14 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
      * Panel de contenido.
      */
     private JPanel panelContent;
-    
+
     /**
      * Constructor común encargado de inicializar los elementos de la interfaz y
      * los atributos de la clase.
-     * @param cliente cliente actual.
-     * @param titulo titulo de la evaluación.
-     * @param rol rol del cliente actual.
+     * 
+     * @param cliente      cliente actual.
+     * @param titulo       titulo de la evaluación.
+     * @param rol          rol del cliente actual.
      * @param panelContent panel de contenido para manejo de interfaz.
      */
     public VerRespuestasCorrectas(Cliente cliente, String titulo, String rol, JPanel panelContent) {
@@ -54,8 +55,8 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
         this.titulo = titulo;
         this.panelContent = panelContent;
         this.rol = rol;
-        initComponents();        
-        this.solicitarPreguntasYRespuestas();   
+        initComponents();
+        this.solicitarPreguntasYRespuestas();
     }
 
     /**
@@ -153,10 +154,11 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
      * la tabla.
      */
     public void cargarPreguntasYRespuestas() {
+        String valorPorDefecto = "xF_45&3";
         try {
             // Obtiene el mensaje del cliente y lo divide en preguntas y respuestas
             String[] preguntasYRespuestas = this.getCliente().obtenerMensaje().split(";;;");
-            String[] columnas = {"Enunciado", "Respuesta Correcta"};
+            String[] columnas = { "Enunciado", "Respuesta Correcta" };
 
             // Crea el modelo de la tabla con las columnas especificadas
             DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -173,22 +175,21 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
                     throw new IllegalArgumentException(
                             "Formato de datos incorrecto para la entrada: " + preguntaYRespuesta);
                 }
-                // Verifica si la respuesta contiene un asterisco y ajusta según sea necesario
                 if (separarPreguntaYRespuesta[1].contains(",")) {
                     String[] separarRespuestas = separarPreguntaYRespuesta[1].split(",");
-                    if (separarRespuestas.length > 1 && "null".equals(separarRespuestas[1])) {
+                    if (separarRespuestas.length > 1 && valorPorDefecto.equals(separarRespuestas[1])) {
                         separarRespuestas[1] = "";
                         separarPreguntaYRespuesta[1] = separarRespuestas[0];
                     }
-                }                
+                }
                 // Agrega la fila a la tabla
-                Object[] fila = {separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1]};                
+                Object[] fila = { separarPreguntaYRespuesta[0], separarPreguntaYRespuesta[1] };
                 modelo.addRow(fila);
-            }            
+            }
             this.darEstiloTabla();
             tableRespuestas.setModel(modelo);
             labelTitulo.setText("Respuestas Correctas de " + this.getTitulo());
-            
+
         } catch (NullPointerException e) {
             // Maneja el caso en que el mensaje del cliente es null
             System.err.println("Error: El mensaje del cliente es nulo. Detalles: " + e.getMessage());
@@ -237,7 +238,8 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labelTitulo = new javax.swing.JLabel();
@@ -253,16 +255,15 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
 
         tableRespuestas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tableRespuestas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Enunciado", "Respuesta"
-            }
-        ));
+                new Object[][] {
+                        { null, null },
+                        { null, null },
+                        { null, null },
+                        { null, null }
+                },
+                new String[] {
+                        "Enunciado", "Respuesta"
+                }));
         jScrollPane1.setViewportView(tableRespuestas);
 
         btnAtras.setBackground(new java.awt.Color(0, 0, 153));
@@ -278,26 +279,30 @@ public class VerRespuestasCorrectas extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                    .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                                        .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(40, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAtras)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAtras)
+                                .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
     /**
