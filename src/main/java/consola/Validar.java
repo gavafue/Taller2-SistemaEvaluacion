@@ -7,6 +7,8 @@ import javax.swing.JTextPane;
 /**
  * Esta clase permite validar un comando y sus opciones. A partir de esto
  * determinar a que clase ejecutora derivar.
+ * 
+ * También se encarga de la concatenación con pipe "|"
  *
  * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
@@ -463,7 +465,7 @@ public class Validar {
      * @param listaFicheros ficheros actuales.
      * @return resultado de la concatenacion de comandos.
      */
-    public String validarPipe(Ficheros listaFicheros) {
+    public String validarPipe(Ficheros listaFicheros, Procesos listaProcesos) {
         String mensaje = "";
         String msjComando1 = "";
         int indexPipe = this.posicionPipe();
@@ -473,17 +475,28 @@ public class Validar {
         tokens = tokensA;
         System.out.println("TokensA=" + tokens.length);
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);
+        EjecutarSinModificadores ejecutarSin = new EjecutarSinModificadores(tokens);
         switch (tokens[0]) {
             case "tail":
                 esValido = validarOpciones().equals("200");
                 msjComando1 = ejecutar.ejecutarTail(listaFicheros);
-                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
             case "head":
                 esValido = validarOpciones().equals("200");
                 msjComando1 = ejecutar.ejecutarHead(listaFicheros);
-                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
+            case "ps":
+                esValido = validarSintaxis().equals("200");
+                msjComando1 = ejecutarSin.ejecutarPs(listaProcesos);
+                System.out.println("esValido:" + esValido + "//" + msjComando1);
+                break;
+            case "cat":
+                esValido = validarSintaxis().equals("200");
+                msjComando1 = ejecutarSin.ejecutarCat(listaFicheros);
+                System.out.println("esValido:" + esValido + "//" + msjComando1);
+            break; 
             case "grep":
                 String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
                 esValido = validarSintaxis().equals("200");
@@ -492,10 +505,10 @@ public class Validar {
                          Se elimina la primera linea antes de concatenar la segunda busqueda*/
                 String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
                 msjComando1 = String.join("\n", lineasSinPrimeras);
-                System.out.println("esValudo:" + esValido + "//" + msjComando1);
+                System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
             default:
-                mensaje = ">> El primer comando a concatenar debe ser head|tail|grep <<\n";
+                mensaje = ">> El primer comando a concatenar debe ser head|tail|grep|ps|cat <<\n";
                 esValido = false;
                 break;
         }

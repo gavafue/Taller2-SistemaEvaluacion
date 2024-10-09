@@ -85,14 +85,14 @@ public class EjecutarSinModificadores {
                 break;
             case "chmod":
                 mensaje = ejecutarChmod(ficheros);
-                break;
+                break;           
             default:
                 mensaje = ">> Comando inexistente <<\n";
                 break;
         }
         return mensaje;
     }
-
+    
     /**
      * Ejecuta el comando man.
      *
@@ -339,8 +339,8 @@ public class EjecutarSinModificadores {
             }
         }
         return mensaje;
-    }
-
+    }    
+   
     /**
      * Valida la longitud de los permisos.
      *

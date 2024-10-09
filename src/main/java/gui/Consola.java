@@ -361,7 +361,7 @@ public class Consola extends javax.swing.JFrame {
                 } else if (comando.equals("")) { // Salto de linea si no hay comando                
                     doc.insertString(doc.getLength(), "\n", null);
                 } else if (validador.tienePipe()) { // Si aparece un pipe                    
-                    mostrarConEstilo(validador.validarPipe(listaFicheros));
+                    mostrarConEstilo(validador.validarPipe(listaFicheros,listaProcesos));
                 } else if (comandoaValidar.equals("200")) { // Si es un unico comando valido         
                     String resultado = validador.comenzarEjecucion(hashComandos, listaFicheros, listaProcesos, consola);
                     mostrarConEstilo(resultado);

@@ -6,7 +6,7 @@ import javax.swing.JTextPane;
 
 /**
  * Esta clase se encarga de ejecutar los comandos que utilizan modificadores "-"
- * Incluyendo las concatenaciones con grep utiizando pipe "|"
+ * 
  *
  * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
@@ -292,7 +292,7 @@ public class EjecutarConModificadores {
         }
         return mensaje;
     }
-
+    
     /**
      * Ejecuta el comando grep para buscar un patrón en un archivo específico.
      *
@@ -316,14 +316,14 @@ public class EjecutarConModificadores {
                 }
             }
             if (!existeExpresion) {
-                mensaje = ">> La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<\n";
+                mensaje = ">> No se encontró la expresión '" + expresion + "' <<\n";
             }
         } else {
             mensaje = ">> El archivo '" + nombreArchivo + "' indicado no existe <<\n";
         }
         return mensaje;
     }
-
+    
     /**
      * Ejecuta el comando tail para mostrar las últimas líneas de un archivo.
      *
