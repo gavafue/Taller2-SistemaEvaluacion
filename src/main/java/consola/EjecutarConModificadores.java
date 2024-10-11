@@ -305,7 +305,7 @@ public class EjecutarConModificadores {
         String expresion = tokens[1];
         String nombreArchivo = tokens[2];
         boolean existeExpresion = false;
-        if (ficheros.existeFichero(nombreArchivo)) {
+        if (ficheros.existeFichero(nombreArchivo)&&!ficheros.esDirectorio(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido();
             String[] porLineas = contenidoArchivo.split("\n");
             mensaje = "-Coincidencias-\n";
