@@ -237,19 +237,23 @@ public class EjecutarSinModificadores {
         if (nombreActual.equals(nombreNuevo)) {
             mensaje = ">> Nombre actual y nombre propuesto son el mismo. <<\n";
         } else {
-            // Verifica si el archivo existe y no es un directorio.
-            if (ficheros.existeFichero(nombreActual)) {
-                // Encuentra el índice del archivo en la lista.
-                int i = 0;
-                while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
-                    i++;
-                }
-                // Cambia el nombre del archivo.
-                ficheros.obtenerFichero(i).setNombre(nombreNuevo);
-                // Construye el mensaje de éxito.
-                mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
-                        + nombreNuevo
-                        + "-\n";
+            // Verifica si el archivo existe y no está replicado el nombre
+            if (ficheros.existeFichero(nombreActual)){
+                if(!(ficheros.existeFichero(nombreNuevo))){
+                    // Encuentra el índice del archivo en la lista.
+                    int i = 0;
+                    while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
+                        i++;
+                    }
+                    // Cambia el nombre del archivo.
+                    ficheros.obtenerFichero(i).setNombre(nombreNuevo);
+                    // Construye el mensaje de éxito.
+                    mensaje = "-El fichero " + nombreActual + " ha sido renombrado a "
+                            + nombreNuevo
+                            + "-\n";
+                } else {
+                    mensaje = ">> Ya existe un fichero con ese nombre <<\n";
+                }          
             } else {
                 // Si no existe el archivo, muestra un mensaje de error.
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
