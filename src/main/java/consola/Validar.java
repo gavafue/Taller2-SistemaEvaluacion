@@ -520,8 +520,13 @@ public class Validar {
             listaFicheros.eliminarFichero("especificado");
         } else if (!esValido) {
             mensaje = ">> El comando " + tokens[0] + " tiene un problema de sintaxis <<\n";
-        } else {
-            mensaje = ">> No hay resultados <<\n";//Puede que el primer comando sea correcto pero que no encuentre coincidencias
+        } 
+        else {
+            //En caso de que el primer comando sea valido pero no encuentre resultados
+            listaFicheros.agregarFichero(new Archivo("especificado",""));            
+            mensaje = concatenarComando(tokensB, listaFicheros, ejecutar);
+            listaFicheros.eliminarFichero("especificado");            
+            
         }
         return mensaje;
     }
@@ -538,18 +543,17 @@ public class Validar {
      */
     private String concatenarComando(String[] tokensB, Ficheros listaFicheros, EjecutarConModificadores ejecutar) {
         String mensaje = "";
-        String[] tokensSegundoComando;
-
+        String[] tokensSegundoComando;       
         // Verificar que tokensB tenga al menos un elemento
         if (tokensB.length >= 1) {
             String comando = tokensB[0];
             System.out.println("SEGUNDO PIPE: " + comando);
             // Validar que el comando sea uno de los permitidos
-            if (comando.equals("tail") || comando.equals("head") || comando.equals("grep")) {
+            if (comando.equals("tail") || comando.equals("head") || comando.equals("grep")) {            
                 // Determinar la longitud válida de tokensB según el comando
                 boolean longitudValida;
                 if (comando.equals("tail") || comando.equals("head")) {
-                    // tail/head con y sin -n 
+                    // tail/head con y sin -n                    
                     longitudValida = (tokensB.length == 1 || tokensB.length == 3);
                 } else {
                     // Para grep longitud debe ser 2
@@ -559,7 +563,6 @@ public class Validar {
                     // Crear tokensSegundoComando copiando tokensB y agregando "especificado" al final
                     tokensSegundoComando = Arrays.copyOf(tokensB, tokensB.length + 1);
                     tokensSegundoComando[tokensB.length] = "especificado";
-
                     // Actualizar tokens y el ejecutor
                     tokens = tokensSegundoComando;
                     System.out.println(tokens);
@@ -575,7 +578,6 @@ public class Validar {
                         mensajeValidacion = validarSintaxis();
                         validacionExitosa = mensajeValidacion.equals("200");
                     }
-
                     if (validacionExitosa) {
                         // Ejecutar el comando correspondiente
                         switch (comando) {
