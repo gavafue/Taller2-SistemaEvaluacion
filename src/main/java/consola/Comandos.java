@@ -130,8 +130,8 @@ public class Comandos {
                                                 +
                                                 "\n" +
                                                 "\n     Ejemplo de uso:" +
-                                                "\n        ls /etc -l -a" +
-                                                "\n        Lista el contenido del directorio /etc con detalles y archivos ocultos.\n\n",
+                                                "\n        ls -l -a dir1" +
+                                                "\n        Lista el contenido del directorio dir1 con detalles y archivos ocultos.\n\n",
                                 opcLs);
 
                 Comando com3 = new Comando(
