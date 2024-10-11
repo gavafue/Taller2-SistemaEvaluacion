@@ -23,7 +23,7 @@ public class EjecutarConModificadores {
      * Constructor común que crea instancia de la clase.
      *
      * @param tokens - La linea ingresada en la terminal por el usuario que fue
-     * tokenizada
+     *               tokenizada
      *
      */
     public EjecutarConModificadores(String[] tokens) {
@@ -56,7 +56,7 @@ public class EjecutarConModificadores {
      * @param comandos - coleccion de comandos cargados en el sistema
      * @param ficheros - ficheros cargados en el sistema
      * @param procesos - procesos activos en el sistema
-     * @param salida - donde mostrar el resultado de la ejecucion.
+     * @param salida   - donde mostrar el resultado de la ejecucion.
      * @return String resultante de la ejecucion
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
@@ -120,7 +120,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
-     * visibles. Excluyendo los ocultos.
+     *         visibles. Excluyendo los ocultos.
      */
     private String obtenerListaSimple(Ficheros ficheros) {
         String mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
@@ -134,7 +134,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     * un parámetro.
+     *         un parámetro.
      */
     private String manejarOpcionesUnParametro(Ficheros ficheros) {
         String mensaje;
@@ -167,7 +167,8 @@ public class EjecutarConModificadores {
         } else if (tokens[1].equals("-l")) {
             mensaje = obtenerComandoLsL(ficheros, tokens[2]);
         } else {
-            //Si el tokens[1] no es -l tiene que ser -a de otra manera el validador impide esta ejecucion
+            // Si el tokens[1] no es -l tiene que ser -a de otra manera el validador impide
+            // esta ejecucion
             mensaje = obtenerComandoLsA(ficheros, tokens[2]);
         }
         return mensaje;
@@ -178,7 +179,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     * tres parámetros.
+     *         tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
         String mensaje = "";
@@ -191,7 +192,8 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el contenido de un directorio para el comando ls [directorio].
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
      * @return mensaje con el contenido del directorio especificado.
      */
@@ -211,7 +213,8 @@ public class EjecutarConModificadores {
      * Obtiene el contenido de un directorio para el comando ls -l [directorio]
      * y ls -a [directorio].
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
      * @return mensaje con el contenido del directorio especificado.
      */
@@ -234,7 +237,8 @@ public class EjecutarConModificadores {
      * un unico nivel en el sistema de archivos. Obtiene el mensaje para el
      * comando ls -l [directorio].
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param segundoParametro el nombre del directorio a listar detalladamente.
      * @return mensaje indicando el resultado de ejecutar ls -l [directorio].
      */
@@ -255,9 +259,9 @@ public class EjecutarConModificadores {
      * De momento solo imprime un mensaje estandar ya que estamos trabajando con
      * un unico nivel en el sistema de archivos.
      *
-     * @param ficheros objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
-     * archivos.
+     *                         archivos.
      * @return mensaje indicando el resultado de ejecutar ls -a [directorio].
      */
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
@@ -275,11 +279,12 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el mensaje para el comando ls -l -a [directorio].
      *
-     * @param ficheros el objeto que maneja la lista de archivos disponibles.
+     * @param ficheros         el objeto que maneja la lista de archivos
+     *                         disponibles.
      * @param nombreDirectorio el nombre del directorio a listar detalladamente
-     * con todos los archivos.
+     *                         con todos los archivos.
      * @return un mensaje indicando el resultado de ejecutar ls -l -a
-     * [directorio].
+     *         [directorio].
      */
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
@@ -292,20 +297,20 @@ public class EjecutarConModificadores {
         }
         return mensaje;
     }
-    
+
     /**
      * Ejecuta el comando grep para buscar un patrón en un archivo específico.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje indicando si se encontró el patrón en el archivo o un
-     * mensaje de error si la expresión es incorrecta.
+     *         mensaje de error si la expresión es incorrecta.
      */
     public String ejecutarGrep(Ficheros ficheros) {
         String mensaje = "";
         String expresion = tokens[1];
         String nombreArchivo = tokens[2];
         boolean existeExpresion = false;
-        if (ficheros.existeFichero(nombreArchivo)&&!ficheros.esDirectorio(nombreArchivo)) {
+        if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido();
             String[] porLineas = contenidoArchivo.split("\n");
             mensaje = "-Coincidencias-\n";
@@ -323,21 +328,21 @@ public class EjecutarConModificadores {
         }
         return mensaje;
     }
-    
+
     /**
      * Ejecuta el comando tail para mostrar las últimas líneas de un archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las últimas líneas del archivo especificado o un
-     * mensaje de error si la sintaxis es incorrecta.
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarTail(Ficheros ficheros) {
         String mensaje = null;
         if (tokens.length == 2) {
-            if(ficheros.existeFichero(tokens[1])&&!ficheros.esDirectorio(tokens[1])){
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
                 // Caso sin opción -n: mostrar las últimas 10 líneas
                 mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
-            }else{
+            } else {
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
@@ -355,22 +360,21 @@ public class EjecutarConModificadores {
         return mensaje;
     }
 
-
     /**
      * Ejecuta el comando head para mostrar las primeras líneas de un archivo.
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las primeras líneas del archivo especificado o un
-     * mensaje de error si la sintaxis es incorrecta.
+     *         mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
         String mensaje;
         int numLineas;
         if (tokens.length == 2) {
-            if(ficheros.existeFichero(tokens[1])&&!ficheros.esDirectorio(tokens[1])){
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
                 // Caso sin opción -n: mostrar las primeras 10 líneas
                 mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
-            }else{
+            } else {
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
@@ -392,27 +396,27 @@ public class EjecutarConModificadores {
      * Metodo que devuelve las n lineas de un archivo. Comenzando a contar desde
      * el principio o el final del contenido
      *
-     * @param ficheros el objeto que maneja la lista de archivos y directorios.
+     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
-     * líneas.
-     * @param enReversa indica el sentido en el que se muestran las lineas
-     * @param numLineas el número de líneas que se desean obtener.
+     *                      líneas.
+     * @param enReversa     indica el sentido en el que se muestran las lineas
+     * @param numLineas     el número de líneas que se desean obtener.
      * @return cantidad de lineas solicitadas *
      */
     private String obtenerLineas(Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
         String mensaje = "";
         try {
             String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido().split("\\R");
-            if (!enReversa) {//Si no es en reversa es un head            
+            if (!enReversa) {// Si no es en reversa es un head
                 for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
                     mensaje += lineasArchivo[i] + "\n";
                 }
-            } else { //es un tail
+            } else { // es un tail
                 for (int i = Math.max(0, lineasArchivo.length - numLineas); i < lineasArchivo.length; i++) {
                     mensaje += lineasArchivo[i] + "\n";
                 }
             }
-        } catch (NullPointerException e) {//No se encontro el archivo
+        } catch (NullPointerException e) {// No se encontro el archivo
             mensaje += ">> No existe el arhivo <<\n";
         }
         return mensaje;
@@ -426,20 +430,33 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las columnas seleccionadas del archivo especificado o
-     * un mensaje de error si la sintaxis es incorrecta.
+     *         un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
         String mensaje = "";
-        String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
+        String delimitador = tokens[2];
+
+        // Reemplazar solo si existen comillas simples
+        if (delimitador.contains("'")) {
+            delimitador = delimitador.replace("'", "");
+        }
+
+        // Reemplazar solo si existen comillas dobles
+        if (delimitador.contains("\"")) {
+            delimitador = delimitador.replace("\"", "");
+        }
+
         String columnas = tokens[4]; // Campos a extraer
         String archivo = tokens[5]; // Nombre del archivo
         // Verificar si el archivo existe y no es un directorio
         if (!ficheros.existeFichero(archivo) || !ficheros.existeFichero(archivo) && ficheros.esDirectorio(archivo)) {
             mensaje = ">> Error: El archivo especificado no existe o es un directorio <<\n";
             // Cambiar color a rojo
-        } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo tenga contenido
+        } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null
+                || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo
+                                                                                             // tenga contenido
             mensaje = ">> Error: El archivo especificado está vacío <<\n";
-            // Cambiar color a rojo    
+            // Cambiar color a rojo
         } else if (!delimitador.equals(":")) {
             mensaje = ">> Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos) <<\n";
         } else { ///////////// caso valido
@@ -461,7 +478,7 @@ public class EjecutarConModificadores {
                 // Procesar cada línea
                 for (String linea : lineas) {
                     String[] partes = linea.split(delimitador); // Usar el delimitador especificado
-                    StringBuilder lineaResultado = new StringBuilder();////////////PROBAR sin esta clase
+                    StringBuilder lineaResultado = new StringBuilder();//////////// PROBAR sin esta clase
                     // Obtener las columnas después de los columnas especificados
                     for (int indice : indicesCampos) {
                         if (indice >= 0 && indice < partes.length) {
@@ -490,12 +507,12 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las líneas del archivo ordenadas o un mensaje de
-     * error si la sintaxis es incorrecta.
+     *         error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje;
         String[] mensajeTokenizado;
-        //boolean tieneNumeros = true;
+        // boolean tieneNumeros = true;
         try {
             if (tokens.length == 2) {
                 mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
@@ -534,7 +551,7 @@ public class EjecutarConModificadores {
             }
         }
         // concateno mapa
-        for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
+        for (ArrayList<String> elemento : lineasMapeadas.values()) { // creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
@@ -556,15 +573,18 @@ public class EjecutarConModificadores {
         ArrayList<String> actual;
         for (String linea : lineas) {
             actual = new ArrayList<>();
-            Integer numerito = Character.getNumericValue(linea.charAt(0)); //duplica
+            Integer numerito = Character.getNumericValue(linea.charAt(0)); // duplica
             // CARGO mapa
             if (!lineasMapeadas.containsKey(numerito)) {
-                //Si no contiene la key, lo guardo en mi lista local e ingreso esa lista como valor en el mapa.
+                // Si no contiene la key, lo guardo en mi lista local e ingreso esa lista como
+                // valor en el mapa.
                 actual.add(linea);
                 lineasMapeadas.put(numerito, actual); // agrego toda la lista cada iteraci[on.
             } else {
-                //Si efectivamente contiene la key, guardo el valor del mapa para esa key en mi lista local.
-                //Le agrego el valor actual a la lista local y vuelvo a cargar en el mapa con la misma key.
+                // Si efectivamente contiene la key, guardo el valor del mapa para esa key en mi
+                // lista local.
+                // Le agrego el valor actual a la lista local y vuelvo a cargar en el mapa con
+                // la misma key.
 
                 actual = lineasMapeadas.get(numerito);
                 actual.add(linea);
@@ -572,7 +592,7 @@ public class EjecutarConModificadores {
             }
         }
         // concateno mapa
-        for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
+        for (ArrayList<String> elemento : lineasMapeadas.values()) { // creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
@@ -581,17 +601,18 @@ public class EjecutarConModificadores {
     }
 
     /**
-     * Si el primer caracter de la linea es letra, se toma como de valor inferior a cualquier
+     * Si el primer caracter de la linea es letra, se toma como de valor inferior a
+     * cualquier
      * numero. Por tanto, se mostraria primero. Si el primer caracter es numero,
      * se ordena por valor con los numeros.
      *
      * @param lineas
      * @return todoJuntoYordenado - que es un string con todas las lineas
-     * ordenadas segun el criterio de este comando.
+     *         ordenadas segun el criterio de este comando.
      */
     private String sortN(String[] lineas) {
         ArrayList<String> conNumeritos = new ArrayList<>();
-        ArrayList<String> soloTexto = new ArrayList<>(); //estos se deben concatenar primero.
+        ArrayList<String> soloTexto = new ArrayList<>(); // estos se deben concatenar primero.
         String todoJuntoYordenado = "";
         for (String linea : lineas) {
             if (Character.isDigit(linea.charAt(0))) {
@@ -600,10 +621,10 @@ public class EjecutarConModificadores {
                 soloTexto.add(linea);
             }
         }
-        //Le paso soloTexto a ordenarAlfabeticamente.
+        // Le paso soloTexto a ordenarAlfabeticamente.
         String[] st = soloTexto.toArray(new String[0]);
         todoJuntoYordenado += ordenarAlfabeticamente(st);
-        //Le paso numeritos a ordenarNumericamente.
+        // Le paso numeritos a ordenarNumericamente.
         String[] cn = conNumeritos.toArray(new String[0]);
         todoJuntoYordenado += ordenarConNumeros(cn);
         return todoJuntoYordenado;
