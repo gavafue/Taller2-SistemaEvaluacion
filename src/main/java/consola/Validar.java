@@ -492,11 +492,6 @@ public class Validar {
                 msjComando1 = ejecutarSin.ejecutarPs(listaProcesos);
                 System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
-            case "cat":
-                esValido = validarSintaxis().equals("200");
-                msjComando1 = ejecutarSin.ejecutarCat(listaFicheros);
-                System.out.println("esValido:" + esValido + "//" + msjComando1);
-            break; 
             case "grep":
                 String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
                 esValido = validarSintaxis().equals("200");
@@ -544,6 +539,7 @@ public class Validar {
         // Verificar que tokensB tenga al menos un elemento
         if (tokensB.length >= 1) {
             String comando = tokensB[0];
+            System.out.println("SEGUNDO PIPE: " + comando);
             // Validar que el comando sea uno de los permitidos
             if (comando.equals("tail") || comando.equals("head") || comando.equals("grep")) {
                 // Determinar la longitud válida de tokensB según el comando

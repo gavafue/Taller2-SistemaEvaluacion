@@ -312,7 +312,7 @@ public class EjecutarConModificadores {
             for (String linea : porLineas) {
                 if (linea.contains(expresion)) {
                     existeExpresion = true;
-                    mensaje += "\n" + linea + "\n";
+                    mensaje += linea + "\n";
                 }
             }
             if (!existeExpresion) {
@@ -448,7 +448,6 @@ public class EjecutarConModificadores {
                     StringBuilder lineaResultado = new StringBuilder();////////////PROBAR sin esta clase
                     // Obtener las columnas después de los columnas especificados
                     for (int indice : indicesCampos) {
-
                         if (indice >= 0 && indice < partes.length) {
                             if (lineaResultado.length() > 0) {
                                 lineaResultado.append(delimitador); // Agregar delimitador entre columnas
