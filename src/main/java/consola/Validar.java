@@ -473,8 +473,7 @@ public class Validar {
         String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
         String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length);
         tokens = tokensA;
-        System.out.println(tokens);
-        
+                
         System.out.println("TokensA=" + tokens.length);
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);
         EjecutarSinModificadores ejecutarSin = new EjecutarSinModificadores(tokens);
@@ -495,14 +494,16 @@ public class Validar {
                 msjComando1 = ejecutarSin.ejecutarPs(listaProcesos);
                 System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
-            case "grep":
-                String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
+            case "grep":                
                 esValido = validarSintaxis().equals("200");
-                String[] lineas = mensajeSinFiltrar.split("\\n");
-                /*Si el grep encuentra coincidencia aparece al principio "-Coincidencias-\n"
-                         Se elimina la primera linea antes de concatenar la segunda busqueda*/
-                String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
-                msjComando1 = String.join("\n", lineasSinPrimeras);
+                if (esValido){
+                    String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
+                    String[] lineas = mensajeSinFiltrar.split("\\n");
+                    /*Si el grep encuentra coincidencia aparece al principio "-Coincidencias-\n"
+                             Se elimina la primera linea antes de concatenar la segunda busqueda*/
+                    String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
+                    msjComando1 = String.join("\n", lineasSinPrimeras);
+                };
                 System.out.println("esValido:" + esValido + "//" + msjComando1);
                 break;
             default:
