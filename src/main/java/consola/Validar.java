@@ -473,9 +473,12 @@ public class Validar {
         String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
         String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length);
         tokens = tokensA;
+        System.out.println(tokens);
+        
         System.out.println("TokensA=" + tokens.length);
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);
         EjecutarSinModificadores ejecutarSin = new EjecutarSinModificadores(tokens);
+        
         switch (tokens[0]) {
             case "tail":
                 esValido = validarOpciones().equals("200");
@@ -558,6 +561,7 @@ public class Validar {
 
                     // Actualizar tokens y el ejecutor
                     tokens = tokensSegundoComando;
+                    System.out.println(tokens);
                     ejecutar.setTokens(tokensSegundoComando);
                     // Validar opciones o sintaxis según el comando
                     boolean validacionExitosa;

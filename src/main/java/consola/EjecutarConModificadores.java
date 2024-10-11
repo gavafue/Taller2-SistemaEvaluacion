@@ -332,20 +332,29 @@ public class EjecutarConModificadores {
      * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarTail(Ficheros ficheros) {
-        String mensaje;
+        String mensaje = null;
         if (tokens.length == 2) {
-            // Caso sin opción -n: mostrar las últimas 10 líneas
-            mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
-        } else {// Caso con opción -n: mostrar las últimas n líneas           
+            if(ficheros.existeFichero(tokens[1])&&!ficheros.esDirectorio(tokens[1])){
+                // Caso sin opción -n: mostrar las últimas 10 líneas
+                mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
+            }else{
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
+            }
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+            // Validar que el segundo token sea exactamente "-n"
             try {
                 int n = Integer.parseInt(tokens[2]);
                 mensaje = obtenerLineas(ficheros, tokens[3], n, true);
             } catch (NumberFormatException e) {
                 mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
             }
+        } else {
+            // Si la sintaxis es incorrecta
+            mensaje = ">> Sintaxis incorrecta intente man tail<<\n";
         }
         return mensaje;
     }
+
 
     /**
      * Ejecuta el comando head para mostrar las primeras líneas de un archivo.
@@ -358,9 +367,13 @@ public class EjecutarConModificadores {
         String mensaje;
         int numLineas;
         if (tokens.length == 2) {
-            // Caso sin opción -n: mostrar las primeras 10 líneas
-            mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
-        } else {
+            if(ficheros.existeFichero(tokens[1])&&!ficheros.esDirectorio(tokens[1])){
+                // Caso sin opción -n: mostrar las primeras 10 líneas
+                mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
+            }else{
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
+            }
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Caso con opción -n: mostrar las primeras n líneas
             try {
                 numLineas = Integer.parseInt(tokens[2]);
@@ -368,6 +381,9 @@ public class EjecutarConModificadores {
             } catch (NumberFormatException e) {
                 mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
             }
+        } else {
+            // Si la sintaxis es incorrecta
+            mensaje = ">> Sintaxis incorrecta intente man head<<\n";
         }
         return mensaje;
     }
