@@ -21,7 +21,7 @@ public class EjecutarSinModificadores {
      * Constructor común que crea instancia de la clase.
      *
      * @param tokens - La linea ingresada en la terminal por el usuario fue
-     * tokenizada
+     *               tokenizada
      *
      */
     public EjecutarSinModificadores(String[] tokens) {
@@ -54,7 +54,7 @@ public class EjecutarSinModificadores {
      * @param comandos - coleccion de comandos cargados en el sistema
      * @param ficheros - ficheros cargados en el sistema
      * @param procesos - procesos activos en el sistema
-     * @param salida - donde mostrar el resultado de la ejecucion.
+     * @param salida   - donde mostrar el resultado de la ejecucion.
      */
     public String ejecutarComandoSinMod(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
         String mensaje;
@@ -85,14 +85,14 @@ public class EjecutarSinModificadores {
                 break;
             case "chmod":
                 mensaje = ejecutarChmod(ficheros);
-                break;           
+                break;
             default:
                 mensaje = ">> Comando inexistente <<\n";
                 break;
         }
         return mensaje;
     }
-    
+
     /**
      * Ejecuta el comando man.
      *
@@ -103,7 +103,7 @@ public class EjecutarSinModificadores {
         String mensaje;
         if (tokens != null && tokens.length == 1) {
             mensaje = comandos.obtenerDescripcion("man") + "\n" + comandos.obtenerEjemplo("man");
-        } else {//Si tiene mas de 1 token es la ayuda de un comando
+        } else {// Si tiene mas de 1 token es la ayuda de un comando
             mensaje = obtenerAyudaComando(comandos);
         }
         return mensaje;
@@ -145,7 +145,7 @@ public class EjecutarSinModificadores {
      * Crea un directorio si no existe previamente.
      *
      * @param nombreDirectorio Nombre del directorio a crear.
-     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
      * @return Mensaje resultante de la operación.
      */
     private String crearDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -175,7 +175,7 @@ public class EjecutarSinModificadores {
      * Elimina un directorio si existe.
      *
      * @param nombreDirectorio String con el nombre del directorio a eliminar.
-     * @param ficheros Objeto que gestiona los ficheros y directorios.
+     * @param ficheros         Objeto que gestiona los ficheros y directorios.
      * @return mensaje resultante de la operación.
      */
     private String eliminarDirectorio(String nombreDirectorio, Ficheros ficheros) {
@@ -238,8 +238,8 @@ public class EjecutarSinModificadores {
             mensaje = ">> Nombre actual y nombre propuesto son el mismo. <<\n";
         } else {
             // Verifica si el archivo existe y no está replicado el nombre
-            if (ficheros.existeFichero(nombreActual)){
-                if(!(ficheros.existeFichero(nombreNuevo))){
+            if (ficheros.existeFichero(nombreActual)) {
+                if (!(ficheros.existeFichero(nombreNuevo))) {
                     // Encuentra el índice del archivo en la lista.
                     int i = 0;
                     while (!ficheros.obtenerFichero(i).getNombre().equals(nombreActual)) {
@@ -253,7 +253,7 @@ public class EjecutarSinModificadores {
                             + "-\n";
                 } else {
                     mensaje = ">> Ya existe un fichero con ese nombre <<\n";
-                }          
+                }
             } else {
                 // Si no existe el archivo, muestra un mensaje de error.
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
@@ -290,7 +290,7 @@ public class EjecutarSinModificadores {
      *
      * @param procesos el objeto que maneja la lista de procesos activos.
      * @return un mensaje detallando los procesos en ejecución o un mensaje de
-     * error si la sintaxis es incorrecta.
+     *         error si la sintaxis es incorrecta.
      */
     public String ejecutarPs(Procesos procesos) {
         String mensaje;
@@ -343,14 +343,14 @@ public class EjecutarSinModificadores {
             }
         }
         return mensaje;
-    }    
-   
+    }
+
     /**
      * Valida la longitud de los permisos.
      *
      * @param permisos String con los permisos a validar.
      * @return false si la longitud de los persmisos no es correcta. Asume true
-     * por defecto.
+     *         por defecto.
      */
     private boolean validarLongitudPermisos(String permisos) {
         boolean retorno = true;
@@ -364,10 +364,10 @@ public class EjecutarSinModificadores {
      * Aplica los permisos numéricos al fichero (archivo o directorio).
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param nombre del fichero o directorio al que se aplicarán los permisos.
+     * @param nombre   del fichero o directorio al que se aplicarán los permisos.
      * @param permisos String con los permisos numéricos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     * contrario.
+     *         contrario.
      */
     private boolean aplicarPermisosNumericos(Ficheros ficheros, String nombre, String permisos) {
         String permisosEnLetras = String.valueOf(ficheros.obtenerFichero(nombre).getPermisos().charAt(0));
@@ -414,11 +414,11 @@ public class EjecutarSinModificadores {
      * Aplica los permisos simbólicos al fichero o directorio.
      *
      * @param ficheros Objeto que maneja los ficheros y directorios.
-     * @param fich Nombre del fichero o directorio al que se aplicarán los
-     * permisos.
+     * @param fich     Nombre del fichero o directorio al que se aplicarán los
+     *                 permisos.
      * @param permisos String con los permisos simbólicos.
      * @return true si se aplicaron los permisos correctamente, false de lo
-     * contrario.
+     *         contrario.
      */
     private boolean aplicarPermisosSimbolicos(Ficheros ficheros, String fich, String permisos) {
         boolean permisosValidos = true;
