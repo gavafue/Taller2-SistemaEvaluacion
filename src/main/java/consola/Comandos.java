@@ -106,7 +106,7 @@ public class Comandos {
                                                 " - ls: listar archivos\n" +
                                                 " - mkdir: crear directorio\n" +
                                                 " - rmdir: eliminar directorio\n" +
-                                                " - mv: mover o renombrar archivos\n" +
+                                                " - mv: renombrar archivos o directorios\n" +
                                                 " - cat: mostrar contenido de archivos\n" +
                                                 " - clear: limpiar la terminal\n" +
                                                 " - ps: mostrar procesos en ejecución\n" +
@@ -116,8 +116,8 @@ public class Comandos {
                                                 " - head: mostrar las primeras líneas de un archivo\n" +
                                                 " - cut: recortar secciones de líneas\n" +
                                                 " - sort: ordenar líneas de texto\n" +
-                                                " - chmod: cambiar permisos de archivos.\n",
-                                "Ejemplo: man ls  // Muestra la página del manual para el comando 'ls'.\n",
+                                                " - chmod: cambiar permisos de archivos o directorios.\n",
+                                "Ejemplo: man ls  \n Muestra la página del manual para el comando 'ls'.\n",
                                 null);
 
                 Comando com1 = new Comando(
