@@ -144,7 +144,7 @@ public class Procesos {
      * Este metodo permite cargar algunos procesos predefinidos al sistema.
      */
     public void cargarProcesos() {
-        String[] posiblesProcesos = {"chrome", "bash", "bluetoothd", "NetworkManager", "java", "libreoffice", "spotify", "firefox", "sshd", "apache2", "vsftpd", "vlc", "eclipse", "netbeans", "rmdir", "Gnome", "vscode", "mysqld"};
+        String[] posiblesProcesos = {"chrome", "bash", "bluetoothd", "NetworkManager", "java", "libreoffice", "spotify", "firefox", "sshd", "apache2", "vsftpd", "vlc", "eclipse", "netbeans", "ssh", "Gnome", "vscode", "mysqld"};
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
             int azar = random.nextInt(posiblesProcesos.length);
