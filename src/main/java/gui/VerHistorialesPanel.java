@@ -219,16 +219,21 @@ public class VerHistorialesPanel extends javax.swing.JPanel {
      */
     public void visualizarBtnRespuestas() {
         try {
-            String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
+            if(this.getRol().equals("docente")){
+                btnCorrectas.setVisible(true);
+                btnRespuestas.setVisible(true);
+            }else{
+                String instruccion = this.getCliente().formatearMensaje(this.getTitulo(), "Evaluaciones",
                     "ValorCheckboxRespuestas");
-            this.getCliente().intercambiarMensajes(instruccion);
-            if (this.getCliente().obtenerCodigo().equals("200")) {
-                if (this.getCliente().obtenerMensaje().equals("true")) {
-                    btnCorrectas.setVisible(true);
-                    btnRespuestas.setVisible(true);
-                } else {
-                    btnCorrectas.setVisible(false);
-                    btnRespuestas.setVisible(false);
+                this.getCliente().intercambiarMensajes(instruccion);
+                if (this.getCliente().obtenerCodigo().equals("200")) {
+                    if (this.getCliente().obtenerMensaje().equals("true")) {
+                        btnCorrectas.setVisible(true);
+                        btnRespuestas.setVisible(true);
+                    } else {
+                        btnCorrectas.setVisible(false);
+                        btnRespuestas.setVisible(false);
+                    }
                 }
             }
         } catch (IOException e) {
