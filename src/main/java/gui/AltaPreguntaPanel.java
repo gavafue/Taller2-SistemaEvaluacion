@@ -370,11 +370,16 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         } else {
             String textoEnunciado = txtEnunciado.getText();
             String tipoPregunta = (String) cboxTipoPregunta.getSelectedItem();
+            
+            int cantidadGuiones = textoEnunciado.length() - textoEnunciado.replace("_", "").length();
 
             // Verificar si el tipo de pregunta es "Rellenar Espacios" y si el enunciado no
             // contiene '_'
             if (tipoPregunta.equals("Rellenar espacios") && !textoEnunciado.contains("_")) {
                 JOptionPane.showMessageDialog(null, "Por favor, debe poner mínimo un '_' en su enunciado.");
+                return; // Salir del método para evitar continuar
+            } else if (tipoPregunta.equals("Rellenar espacios") && cantidadGuiones > 2){
+                JOptionPane.showMessageDialog(null, "Por favor, se permiten un máximo dos '_' en su enunciado.");
                 return; // Salir del método para evitar continuar
             }
 

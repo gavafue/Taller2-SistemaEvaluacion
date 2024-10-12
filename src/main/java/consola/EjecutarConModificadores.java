@@ -6,7 +6,7 @@ import javax.swing.JTextPane;
 
 /**
  * Esta clase se encarga de ejecutar los comandos que utilizan modificadores "-"
- * 
+ *
  *
  * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
@@ -23,7 +23,7 @@ public class EjecutarConModificadores {
      * Constructor común que crea instancia de la clase.
      *
      * @param tokens - La linea ingresada en la terminal por el usuario que fue
-     *               tokenizada
+     * tokenizada
      *
      */
     public EjecutarConModificadores(String[] tokens) {
@@ -56,7 +56,7 @@ public class EjecutarConModificadores {
      * @param comandos - coleccion de comandos cargados en el sistema
      * @param ficheros - ficheros cargados en el sistema
      * @param procesos - procesos activos en el sistema
-     * @param salida   - donde mostrar el resultado de la ejecucion.
+     * @param salida - donde mostrar el resultado de la ejecucion.
      * @return String resultante de la ejecucion
      */
     public String ejecutarComando(Comandos comandos, Ficheros ficheros, Procesos procesos, JTextPane salida) {
@@ -120,7 +120,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje con la lista de nombres de archivos y directorios
-     *         visibles. Excluyendo los ocultos.
+     * visibles. Excluyendo los ocultos.
      */
     private String obtenerListaSimple(Ficheros ficheros) {
         String mensaje = ficheros.obtenerNombres(false) + "\n"; // Muestra nombres sin ocultos
@@ -134,7 +134,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     *         un parámetro.
+     * un parámetro.
      */
     private String manejarOpcionesUnParametro(Ficheros ficheros) {
         String mensaje;
@@ -179,7 +179,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @return mensaje detallando el resultado de la ejecución del comando con
-     *         tres parámetros.
+     * tres parámetros.
      */
     private String manejarOpcionesTresParametros(Ficheros ficheros) {
         String mensaje = "";
@@ -192,8 +192,7 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el contenido de un directorio para el comando ls [directorio].
      *
-     * @param ficheros         el objeto que maneja la lista de archivos
-     *                         disponibles.
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
      * @return mensaje con el contenido del directorio especificado.
      */
@@ -213,8 +212,7 @@ public class EjecutarConModificadores {
      * Obtiene el contenido de un directorio para el comando ls -l [directorio]
      * y ls -a [directorio].
      *
-     * @param ficheros         el objeto que maneja la lista de archivos
-     *                         disponibles.
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar.
      * @return mensaje con el contenido del directorio especificado.
      */
@@ -237,8 +235,7 @@ public class EjecutarConModificadores {
      * un unico nivel en el sistema de archivos. Obtiene el mensaje para el
      * comando ls -l [directorio].
      *
-     * @param ficheros         el objeto que maneja la lista de archivos
-     *                         disponibles.
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param segundoParametro el nombre del directorio a listar detalladamente.
      * @return mensaje indicando el resultado de ejecutar ls -l [directorio].
      */
@@ -259,9 +256,9 @@ public class EjecutarConModificadores {
      * De momento solo imprime un mensaje estandar ya que estamos trabajando con
      * un unico nivel en el sistema de archivos.
      *
-     * @param ficheros         objeto que maneja la lista de archivos disponibles.
+     * @param ficheros objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar con todos los
-     *                         archivos.
+     * archivos.
      * @return mensaje indicando el resultado de ejecutar ls -a [directorio].
      */
     private String obtenerComandoLsA(Ficheros ficheros, String nombreDirectorio) {
@@ -279,12 +276,11 @@ public class EjecutarConModificadores {
     /**
      * Obtiene el mensaje para el comando ls -l -a [directorio].
      *
-     * @param ficheros         el objeto que maneja la lista de archivos
-     *                         disponibles.
+     * @param ficheros el objeto que maneja la lista de archivos disponibles.
      * @param nombreDirectorio el nombre del directorio a listar detalladamente
-     *                         con todos los archivos.
+     * con todos los archivos.
      * @return un mensaje indicando el resultado de ejecutar ls -l -a
-     *         [directorio].
+     * [directorio].
      */
     private String obtenerComandoLsLsA(Ficheros ficheros, String nombreDirectorio) {
         String mensaje;
@@ -303,7 +299,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje indicando si se encontró el patrón en el archivo o un
-     *         mensaje de error si la expresión es incorrecta.
+     * mensaje de error si la expresión es incorrecta.
      */
     public String ejecutarGrep(Ficheros ficheros) {
         String mensaje = "";
@@ -334,7 +330,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las últimas líneas del archivo especificado o un
-     *         mensaje de error si la sintaxis es incorrecta.
+     * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarTail(Ficheros ficheros) {
         String mensaje = null;
@@ -370,7 +366,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las primeras líneas del archivo especificado o un
-     *         mensaje de error si la sintaxis es incorrecta.
+     * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarHead(Ficheros ficheros) {
         String mensaje;
@@ -405,11 +401,11 @@ public class EjecutarConModificadores {
      * Metodo que devuelve las n lineas de un archivo. Comenzando a contar desde
      * el principio o el final del contenido
      *
-     * @param ficheros      el objeto que maneja la lista de archivos y directorios.
+     * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @param nombreArchivo el nombre del archivo del cual se obtendrán las
-     *                      líneas.
-     * @param enReversa     indica el sentido en el que se muestran las lineas
-     * @param numLineas     el número de líneas que se desean obtener.
+     * líneas.
+     * @param enReversa indica el sentido en el que se muestran las lineas
+     * @param numLineas el número de líneas que se desean obtener.
      * @return cantidad de lineas solicitadas *
      */
     private String obtenerLineas(Ficheros ficheros, String nombreArchivo, int numLineas, boolean enReversa) {
@@ -439,7 +435,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las columnas seleccionadas del archivo especificado o
-     *         un mensaje de error si la sintaxis es incorrecta.
+     * un mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarCut(Ficheros ficheros) {
         String mensaje = "";
@@ -463,7 +459,7 @@ public class EjecutarConModificadores {
             // Cambiar color a rojo
         } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null
                 || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo
-                                                                                             // tenga contenido
+            // tenga contenido
             mensaje = ">> Error: El archivo especificado está vacío <<\n";
             // Cambiar color a rojo
         } else if (!delimitador.equals(":")) {
@@ -474,8 +470,15 @@ public class EjecutarConModificadores {
             // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
             for (String campo : columnasArray) {
                 try {
-                    indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
-                    System.out.println(tokens.length);
+                    int indice = Integer.parseInt(campo.trim());
+                    // Verificar que el índice sea mayor o igual a 1 (no puede ser 0 o negativo)
+                    if (indice <= 0) {
+                        mensaje = ">> Error: El índice de columna especificado debe ser mayor o igual a 1 <<\n";
+                        return mensaje;
+                    }
+
+                    // Restamos 1 para usarlo en base cero
+                    indicesCampos.add(indice - 1);
                 } catch (NumberFormatException e) {
                     mensaje = ">> Error: Los campos especificados no son números válidos <<\n";
                     // Cambiar color a rojo
@@ -488,14 +491,17 @@ public class EjecutarConModificadores {
                 for (String linea : lineas) {
                     String[] partes = linea.split(delimitador); // Usar el delimitador especificado
                     StringBuilder lineaResultado = new StringBuilder();//////////// PROBAR sin esta clase
+                    ArrayList<Integer> columnasYaAgregadas = new ArrayList<>();
+
                     // Obtener las columnas después de los columnas especificados
                     for (int indice : indicesCampos) {
-                        if (indice >= 0 && indice < partes.length) {
+                        if (indice >= 0 && indice < partes.length && !columnasYaAgregadas.contains(indice)) {
                             if (lineaResultado.length() > 0) {
                                 lineaResultado.append(delimitador); // Agregar delimitador entre columnas
                             }
                             lineaResultado.append(partes[indice]);
-                        } else {
+                            columnasYaAgregadas.add(indice);
+                        } else if (indice >= partes.length) {
                             mensaje = ">> Error: El índice de columna especificado está fuera del rango de columnas en la línea <<\n";
                             // Cambiar color a rojo
                             return mensaje;
@@ -516,7 +522,7 @@ public class EjecutarConModificadores {
      *
      * @param ficheros el objeto que maneja la lista de archivos y directorios.
      * @return mensaje con las líneas del archivo ordenadas o un mensaje de
-     *         error si la sintaxis es incorrecta.
+     * error si la sintaxis es incorrecta.
      */
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje;
@@ -618,14 +624,13 @@ public class EjecutarConModificadores {
     }
 
     /**
-     * Si el primer caracter de la linea es letra, se toma como de valor inferior a
-     * cualquier
-     * numero. Por tanto, se mostraria primero. Si el primer caracter es numero,
-     * se ordena por valor con los numeros.
+     * Si el primer caracter de la linea es letra, se toma como de valor
+     * inferior a cualquier numero. Por tanto, se mostraria primero. Si el
+     * primer caracter es numero, se ordena por valor con los numeros.
      *
      * @param lineas
      * @return todoJuntoYordenado - que es un string con todas las lineas
-     *         ordenadas segun el criterio de este comando.
+     * ordenadas segun el criterio de este comando.
      */
     private String sortN(String[] lineas) {
         ArrayList<String> conNumeritos = new ArrayList<>();
