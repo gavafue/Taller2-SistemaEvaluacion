@@ -475,45 +475,36 @@ public class Validar {
         String mensaje = "";
         String msjComando1 = "";
         int indexPipe = this.posicionPipe();
-        boolean esValido;
+        boolean esValido = false;
+        boolean esConcatenable = true; // controla si puede continuar con concatenar comandos
         String[] tokensA = Arrays.copyOfRange(tokens, 0, indexPipe); // antes del pipe. indexPipe queda afuera
         String[] tokensB = Arrays.copyOfRange(tokens, indexPipe + 1, tokens.length);
         tokens = tokensA;
-
-        System.out.println("TokensA=" + tokens.length);
+        
         EjecutarConModificadores ejecutar = new EjecutarConModificadores(tokens);
         EjecutarSinModificadores ejecutarSin = new EjecutarSinModificadores(tokens);
 
         switch (tokens[0]) {
             case "tail":
                 esValido = validarOpciones().equals("200");
-                msjComando1 = ejecutar.ejecutarTail(listaFicheros);
-                System.out.println("esValido:" + esValido + "//" + msjComando1);
+                msjComando1 = ejecutar.ejecutarTail(listaFicheros);                
                 break;
             case "head":
                 esValido = validarOpciones().equals("200");
-                msjComando1 = ejecutar.ejecutarHead(listaFicheros);
-                System.out.println("esValido:" + esValido + "//" + msjComando1);
+                msjComando1 = ejecutar.ejecutarHead(listaFicheros);                
                 break;
             case "ps":
                 esValido = validarSintaxis().equals("200");
-                msjComando1 = ejecutarSin.ejecutarPs(listaProcesos);
-                System.out.println("esValido:" + esValido + "//" + msjComando1);
+                msjComando1 = ejecutarSin.ejecutarPs(listaProcesos);                
                 break;
             case "grep":
                 esValido = validarSintaxis().equals("200");
                 if (esValido) {
                     String mensajeSinFiltrar = ejecutar.ejecutarGrep(listaFicheros);
                     String[] lineas = mensajeSinFiltrar.split("\\n");
-                    /*
-                     * Si el grep encuentra coincidencia aparece al principio "-Coincidencias-\n"
-                     * Se elimina la primera linea antes de concatenar la segunda busqueda
-                     */
                     String[] lineasSinPrimeras = Arrays.copyOfRange(lineas, 1, lineas.length);
                     msjComando1 = String.join("\n", lineasSinPrimeras);
-                }
-                ;
-                System.out.println("esValido:" + esValido + "//" + msjComando1);
+                }                
                 break;
             case "man":
                 esValido = true;
@@ -523,28 +514,32 @@ public class Validar {
                         + comandos.obtenerEjemplo("|");
                 break;
             default:
-                mensaje = ">> El primer comando a concatenar debe ser head|tail|grep|ps|cat <<\n";
-                esValido = false;
+                mensaje = ">> El primer comando a concatenar debe ser head|tail|grep|ps <<\n";
+                esConcatenable = false;  // El comando no se debe concatenar
                 break;
         }
-        // Si msjComnado1 no esta vacio el comando se ejecuto correctamnte
-        if (!msjComando1.isEmpty() && esValido && !msjComando1.startsWith(">> La expresión")
-                && !tokens[0].equals("man")) {
-            // creo un archivo temporal con el resultado del primer comando
-            listaFicheros.agregarFichero(new Archivo("especificado", msjComando1));
-            // llamo a método auxiliar para concatenar el segundocomando
-            mensaje = concatenarComando(tokensB, listaFicheros, ejecutar);
-            listaFicheros.eliminarFichero("especificado");
-        } else if (!esValido) {
-            mensaje = ">> El comando " + tokens[0] + " tiene un problema de sintaxis <<\n";
-        } else if (!tokens[0].equals("man")) {
-            // En caso de que el primer comando sea valido pero no encuentre resultados
-            listaFicheros.agregarFichero(new Archivo("especificado", ""));
-            mensaje = concatenarComando(tokensB, listaFicheros, ejecutar);
-            listaFicheros.eliminarFichero("especificado");
+        // verifico si es concatenable
+        if (esConcatenable) {
+            // Si msjComnado1 no está vacío, el comando se ejecutó correctamente
+            if (!msjComando1.isEmpty() && esValido && !msjComando1.startsWith(">> La expresión") && !tokens[0].equals("man")) {
+                // creo un archivo temporal con el resultado del primer comando
+                listaFicheros.agregarFichero(new Archivo("especificado", msjComando1));
+                // llamo a método auxiliar para concatenar el segundo comando
+                mensaje = concatenarComando(tokensB, listaFicheros, ejecutar);
+                listaFicheros.eliminarFichero("especificado");
+            } else if (!esValido) {
+                mensaje = ">> El comando " + tokens[0] + " tiene un problema de sintaxis <<\n";
+            } else if (!tokens[0].equals("man")) {
+                // En caso de que el primer comando sea válido pero no encuentre resultados
+                listaFicheros.agregarFichero(new Archivo("especificado", ""));
+                mensaje = concatenarComando(tokensB, listaFicheros, ejecutar);
+                listaFicheros.eliminarFichero("especificado");
+            }
         }
+
         return mensaje;
     }
+
 
     /**
      * Metodo auxiliar que utiliza el resultado de la ejecucion de un comando
@@ -561,8 +556,7 @@ public class Validar {
         String[] tokensSegundoComando;
         // Verificar que tokensB tenga al menos un elemento
         if (tokensB.length >= 1) {
-            String comando = tokensB[0];
-            System.out.println("SEGUNDO PIPE: " + comando);
+            String comando = tokensB[0];            
             // Validar que el comando sea uno de los permitidos
             if (comando.equals("tail") || comando.equals("head") || comando.equals("grep")) {
                 // Determinar la longitud válida de tokensB según el comando
@@ -580,8 +574,7 @@ public class Validar {
                     tokensSegundoComando = Arrays.copyOf(tokensB, tokensB.length + 1);
                     tokensSegundoComando[tokensB.length] = "especificado";
                     // Actualizar tokens y el ejecutor
-                    tokens = tokensSegundoComando;
-                    System.out.println(tokens);
+                    tokens = tokensSegundoComando;                    
                     ejecutar.setTokens(tokensSegundoComando);
                     // Validar opciones o sintaxis según el comando
                     boolean validacionExitosa;
