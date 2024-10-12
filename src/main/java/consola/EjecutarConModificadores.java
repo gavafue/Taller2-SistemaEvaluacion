@@ -6,7 +6,7 @@ import javax.swing.JTextPane;
 
 /**
  * Esta clase se encarga de ejecutar los comandos que utilizan modificadores "-"
- * Incluyendo las concatenaciones con grep utiizando pipe "|"
+ *
  *
  * @author Gabriel, Ana, Santiago, Juan y Gonzalo
  *
@@ -167,7 +167,8 @@ public class EjecutarConModificadores {
         } else if (tokens[1].equals("-l")) {
             mensaje = obtenerComandoLsL(ficheros, tokens[2]);
         } else {
-            //Si el tokens[1] no es -l tiene que ser -a de otra manera el validador impide esta ejecucion
+            // Si el tokens[1] no es -l tiene que ser -a de otra manera el validador impide
+            // esta ejecucion
             mensaje = obtenerComandoLsA(ficheros, tokens[2]);
         }
         return mensaje;
@@ -305,18 +306,18 @@ public class EjecutarConModificadores {
         String expresion = tokens[1];
         String nombreArchivo = tokens[2];
         boolean existeExpresion = false;
-        if (ficheros.existeFichero(nombreArchivo)) {
+        if (ficheros.existeFichero(nombreArchivo) && !ficheros.esDirectorio(nombreArchivo)) {
             String contenidoArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido();
             String[] porLineas = contenidoArchivo.split("\n");
             mensaje = "-Coincidencias-\n";
             for (String linea : porLineas) {
                 if (linea.contains(expresion)) {
                     existeExpresion = true;
-                    mensaje += "\n" + linea + "\n";
+                    mensaje += linea + "\n";
                 }
             }
             if (!existeExpresion) {
-                mensaje = ">> La expresión '" + expresion + "' no se encontró en el archivo '" + nombreArchivo + "' <<\n";
+                mensaje = ">> No se encontró la expresión '" + expresion + "' <<\n";
             }
         } else {
             mensaje = ">> El archivo '" + nombreArchivo + "' indicado no existe <<\n";
@@ -332,17 +333,30 @@ public class EjecutarConModificadores {
      * mensaje de error si la sintaxis es incorrecta.
      */
     public String ejecutarTail(Ficheros ficheros) {
-        String mensaje;
+        String mensaje = null;
         if (tokens.length == 2) {
-            // Caso sin opción -n: mostrar las últimas 10 líneas
-            mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
-        } else {// Caso con opción -n: mostrar las últimas n líneas           
-            try {
-                int n = Integer.parseInt(tokens[2]);
-                mensaje = obtenerLineas(ficheros, tokens[3], n, true);
-            } catch (NumberFormatException e) {
-                mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
+                // Caso sin opción -n: mostrar las últimas 10 líneas
+                mensaje = obtenerLineas(ficheros, tokens[1], 10, true);
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+            // Validar que el segundo token sea exactamente "-n"
+            if (ficheros.existeFichero(tokens[3]) && !ficheros.esDirectorio(tokens[3])) {
+                try {
+                    int n = Integer.parseInt(tokens[2]);
+                    mensaje = obtenerLineas(ficheros, tokens[3], n, true);
+                } catch (NumberFormatException e) {
+                    mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+                }
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
+            }
+
+        } else {
+            // Si la sintaxis es incorrecta
+            mensaje = ">> Sintaxis incorrecta intente man tail<<\n";
         }
         return mensaje;
     }
@@ -358,16 +372,27 @@ public class EjecutarConModificadores {
         String mensaje;
         int numLineas;
         if (tokens.length == 2) {
-            // Caso sin opción -n: mostrar las primeras 10 líneas
-            mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
-        } else {
-            // Caso con opción -n: mostrar las primeras n líneas
-            try {
-                numLineas = Integer.parseInt(tokens[2]);
-                mensaje = obtenerLineas(ficheros, tokens[3], numLineas, false);
-            } catch (NumberFormatException e) {
-                mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+            if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
+                // Caso sin opción -n: mostrar las primeras 10 líneas
+                mensaje = obtenerLineas(ficheros, tokens[1], 10, false);
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
+        } else if (tokens.length == 4 && tokens[1].equals("-n")) {
+            if (ficheros.existeFichero(tokens[3]) && !ficheros.esDirectorio(tokens[3])) {
+                // Caso con opción -n: mostrar las primeras n líneas
+                try {
+                    numLineas = Integer.parseInt(tokens[2]);
+                    mensaje = obtenerLineas(ficheros, tokens[3], numLineas, false);
+                } catch (NumberFormatException e) {
+                    mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+                }
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
+            }
+        } else {
+            // Si la sintaxis es incorrecta
+            mensaje = ">> Sintaxis incorrecta intente man head<<\n";
         }
         return mensaje;
     }
@@ -387,16 +412,16 @@ public class EjecutarConModificadores {
         String mensaje = "";
         try {
             String[] lineasArchivo = ficheros.obtenerFichero(nombreArchivo).obtenerResumenDelContenido().split("\\R");
-            if (!enReversa) {//Si no es en reversa es un head            
+            if (!enReversa) {// Si no es en reversa es un head
                 for (int i = 0; i < Math.min(numLineas, lineasArchivo.length); i++) {
                     mensaje += lineasArchivo[i] + "\n";
                 }
-            } else { //es un tail
+            } else { // es un tail
                 for (int i = Math.max(0, lineasArchivo.length - numLineas); i < lineasArchivo.length; i++) {
                     mensaje += lineasArchivo[i] + "\n";
                 }
             }
-        } catch (NullPointerException e) {//No se encontro el archivo
+        } catch (NullPointerException e) {// No se encontro el archivo
             mensaje += ">> No existe el arhivo <<\n";
         }
         return mensaje;
@@ -414,16 +439,29 @@ public class EjecutarConModificadores {
      */
     public String ejecutarCut(Ficheros ficheros) {
         String mensaje = "";
-        String delimitador = tokens[2].replace("'", ""); // Delimitador especificado sin comillas simples
+        String delimitador = tokens[2];
+
+        // Reemplazar solo si existen comillas simples
+        if (delimitador.contains("'")) {
+            delimitador = delimitador.replace("'", "");
+        }
+
+        // Reemplazar solo si existen comillas dobles
+        if (delimitador.contains("\"")) {
+            delimitador = delimitador.replace("\"", "");
+        }
+
         String columnas = tokens[4]; // Campos a extraer
         String archivo = tokens[5]; // Nombre del archivo
         // Verificar si el archivo existe y no es un directorio
-        if (!ficheros.existeFichero(archivo) || !ficheros.existeFichero(archivo) && ficheros.esDirectorio(archivo)) {
+        if (!ficheros.existeFichero(archivo) || ficheros.esDirectorio(archivo)) {
             mensaje = ">> Error: El archivo especificado no existe o es un directorio <<\n";
             // Cambiar color a rojo
-        } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo tenga contenido
+        } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null
+                || ficheros.obtenerFichero(archivo).obtenerResumenDelContenido().isEmpty()) {// Verificar que el archivo
+            // tenga contenido
             mensaje = ">> Error: El archivo especificado está vacío <<\n";
-            // Cambiar color a rojo    
+            // Cambiar color a rojo
         } else if (!delimitador.equals(":")) {
             mensaje = ">> Error: El delimitador especificado no es válido. Se admite solo ':' (dos puntos) <<\n";
         } else { ///////////// caso valido
@@ -432,8 +470,15 @@ public class EjecutarConModificadores {
             // Convertir columnasArray a lista de índices (restamos 1 para hacerlos 0-based)
             for (String campo : columnasArray) {
                 try {
-                    indicesCampos.add(Integer.parseInt(campo.trim()) - 1);
-                    System.out.println(tokens.length);
+                    int indice = Integer.parseInt(campo.trim());
+                    // Verificar que el índice sea mayor o igual a 1 (no puede ser 0 o negativo)
+                    if (indice <= 0) {
+                        mensaje = ">> Error: El índice de columna especificado debe ser mayor o igual a 1 <<\n";
+                        return mensaje;
+                    }
+
+                    // Restamos 1 para usarlo en base cero
+                    indicesCampos.add(indice - 1);
                 } catch (NumberFormatException e) {
                     mensaje = ">> Error: Los campos especificados no son números válidos <<\n";
                     // Cambiar color a rojo
@@ -445,16 +490,18 @@ public class EjecutarConModificadores {
                 // Procesar cada línea
                 for (String linea : lineas) {
                     String[] partes = linea.split(delimitador); // Usar el delimitador especificado
-                    StringBuilder lineaResultado = new StringBuilder();////////////PROBAR sin esta clase
+                    StringBuilder lineaResultado = new StringBuilder();//////////// PROBAR sin esta clase
+                    ArrayList<Integer> columnasYaAgregadas = new ArrayList<>();
+
                     // Obtener las columnas después de los columnas especificados
                     for (int indice : indicesCampos) {
-
-                        if (indice >= 0 && indice < partes.length) {
+                        if (indice >= 0 && indice < partes.length && !columnasYaAgregadas.contains(indice)) {
                             if (lineaResultado.length() > 0) {
                                 lineaResultado.append(delimitador); // Agregar delimitador entre columnas
                             }
                             lineaResultado.append(partes[indice]);
-                        } else {
+                            columnasYaAgregadas.add(indice);
+                        } else if (indice >= partes.length) {
                             mensaje = ">> Error: El índice de columna especificado está fuera del rango de columnas en la línea <<\n";
                             // Cambiar color a rojo
                             return mensaje;
@@ -480,15 +527,23 @@ public class EjecutarConModificadores {
     public String ejecutarSort(Ficheros ficheros) {
         String mensaje;
         String[] mensajeTokenizado;
-        //boolean tieneNumeros = true;
+        // boolean tieneNumeros = true;
         try {
             if (tokens.length == 2) {
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
-                mensaje = ordenarAlfabeticamente(mensajeTokenizado);
+                if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
+                    mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
+                    mensaje = ordenarAlfabeticamente(mensajeTokenizado);
+                } else {
+                    mensaje = ">> No existe un archivo con ese nombre <<\n";
+                }
             } else {
                 // Ordenar numéricamente las líneas del archivo especificado
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerResumenDelContenido().split("\\R");
-                mensaje = sortN(mensajeTokenizado);
+                if (ficheros.existeFichero(tokens[2]) && !ficheros.esDirectorio(tokens[2])) {
+                    mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerResumenDelContenido().split("\\R");
+                    mensaje = sortN(mensajeTokenizado);
+                } else {
+                    mensaje = ">> No existe un archivo con ese nombre <<\n";
+                }
             }
         } catch (NullPointerException ex) {
             mensaje = ">> No existe el archivo <<\n";
@@ -519,7 +574,7 @@ public class EjecutarConModificadores {
             }
         }
         // concateno mapa
-        for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
+        for (ArrayList<String> elemento : lineasMapeadas.values()) { // creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
@@ -541,15 +596,18 @@ public class EjecutarConModificadores {
         ArrayList<String> actual;
         for (String linea : lineas) {
             actual = new ArrayList<>();
-            Integer numerito = Character.getNumericValue(linea.charAt(0)); //duplica
+            Integer numerito = Character.getNumericValue(linea.charAt(0)); // duplica
             // CARGO mapa
             if (!lineasMapeadas.containsKey(numerito)) {
-                //Si no contiene la key, lo guardo en mi lista local e ingreso esa lista como valor en el mapa.
+                // Si no contiene la key, lo guardo en mi lista local e ingreso esa lista como
+                // valor en el mapa.
                 actual.add(linea);
                 lineasMapeadas.put(numerito, actual); // agrego toda la lista cada iteraci[on.
             } else {
-                //Si efectivamente contiene la key, guardo el valor del mapa para esa key en mi lista local.
-                //Le agrego el valor actual a la lista local y vuelvo a cargar en el mapa con la misma key.
+                // Si efectivamente contiene la key, guardo el valor del mapa para esa key en mi
+                // lista local.
+                // Le agrego el valor actual a la lista local y vuelvo a cargar en el mapa con
+                // la misma key.
 
                 actual = lineasMapeadas.get(numerito);
                 actual.add(linea);
@@ -557,7 +615,7 @@ public class EjecutarConModificadores {
             }
         }
         // concateno mapa
-        for (ArrayList<String> elemento : lineasMapeadas.values()) {    //creo mensaje de retorno
+        for (ArrayList<String> elemento : lineasMapeadas.values()) { // creo mensaje de retorno
             for (String l : elemento) {
                 ordenadas += l + "\n";
             }
@@ -566,9 +624,9 @@ public class EjecutarConModificadores {
     }
 
     /**
-     * Si el primer caracter de la linea es letra, se toma como de valor inferior a cualquier
-     * numero. Por tanto, se mostraria primero. Si el primer caracter es numero,
-     * se ordena por valor con los numeros.
+     * Si el primer caracter de la linea es letra, se toma como de valor
+     * inferior a cualquier numero. Por tanto, se mostraria primero. Si el
+     * primer caracter es numero, se ordena por valor con los numeros.
      *
      * @param lineas
      * @return todoJuntoYordenado - que es un string con todas las lineas
@@ -576,7 +634,7 @@ public class EjecutarConModificadores {
      */
     private String sortN(String[] lineas) {
         ArrayList<String> conNumeritos = new ArrayList<>();
-        ArrayList<String> soloTexto = new ArrayList<>(); //estos se deben concatenar primero.
+        ArrayList<String> soloTexto = new ArrayList<>(); // estos se deben concatenar primero.
         String todoJuntoYordenado = "";
         for (String linea : lineas) {
             if (Character.isDigit(linea.charAt(0))) {
@@ -585,10 +643,10 @@ public class EjecutarConModificadores {
                 soloTexto.add(linea);
             }
         }
-        //Le paso soloTexto a ordenarAlfabeticamente.
+        // Le paso soloTexto a ordenarAlfabeticamente.
         String[] st = soloTexto.toArray(new String[0]);
         todoJuntoYordenado += ordenarAlfabeticamente(st);
-        //Le paso numeritos a ordenarNumericamente.
+        // Le paso numeritos a ordenarNumericamente.
         String[] cn = conNumeritos.toArray(new String[0]);
         todoJuntoYordenado += ordenarConNumeros(cn);
         return todoJuntoYordenado;

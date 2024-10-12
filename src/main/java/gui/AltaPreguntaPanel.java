@@ -81,12 +81,13 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Constructor que permite crear una instancia de la clase a partir del
      * cliente actual y el JPanel vista previa de la evaluación.
      *
-     * @param vistaPrevia permite visualizar los cambios en la evaluación de
-     * forma dinámica.
-     * @param cliente cliente actual.
-     * @param rol rol del cliente actual.
-     * @param evaluacion título de la evaluación.
-     * @param panelContentDashboard panel de contenido.
+     * @param vistaPrevia             permite visualizar los cambios en la
+     *                                evaluación de
+     *                                forma dinámica.
+     * @param cliente                 cliente actual.
+     * @param rol                     rol del cliente actual.
+     * @param evaluacion              título de la evaluación.
+     * @param panelContentDashboard   panel de contenido.
      * @param panelContentVistaPrevia panel de vista previa.
      */
     public AltaPreguntaPanel(JPanel vistaPrevia, Cliente cliente, String rol, String evaluacion,
@@ -369,14 +370,21 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
         } else {
             String textoEnunciado = txtEnunciado.getText();
             String tipoPregunta = (String) cboxTipoPregunta.getSelectedItem();
+            
+            int cantidadGuiones = textoEnunciado.length() - textoEnunciado.replace("_", "").length();
 
-            // Verificar si el tipo de pregunta es "Rellenar Espacios" y si el enunciado no contiene '_'
+            // Verificar si el tipo de pregunta es "Rellenar Espacios" y si el enunciado no
+            // contiene '_'
             if (tipoPregunta.equals("Rellenar espacios") && !textoEnunciado.contains("_")) {
                 JOptionPane.showMessageDialog(null, "Por favor, debe poner mínimo un '_' en su enunciado.");
                 return; // Salir del método para evitar continuar
+            } else if (tipoPregunta.equals("Rellenar espacios") && cantidadGuiones > 2){
+                JOptionPane.showMessageDialog(null, "Por favor, se permiten un máximo dos '_' en su enunciado.");
+                return; // Salir del método para evitar continuar
             }
 
-            // Si todas las validaciones son correctas, establecer el enunciado y tipo de pregunta
+            // Si todas las validaciones son correctas, establecer el enunciado y tipo de
+            // pregunta
             this.setEnunciado(textoEnunciado);
             this.setTipoPregunta(tipoPregunta);
             lblTipo.setText("Respuesta");
@@ -559,9 +567,9 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que le solicita al servidor la siguiente pregunta de la
      * evaluación.
      *
-     * @param respuesta de la pregunta anterior.
+     * @param respuesta     de la pregunta anterior.
      * @param framePregunta JFrame donde visualiza el estudiante la pregunta de
-     * la evaluación.
+     *                      la evaluación.
      * @throws IOException
      */
     private void solicitarSiguientePregunta(String respuesta, AltaPreguntaPanel framePregunta) throws IOException {
@@ -577,21 +585,30 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
             // preguntas disponibles
             int finalizar = JOptionPane.showConfirmDialog(null, "¿Desea enviar sus respuestas?", "Fin de la evaluación",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            if (finalizar == JOptionPane.YES_OPTION) { // Envía las respuestas del estudiante
-                String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones",
-                        "Correccion");
-                this.getCliente().intercambiarMensajes(enviarRespuestas);
-                AltaPreguntaPanel.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
-                this.setRespuestas(""); // Inicializa las respuestas
-                framePregunta.setNombreEvaluacion("");
-                BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);
-                panelBienvenida.setSize(730, 520);
-                panelBienvenida.setLocation(0, 0);
-                panelContentDashboard.removeAll();
-                panelContentDashboard.add(panelBienvenida);
-                panelContentDashboard.revalidate();
-                panelContentDashboard.repaint();
+            if (finalizar == 0) { // Envía las respuestas del estudiante
+                try {
+                    String enviarRespuestas = this.getCliente().formatearMensaje(this.getRespuestas(), "Evaluaciones",
+                            "Correccion");
+                    this.getCliente().intercambiarMensajes(enviarRespuestas);
+                    // Mensaje de confirmación de envío de respuestas
+                    JOptionPane.showMessageDialog(null, "Respuestas enviadas con éxito");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error en la solicitud: " + e.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Evaluación cancelada");
             }
+            AltaPreguntaPanel.setCantidadPreguntas(0); // Inicializa el número de pregunta al finalizar
+            this.setRespuestas(""); // Inicializa las respuestas
+            framePregunta.setNombreEvaluacion("");
+            BienvenidaPanel panelBienvenida = new BienvenidaPanel(cliente, rol);
+            panelBienvenida.setSize(730, 520);
+            panelBienvenida.setLocation(0, 0);
+            panelContentDashboard.removeAll();
+            panelContentDashboard.add(panelBienvenida);
+            panelContentDashboard.revalidate();
+            panelContentDashboard.repaint();
         } else if (this.getCliente().obtenerCodigo().equals("200")) { // Si la obtiene crea un JFrame con la misma
             this.crearFrameNuevaPregunta(framePregunta);
         } else {
@@ -722,8 +739,8 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo multiple.
      *
-     * @param pregunta a cargar
-     * @param puntaje asociado a la pregunta.
+     * @param pregunta      a cargar
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiMultiple(String[] pregunta, int puntaje, AltaPreguntaPanel framePregunta) {
@@ -755,7 +772,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo vf.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiVF(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -777,7 +794,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Método que permite cargar en un JFrame de tipo pregunta una pregunta de
      * tipo espacios.
      *
-     * @param puntaje asociado a la pregunta.
+     * @param puntaje       asociado a la pregunta.
      * @param framePregunta en el que se cargaran los componentes.
      */
     public void cargarEnGuiEspacios(int puntaje, AltaPreguntaPanel framePregunta) {
@@ -799,7 +816,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
      * Metodo que permite cargar en un JFrame de tipo pregunta con la pregunta
      * actual.
      *
-     * @param pregunta actual.
+     * @param pregunta      actual.
      * @param framePregunta en el que se agregarán los componentes.
      */
     public void cargarEnGui(String[] pregunta, AltaPreguntaPanel framePregunta) {
@@ -1313,7 +1330,7 @@ public class AltaPreguntaPanel extends javax.swing.JPanel {
     private void cboxOpcionesMultipleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboxOpcionesMultipleActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_cboxOpcionesMultipleActionPerformed
-    // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
+     // GEN-LAST:event_cboxOpcionesMultipleActionPerformed
 
     private void txtOpc1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtOpc1ActionPerformed
         // TODO add your handling code here:

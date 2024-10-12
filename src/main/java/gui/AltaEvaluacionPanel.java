@@ -267,7 +267,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         } else
             try {
-            if (AltaPreguntaPanel.getCantidadPreguntas() >= 3) {
+            if (AltaPreguntaPanel.getCantidadPreguntas() >= 6) {
                 // Obtener el estado del checkbox
                 System.out.println("CANTIDAD DE PREGUNTAS: " + AltaPreguntaPanel.getCantidadPreguntas());
                 boolean respuestasValidas = cbxRespuestasValidas.isSelected(); // Asigna true si está seleccionado,
@@ -298,7 +298,7 @@ public class AltaEvaluacionPanel extends javax.swing.JPanel {
                             JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Faltan elementos.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "La cantidad mínima de preguntas debe ser 6.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(AltaEvaluacionPanel.class.getName()).log(Level.SEVERE, null, ex);

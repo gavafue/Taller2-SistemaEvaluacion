@@ -43,6 +43,7 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
     /**
      * COnstructor que inicializa los componentes de la interfaz y sus
      * atributos.
+     *
      * @param cliente cliente actual.
      * @param rol rol del cliente actual.
      * @param panelContent panel de control para manejo de interfaz.
@@ -164,11 +165,10 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
      */
     private void solicitarTitulosEvaluaciones() throws IOException {
         cliente.intercambiarMensajes("titulos,;,Evaluaciones,;,Listar");
-        if (this.getCliente().obtenerCodigo().equals("200")) {
-            this.cargarTablaEvaluaciones();
-        } else {
-            JOptionPane.showMessageDialog(this, "El servidor no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!this.getCliente().obtenerCodigo().equals("200")) {
+            JOptionPane.showMessageDialog(this, cliente.obtenerMensaje(), "Código" + cliente.obtenerCodigo(), JOptionPane.INFORMATION_MESSAGE);
         }
+        this.cargarTablaEvaluaciones();
     }
 
     /**
@@ -186,8 +186,10 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
             }
         };
         modelo.addColumn("Evaluaciones");
-        for (String titulo : titulos) {
-            modelo.addRow(new Object[]{titulo});
+        if (this.getCliente().obtenerCodigo().equals("200")) {
+            for (String titulo : titulos) {
+                modelo.addRow(new Object[]{titulo});
+            }
         }
         this.darEstiloTabla();
         tableEvaluaciones.setModel(modelo);
@@ -372,7 +374,6 @@ public class GestionEvaluacionesPanel extends javax.swing.JPanel {
                     if (this.getCliente().obtenerCodigo().equals("200")) {
                         JOptionPane.showMessageDialog(null, "Evaluación eliminada");
                         this.solicitarTitulosEvaluaciones();
-                        cargarTablaEvaluaciones();
                     } else {
                         JOptionPane.showMessageDialog(this, this.getCliente().obtenerMensaje(),
                                 "Error " + this.getCliente().obtenerCodigo(), JOptionPane.ERROR_MESSAGE);
