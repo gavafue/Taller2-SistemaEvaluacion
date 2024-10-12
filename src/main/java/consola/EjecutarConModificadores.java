@@ -458,7 +458,7 @@ public class EjecutarConModificadores {
         String columnas = tokens[4]; // Campos a extraer
         String archivo = tokens[5]; // Nombre del archivo
         // Verificar si el archivo existe y no es un directorio
-        if (!ficheros.existeFichero(archivo) || !ficheros.existeFichero(archivo) && ficheros.esDirectorio(archivo)) {
+        if (!ficheros.existeFichero(archivo) || ficheros.esDirectorio(archivo)) {
             mensaje = ">> Error: El archivo especificado no existe o es un directorio <<\n";
             // Cambiar color a rojo
         } else if (ficheros.obtenerFichero(archivo).obtenerResumenDelContenido() == null
