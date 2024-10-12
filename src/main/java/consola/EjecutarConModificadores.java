@@ -347,12 +347,17 @@ public class EjecutarConModificadores {
             }
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
             // Validar que el segundo token sea exactamente "-n"
-            try {
-                int n = Integer.parseInt(tokens[2]);
-                mensaje = obtenerLineas(ficheros, tokens[3], n, true);
-            } catch (NumberFormatException e) {
-                mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+            if (ficheros.existeFichero(tokens[3]) && !ficheros.esDirectorio(tokens[3])) {
+                try {
+                    int n = Integer.parseInt(tokens[2]);
+                    mensaje = obtenerLineas(ficheros, tokens[3], n, true);
+                } catch (NumberFormatException e) {
+                    mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+                }
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
+
         } else {
             // Si la sintaxis es incorrecta
             mensaje = ">> Sintaxis incorrecta intente man tail<<\n";
@@ -378,12 +383,16 @@ public class EjecutarConModificadores {
                 mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
         } else if (tokens.length == 4 && tokens[1].equals("-n")) {
-            // Caso con opción -n: mostrar las primeras n líneas
-            try {
-                numLineas = Integer.parseInt(tokens[2]);
-                mensaje = obtenerLineas(ficheros, tokens[3], numLineas, false);
-            } catch (NumberFormatException e) {
-                mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+            if (ficheros.existeFichero(tokens[3]) && !ficheros.esDirectorio(tokens[3])) {
+                // Caso con opción -n: mostrar las primeras n líneas
+                try {
+                    numLineas = Integer.parseInt(tokens[2]);
+                    mensaje = obtenerLineas(ficheros, tokens[3], numLineas, false);
+                } catch (NumberFormatException e) {
+                    mensaje = ">> El número de líneas debe ser un valor numérico <<\n";
+                }
+            } else {
+                mensaje = ">> No existe un archivo con ese nombre <<\n";
             }
         } else {
             // Si la sintaxis es incorrecta
@@ -515,12 +524,20 @@ public class EjecutarConModificadores {
         // boolean tieneNumeros = true;
         try {
             if (tokens.length == 2) {
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
-                mensaje = ordenarAlfabeticamente(mensajeTokenizado);
+                if (ficheros.existeFichero(tokens[1]) && !ficheros.esDirectorio(tokens[1])) {
+                    mensajeTokenizado = ficheros.obtenerFichero(tokens[1]).obtenerResumenDelContenido().split("\\R");
+                    mensaje = ordenarAlfabeticamente(mensajeTokenizado);
+                } else {
+                    mensaje = ">> No existe un archivo con ese nombre <<\n";
+                }
             } else {
                 // Ordenar numéricamente las líneas del archivo especificado
-                mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerResumenDelContenido().split("\\R");
-                mensaje = sortN(mensajeTokenizado);
+                if (ficheros.existeFichero(tokens[2]) && !ficheros.esDirectorio(tokens[2])) {
+                    mensajeTokenizado = ficheros.obtenerFichero(tokens[2]).obtenerResumenDelContenido().split("\\R");
+                    mensaje = sortN(mensajeTokenizado);
+                } else {
+                    mensaje = ">> No existe un archivo con ese nombre <<\n";
+                }
             }
         } catch (NullPointerException ex) {
             mensaje = ">> No existe el archivo <<\n";
