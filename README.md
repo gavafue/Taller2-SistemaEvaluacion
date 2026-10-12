@@ -58,7 +58,14 @@ java -jar target/ClientePrueba-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ---
 
-## 👨‍💻 Autor
+## 👥 Equipo de Desarrollo (Taller 2 - INET)
 
-* **Gabriel Vázquez** — *Profesor de Informática (INET) & Full Stack Developer*
-* [LinkedIn](https://www.linkedin.com/in/gavafue) · [CVUy](https://export.cvuy.uy/cv/?1ef08a58a0c81bcd4d399b62513ffa9a)
+Proyecto anual desarrollado en equipo para la cátedra **Taller 2** de la carrera de **Profesorado de Informática (INET - CFE)**:
+
+| Colaborador | Perfil GitHub | Aportes Clave |
+| :--- | :--- | :--- |
+| **Gabriel Vázquez** | [@gavafue](https://github.com/gavafue) | Arquitectura cliente-servidor, módulos de dashboard y conexión de red |
+| **Juan Carlos Acuña** | [@jucaacuna](https://github.com/jucaacuna) | Interfaz Swing, paneles de evaluación y gestión de respuestas |
+| **Prof. Santiago** | [@profesantiago64](https://github.com/profesantiago64) | Lógica de negocio académica, validaciones y renderizado de calificaciones |
+| **Ana Julia Rodríguez** | [@anajuliavr](https://github.com/anajuliavr) | Gestión de usuarios, autenticación y formularios de historiales |
+| **Gonzalo Manuel Vázquez Fuentes** | [@gonzalovaz1](https://github.com/gonzalovaz1) | Protocolo de comunicación por sockets y control de calidad |
